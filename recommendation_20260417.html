@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蔡森破底翻 — 港股蓝筹分析报告 2026-04-17</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #e1e4e8; line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+h1 { font-size: 28px; color: #58a6ff; margin-bottom: 4px; }
+.subtitle { color: #8b949e; font-size: 14px; margin-bottom: 24px; }
+.card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.card h2 { font-size: 18px; margin-bottom: 12px; }
+.green { color: #3fb950; }
+.red { color: #f85149; }
+.yellow { color: #d29922; }
+.blue { color: #58a6ff; }
+.dim { color: #8b949e; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; padding: 10px 8px; border-bottom: 2px solid #30363d; color: #8b949e; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+td { padding: 10px 8px; border-bottom: 1px solid #21262d; }
+tr:hover td { background: #1c2128; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+.badge-green { background: rgba(63,185,80,0.15); color: #3fb950; }
+.badge-red { background: rgba(248,81,73,0.15); color: #f85149; }
+.badge-yellow { background: rgba(210,153,34,0.15); color: #d29922; }
+.badge-blue { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.stat { background: #1c2128; border-radius: 8px; padding: 12px; text-align: center; }
+.stat .value { font-size: 24px; font-weight: 700; }
+.stat .label { font-size: 11px; color: #8b949e; text-transform: uppercase; }
+.disclaimer { background: #1c1208; border: 1px solid #d29922; border-radius: 8px; padding: 16px; margin-top: 20px; font-size: 13px; color: #d29922; }
+.top-pick { border-left: 3px solid #3fb950; }
+.wait-pick { border-left: 3px solid #d29922; }
+.avoid-pick { border-left: 3px solid #f85149; }
+.price-tag { font-size: 11px; color: #8b949e; }
+.profit { color: #3fb950; font-weight: 600; }
+.loss { color: #f85149; font-weight: 600; }
+a { color: #58a6ff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.footer { text-align: center; color: #484f58; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🔍 蔡森破底翻 — 港股蓝筹分析</h1>
+<p class="subtitle">生成日期: 2026-04-17 17:00 HKT | 扫描标的: 79只恒生蓝筹 | 基于12个月回测验证</p>
+
+<!-- Backtest Summary -->
+<div class="card">
+  <h2>📊 破底翻策略回测表现 (2025-05 → 2026-04)</h2>
+  <div class="stat-grid">
+    <div class="stat"><div class="value green">77.2%</div><div class="label">命中率</div></div>
+    <div class="stat"><div class="value green">82.7%</div><div class="label">胜率</div></div>
+    <div class="stat"><div class="value green">+25.98%</div><div class="label">平均回报</div></div>
+    <div class="stat"><div class="value red">7.4%</div><div class="label">止损率</div></div>
+    <div class="stat"><div class="value green">4.79:1</div><div class="label">盈亏比</div></div>
+    <div class="stat"><div class="value blue">162</div><div class="label">信号数</div></div>
+  </div>
+  <p class="dim">完整版工具(含假突破等信号): 命中率20.8%, 平均回报-14.32%, 策略累计-85.54% vs 买持+21.72%</p>
+</div>
+
+<!-- Monthly Performance -->
+<div class="card">
+  <h2>📅 月度收益 (破底翻 ONLY)</h2>
+  <table>
+    <tr><th>月份</th><th>信号</th><th>策略收益</th><th>买持收益</th><th>超额</th><th>累计策略</th></tr>
+    <tr><td>2025-05</td><td>12</td><td class="profit">+9.23%</td><td class="profit">+2.45%</td><td class="profit">+6.78%</td><td class="profit">+9.23%</td></tr>
+    <tr><td>2025-06</td><td>12</td><td class="profit">+14.43%</td><td class="profit">+4.50%</td><td class="profit">+9.93%</td><td class="profit">+24.99%</td></tr>
+    <tr><td>2025-07</td><td>12</td><td class="profit">+22.47%</td><td class="profit">+7.90%</td><td class="profit">+14.58%</td><td class="profit">+53.08%</td></tr>
+    <tr><td>2025-08</td><td>13</td><td class="profit">+31.40%</td><td class="profit">+8.54%</td><td class="profit">+22.86%</td><td class="profit">+101.16%</td></tr>
+    <tr><td>2025-09</td><td>14</td><td class="profit">+39.21%</td><td class="profit">+6.40%</td><td class="profit">+32.81%</td><td class="profit">+180.03%</td></tr>
+    <tr><td>2025-10</td><td>14</td><td class="profit">+30.83%</td><td class="loss">-4.39%</td><td class="profit">+35.22%</td><td class="profit">+266.37%</td></tr>
+    <tr><td>2025-11</td><td>14</td><td class="profit">+29.43%</td><td class="loss">-0.86%</td><td class="profit">+30.29%</td><td class="profit">+374.17%</td></tr>
+    <tr><td>2025-12</td><td>14</td><td class="profit">+26.63%</td><td class="loss">-2.53%</td><td class="profit">+29.16%</td><td class="profit">+500.46%</td></tr>
+    <tr><td>2026-01</td><td>14</td><td class="profit">+33.41%</td><td class="profit">+6.82%</td><td class="profit">+26.59%</td><td class="profit">+701.08%</td></tr>
+    <tr><td>2026-02</td><td>14</td><td class="profit">+26.79%</td><td class="loss">-6.16%</td><td class="profit">+32.95%</td><td class="profit">+915.70%</td></tr>
+    <tr><td>2026-03</td><td>14</td><td class="profit">+19.45%</td><td class="loss">-10.64%</td><td class="profit">+30.09%</td><td class="profit">+1113.22%</td></tr>
+    <tr><td>2026-04</td><td>15</td><td class="profit">+24.37%</td><td class="profit">+2.24%</td><td class="profit">+22.14%</td><td class="profit">+1408.93%</td></tr>
+  </table>
+</div>
+
+<!-- Top Stocks by Historical Performance -->
+<div class="card">
+  <h2>🏆 破底翻回測最佳标的</h2>
+  <table>
+    <tr><th>标的</th><th>名称</th><th>信号</th><th>命中率</th><th>平均回报</th><th>止损</th><th>vs 买持</th></tr>
+    <tr class="top-pick"><td><a href="https://finance.yahoo.com/quote/1093.HK">1093.HK</a></td><td>CSPC制药</td><td>12</td><td><span class="badge badge-green">100%</span></td><td class="profit">+93.54%</td><td>0</td><td class="profit">+90.36%</td></tr>
+    <tr class="top-pick"><td><a href="https://finance.yahoo.com/quote/0241.HK">0241.HK</a></td><td>阿里健康</td><td>12</td><td><span class="badge badge-green">100%</span></td><td class="profit">+43.89%</td><td>0</td><td class="profit">+44.18%</td></tr>
+    <tr class="top-pick"><td><a href="https://finance.yahoo.com/quote/1299.HK">1299.HK</a></td><td>友邦保险</td><td>12</td><td><span class="badge badge-green">100%</span></td><td class="profit">+46.95%</td><td>0</td><td class="profit">+42.93%</td></tr>
+    <tr class="top-pick"><td><a href="https://finance.yahoo.com/quote/1880.HK">1880.HK</a></td><td>LVMH</td><td>12</td><td><span class="badge badge-green">100%</span></td><td class="profit">+39.56%</td><td>0</td><td class="profit">+38.64%</td></tr>
+    <tr class="top-pick"><td><a href="https://finance.yahoo.com/quote/0066.HK">0066.HK</a></td><td>港铁</td><td>12</td><td><span class="badge badge-green">100%</span></td><td class="profit">+26.13%</td><td>0</td><td class="profit">+23.40%</td></tr>
+    <tr class="top-pick"><td><a href="https://finance.yahoo.com/quote/1997.HK">1997.HK</a></td><td>九龙仓置业</td><td>12</td><td><span class="badge badge-green">91.7%</span></td><td class="profit">+27.87%</td><td>0</td><td class="profit">+25.00%</td></tr>
+    <tr><td><a href="https://finance.yahoo.com/quote/1044.HK">1044.HK</a></td><td>恒安国际</td><td>12</td><td><span class="badge badge-green">83.3%</span></td><td class="profit">+27.17%</td><td>0</td><td class="profit">+24.31%</td></tr>
+    <tr><td><a href="https://finance.yahoo.com/quote/9866.HK">9866.HK</a></td><td>蔚来</td><td>12</td><td><span class="badge badge-green">75.0%</span></td><td class="profit">+20.54%</td><td>3</td><td class="profit">+17.73%</td></tr>
+    <tr><td><a href="https://finance.yahoo.com/quote/1876.HK">1876.HK</a></td><td>百威亚太</td><td>12</td><td><span class="badge badge-green">75.0%</span></td><td class="profit">+10.82%</td><td>0</td><td class="profit">+10.20%</td></tr>
+    <tr><td><a href="https://finance.yahoo.com/quote/0992.HK">0992.HK</a></td><td>联想</td><td>12</td><td><span class="badge badge-green">75.0%</span></td><td class="profit">+9.49%</td><td>0</td><td class="profit">+6.92%</td></tr>
+    <tr><td><a href="https://finance.yahoo.com/quote/9901.HK">9901.HK</a></td><td>新东方</td><td>12</td><td><span class="badge badge-yellow">41.7%</span></td><td class="profit">+5.48%</td><td>0</td><td class="profit">+4.18%</td></tr>
+  </table>
+</div>
+
+<!-- Today's Signals -->
+<div class="card">
+  <h2>📡 今日信号 (2026-04-17)</h2>
+  <p class="dim" style="margin-bottom:12px;">扫描79只恒生蓝筹, 发现15个破底翻信号。当前所有标的现价均高于入场价(颈线), 暂无即时买入机会。</p>
+
+  <h3 style="color:#3fb950; margin: 16px 0 8px;">🎯 重点关注 (历史高胜率 + 破底翻信号)</h3>
+  <table>
+    <tr><th>标的</th><th>名称</th><th>现价</th><th>关注入场价</th><th>止损</th><th>目标1</th><th>目标2</th><th>R:R</th><th>置信</th><th>日线</th><th>周线</th><th>操作</th></tr>
+    <tr class="top-pick">
+      <td><a href="https://finance.yahoo.com/quote/1093.HK">1093.HK</a></td><td>CSPC制药</td>
+      <td>8.96</td><td>4.56</td><td>4.04</td><td>6.22</td><td>5.07</td><td>1:3.1</td><td>86%</td><td>空头</td><td>盘整</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="top-pick">
+      <td><a href="https://finance.yahoo.com/quote/1299.HK">1299.HK</a></td><td>友邦保险</td>
+      <td>81.60</td><td>53.43</td><td>48.63</td><td>65.30</td><td>57.05</td><td>1:2.5</td><td>82%</td><td>盘整</td><td>盘整</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="top-pick">
+      <td><a href="https://finance.yahoo.com/quote/0241.HK">0241.HK</a></td><td>阿里健康</td>
+      <td>4.70</td><td>3.71</td><td>3.00</td><td>5.60</td><td>4.60</td><td>1:2.7</td><td>83%</td><td>空头</td><td>盘整</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="top-pick">
+      <td><a href="https://finance.yahoo.com/quote/1880.HK">1880.HK</a></td><td>LVMH</td>
+      <td>65.65</td><td>47.39</td><td>43.04</td><td>57.23</td><td>50.76</td><td>1:2.3</td><td>81%</td><td>空头</td><td>盘整</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="top-pick">
+      <td><a href="https://finance.yahoo.com/quote/1997.HK">1997.HK</a></td><td>九龙仓置业</td>
+      <td>24.12</td><td>18.04</td><td>16.25</td><td>25.96</td><td>19.55</td><td>1:4.4</td><td>92%</td><td>盘整</td><td>盘整</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="top-pick">
+      <td><a href="https://finance.yahoo.com/quote/1044.HK">1044.HK</a></td><td>恒安国际</td>
+      <td>25.96</td><td>20.32</td><td>18.06</td><td>25.75</td><td>22.44</td><td>1:2.4</td><td>82%</td><td>空头</td><td>盘整</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="top-pick">
+      <td><a href="https://finance.yahoo.com/quote/0066.HK">0066.HK</a></td><td>港铁</td>
+      <td>34.04</td><td>23.98</td><td>21.87</td><td>28.64</td><td>25.54</td><td>1:2.2</td><td>81%</td><td>盘整</td><td>多头</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="wait-pick">
+      <td><a href="https://finance.yahoo.com/quote/9866.HK">9866.HK</a></td><td>蔚来</td>
+      <td>54.50</td><td>35.26</td><td>31.02</td><td>54.55</td><td>39.50</td><td>1:4.5</td><td>93%</td><td>多头</td><td>多头</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="wait-pick">
+      <td><a href="https://finance.yahoo.com/quote/1876.HK">1876.HK</a></td><td>百威亚太</td>
+      <td>7.40</td><td>7.20</td><td>6.25</td><td>9.81</td><td>8.20</td><td>1:2.8</td><td>84%</td><td>盘整</td><td>空头</td>
+      <td><span class="badge badge-green">接近入场</span></td>
+    </tr>
+    <tr class="wait-pick">
+      <td><a href="https://finance.yahoo.com/quote/0992.HK">0992.HK</a></td><td>联想</td>
+      <td>11.30</td><td>9.12</td><td>8.22</td><td>11.04</td><td>9.87</td><td>1:2.1</td><td>81%</td><td>多头</td><td>盘整</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+    <tr class="wait-pick">
+      <td><a href="https://finance.yahoo.com/quote/9901.HK">9901.HK</a></td><td>新东方</td>
+      <td>46.32</td><td>39.77</td><td>34.20</td><td>55.62</td><td>45.87</td><td>1:2.9</td><td>84%</td><td>盘整</td><td>多头</td>
+      <td><span class="badge badge-yellow">等回踩</span></td>
+    </tr>
+  </table>
+
+  <h3 style="color:#f85149; margin: 16px 0 8px;">⚠️ 需回避 (历史止损率高)</h3>
+  <table>
+    <tr><th>标的</th><th>名称</th><th>关注入场价</th><th>止损</th><th>问题</th></tr>
+    <tr class="avoid-pick"><td>0960.HK</td><td>龙湖集团</td><td>9.82</td><td>8.46</td><td><span class="badge badge-red">3次止损, 命中率仅25%</span></td></tr>
+    <tr class="avoid-pick"><td>2007.HK</td><td>碧桂园</td><td>0.40</td><td>0.36</td><td><span class="badge badge-red">仙股波动, 4次止损</span></td></tr>
+    <tr class="avoid-pick"><td>2013.HK</td><td>微盟集团</td><td>2.05</td><td>1.71</td><td><span class="badge badge-red">命中率仅37.5%</span></td></tr>
+  </table>
+</div>
+
+<!-- Best Trades -->
+<div class="card">
+  <h2>🔥 回測最佳单笔交易</h2>
+  <table>
+    <tr><th>标的</th><th>月份</th><th>入场</th><th>结果</th><th>回报</th><th>买持</th></tr>
+    <tr><td>1093.HK CSPC</td><td>2025-08</td><td>4.56</td><td><span class="badge badge-green">🎯 T2</span></td><td class="profit">+132.19%</td><td class="profit">+8.70%</td></tr>
+    <tr><td>1093.HK CSPC</td><td>2025-07</td><td>4.56</td><td><span class="badge badge-green">🎯 T2</span></td><td class="profit">+114.26%</td><td class="profit">+28.83%</td></tr>
+    <tr><td>1093.HK CSPC</td><td>2025-09</td><td>4.56</td><td><span class="badge badge-green">🎯 T2</span></td><td class="profit">+108.43%</td><td class="loss">-12.19%</td></tr>
+    <tr><td>1093.HK CSPC</td><td>2026-02</td><td>4.56</td><td><span class="badge badge-green">🎯 T2</span></td><td class="profit">+105.48%</td><td class="loss">-2.40%</td></tr>
+    <tr><td>1880.HK LVMH</td><td>2026-01</td><td>47.39</td><td><span class="badge badge-green">🎯 T2</span></td><td class="profit">+89.91%</td><td class="profit">+14.14%</td></tr>
+    <tr><td>0241.HK 阿里健康</td><td>2025-09</td><td>3.71</td><td><span class="badge badge-green">🎯 T2</span></td><td class="profit">+79.51%</td><td class="profit">+14.04%</td></tr>
+    <tr><td>9866.HK 蔚来</td><td>2025-09</td><td>35.26</td><td><span class="badge badge-green">🎯 T2</span></td><td class="profit">+73.57%</td><td class="profit">+15.58%</td></tr>
+  </table>
+</div>
+
+<!-- How to Use -->
+<div class="card">
+  <h2>📖 使用指南</h2>
+  <p style="margin-bottom:12px;"><strong>破底翻</strong> 是蔡森技术分析中最核心的做多信号:</p>
+  <ol style="padding-left:20px; margin-bottom:16px;">
+    <li>股价在底部盘整 → 跌破底部颈线 → 又翻回颈线之上</li>
+    <li>含义: 主力甩轿后拉升, 有人在护盘</li>
+    <li>操作: <strong>翻回颈线(入场价)时买入</strong>, 止损设在破底处</li>
+    <li>蔡森金句: "破底翻大都会越过前高"</li>
+  </ol>
+  <p><strong>风险回报:</strong> 目标1 = 底部到颈线的距离等幅上涨; 目标2 = 黄金比例(×1.618)</p>
+  <p><strong>止损:</strong> 破底价 × 0.96 (即破底处下方4%)</p>
+</div>
+
+<div class="disclaimer">
+  ⚠️ <strong>免责声明:</strong> 以上分析基于蔡森技术分析方法论及12个月历史回测, 仅供学习参考, 不构成任何投资建议。
+  股票投资有风险, 过往表现不代表未来收益。请自行评估风险, 严格执行止损, 理性投资。
+</div>
+
+<div class="footer">
+  <p>蔡森技术分析工具 v4.0 | 基于 <a href="https://github.com/aitest2026hk-git/Caisen-analyzer">Caisen-analyzer</a></p>
+  <p>Generated: 2026-04-17 17:00 HKT</p>
+</div>
+
+</div>
+</body>
+</html>
