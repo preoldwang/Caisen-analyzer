@@ -3,33 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>港股蓝筹 v3.0 蔡森技术分析报告 — 2026-04-17 12:37</title>
+<title>港股蓝筹+黄金 v3.0 蔡森技术分析报告 — 2026-04-17 12:45</title>
 <style>
 :root {
   --bg: #0a0e17; --card: #111827; --border: #1f2937;
   --text: #e5e7eb; --muted: #9ca3af; --accent: #60a5fa;
   --green: #34d399; --red: #f87171; --yellow: #fbbf24; --purple: #a78bfa;
+  --gold: #f59e0b; --cyan: #22d3ee;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; line-height:1.6; padding:20px; }
-.container { max-width:1400px; margin:0 auto; }
+.container { max-width:1500px; margin:0 auto; }
 h1 { font-size:2em; margin-bottom:4px; color:#fff; }
 h2 { font-size:1.4em; margin:30px 0 12px; color:var(--accent); border-bottom:1px solid var(--border); padding-bottom:8px; }
 h3 { font-size:1.1em; margin:16px 0 8px; color:var(--purple); }
 .subtitle { color:var(--muted); margin-bottom:20px; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; margin:16px 0; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; margin:16px 0; }
 .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; transition:border-color .2s; }
 .card:hover { border-color:var(--accent); }
 .card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
 .card-header .sym { font-size:1.1em; font-weight:700; color:#fff; }
-.card-header .name { color:var(--muted); font-size:.9em; }
+.card-header .name { color:var(--muted); font-size:.9em; margin-left:8px; }
 .card-header .price { font-size:1.3em; font-weight:700; color:var(--accent); }
 .trends { display:flex; gap:8px; margin:8px 0; }
 .trend { padding:2px 10px; border-radius:20px; font-size:.8em; font-weight:600; }
 .bull { background:rgba(52,211,153,.15); color:var(--green); }
 .bear { background:rgba(248,113,113,.15); color:var(--red); }
 .neutral { background:rgba(251,191,36,.15); color:var(--yellow); }
-.signal { background:rgba(96,165,250,.08); border:1px solid var(--border); border-radius:8px; padding:10px; margin:6px 0; font-size:.88em; }
+.gold-trend { background:rgba(245,158,11,.15); color:var(--gold); }
+.signal { background:rgba(96,165,250,.06); border:1px solid var(--border); border-radius:8px; padding:10px; margin:6px 0; font-size:.88em; }
 .signal .head { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
 .signal .type { font-weight:700; }
 .signal .nums { color:var(--muted); font-size:.85em; }
@@ -40,41 +42,121 @@ h3 { font-size:1.1em; margin:16px 0 8px; color:var(--purple); }
 .tf-monthly { color:var(--purple); font-weight:700; }
 .tf-weekly { color:var(--accent); font-weight:700; }
 .kpi-row { display:flex; gap:16px; flex-wrap:wrap; margin:16px 0; }
-.kpi { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 24px; text-align:center; min-width:140px; }
+.kpi { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 24px; text-align:center; min-width:130px; }
 .kpi .num { font-size:2em; font-weight:800; }
 .kpi .label { color:var(--muted); font-size:.85em; }
-table { width:100%; border-collapse:collapse; margin:12px 0; font-size:.9em; }
-th { background:var(--card); color:var(--accent); padding:10px; text-align:left; position:sticky; top:0; }
+table { width:100%; border-collapse:collapse; margin:12px 0; font-size:.88em; }
+th { background:var(--card); color:var(--accent); padding:10px; text-align:left; position:sticky; top:0; z-index:2; }
 td { padding:8px 10px; border-bottom:1px solid var(--border); }
 tr:hover { background:rgba(96,165,250,.05); }
 .section { margin:30px 0; }
 .note { background:rgba(251,191,36,.08); border:1px solid rgba(251,191,36,.2); border-radius:8px; padding:12px 16px; margin:12px 0; font-size:.9em; color:var(--yellow); }
+.note-green { background:rgba(52,211,153,.08); border:1px solid rgba(52,211,153,.2); border-radius:8px; padding:12px 16px; margin:12px 0; font-size:.9em; color:var(--green); }
 .footer { text-align:center; color:var(--muted); margin-top:40px; padding:20px; font-size:.8em; }
 .kangbo { color:var(--yellow); font-style:italic; }
 a { color:var(--accent); text-decoration:none; }
 .scroll-table { overflow-x:auto; }
+.gold-highlight { border-color:var(--gold) !important; }
+.gold-highlight:hover { border-color:var(--gold) !important; box-shadow:0 0 12px rgba(245,158,11,.3); }
 </style>
 </head>
 <body>
 <div class="container">
 
-<h1>📊 港股蓝筹 蔡森技术分析报告 v3.0</h1>
-<p class="subtitle">分析日期: 2026-04-17 12:37 | 基于蔡森《經典技術分析》第452-462集 | 71只港股蓝筹</p>
+<h1>📊 港股蓝筹 + 黄金 蔡森技术分析报告 v3.0</h1>
+<p class="subtitle">分析日期: 2026-04-17 12:45 | 基于蔡森《經典技術分析》第452-462集 | 80只标的 (含黄金)</p>
 
 <div class="kpi-row">
   <div class="kpi"><div class="num" style="color:var(--green)">12</div><div class="label">三线全多头</div></div>
-  <div class="kpi"><div class="num" style="color:var(--red)">2</div><div class="label">日+周空头</div></div>
-  <div class="kpi"><div class="num" style="color:var(--green)">44</div><div class="label">基本面信号</div></div>
-  <div class="kpi"><div class="num" style="color:var(--yellow)">10</div><div class="label">月线缩量见底</div></div>
-  <div class="kpi"><div class="num">71</div><div class="label">分析标的</div></div>
+  <div class="kpi"><div class="num" style="color:var(--red)">3</div><div class="label">日+周空头</div></div>
+  <div class="kpi"><div class="num" style="color:var(--green)">52</div><div class="label">基本面信号</div></div>
+  <div class="kpi"><div class="num" style="color:var(--green)">13</div><div class="label">月线缩量见底</div></div>
+  <div class="kpi"><div class="num" style="color:var(--red)">1</div><div class="label">月线爆量翻黑</div></div>
+  <div class="kpi"><div class="num" style="color:var(--gold)">4817</div><div class="label">黄金 (美元/盎司)</div></div>
+  <div class="kpi"><div class="num">80</div><div class="label">分析标的</div></div>
 </div>
 
-<!-- ===== SECTION 1: OVERVIEW TABLE ===== -->
+<!-- ===== GOLD SPOTLIGHT ===== -->
 <div class="section">
-<h2>📋 全部标的总览</h2>
+<h2>💰 黄金 — 专题分析</h2>
+<div class="grid"><div class="card gold-highlight">
+<div class="card-header">
+  <div><span class="sym" style="color:var(--gold)">GC=F</span> <span class="name">黄金期货</span></div>
+  <div class="price" style="color:var(--gold)">4817.80</div>
+</div>
+<div class="trends">
+  <span class="trend neutral">日盘整</span>
+  <span class="trend bull">周多头</span>
+  <span class="trend bull">月多头</span>
+</div>
+<div style="font-size:.85em;color:var(--muted)">康波: 盘整期 | 量价: +5.4% / +517.6%</div>
+<div style="font-size:.85em;color:var(--muted)">支撑 3386.0 | 压力 None | 长线 1617.75</div>
+
+<div class="signal">
+<div class="head"><span class="type"><span class="tf-monthly">【月线】</span>月线爆量翻黑</span><span class="badge real">✅基本面</span> <span style="color:var(--gold)">79%</span></div>
+<div class="nums">颈线 2789.00 → 目标 2258.45 | 止损 2928.45 | R:R 1:2.5</div>
+<div class="desc">🔴 月线爆量翻黑: 量比 4.1x, 高位 85% 阴线 → 蔡森: 月线级别顶部信号, 重大卖压</div>
+</div><div class="signal">
+<div class="head"><span class="type"><span class="tf-monthly">【月线】</span>月线爆量翻黑</span><span class="badge real">✅基本面</span> <span style="color:var(--gold)">56%</span></div>
+<div class="nums">颈线 2130.20 → 目标 1741.14 | 止损 2236.71 | R:R 1:2.5</div>
+<div class="desc">🔴 月线爆量翻黑: 量比 2.4x, 高位 75% 阴线 → 蔡森: 月线级别顶部信号, 重大卖压</div>
+</div><div class="signal">
+<div class="head"><span class="type"><span class="tf-monthly">【月线】</span>月线爆量翻黑</span><span class="badge real">✅基本面</span> <span style="color:var(--gold)">60%</span></div>
+<div class="nums">颈线 2072.00 → 目标 1669.32 | 止损 2175.60 | R:R 1:2.5</div>
+<div class="desc">🔴 月线爆量翻黑: 量比 2.7x, 高位 76% 阴线 → 蔡森: 月线级别顶部信号, 重大卖压</div>
+</div><div class="signal">
+<div class="head"><span class="type"><span class="tf-monthly">【月线】</span>月线缩量见底</span><span class="badge real">✅基本面</span> <span style="color:var(--gold)">88%</span></div>
+<div class="nums">颈线 1620.40 → 目标 1963.08 | 止损 1539.38 | R:R 1:3.0</div>
+<div class="desc">🟢 月线缩量见底: 量比 0.1x, 低位 3% → 蔡森: 卖压枯竭, 底部区域</div>
+</div><div class="signal">
+<div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--gold)">80%</span></div>
+<div class="nums">颈线 2326.45 → 目标 1926.35 | 止损 2518.32 | R:R 1:2.1</div>
+<div class="desc">⭐ 周线假突破! (量价背离) | 前高 2398.40 跌破颈线 2326.45</div>
+</div></div><div class="card ">
+<div class="card-header">
+  <div><span class="sym" style="color:var(--gold)">GLD</span> <span class="name">黄金ETF GLD</span></div>
+  <div class="price" style="color:var(--gold)">440.08</div>
+</div>
+<div class="trends">
+  <span class="trend neutral">日盘整</span>
+  <span class="trend bull">周多头</span>
+  <span class="trend bull">月多头</span>
+</div>
+<div style="font-size:.85em;color:var(--muted)">康波: 盘整期 | 量价: +3.2% / +7.1%</div>
+<div style="font-size:.85em;color:var(--muted)">支撑 314.2 | 压力 None | 长线 150.8</div>
+
+<div class="signal">
+<div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--gold)">80%</span></div>
+<div class="nums">颈线 216.95 → 目标 179.63 | 止损 234.84 | R:R 1:2.1</div>
+<div class="desc">⭐ 周线假突破! | 前高 223.66 跌破颈线 216.95</div>
+</div><div class="signal">
+<div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--gold)">100%</span></div>
+<div class="nums">颈线 411.67 → 目标 357.25 | 止损 429.24 | R:R 1:3.1</div>
+<div class="desc">高档假突破: 突破前高 416.74 后跌回颈线 411.67 (量价背离)</div>
+</div><div class="signal">
+<div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--gold)">100%</span></div>
+<div class="nums">颈线 220.27 → 目标 183.71 | 止损 231.30 | R:R 1:3.3</div>
+<div class="desc">高档假突破: 突破前高 224.56 后跌回颈线 220.27 (量价背离)</div>
+</div><div class="signal">
+<div class="head"><span class="type">真突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--gold)">95%</span></div>
+<div class="nums">颈线 448.50 → 目标 539.18 | 止损 435.04 | R:R 1:1.5</div>
+<div class="desc">真突破: 突破前高 448.50 站稳 4天 (量价齐升)</div>
+</div><div class="signal">
+<div class="head"><span class="type">真突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--gold)">95%</span></div>
+<div class="nums">颈线 424.83 → 目标 553.91 | 止损 412.08 | R:R 1:1.7</div>
+<div class="desc">真突破: 突破前高 424.83 站稳 5天 (量价齐升)</div>
+</div></div></div>
+<div class="note" style="border-color:var(--gold);color:var(--gold)">
+💡 黄金目前月线+周线多头。蔡森: "黑金黄金棒康赚最快!" — 黄金趋势确立时顺势操作，注意量能配合。
+</div>
+</div>
+
+<!-- ===== FULL TABLE ===== -->
+<div class="section">
+<h2>📋 全部标的总览 (含补充分析)</h2>
 <div class="scroll-table">
 <table>
-<tr><th>#</th><th>代码</th><th>名称</th><th>价格</th><th>日线</th><th>周线</th><th>月线</th><th>康波</th><th>支撑</th><th>压力</th><th>信号数</th><th>基本面</th><th>呬爛面</th><th>量价变化</th></tr>
+<tr><th>#</th><th>代码</th><th>名称</th><th>价格</th><th>日线</th><th>周线</th><th>月线</th><th>康波</th><th>支撑</th><th>压力</th><th>信号</th><th>基本面</th><th>呬爛面</th><th>量价</th></tr>
 <tr>
 <td>1</td><td><b>2007.HK</b></td><td>碧桂园</td>
 <td>0.29</td>
@@ -86,10 +168,23 @@ a { color:var(--accent); text-decoration:none; }
 <td>12</td>
 <td style="color:var(--green)">4</td>
 <td style="color:var(--yellow)">7</td>
-<td>-4.8% / -24.6%</td>
+<td>-4.8%/-24.6%</td>
+</tr>
+<tr style="background:rgba(245,158,11,.05)">
+<td>2</td><td><b>GC=F</b></td><td>黄金期货</td>
+<td><b style='color:var(--gold)'>4817.80</b></td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend bull">多头</span></td>
+<td><span class="trend bull">多头</span></td>
+<td class="kangbo">盘整期</td>
+<td>3386.0</td><td>-</td>
+<td>10</td>
+<td style="color:var(--green)">4</td>
+<td style="color:var(--yellow)">6</td>
+<td>+5.4%/+517.6%</td>
 </tr>
 <tr>
-<td>2</td><td><b>0762.HK</b></td><td>中国联通</td>
+<td>3</td><td><b>0762.HK</b></td><td>中国联通</td>
 <td>7.32</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bear">空头</span></td>
@@ -99,10 +194,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>10</td>
 <td style="color:var(--green)">3</td>
 <td style="color:var(--yellow)">7</td>
-<td>-3.3% / -2.9%</td>
+<td>-3.3%/-2.9%</td>
 </tr>
 <tr>
-<td>3</td><td><b>2858.HK</b></td><td>易方达恒生科技</td>
+<td>4</td><td><b>2858.HK</b></td><td>易方达恒生科技</td>
 <td>2.10</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -112,10 +207,23 @@ a { color:var(--accent); text-decoration:none; }
 <td>10</td>
 <td style="color:var(--green)">3</td>
 <td style="color:var(--yellow)">7</td>
-<td>-12.9% / -14.8%</td>
+<td>-12.9%/-14.8%</td>
 </tr>
 <tr>
-<td>4</td><td><b>0941.HK</b></td><td>中国移动</td>
+<td>5</td><td><b>0788.HK</b></td><td>中国铁塔</td>
+<td>10.98</td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend bull">多头</span></td>
+<td class="kangbo">盘整期</td>
+<td>10.81</td><td>11.39</td>
+<td>8</td>
+<td style="color:var(--green)">3</td>
+<td style="color:var(--yellow)">5</td>
+<td>-1.9%/+16.1%</td>
+</tr>
+<tr>
+<td>6</td><td><b>0941.HK</b></td><td>中国移动</td>
 <td>81.55</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -125,10 +233,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">3</td>
 <td style="color:var(--yellow)">3</td>
-<td>+2.0% / +25.1%</td>
+<td>+2.0%/+25.1%</td>
 </tr>
 <tr>
-<td>5</td><td><b>0002.HK</b></td><td>中电控股</td>
+<td>7</td><td><b>0002.HK</b></td><td>中电控股</td>
 <td>74.65</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -138,10 +246,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>5</td>
 <td style="color:var(--green)">3</td>
 <td style="color:var(--yellow)">2</td>
-<td>+0.5% / -37.3%</td>
+<td>+0.5%/-37.3%</td>
 </tr>
 <tr>
-<td>6</td><td><b>0981.HK</b></td><td>中芯国际</td>
+<td>8</td><td><b>0981.HK</b></td><td>中芯国际</td>
 <td>58.95</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -151,10 +259,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>9</td>
 <td style="color:var(--green)">2</td>
 <td style="color:var(--yellow)">7</td>
-<td>-4.5% / +32.7%</td>
+<td>-4.5%/+32.7%</td>
 </tr>
 <tr>
-<td>7</td><td><b>9901.HK</b></td><td>新东方在线</td>
+<td>9</td><td><b>9901.HK</b></td><td>新东方在线</td>
 <td>45.82</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -164,10 +272,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>9</td>
 <td style="color:var(--green)">2</td>
 <td style="color:var(--yellow)">7</td>
-<td>+2.4% / +22.8%</td>
+<td>+2.4%/+22.8%</td>
 </tr>
 <tr>
-<td>8</td><td><b>0003.HK</b></td><td>香港中华煤气</td>
+<td>10</td><td><b>0003.HK</b></td><td>香港中华煤气</td>
 <td>7.17</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -177,10 +285,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">2</td>
 <td style="color:var(--yellow)">5</td>
-<td>-1.6% / +19.3%</td>
+<td>-1.6%/+19.3%</td>
 </tr>
 <tr>
-<td>9</td><td><b>1044.HK</b></td><td>恒安国际</td>
+<td>11</td><td><b>1044.HK</b></td><td>恒安国际</td>
 <td>26.04</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -190,10 +298,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">2</td>
 <td style="color:var(--yellow)">5</td>
-<td>-4.5% / +7.7%</td>
+<td>-4.5%/+7.7%</td>
 </tr>
 <tr>
-<td>10</td><td><b>2827.HK</b></td><td>标智沪深300</td>
+<td>12</td><td><b>2827.HK</b></td><td>标智沪深300</td>
 <td>47.14</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -203,10 +311,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">2</td>
 <td style="color:var(--yellow)">5</td>
-<td>+2.2% / +199.0%</td>
+<td>+2.2%/+199.0%</td>
 </tr>
 <tr>
-<td>11</td><td><b>0823.HK</b></td><td>领展房产基金</td>
+<td>13</td><td><b>0823.HK</b></td><td>领展房产基金</td>
 <td>38.42</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -216,10 +324,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">2</td>
 <td style="color:var(--yellow)">4</td>
-<td>+3.1% / -18.7%</td>
+<td>+3.1%/-18.7%</td>
 </tr>
 <tr>
-<td>12</td><td><b>2822.HK</b></td><td>南方A50</td>
+<td>14</td><td><b>2822.HK</b></td><td>南方A50</td>
 <td>15.76</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -229,10 +337,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">2</td>
 <td style="color:var(--yellow)">4</td>
-<td>+4.2% / -17.4%</td>
+<td>+4.2%/-17.4%</td>
 </tr>
 <tr>
-<td>13</td><td><b>2823.HK</b></td><td>安硕A50</td>
+<td>15</td><td><b>2823.HK</b></td><td>安硕A50</td>
 <td>17.02</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -242,10 +350,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">2</td>
 <td style="color:var(--yellow)">4</td>
-<td>+4.0% / -43.9%</td>
+<td>+4.0%/-43.9%</td>
 </tr>
 <tr>
-<td>14</td><td><b>2688.HK</b></td><td>新奥能源</td>
+<td>16</td><td><b>2688.HK</b></td><td>新奥能源</td>
 <td>61.05</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -255,10 +363,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>8</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">7</td>
-<td>-9.2% / +6.1%</td>
+<td>-9.2%/+6.1%</td>
 </tr>
 <tr>
-<td>15</td><td><b>6098.HK</b></td><td>碧桂园服务</td>
+<td>17</td><td><b>6098.HK</b></td><td>碧桂园服务</td>
 <td>6.23</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bear">空头</span></td>
@@ -268,10 +376,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>8</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">7</td>
-<td>+3.7% / +4.8%</td>
+<td>+3.7%/+4.8%</td>
 </tr>
 <tr>
-<td>16</td><td><b>9698.HK</b></td><td>万国数据</td>
+<td>18</td><td><b>9698.HK</b></td><td>万国数据</td>
 <td>42.48</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -281,10 +389,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>8</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">7</td>
-<td>-7.6% / -2.5%</td>
+<td>-7.6%/-2.5%</td>
 </tr>
 <tr>
-<td>17</td><td><b>0066.HK</b></td><td>港铁公司</td>
+<td>19</td><td><b>0066.HK</b></td><td>港铁公司</td>
 <td>33.62</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -294,10 +402,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">6</td>
-<td>+1.3% / -10.8%</td>
+<td>+1.3%/-10.8%</td>
 </tr>
 <tr>
-<td>18</td><td><b>2388.HK</b></td><td>中银香港</td>
+<td>20</td><td><b>2388.HK</b></td><td>中银香港</td>
 <td>43.82</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -307,10 +415,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">6</td>
-<td>+5.8% / -4.3%</td>
+<td>+5.8%/-4.3%</td>
 </tr>
 <tr>
-<td>19</td><td><b>6030.HK</b></td><td>中信证券</td>
+<td>21</td><td><b>6030.HK</b></td><td>中信证券</td>
 <td>26.56</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -320,10 +428,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">6</td>
-<td>+1.5% / +41.8%</td>
+<td>+1.5%/+41.8%</td>
 </tr>
 <tr>
-<td>20</td><td><b>9633.HK</b></td><td>农夫山泉</td>
+<td>22</td><td><b>9633.HK</b></td><td>农夫山泉</td>
 <td>45.78</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -333,10 +441,23 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">6</td>
-<td>+5.8% / +22.8%</td>
+<td>+5.8%/+22.8%</td>
 </tr>
 <tr>
-<td>21</td><td><b>0939.HK</b></td><td>建设银行</td>
+<td>23</td><td><b>1880.HK</b></td><td>中国中免</td>
+<td>66.05</td>
+<td><span class="trend bear">空头</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td class="kangbo">上行期 (繁荣)</td>
+<td>63.62</td><td>66.32</td>
+<td>7</td>
+<td style="color:var(--green)">1</td>
+<td style="color:var(--yellow)">6</td>
+<td>-6.5%/-47.5%</td>
+</tr>
+<tr>
+<td>24</td><td><b>0939.HK</b></td><td>建设银行</td>
 <td>8.61</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -346,10 +467,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">5</td>
-<td>+5.8% / +18.2%</td>
+<td>+5.8%/+18.2%</td>
 </tr>
 <tr>
-<td>22</td><td><b>1038.HK</b></td><td>长江基建</td>
+<td>25</td><td><b>1038.HK</b></td><td>长江基建</td>
 <td>64.65</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -359,10 +480,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">5</td>
-<td>-0.3% / +37.2%</td>
+<td>-0.3%/+37.2%</td>
 </tr>
 <tr>
-<td>23</td><td><b>1398.HK</b></td><td>工商银行</td>
+<td>26</td><td><b>1398.HK</b></td><td>工商银行</td>
 <td>7.00</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -372,10 +493,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">5</td>
-<td>+6.5% / +9.8%</td>
+<td>+6.5%/+9.8%</td>
 </tr>
 <tr>
-<td>24</td><td><b>2800.HK</b></td><td>盈富基金</td>
+<td>27</td><td><b>2800.HK</b></td><td>盈富基金</td>
 <td>26.36</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -385,10 +506,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">5</td>
-<td>+0.6% / +20.1%</td>
+<td>+0.6%/+20.1%</td>
 </tr>
 <tr>
-<td>25</td><td><b>3988.HK</b></td><td>中国银行</td>
+<td>28</td><td><b>3988.HK</b></td><td>中国银行</td>
 <td>5.09</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -398,10 +519,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">1</td>
 <td style="color:var(--yellow)">5</td>
-<td>+8.8% / +49.3%</td>
+<td>+8.8%/+49.3%</td>
 </tr>
 <tr>
-<td>26</td><td><b>2269.HK</b></td><td>药明生物</td>
+<td>29</td><td><b>2269.HK</b></td><td>药明生物</td>
 <td>35.54</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -411,10 +532,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>8</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">8</td>
-<td>+0.1% / +11.3%</td>
+<td>+0.1%/+11.3%</td>
 </tr>
 <tr>
-<td>27</td><td><b>3690.HK</b></td><td>美团</td>
+<td>30</td><td><b>3690.HK</b></td><td>美团</td>
 <td>85.25</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bear">空头</span></td>
@@ -424,10 +545,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>8</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+6.2% / +27.3%</td>
+<td>+6.2%/+27.3%</td>
 </tr>
 <tr>
-<td>28</td><td><b>0017.HK</b></td><td>新世界发展</td>
+<td>31</td><td><b>0017.HK</b></td><td>新世界发展</td>
 <td>8.64</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -437,10 +558,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-7.9% / -29.0%</td>
+<td>-7.9%/-29.0%</td>
 </tr>
 <tr>
-<td>29</td><td><b>0175.HK</b></td><td>吉利汽车</td>
+<td>32</td><td><b>0175.HK</b></td><td>吉利汽车</td>
 <td>24.42</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -450,10 +571,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+34.5% / +79.9%</td>
+<td>+34.5%/+79.9%</td>
 </tr>
 <tr>
-<td>30</td><td><b>0267.HK</b></td><td>中信股份</td>
+<td>33</td><td><b>0267.HK</b></td><td>中信股份</td>
 <td>12.72</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -463,10 +584,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+10.0% / -12.2%</td>
+<td>+10.0%/-12.2%</td>
 </tr>
 <tr>
-<td>31</td><td><b>0388.HK</b></td><td>香港交易所</td>
+<td>34</td><td><b>0388.HK</b></td><td>香港交易所</td>
 <td>406.40</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -476,10 +597,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+0.9% / -10.9%</td>
+<td>+0.9%/-10.9%</td>
 </tr>
 <tr>
-<td>32</td><td><b>0669.HK</b></td><td>创科实业</td>
+<td>35</td><td><b>0669.HK</b></td><td>创科实业</td>
 <td>109.10</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -489,10 +610,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-2.1% / -32.5%</td>
+<td>-2.1%/-32.5%</td>
 </tr>
 <tr>
-<td>33</td><td><b>0968.HK</b></td><td>信义光能</td>
+<td>36</td><td><b>0968.HK</b></td><td>信义光能</td>
 <td>2.89</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -502,10 +623,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-14.2% / -2.2%</td>
+<td>-14.2%/-2.2%</td>
 </tr>
 <tr>
-<td>34</td><td><b>0992.HK</b></td><td>联想集团</td>
+<td>37</td><td><b>0992.HK</b></td><td>联想集团</td>
 <td>11.29</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -515,10 +636,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+17.5% / -3.0%</td>
+<td>+17.5%/-3.0%</td>
 </tr>
 <tr>
-<td>35</td><td><b>1093.HK</b></td><td>石药集团</td>
+<td>38</td><td><b>1093.HK</b></td><td>石药集团</td>
 <td>8.82</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -528,10 +649,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-4.0% / +20.2%</td>
+<td>-4.0%/+20.2%</td>
 </tr>
 <tr>
-<td>36</td><td><b>1113.HK</b></td><td>长实集团</td>
+<td>39</td><td><b>1113.HK</b></td><td>长实集团</td>
 <td>47.18</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -541,10 +662,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-1.6% / +16.2%</td>
+<td>-1.6%/+16.2%</td>
 </tr>
 <tr>
-<td>37</td><td><b>1177.HK</b></td><td>中国生物制药</td>
+<td>40</td><td><b>1177.HK</b></td><td>中国生物制药</td>
 <td>5.97</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -554,10 +675,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-4.5% / +31.9%</td>
+<td>-4.5%/+31.9%</td>
 </tr>
 <tr>
-<td>38</td><td><b>1299.HK</b></td><td>友邦保险</td>
+<td>41</td><td><b>1299.HK</b></td><td>友邦保险</td>
 <td>82.20</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -567,10 +688,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-2.8% / -10.1%</td>
+<td>-2.8%/-10.1%</td>
 </tr>
 <tr>
-<td>39</td><td><b>1876.HK</b></td><td>百威亚太</td>
+<td>42</td><td><b>1876.HK</b></td><td>百威亚太</td>
 <td>7.36</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend bear">空头</span></td>
@@ -580,10 +701,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+0.6% / +19.2%</td>
+<td>+0.6%/+19.2%</td>
 </tr>
 <tr>
-<td>40</td><td><b>1928.HK</b></td><td>金沙中国</td>
+<td>43</td><td><b>1928.HK</b></td><td>金沙中国</td>
 <td>17.35</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -593,10 +714,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>+3.2% / -17.9%</td>
+<td>+3.2%/-17.9%</td>
 </tr>
 <tr>
-<td>41</td><td><b>2018.HK</b></td><td>瑞声科技</td>
+<td>44</td><td><b>2018.HK</b></td><td>瑞声科技</td>
 <td>37.90</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -606,10 +727,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+13.4% / +14.4%</td>
+<td>+13.4%/+14.4%</td>
 </tr>
 <tr>
-<td>42</td><td><b>2313.HK</b></td><td>申洲国际</td>
+<td>45</td><td><b>2313.HK</b></td><td>申洲国际</td>
 <td>47.30</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -619,10 +740,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-14.4% / +17.8%</td>
+<td>-14.4%/+17.8%</td>
 </tr>
 <tr>
-<td>43</td><td><b>2318.HK</b></td><td>中国平安</td>
+<td>46</td><td><b>2318.HK</b></td><td>中国平安</td>
 <td>60.90</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -632,10 +753,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-3.9% / +7.0%</td>
+<td>-3.9%/+7.0%</td>
 </tr>
 <tr>
-<td>44</td><td><b>2319.HK</b></td><td>蒙牛乳业</td>
+<td>47</td><td><b>2319.HK</b></td><td>蒙牛乳业</td>
 <td>16.62</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -645,10 +766,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+0.1% / -22.4%</td>
+<td>+0.1%/-22.4%</td>
 </tr>
 <tr>
-<td>45</td><td><b>2382.HK</b></td><td>舜宇光学</td>
+<td>48</td><td><b>2382.HK</b></td><td>舜宇光学</td>
 <td>63.50</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -658,10 +779,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+11.5% / +38.9%</td>
+<td>+11.5%/+38.9%</td>
 </tr>
 <tr>
-<td>46</td><td><b>2628.HK</b></td><td>中国人寿</td>
+<td>49</td><td><b>2628.HK</b></td><td>中国人寿</td>
 <td>27.40</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -671,10 +792,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-5.8% / +4.0%</td>
+<td>-5.8%/+4.0%</td>
 </tr>
 <tr>
-<td>47</td><td><b>6618.HK</b></td><td>京东健康</td>
+<td>50</td><td><b>6618.HK</b></td><td>京东健康</td>
 <td>48.18</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -684,10 +805,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-5.6% / -21.4%</td>
+<td>-5.6%/-21.4%</td>
 </tr>
 <tr>
-<td>48</td><td><b>6862.HK</b></td><td>海底捞</td>
+<td>51</td><td><b>6862.HK</b></td><td>海底捞</td>
 <td>14.80</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -697,10 +818,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-10.3% / +24.8%</td>
+<td>-10.3%/+24.8%</td>
 </tr>
 <tr>
-<td>49</td><td><b>9618.HK</b></td><td>京东集团</td>
+<td>52</td><td><b>9618.HK</b></td><td>京东集团</td>
 <td>121.70</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -710,10 +831,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+8.4% / -14.1%</td>
+<td>+8.4%/-14.1%</td>
 </tr>
 <tr>
-<td>50</td><td><b>9626.HK</b></td><td>哔哩哔哩</td>
+<td>53</td><td><b>9626.HK</b></td><td>哔哩哔哩</td>
 <td>193.30</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -723,10 +844,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-7.7% / -10.9%</td>
+<td>-7.7%/-10.9%</td>
 </tr>
 <tr>
-<td>51</td><td><b>9888.HK</b></td><td>百度集团</td>
+<td>54</td><td><b>9888.HK</b></td><td>百度集团</td>
 <td>121.70</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -736,10 +857,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-0.1% / -12.3%</td>
+<td>-0.1%/-12.3%</td>
 </tr>
 <tr>
-<td>52</td><td><b>9961.HK</b></td><td>携程集团</td>
+<td>55</td><td><b>9961.HK</b></td><td>携程集团</td>
 <td>425.80</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bear">空头</span></td>
@@ -749,10 +870,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>+2.5% / -46.7%</td>
+<td>+2.5%/-46.7%</td>
 </tr>
 <tr>
-<td>53</td><td><b>9988.HK</b></td><td>阿里巴巴</td>
+<td>56</td><td><b>9988.HK</b></td><td>阿里巴巴</td>
 <td>135.60</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -762,10 +883,23 @@ a { color:var(--accent); text-decoration:none; }
 <td>7</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">7</td>
-<td>-1.5% / +20.5%</td>
+<td>-1.5%/+20.5%</td>
 </tr>
 <tr>
-<td>54</td><td><b>0001.HK</b></td><td>长和</td>
+<td>57</td><td><b>2318.HK</b></td><td>中国平安</td>
+<td>60.90</td>
+<td><span class="trend bear">空头</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend bull">多头</span></td>
+<td class="kangbo">盘整期</td>
+<td>53.73</td><td>-</td>
+<td>7</td>
+<td style="color:var(--green)">0</td>
+<td style="color:var(--yellow)">7</td>
+<td>-3.9%/+7.0%</td>
+</tr>
+<tr>
+<td>58</td><td><b>0001.HK</b></td><td>长和</td>
 <td>63.05</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -775,10 +909,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>+3.5% / -9.7%</td>
+<td>+3.5%/-9.7%</td>
 </tr>
 <tr>
-<td>55</td><td><b>0005.HK</b></td><td>汇丰控股</td>
+<td>59</td><td><b>0005.HK</b></td><td>汇丰控股</td>
 <td>141.30</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -788,10 +922,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>+10.5% / -25.4%</td>
+<td>+10.5%/-25.4%</td>
 </tr>
 <tr>
-<td>56</td><td><b>0012.HK</b></td><td>恒基地产</td>
+<td>60</td><td><b>0012.HK</b></td><td>恒基地产</td>
 <td>30.10</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -801,10 +935,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-7.8% / +6.5%</td>
+<td>-7.8%/+6.5%</td>
 </tr>
 <tr>
-<td>57</td><td><b>0016.HK</b></td><td>新鸿基地产</td>
+<td>61</td><td><b>0016.HK</b></td><td>新鸿基地产</td>
 <td>134.20</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -814,10 +948,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-2.6% / -38.0%</td>
+<td>-2.6%/-38.0%</td>
 </tr>
 <tr>
-<td>58</td><td><b>0027.HK</b></td><td>银河娱乐</td>
+<td>62</td><td><b>0027.HK</b></td><td>银河娱乐</td>
 <td>34.54</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -827,10 +961,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-6.7% / +7.7%</td>
+<td>-6.7%/+7.7%</td>
 </tr>
 <tr>
-<td>59</td><td><b>0386.HK</b></td><td>中国石油化工</td>
+<td>63</td><td><b>0386.HK</b></td><td>中国石油化工</td>
 <td>4.54</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -840,10 +974,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-5.0% / -20.5%</td>
+<td>-5.0%/-20.5%</td>
 </tr>
 <tr>
-<td>60</td><td><b>0700.HK</b></td><td>腾讯</td>
+<td>64</td><td><b>0700.HK</b></td><td>腾讯</td>
 <td>506.00</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -853,10 +987,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-8.1% / -8.6%</td>
+<td>-8.1%/-8.6%</td>
 </tr>
 <tr>
-<td>61</td><td><b>0857.HK</b></td><td>中国石油</td>
+<td>65</td><td><b>0857.HK</b></td><td>中国石油</td>
 <td>10.51</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -866,10 +1000,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>+0.3% / -28.6%</td>
+<td>+0.3%/-28.6%</td>
 </tr>
 <tr>
-<td>62</td><td><b>0883.HK</b></td><td>中国海洋石油</td>
+<td>66</td><td><b>0883.HK</b></td><td>中国海洋石油</td>
 <td>26.60</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -879,10 +1013,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-6.0% / -7.3%</td>
+<td>-6.0%/-7.3%</td>
 </tr>
 <tr>
-<td>63</td><td><b>1088.HK</b></td><td>中国神华</td>
+<td>67</td><td><b>1088.HK</b></td><td>中国神华</td>
 <td>45.96</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -892,10 +1026,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-3.2% / +26.5%</td>
+<td>-3.2%/+26.5%</td>
 </tr>
 <tr>
-<td>64</td><td><b>1109.HK</b></td><td>华润置地</td>
+<td>68</td><td><b>1109.HK</b></td><td>华润置地</td>
 <td>31.50</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -905,10 +1039,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>+3.4% / -6.1%</td>
+<td>+3.4%/-6.1%</td>
 </tr>
 <tr>
-<td>65</td><td><b>1211.HK</b></td><td>比亚迪</td>
+<td>69</td><td><b>1211.HK</b></td><td>比亚迪</td>
 <td>111.30</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -918,10 +1052,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>+8.9% / +14.8%</td>
+<td>+8.9%/+14.8%</td>
 </tr>
 <tr>
-<td>66</td><td><b>1810.HK</b></td><td>小米集团</td>
+<td>70</td><td><b>1810.HK</b></td><td>小米集团</td>
 <td>31.54</td>
 <td><span class="trend bear">空头</span></td>
 <td><span class="trend bear">空头</span></td>
@@ -931,10 +1065,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>-10.2% / +25.5%</td>
+<td>-10.2%/+25.5%</td>
 </tr>
 <tr>
-<td>67</td><td><b>2020.HK</b></td><td>安踏体育</td>
+<td>71</td><td><b>2020.HK</b></td><td>安踏体育</td>
 <td>84.30</td>
 <td><span class="trend neutral">盘整</span></td>
 <td><span class="trend neutral">盘整</span></td>
@@ -944,10 +1078,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>+7.2% / +40.7%</td>
+<td>+7.2%/+40.7%</td>
 </tr>
 <tr>
-<td>68</td><td><b>3328.HK</b></td><td>交通银行</td>
+<td>72</td><td><b>3328.HK</b></td><td>交通银行</td>
 <td>7.15</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -957,10 +1091,49 @@ a { color:var(--accent); text-decoration:none; }
 <td>6</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">6</td>
-<td>+4.2% / +16.9%</td>
+<td>+4.2%/+16.9%</td>
 </tr>
 <tr>
-<td>69</td><td><b>0006.HK</b></td><td>电能实业</td>
+<td>73</td><td><b>0728.HK</b></td><td>中国电信</td>
+<td>4.89</td>
+<td><span class="trend bear">空头</span></td>
+<td><span class="trend bear">空头</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td class="kangbo">盘整期</td>
+<td>4.45</td><td>4.9</td>
+<td>6</td>
+<td style="color:var(--green)">0</td>
+<td style="color:var(--yellow)">6</td>
+<td>-4.7%/+12.9%</td>
+</tr>
+<tr>
+<td>74</td><td><b>0836.HK</b></td><td>华润电力</td>
+<td>18.85</td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend bull">多头</span></td>
+<td class="kangbo">盘整期</td>
+<td>18.36</td><td>19.76</td>
+<td>6</td>
+<td style="color:var(--green)">0</td>
+<td style="color:var(--yellow)">6</td>
+<td>-3.0%/-6.6%</td>
+</tr>
+<tr style="background:rgba(245,158,11,.05)">
+<td>75</td><td><b>GLD</b></td><td>黄金ETF GLD</td>
+<td><b style='color:var(--gold)'>440.08</b></td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend bull">多头</span></td>
+<td><span class="trend bull">多头</span></td>
+<td class="kangbo">盘整期</td>
+<td>314.2</td><td>-</td>
+<td>6</td>
+<td style="color:var(--green)">0</td>
+<td style="color:var(--yellow)">6</td>
+<td>+3.2%/+7.1%</td>
+</tr>
+<tr>
+<td>76</td><td><b>0006.HK</b></td><td>电能实业</td>
 <td>63.15</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -970,10 +1143,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>5</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">5</td>
-<td>+1.4% / -6.9%</td>
+<td>+1.4%/-6.9%</td>
 </tr>
 <tr>
-<td>70</td><td><b>0288.HK</b></td><td>万洲国际</td>
+<td>77</td><td><b>0288.HK</b></td><td>万洲国际</td>
 <td>10.55</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -983,10 +1156,10 @@ a { color:var(--accent); text-decoration:none; }
 <td>5</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">5</td>
-<td>+8.8% / +17.2%</td>
+<td>+8.8%/+17.2%</td>
 </tr>
 <tr>
-<td>71</td><td><b>3968.HK</b></td><td>招商银行</td>
+<td>78</td><td><b>3968.HK</b></td><td>招商银行</td>
 <td>51.00</td>
 <td><span class="trend bull">多头</span></td>
 <td><span class="trend bull">多头</span></td>
@@ -996,1159 +1169,667 @@ a { color:var(--accent); text-decoration:none; }
 <td>5</td>
 <td style="color:var(--green)">0</td>
 <td style="color:var(--yellow)">5</td>
-<td>+3.5% / +2.1%</td>
+<td>+3.5%/+2.1%</td>
 </tr>
-</table></div></div>
-
-<!-- ===== SECTION 2: STRONGEST TRENDS ===== -->
-<div class="section">
+<tr>
+<td>79</td><td><b>0916.HK</b></td><td>龙源电力</td>
+<td>6.26</td>
+<td><span class="trend bear">空头</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend bear">空头</span></td>
+<td class="kangbo">盘整期</td>
+<td>6.14</td><td>6.28</td>
+<td>5</td>
+<td style="color:var(--green)">0</td>
+<td style="color:var(--yellow)">5</td>
+<td>-22.0%/+8.8%</td>
+</tr>
+<tr>
+<td>80</td><td><b>2050.HK</b></td><td>三一国际</td>
+<td>31.72</td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td><span class="trend neutral">盘整</span></td>
+<td class="kangbo">未知</td>
+<td>-</td><td>-</td>
+<td>5</td>
+<td style="color:var(--green)">0</td>
+<td style="color:var(--yellow)">5</td>
+<td>+4.2%/-37.0%</td>
+</tr>
+</table></div></div><div class="section">
 <h2>🔥 三线全多头 — 趋势最强</h2>
-<div class="grid">
-<div class="card">
-<div class="card-header">
-  <div><span class="sym">0002.HK</span> <span class="name">中电控股</span></div>
-  <div class="price">74.65</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 65.5 | 压力 None | 长线 46.56</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +0.5% / -37.3%</div>
+<div class="grid"><div class="card">
+<div class="card-header"><div><span class="sym">0002.HK</span><span class="name">中电控股</span></div><div class="price">74.65</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:盘整期 | 支撑:65.5 | 压力:None | 长线:46.56</div>
 <div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 75.24 → 目标 64.97 | 止损 78.32 | R:R 1:3.3</div>
-<div class="desc">高档假突破: 突破前高 76.04 后跌回颈线 75.24 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 76.04 后跌回颈线 75.24 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">95%</span></div>
 <div class="nums">颈线 63.78 → 目标 56.01 | 止损 66.57 | R:R 1:2.8</div>
-<div class="desc">高档假突破: 突破前高 64.64 后跌回颈线 63.78 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 64.64 后跌回颈线 63.78 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">回踩支撑</span><span class="badge real">✅基本面</span> <span style="color:var(--accent)">95%</span></div>
 <div class="nums">颈线 74.14 → 目标 90.59 | 止损 68.18 | R:R 1:2.0</div>
-<div class="desc">回踩支撑: 价格回踩MA20(74.14)后反弹, 多头趋势确认 (放量反弹)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">2822.HK</span> <span class="name">南方A50</span></div>
-  <div class="price">15.76</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 15.31 | 压力 None | 长线 10.58</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +4.2% / -17.4%</div>
+<div class="desc">回踩支撑: 价格回踩MA20(74.14)后反弹, 多头趋势确认 (放量反弹)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">2822.HK</span><span class="name">南方A50</span></div><div class="price">15.76</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:盘整期 | 支撑:15.31 | 压力:None | 长线:10.58</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">83%</span></div>
 <div class="nums">颈线 12.72 → 目标 9.95 | 止损 13.77 | R:R 1:2.6</div>
-<div class="desc">⭐ 周线假突破! | 前高 13.11 跌破颈线 12.72</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线假突破! | 前高 13.11 跌破颈线 12.72</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 11.75 → 目标 9.87 | 止损 12.23 | R:R 1:3.9</div>
-<div class="desc">低档假突破: 突破前高 11.87 后跌回颈线 11.75 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">低档假突破: 突破前高 11.87 后跌回颈线 11.75 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">回踩支撑</span><span class="badge real">✅基本面</span> <span style="color:var(--accent)">95%</span></div>
 <div class="nums">颈线 14.56 → 目标 17.29 | 止损 13.58 | R:R 1:2.0</div>
-<div class="desc">回踩支撑: 价格回踩MA20(14.56)后反弹, 多头趋势确认 (放量反弹)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">2388.HK</span> <span class="name">中银香港</span></div>
-  <div class="price">43.82</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 24.44 | 压力 None | 长线 17.59</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +5.8% / -4.3%</div>
+<div class="desc">回踩支撑: 价格回踩MA20(14.56)后反弹, 多头趋势确认 (放量反弹)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">2388.HK</span><span class="name">中银香港</span></div><div class="price">43.82</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:繁荣末期 (秋季) | 支撑:24.44 | 压力:None | 长线:17.59</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">82%</span></div>
 <div class="nums">颈线 21.31 → 目标 17.17 | 止损 23.06 | R:R 1:2.4</div>
-<div class="desc">⭐ 周线假突破! | 前高 21.97 跌破颈线 21.31</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线假突破! | 前高 21.97 跌破颈线 21.31</div></div><div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>破底翻</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">83%</span></div>
 <div class="nums">颈线 16.33 → 目标 18.79 | 止损 15.37 | R:R 1:2.6</div>
-<div class="desc">⭐ 周线破底翻! 量先价行上档无压 | 支撑 16.18 → 颈线 16.33</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线破底翻! 量先价行上档无压 | 支撑 16.18 → 颈线 16.33</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 39.14 → 目标 32.94 | 止损 40.89 | R:R 1:3.5</div>
-<div class="desc">高档假突破: 突破前高 39.70 后跌回颈线 39.14 (量价背离)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">0939.HK</span> <span class="name">建设银行</span></div>
-  <div class="price">8.61</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 8.13 | 压力 None | 长线 3.6</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +5.8% / +18.2%</div>
+<div class="desc">高档假突破: 突破前高 39.70 后跌回颈线 39.14 (量价背离)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">0939.HK</span><span class="name">建设银行</span></div><div class="price">8.61</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:繁荣末期 (秋季) | 支撑:8.13 | 压力:None | 长线:3.6</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">81%</span></div>
 <div class="nums">颈线 4.28 → 目标 3.51 | 止损 4.63 | R:R 1:2.2</div>
-<div class="desc">⭐ 周线假突破! | 前高 4.41 跌破颈线 4.28</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线假突破! | 前高 4.41 跌破颈线 4.28</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 6.51 → 目标 5.47 | 止损 6.78 | R:R 1:3.8</div>
-<div class="desc">高档假突破: 突破前高 6.58 后跌回颈线 6.51 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 6.58 后跌回颈线 6.51 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 5.98 → 目标 5.15 | 止损 6.24 | R:R 1:3.2</div>
-<div class="desc">高档假突破: 突破前高 6.05 后跌回颈线 5.98 (量价背离)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">1398.HK</span> <span class="name">工商银行</span></div>
-  <div class="price">7.00</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 6.06 | 压力 None | 长线 3.0</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +6.5% / +9.8%</div>
+<div class="desc">高档假突破: 突破前高 6.05 后跌回颈线 5.98 (量价背离)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">1398.HK</span><span class="name">工商银行</span></div><div class="price">7.00</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:盘整期 | 支撑:6.06 | 压力:None | 长线:3.0</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">81%</span></div>
 <div class="nums">颈线 3.20 → 目标 2.64 | 止损 3.46 | R:R 1:2.1</div>
-<div class="desc">⭐ 周线假突破! | 前高 3.30 跌破颈线 3.20</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线假突破! | 前高 3.30 跌破颈线 3.20</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 4.69 → 目标 3.67 | 止损 4.94 | R:R 1:4.1</div>
-<div class="desc">高档假突破: 突破前高 4.80 后跌回颈线 4.69 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 4.80 后跌回颈线 4.69 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 3.32 → 目标 2.60 | 止损 3.48 | R:R 1:4.5</div>
-<div class="desc">低档假突破: 突破前高 3.38 后跌回颈线 3.32 (量价背离)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">3988.HK</span> <span class="name">中国银行</span></div>
-  <div class="price">5.09</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 4.7 | 压力 None | 长线 1.92</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +8.8% / +49.3%</div>
+<div class="desc">低档假突破: 突破前高 3.38 后跌回颈线 3.32 (量价背离)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">3988.HK</span><span class="name">中国银行</span></div><div class="price">5.09</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:繁荣末期 (秋季) | 支撑:4.7 | 压力:None | 长线:1.92</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">80%</span></div>
 <div class="nums">颈线 2.32 → 目标 1.93 | 止损 2.51 | R:R 1:2.0</div>
-<div class="desc">⭐ 周线假突破! (量价背离) | 前高 2.39 跌破颈线 2.32</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线假突破! (量价背离) | 前高 2.39 跌破颈线 2.32</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 3.59 → 目标 2.96 | 止损 3.75 | R:R 1:4.1</div>
-<div class="desc">高档假突破: 突破前高 3.64 后跌回颈线 3.59 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 3.64 后跌回颈线 3.59 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">真突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">95%</span></div>
 <div class="nums">颈线 4.97 → 目标 5.54 | 止损 4.83 | R:R 1:2.5</div>
-<div class="desc">真突破: 突破前高 4.97 站稳 5天 (量价齐升)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">0175.HK</span> <span class="name">吉利汽车</span></div>
-  <div class="price">24.42</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 19.77 | 压力 None | 长线 7.2</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +34.5% / +79.9%</div>
+<div class="desc">真突破: 突破前高 4.97 站稳 5天 (量价齐升)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">0175.HK</span><span class="name">吉利汽车</span></div><div class="price">24.42</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:盘整期 | 支撑:19.77 | 压力:None | 长线:7.2</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">93%</span></div>
 <div class="nums">颈线 16.32 → 目标 10.08 | 止损 17.67 | R:R 1:4.6</div>
-<div class="desc">⭐ 周线假突破! | 前高 16.82 跌破颈线 16.32</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线假突破! | 前高 16.82 跌破颈线 16.32</div></div><div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>破底翻</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">95%</span></div>
 <div class="nums">颈线 11.08 → 目标 24.05 | 止损 10.05 | R:R 1:12.6</div>
-<div class="desc">⭐ 周线破底翻! 量先价行上档无压 | 支撑 10.58 → 颈线 11.08</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线破底翻! 量先价行上档无压 | 支撑 10.58 → 颈线 11.08</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 15.23 → 目标 8.58 | 止损 16.27 | R:R 1:6.4</div>
-<div class="desc">低档假突破: 突破前高 15.80 后跌回颈线 15.23 (量价背离)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">0016.HK</span> <span class="name">新鸿基地产</span></div>
-  <div class="price">134.20</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 95.85 | 压力 None | 长线 63.04</div>
-<div style="font-size:.85em;color:var(--muted)">量价: -2.6% / -38.0%</div>
+<div class="desc">低档假突破: 突破前高 15.80 后跌回颈线 15.23 (量价背离)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">0016.HK</span><span class="name">新鸿基地产</span></div><div class="price">134.20</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:上行期 (繁荣) | 支撑:95.85 | 压力:None | 长线:63.04</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">83%</span></div>
 <div class="nums">颈线 85.50 → 目标 67.82 | 止损 92.55 | R:R 1:2.5</div>
-<div class="desc">⭐ 周线假突破! | 前高 88.14 跌破颈线 85.50</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线假突破! | 前高 88.14 跌破颈线 85.50</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 90.58 → 目标 77.03 | 止损 94.33 | R:R 1:3.6</div>
-<div class="desc">高档假突破: 突破前高 91.58 后跌回颈线 90.58 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 91.58 后跌回颈线 90.58 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 82.82 → 目标 62.52 | 止损 86.63 | R:R 1:5.3</div>
-<div class="desc">低档假突破: 突破前高 84.11 后跌回颈线 82.82 (量价背离)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">3328.HK</span> <span class="name">交通银行</span></div>
-  <div class="price">7.15</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 7.02 | 压力 None | 长线 3.15</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +4.2% / +16.9%</div>
+<div class="desc">低档假突破: 突破前高 84.11 后跌回颈线 82.82 (量价背离)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">3328.HK</span><span class="name">交通银行</span></div><div class="price">7.15</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:盘整期 | 支撑:7.02 | 压力:None | 长线:3.15</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">80%</span></div>
 <div class="nums">颈线 3.90 → 目标 3.23 | 止损 4.22 | R:R 1:2.1</div>
-<div class="desc">⭐ 周线假突破! | 前高 4.02 跌破颈线 3.90</div>
-</div><div class="signal">
+<div class="desc">⭐ 周线假突破! | 前高 4.02 跌破颈线 3.90</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 7.25 → 目标 5.93 | 止损 7.61 | R:R 1:3.7</div>
-<div class="desc">高档假突破: 突破前高 7.38 后跌回颈线 7.25 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 7.38 后跌回颈线 7.25 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 7.13 → 目标 5.97 | 止损 7.45 | R:R 1:3.7</div>
-<div class="desc">高档假突破: 突破前高 7.23 后跌回颈线 7.13 (量价背离)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">0006.HK</span> <span class="name">电能实业</span></div>
-  <div class="price">63.15</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 50.95 | 压力 None | 长线 34.69</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +1.4% / -6.9%</div>
+<div class="desc">高档假突破: 突破前高 7.23 后跌回颈线 7.13 (量价背离)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">0006.HK</span><span class="name">电能实业</span></div><div class="price">63.15</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:盘整期 | 支撑:50.95 | 压力:None | 长线:34.69</div>
 <div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 35.86 → 目标 29.34 | 止损 37.41 | R:R 1:4.2</div>
-<div class="desc">低档假突破: 突破前高 36.32 后跌回颈线 35.86 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">低档假突破: 突破前高 36.32 后跌回颈线 35.86 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 64.21 → 目标 55.06 | 止损 66.90 | R:R 1:3.4</div>
-<div class="desc">高档假突破: 突破前高 64.95 后跌回颈线 64.21 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 64.95 后跌回颈线 64.21 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 50.39 → 目标 43.11 | 止损 52.58 | R:R 1:3.3</div>
-<div class="desc">高档假突破: 突破前高 51.05 后跌回颈线 50.39 (量价背离)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">0288.HK</span> <span class="name">万洲国际</span></div>
-  <div class="price">10.55</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 7.26 | 压力 None | 长线 2.97</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +8.8% / +17.2%</div>
+<div class="desc">高档假突破: 突破前高 51.05 后跌回颈线 50.39 (量价背离)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">0288.HK</span><span class="name">万洲国际</span></div><div class="price">10.55</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:盘整期 | 支撑:7.26 | 压力:None | 长线:2.97</div>
 <div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 4.05 → 目标 3.40 | 止损 4.25 | R:R 1:3.2</div>
-<div class="desc">低档假突破: 突破前高 4.13 后跌回颈线 4.05 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">低档假突破: 突破前高 4.13 后跌回颈线 4.05 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 7.54 → 目标 5.64 | 止损 7.91 | R:R 1:5.2</div>
-<div class="desc">高档假突破: 突破前高 7.68 后跌回颈线 7.54 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 7.68 后跌回颈线 7.54 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 7.14 → 目标 5.86 | 止损 7.45 | R:R 1:4.1</div>
-<div class="desc">高档假突破: 突破前高 7.23 后跌回颈线 7.14 (量价背离)</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">3968.HK</span> <span class="name">招商银行</span></div>
-  <div class="price">51.00</div>
-</div>
-<div class="trends">
-  <span class="trend bull">日多头</span>
-  <span class="trend bull">周多头</span>
-  <span class="trend bull">月多头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 46.45 | 压力 52.91 | 长线 21.35</div>
-<div style="font-size:.85em;color:var(--muted)">量价: +3.5% / +2.1%</div>
+<div class="desc">高档假突破: 突破前高 7.23 后跌回颈线 7.14 (量价背离)</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">3968.HK</span><span class="name">招商银行</span></div><div class="price">51.00</div></div>
+<div class="trends"><span class="trend bull">日多头</span><span class="trend bull">周多头</span><span class="trend bull">月多头</span></div>
+<div style="font-size:.85em;color:var(--muted)">康波:盘整期 | 支撑:46.45 | 压力:52.91 | 长线:21.35</div>
 <div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 55.36 → 目标 45.93 | 止损 57.63 | R:R 1:4.2</div>
-<div class="desc">低档假突破: 突破前高 55.95 后跌回颈线 55.36 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">低档假突破: 突破前高 55.95 后跌回颈线 55.36 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 50.99 → 目标 43.60 | 止损 53.38 | R:R 1:3.1</div>
-<div class="desc">高档假突破: 突破前高 51.82 后跌回颈线 50.99 (量价背离)</div>
-</div><div class="signal">
+<div class="desc">高档假突破: 突破前高 51.82 后跌回颈线 50.99 (量价背离)</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
 <div class="nums">颈线 46.20 → 目标 36.52 | 止损 48.92 | R:R 1:3.6</div>
-<div class="desc">低档假突破: 突破前高 47.49 后跌回颈线 46.20 (量价背离)</div>
-</div></div></div><div class="section">
-<h2>❄️ 日线+周线空头 — 趋势最弱</h2>
-<div class="grid">
-<div class="card">
-<div class="card-header">
-  <div><span class="sym">1876.HK</span> <span class="name">百威亚太</span></div>
-  <div class="price" style="color:var(--red)">7.36</div>
-</div>
-<div class="trends">
-  <span class="trend bear">日空头</span>
-  <span class="trend bear">周空头</span>
-  <span class="trend bear">月空头</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 7.18 | 压力 7.52</div>
+<div class="desc">低档假突破: 突破前高 47.49 后跌回颈线 46.20 (量价背离)</div></div></div></div><div class="section">
+<h2>❄️ 日线+周线空头</h2>
+<div class="grid"><div class="card">
+<div class="card-header"><div><span class="sym">1876.HK</span><span class="name">百威亚太</span></div><div class="price" style="color:var(--red)">7.36</div></div>
+<div class="trends"><span class="trend bear">日空头</span><span class="trend bear">周空头</span><span class="trend bear">月空头</span></div>
+<div style="font-size:.85em;color:var(--muted)">支撑:7.18 | 压力:7.52</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">80%</span></div>
-<div class="nums">颈线 19.95 → 目标 16.56 | 止损 21.59 | R:R 1:2.1</div>
-</div><div class="signal">
+<div class="nums">颈线 19.95 → 目标 16.56 | R:R 1:2.1</div></div><div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>破底翻</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">83%</span></div>
-<div class="nums">颈线 12.02 → 目标 16.39 | 止损 10.30 | R:R 1:2.5</div>
-</div><div class="signal">
+<div class="nums">颈线 12.02 → 目标 16.39 | R:R 1:2.5</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
-<div class="nums">颈线 8.11 → 目标 6.90 | 止损 8.51 | R:R 1:3.0</div>
-</div></div><div class="card">
-<div class="card-header">
-  <div><span class="sym">1810.HK</span> <span class="name">小米集团</span></div>
-  <div class="price" style="color:var(--red)">31.54</div>
-</div>
-<div class="trends">
-  <span class="trend bear">日空头</span>
-  <span class="trend bear">周空头</span>
-  <span class="trend neutral">月盘整</span>
-</div>
-<div style="font-size:.85em;color:var(--muted)">支撑 19.81 | 压力 59.68</div>
+<div class="nums">颈线 8.11 → 目标 6.90 | R:R 1:3.0</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">1810.HK</span><span class="name">小米集团</span></div><div class="price" style="color:var(--red)">31.54</div></div>
+<div class="trends"><span class="trend bear">日空头</span><span class="trend bear">周空头</span><span class="trend neutral">月盘整</span></div>
+<div style="font-size:.85em;color:var(--muted)">支撑:19.81 | 压力:59.68</div>
 <div class="signal">
 <div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">87%</span></div>
-<div class="nums">颈线 11.60 → 目标 8.26 | 止损 12.56 | R:R 1:3.5</div>
-</div><div class="signal">
+<div class="nums">颈线 11.60 → 目标 8.26 | R:R 1:3.5</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
-<div class="nums">颈线 58.21 → 目标 34.51 | 止损 61.95 | R:R 1:6.3</div>
-</div><div class="signal">
+<div class="nums">颈线 58.21 → 目标 34.51 | R:R 1:6.3</div></div><div class="signal">
 <div class="head"><span class="type">假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">100%</span></div>
-<div class="nums">颈线 53.95 → 目标 33.40 | 止损 58.71 | R:R 1:4.3</div>
-</div></div></div><div class="section">
-<h2>✅ 基本面信号 — 高可信度交易机会</h2>
-<p style="color:var(--muted);margin-bottom:12px">蔡森: 基本面信号量价配合、结构完整、风险回报比 >= 2:1。呬爛面信号要小心!</p>
+<div class="nums">颈线 53.95 → 目标 33.40 | R:R 1:4.3</div></div></div><div class="card">
+<div class="card-header"><div><span class="sym">0728.HK</span><span class="name">中国电信</span></div><div class="price" style="color:var(--red)">4.89</div></div>
+<div class="trends"><span class="trend bear">日空头</span><span class="trend bear">周空头</span><span class="trend neutral">月盘整</span></div>
+<div style="font-size:.85em;color:var(--muted)">支撑:4.45 | 压力:4.9</div>
+<div class="signal">
+<div class="head"><span class="type"><span class="tf-weekly">【周线】</span>假突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">81%</span></div>
+<div class="nums">颈线 2.21 → 目标 1.82 | R:R 1:2.1</div></div><div class="signal">
+<div class="head"><span class="type">真突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">95%</span></div>
+<div class="nums">颈线 5.71 → 目标 6.55 | R:R 1:1.6</div></div><div class="signal">
+<div class="head"><span class="type">真突破</span><span class="badge bluff">⚠️呬爛面</span> <span style="color:var(--accent)">95%</span></div>
+<div class="nums">颈线 4.57 → 目标 5.16 | R:R 1:2.4</div></div></div></div><div class="section">
+<h2>✅ 基本面信号 — 高可信度 (全部)</h2>
 <div class="scroll-table">
 <table>
-<tr><th>代码</th><th>名称</th><th>信号</th><th>时间框架</th><th>置信度</th><th>颈线</th><th>入场</th><th>止损</th><th>目标1</th><th>目标2</th><th>R:R</th></tr>
-<tr>
-<td><b>0941.HK</b></td><td>中国移动</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>84.22</td><td>84.71</td><td>78.10</td>
-<td>97.93</td><td>90.37</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0941.HK</b></td><td>中国移动</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>82.04</td><td>84.04</td><td>76.72</td>
-<td>98.69</td><td>88.54</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0941.HK</b></td><td>中国移动</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>77.14</td><td>78.72</td><td>71.53</td>
-<td>93.10</td><td>84.64</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0002.HK</b></td><td>中电控股</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>74.14</td><td>75.65</td><td>68.18</td>
-<td>90.59</td><td>80.21</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0002.HK</b></td><td>中电控股</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>72.34</td><td>74.28</td><td>66.96</td>
-<td>88.91</td><td>78.20</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0002.HK</b></td><td>中电控股</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>71.45</td><td>72.36</td><td>66.45</td>
-<td>84.17</td><td>77.37</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0003.HK</b></td><td>香港中华煤气</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>7.59</td><td>7.70</td><td>7.08</td>
-<td>8.94</td><td>8.15</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0003.HK</b></td><td>香港中华煤气</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>6.48</td><td>6.68</td><td>5.95</td>
-<td>8.15</td><td>7.06</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>1044.HK</b></td><td>恒安国际</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>28.60</td><td>28.74</td><td>26.78</td>
-<td>32.67</td><td>30.87</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>1044.HK</b></td><td>恒安国际</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>27.80</td><td>28.02</td><td>25.63</td>
-<td>32.81</td><td>29.90</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>2827.HK</b></td><td>标智沪深300</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>42.87</td><td>43.02</td><td>39.46</td>
-<td>50.13</td><td>46.07</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0823.HK</b></td><td>领展房产基金</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>41.10</td><td>42.16</td><td>38.05</td>
-<td>50.37</td><td>44.47</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0823.HK</b></td><td>领展房产基金</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>38.98</td><td>40.13</td><td>35.06</td>
-<td>50.26</td><td>42.54</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>2822.HK</b></td><td>南方A50</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>14.56</td><td>14.82</td><td>13.58</td>
-<td>17.29</td><td>15.60</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>2822.HK</b></td><td>南方A50</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>14.12</td><td>14.37</td><td>13.15</td>
-<td>16.81</td><td>15.34</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>2823.HK</b></td><td>安硕A50</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>15.73</td><td>15.83</td><td>14.66</td>
-<td>18.19</td><td>16.81</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>2823.HK</b></td><td>安硕A50</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>15.22</td><td>15.47</td><td>14.15</td>
-<td>18.11</td><td>16.52</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0066.HK</b></td><td>港铁公司</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>36.51</td><td>36.54</td><td>31.89</td>
-<td>45.85</td><td>39.77</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>2388.HK</b></td><td>中银香港</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>42.74</td><td>44.90</td><td>38.91</td>
-<td>56.89</td><td>47.15</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>9633.HK</b></td><td>农夫山泉</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>53.58</td><td>54.25</td><td>48.32</td>
-<td>66.11</td><td>57.70</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>0939.HK</b></td><td>建设银行</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>7.95</td><td>8.00</td><td>7.37</td>
-<td>9.28</td><td>8.66</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>1038.HK</b></td><td>长江基建</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>64.36</td><td>65.85</td><td>57.58</td>
-<td>82.40</td><td>69.14</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>1398.HK</b></td><td>工商银行</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>6.21</td><td>6.34</td><td>5.68</td>
-<td>7.65</td><td>6.82</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>2800.HK</b></td><td>盈富基金</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>25.11</td><td>25.14</td><td>23.63</td>
-<td>28.15</td><td>27.03</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>3988.HK</b></td><td>中国银行</td>
-<td>回踩支撑</td><td>daily</td>
-<td style="color:var(--green)">95%</td>
-<td>4.52</td><td>4.63</td><td>4.18</td>
-<td>5.53</td><td>4.91</td><td>1:2.0</td>
-</tr>
-<tr>
-<td><b>2007.HK</b></td><td>碧桂园</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">88%</td>
-<td>0.47</td><td>0.49</td><td>0.45</td>
-<td>0.58</td><td>0.67</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>2858.HK</b></td><td>易方达恒生科技</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">88%</td>
-<td>0.53</td><td>0.54</td><td>0.50</td>
-<td>0.65</td><td>0.75</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>2858.HK</b></td><td>易方达恒生科技</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">88%</td>
-<td>1.02</td><td>1.02</td><td>0.97</td>
-<td>1.22</td><td>1.41</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>9901.HK</b></td><td>新东方在线</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">86%</td>
-<td>9.77</td><td>10.57</td><td>9.28</td>
-<td>12.69</td><td>14.61</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>2007.HK</b></td><td>碧桂园</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">83%</td>
-<td>0.61</td><td>0.64</td><td>0.58</td>
-<td>0.77</td><td>0.88</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>2858.HK</b></td><td>易方达恒生科技</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">83%</td>
-<td>0.58</td><td>0.70</td><td>0.55</td>
-<td>0.83</td><td>0.96</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>0981.HK</b></td><td>中芯国际</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">82%</td>
-<td>17.92</td><td>18.62</td><td>17.02</td>
-<td>22.34</td><td>25.73</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>2007.HK</b></td><td>碧桂园</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">81%</td>
-<td>0.37</td><td>0.38</td><td>0.35</td>
-<td>0.46</td><td>0.53</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>9901.HK</b></td><td>新东方在线</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">80%</td>
-<td>12.97</td><td>16.08</td><td>12.32</td>
-<td>19.29</td><td>22.22</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>2827.HK</b></td><td>标智沪深300</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">80%</td>
-<td>29.94</td><td>36.40</td><td>28.44</td>
-<td>43.68</td><td>50.30</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>0981.HK</b></td><td>中芯国际</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">79%</td>
-<td>21.00</td><td>22.00</td><td>19.95</td>
-<td>26.40</td><td>30.40</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>0762.HK</b></td><td>中国联通</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">78%</td>
-<td>3.01</td><td>3.04</td><td>2.86</td>
-<td>3.65</td><td>4.20</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>2007.HK</b></td><td>碧桂园</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">76%</td>
-<td>1.00</td><td>1.44</td><td>0.95</td>
-<td>1.73</td><td>1.99</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>6098.HK</b></td><td>碧桂园服务</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">76%</td>
-<td>4.18</td><td>5.36</td><td>3.97</td>
-<td>6.43</td><td>7.40</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>0762.HK</b></td><td>中国联通</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">75%</td>
-<td>2.95</td><td>3.02</td><td>2.81</td>
-<td>3.62</td><td>4.17</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>6030.HK</b></td><td>中信证券</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">72%</td>
-<td>13.17</td><td>14.12</td><td>12.51</td>
-<td>16.95</td><td>19.52</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>9698.HK</b></td><td>万国数据</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">71%</td>
-<td>46.55</td><td>54.20</td><td>44.22</td>
-<td>65.04</td><td>74.90</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>0762.HK</b></td><td>中国联通</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">70%</td>
-<td>2.78</td><td>2.99</td><td>2.64</td>
-<td>3.59</td><td>4.13</td><td>1:3.0</td>
-</tr>
-<tr>
-<td><b>2688.HK</b></td><td>新奥能源</td>
-<td>月线缩量见底</td><td>monthly</td>
-<td style="color:var(--green)">69%</td>
-<td>42.23</td><td>50.09</td><td>40.12</td>
-<td>60.10</td><td>69.22</td><td>1:3.0</td>
-</tr>
+<tr><th>代码</th><th>名称</th><th>信号</th><th>框架</th><th>置信度</th><th>颈线</th><th>入场</th><th>止损</th><th>目标1</th><th>目标2</th><th>R:R</th></tr>
+<tr><td><b>0788.HK</b></td><td>中国铁塔</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>11.45</td><td>11.47</td><td>10.57</td>
+<td>13.27</td><td>12.31</td><td>1:2.0</td></tr>
+<tr><td><b>0788.HK</b></td><td>中国铁塔</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>11.33</td><td>11.47</td><td>10.55</td>
+<td>13.30</td><td>12.31</td><td>1:2.0</td></tr>
+<tr><td><b>0941.HK</b></td><td>中国移动</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>84.22</td><td>84.71</td><td>78.10</td>
+<td>97.93</td><td>90.37</td><td>1:2.0</td></tr>
+<tr><td><b>0941.HK</b></td><td>中国移动</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>82.04</td><td>84.04</td><td>76.72</td>
+<td>98.69</td><td>88.54</td><td>1:2.0</td></tr>
+<tr><td><b>0941.HK</b></td><td>中国移动</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>77.14</td><td>78.72</td><td>71.53</td>
+<td>93.10</td><td>84.64</td><td>1:2.0</td></tr>
+<tr><td><b>0002.HK</b></td><td>中电控股</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>74.14</td><td>75.65</td><td>68.18</td>
+<td>90.59</td><td>80.21</td><td>1:2.0</td></tr>
+<tr><td><b>0002.HK</b></td><td>中电控股</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>72.34</td><td>74.28</td><td>66.96</td>
+<td>88.91</td><td>78.20</td><td>1:2.0</td></tr>
+<tr><td><b>0002.HK</b></td><td>中电控股</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>71.45</td><td>72.36</td><td>66.45</td>
+<td>84.17</td><td>77.37</td><td>1:2.0</td></tr>
+<tr><td><b>0003.HK</b></td><td>香港中华煤气</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>7.59</td><td>7.70</td><td>7.08</td>
+<td>8.94</td><td>8.15</td><td>1:2.0</td></tr>
+<tr><td><b>0003.HK</b></td><td>香港中华煤气</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>6.48</td><td>6.68</td><td>5.95</td>
+<td>8.15</td><td>7.06</td><td>1:2.0</td></tr>
+<tr><td><b>1044.HK</b></td><td>恒安国际</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>28.60</td><td>28.74</td><td>26.78</td>
+<td>32.67</td><td>30.87</td><td>1:2.0</td></tr>
+<tr><td><b>1044.HK</b></td><td>恒安国际</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>27.80</td><td>28.02</td><td>25.63</td>
+<td>32.81</td><td>29.90</td><td>1:2.0</td></tr>
+<tr><td><b>2827.HK</b></td><td>标智沪深300</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>42.87</td><td>43.02</td><td>39.46</td>
+<td>50.13</td><td>46.07</td><td>1:2.0</td></tr>
+<tr><td><b>0823.HK</b></td><td>领展房产基金</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>41.10</td><td>42.16</td><td>38.05</td>
+<td>50.37</td><td>44.47</td><td>1:2.0</td></tr>
+<tr><td><b>0823.HK</b></td><td>领展房产基金</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>38.98</td><td>40.13</td><td>35.06</td>
+<td>50.26</td><td>42.54</td><td>1:2.0</td></tr>
+<tr><td><b>2822.HK</b></td><td>南方A50</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>14.56</td><td>14.82</td><td>13.58</td>
+<td>17.29</td><td>15.60</td><td>1:2.0</td></tr>
+<tr><td><b>2822.HK</b></td><td>南方A50</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>14.12</td><td>14.37</td><td>13.15</td>
+<td>16.81</td><td>15.34</td><td>1:2.0</td></tr>
+<tr><td><b>2823.HK</b></td><td>安硕A50</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>15.73</td><td>15.83</td><td>14.66</td>
+<td>18.19</td><td>16.81</td><td>1:2.0</td></tr>
+<tr><td><b>2823.HK</b></td><td>安硕A50</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>15.22</td><td>15.47</td><td>14.15</td>
+<td>18.11</td><td>16.52</td><td>1:2.0</td></tr>
+<tr><td><b>0066.HK</b></td><td>港铁公司</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>36.51</td><td>36.54</td><td>31.89</td>
+<td>45.85</td><td>39.77</td><td>1:2.0</td></tr>
+<tr><td><b>2388.HK</b></td><td>中银香港</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>42.74</td><td>44.90</td><td>38.91</td>
+<td>56.89</td><td>47.15</td><td>1:2.0</td></tr>
+<tr><td><b>9633.HK</b></td><td>农夫山泉</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>53.58</td><td>54.25</td><td>48.32</td>
+<td>66.11</td><td>57.70</td><td>1:2.0</td></tr>
+<tr><td><b>0939.HK</b></td><td>建设银行</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>7.95</td><td>8.00</td><td>7.37</td>
+<td>9.28</td><td>8.66</td><td>1:2.0</td></tr>
+<tr><td><b>1038.HK</b></td><td>长江基建</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>64.36</td><td>65.85</td><td>57.58</td>
+<td>82.40</td><td>69.14</td><td>1:2.0</td></tr>
+<tr><td><b>1398.HK</b></td><td>工商银行</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>6.21</td><td>6.34</td><td>5.68</td>
+<td>7.65</td><td>6.82</td><td>1:2.0</td></tr>
+<tr><td><b>2800.HK</b></td><td>盈富基金</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>25.11</td><td>25.14</td><td>23.63</td>
+<td>28.15</td><td>27.03</td><td>1:2.0</td></tr>
+<tr><td><b>3988.HK</b></td><td>中国银行</td><td>回踩支撑</td><td>daily</td>
+<td style="color:var(--green)">95%</td><td>4.52</td><td>4.63</td><td>4.18</td>
+<td>5.53</td><td>4.91</td><td>1:2.0</td></tr>
+<tr><td><b>2007.HK</b></td><td>碧桂园</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">88%</td><td>0.47</td><td>0.49</td><td>0.45</td>
+<td>0.58</td><td>0.67</td><td>1:3.0</td></tr>
+<tr><td><b>GC=F</b></td><td>黄金期货</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">88%</td><td>1620.40</td><td>1635.90</td><td>1539.38</td>
+<td>1963.08</td><td>2260.81</td><td>1:3.0</td></tr>
+<tr><td><b>2858.HK</b></td><td>易方达恒生科技</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">88%</td><td>0.53</td><td>0.54</td><td>0.50</td>
+<td>0.65</td><td>0.75</td><td>1:3.0</td></tr>
+<tr><td><b>2858.HK</b></td><td>易方达恒生科技</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">88%</td><td>1.02</td><td>1.02</td><td>0.97</td>
+<td>1.22</td><td>1.41</td><td>1:3.0</td></tr>
+<tr><td><b>9901.HK</b></td><td>新东方在线</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">86%</td><td>9.77</td><td>10.57</td><td>9.28</td>
+<td>12.69</td><td>14.61</td><td>1:3.0</td></tr>
+<tr><td><b>2007.HK</b></td><td>碧桂园</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">83%</td><td>0.61</td><td>0.64</td><td>0.58</td>
+<td>0.77</td><td>0.88</td><td>1:3.0</td></tr>
+<tr><td><b>2858.HK</b></td><td>易方达恒生科技</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">83%</td><td>0.58</td><td>0.70</td><td>0.55</td>
+<td>0.83</td><td>0.96</td><td>1:3.0</td></tr>
+<tr><td><b>0981.HK</b></td><td>中芯国际</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">82%</td><td>17.92</td><td>18.62</td><td>17.02</td>
+<td>22.34</td><td>25.73</td><td>1:3.0</td></tr>
+<tr><td><b>2007.HK</b></td><td>碧桂园</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">81%</td><td>0.37</td><td>0.38</td><td>0.35</td>
+<td>0.46</td><td>0.53</td><td>1:3.0</td></tr>
+<tr><td><b>9901.HK</b></td><td>新东方在线</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">80%</td><td>12.97</td><td>16.08</td><td>12.32</td>
+<td>19.29</td><td>22.22</td><td>1:3.0</td></tr>
+<tr><td><b>2827.HK</b></td><td>标智沪深300</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">80%</td><td>29.94</td><td>36.40</td><td>28.44</td>
+<td>43.68</td><td>50.30</td><td>1:3.0</td></tr>
+<tr><td><b>GC=F</b></td><td>黄金期货</td><td>月线爆量翻黑</td><td>monthly</td>
+<td style="color:var(--green)">79%</td><td>2789.00</td><td>2657.00</td><td>2928.45</td>
+<td>2258.45</td><td>1992.75</td><td>1:2.5</td></tr>
+<tr><td><b>0788.HK</b></td><td>中国铁塔</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">79%</td><td>8.42</td><td>8.51</td><td>8.00</td>
+<td>10.21</td><td>11.76</td><td>1:3.0</td></tr>
+<tr><td><b>0981.HK</b></td><td>中芯国际</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">79%</td><td>21.00</td><td>22.00</td><td>19.95</td>
+<td>26.40</td><td>30.40</td><td>1:3.0</td></tr>
+<tr><td><b>0762.HK</b></td><td>中国联通</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">78%</td><td>3.01</td><td>3.04</td><td>2.86</td>
+<td>3.65</td><td>4.20</td><td>1:3.0</td></tr>
+<tr><td><b>2007.HK</b></td><td>碧桂园</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">76%</td><td>1.00</td><td>1.44</td><td>0.95</td>
+<td>1.73</td><td>1.99</td><td>1:3.0</td></tr>
+<tr><td><b>6098.HK</b></td><td>碧桂园服务</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">76%</td><td>4.18</td><td>5.36</td><td>3.97</td>
+<td>6.43</td><td>7.40</td><td>1:3.0</td></tr>
+<tr><td><b>0762.HK</b></td><td>中国联通</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">75%</td><td>2.95</td><td>3.02</td><td>2.81</td>
+<td>3.62</td><td>4.17</td><td>1:3.0</td></tr>
+<tr><td><b>1880.HK</b></td><td>中国中免</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">75%</td><td>36.87</td><td>45.30</td><td>35.03</td>
+<td>54.36</td><td>62.61</td><td>1:3.0</td></tr>
+<tr><td><b>6030.HK</b></td><td>中信证券</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">72%</td><td>13.17</td><td>14.12</td><td>12.51</td>
+<td>16.95</td><td>19.52</td><td>1:3.0</td></tr>
+<tr><td><b>9698.HK</b></td><td>万国数据</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">71%</td><td>46.55</td><td>54.20</td><td>44.22</td>
+<td>65.04</td><td>74.90</td><td>1:3.0</td></tr>
+<tr><td><b>0762.HK</b></td><td>中国联通</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">70%</td><td>2.78</td><td>2.99</td><td>2.64</td>
+<td>3.59</td><td>4.13</td><td>1:3.0</td></tr>
+<tr><td><b>2688.HK</b></td><td>新奥能源</td><td>月线缩量见底</td><td>monthly</td>
+<td style="color:var(--green)">69%</td><td>42.23</td><td>50.09</td><td>40.12</td>
+<td>60.10</td><td>69.22</td><td>1:3.0</td></tr>
+<tr><td><b>GC=F</b></td><td>黄金期货</td><td>月线爆量翻黑</td><td>monthly</td>
+<td style="color:var(--green)">60%</td><td>2072.00</td><td>1963.90</td><td>2175.60</td>
+<td>1669.32</td><td>1472.93</td><td>1:2.5</td></tr>
+<tr><td><b>GC=F</b></td><td>黄金期货</td><td>月线爆量翻黑</td><td>monthly</td>
+<td style="color:var(--green)">56%</td><td>2130.20</td><td>2048.40</td><td>2236.71</td>
+<td>1741.14</td><td>1536.30</td><td>1:2.5</td></tr>
 </table></div></div><div class="section">
-<h2>📈 月线缩量见底 — 卖压枯竭 (蔡森第461集)</h2>
-<p style="color:var(--muted);margin-bottom:12px">月线级别缩量 = 卖压枯竭信号。量比 < 0.5 且在低位区域 = 底部区域确认。</p>
-<div class="scroll-table">
-<table>
-<tr><th>代码</th><th>名称</th><th>价格</th><th>日线</th><th>周线</th><th>月线</th><th>信号详情</th></tr>
-<tr>
-<td><b>2007.HK</b></td><td>碧桂园</td><td>0.29</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend bear">空头</span></td>
-<td>🟢 月线缩量见底: 量比 0.0x, 低位 2% → 蔡森: 卖压枯竭, 底部区域 (置信度 88%)</td>
-</tr>
-<tr>
-<td><b>0762.HK</b></td><td>中国联通</td><td>7.32</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td>🟢 月线缩量见底: 量比 0.5x, 低位 6% → 蔡森: 卖压枯竭, 底部区域 (置信度 78%)</td>
-</tr>
-<tr>
-<td><b>2858.HK</b></td><td>易方达恒生科技</td><td>2.10</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td>🟢 月线缩量见底: 量比 0.2x, 低位 1% → 蔡森: 卖压枯竭, 底部区域 (置信度 88%)</td>
-</tr>
-<tr>
-<td><b>0981.HK</b></td><td>中芯国际</td><td>58.95</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td>🟢 月线缩量见底: 量比 0.4x, 低位 5% → 蔡森: 卖压枯竭, 底部区域 (置信度 82%)</td>
-</tr>
-<tr>
-<td><b>9901.HK</b></td><td>新东方在线</td><td>45.82</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td>🟢 月线缩量见底: 量比 0.3x, 低位 1% → 蔡森: 卖压枯竭, 底部区域 (置信度 86%)</td>
-</tr>
-<tr>
-<td><b>2827.HK</b></td><td>标智沪深300</td><td>47.14</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td>🟢 月线缩量见底: 量比 0.1x, 低位 22% → 蔡森: 卖压枯竭, 底部区域 (置信度 80%)</td>
-</tr>
-<tr>
-<td><b>2688.HK</b></td><td>新奥能源</td><td>61.05</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td>🟢 月线缩量见底: 量比 0.5x, 低位 26% → 蔡森: 卖压枯竭, 底部区域 (置信度 69%)</td>
-</tr>
-<tr>
-<td><b>6098.HK</b></td><td>碧桂园服务</td><td>6.23</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td>🟢 月线缩量见底: 量比 0.5x, 低位 8% → 蔡森: 卖压枯竭, 底部区域 (置信度 76%)</td>
-</tr>
-<tr>
-<td><b>9698.HK</b></td><td>万国数据</td><td>42.48</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td>🟢 月线缩量见底: 量比 0.5x, 低位 19% → 蔡森: 卖压枯竭, 底部区域 (置信度 71%)</td>
-</tr>
-<tr>
-<td><b>6030.HK</b></td><td>中信证券</td><td>26.56</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td>🟢 月线缩量见底: 量比 0.5x, 低位 19% → 蔡森: 卖压枯竭, 底部区域 (置信度 72%)</td>
-</tr>
+<h2>📈📉 月线爆量/缩量 (蔡森第461集)</h2><h3>🔴 月线爆量翻黑 — 顶部警告</h3><div class="scroll-table"><table>
+<tr><th>代码</th><th>名称</th><th>价格</th><th>详情</th></tr><tr><td><b>GC=F</b></td><td>黄金期货</td><td>4817.80</td><td>🔴 月线爆量翻黑: 量比 4.1x, 高位 85% 阴线 → 蔡森: 月线级别顶部信号, 重大卖压</td></tr>
+</table></div><h3>🟢 月线缩量见底 — 底部区域</h3><div class="scroll-table"><table>
+<tr><th>代码</th><th>名称</th><th>价格</th><th>日</th><th>周</th><th>月</th><th>详情</th></tr><tr><td><b>2007.HK</b></td><td>碧桂园</td><td>0.29</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td><td><span class="trend bear">空头</span></td>
+<td>🟢 月线缩量见底: 量比 0.0x, 低位 2% → 蔡森: 卖压枯竭, 底部区域 (88%)</td></tr>
+<tr><td><b>GC=F</b></td><td>黄金期货</td><td>4817.80</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
+<td>🟢 月线缩量见底: 量比 0.1x, 低位 3% → 蔡森: 卖压枯竭, 底部区域 (88%)</td></tr>
+<tr><td><b>0762.HK</b></td><td>中国联通</td><td>7.32</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td>
+<td>🟢 月线缩量见底: 量比 0.5x, 低位 6% → 蔡森: 卖压枯竭, 底部区域 (78%)</td></tr>
+<tr><td><b>2858.HK</b></td><td>易方达恒生科技</td><td>2.10</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
+<td>🟢 月线缩量见底: 量比 0.2x, 低位 1% → 蔡森: 卖压枯竭, 底部区域 (88%)</td></tr>
+<tr><td><b>0788.HK</b></td><td>中国铁塔</td><td>10.98</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
+<td>🟢 月线缩量见底: 量比 0.4x, 低位 6% → 蔡森: 卖压枯竭, 底部区域 (79%)</td></tr>
+<tr><td><b>0981.HK</b></td><td>中芯国际</td><td>58.95</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
+<td>🟢 月线缩量见底: 量比 0.4x, 低位 5% → 蔡森: 卖压枯竭, 底部区域 (82%)</td></tr>
+<tr><td><b>9901.HK</b></td><td>新东方在线</td><td>45.82</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
+<td>🟢 月线缩量见底: 量比 0.3x, 低位 1% → 蔡森: 卖压枯竭, 底部区域 (86%)</td></tr>
+<tr><td><b>2827.HK</b></td><td>标智沪深300</td><td>47.14</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend neutral">盘整</span></td>
+<td>🟢 月线缩量见底: 量比 0.1x, 低位 22% → 蔡森: 卖压枯竭, 底部区域 (80%)</td></tr>
+<tr><td><b>2688.HK</b></td><td>新奥能源</td><td>61.05</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
+<td>🟢 月线缩量见底: 量比 0.5x, 低位 26% → 蔡森: 卖压枯竭, 底部区域 (69%)</td></tr>
+<tr><td><b>6098.HK</b></td><td>碧桂园服务</td><td>6.23</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td>
+<td>🟢 月线缩量见底: 量比 0.5x, 低位 8% → 蔡森: 卖压枯竭, 底部区域 (76%)</td></tr>
+<tr><td><b>9698.HK</b></td><td>万国数据</td><td>42.48</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
+<td>🟢 月线缩量见底: 量比 0.5x, 低位 19% → 蔡森: 卖压枯竭, 底部区域 (71%)</td></tr>
+<tr><td><b>6030.HK</b></td><td>中信证券</td><td>26.56</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
+<td>🟢 月线缩量见底: 量比 0.5x, 低位 19% → 蔡森: 卖压枯竭, 底部区域 (72%)</td></tr>
+<tr><td><b>1880.HK</b></td><td>中国中免</td><td>66.05</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
+<td>🟢 月线缩量见底: 量比 0.4x, 低位 19% → 蔡森: 卖压枯竭, 底部区域 (75%)</td></tr>
 </table></div></div><div class="section">
-<h2>⚠️ 康波周期警告 — 繁荣末期 / 萧条期 (蔡森第456集)</h2>
-<div class="note">蔡森: "八年经济循环与康波五十年大周期! 虚假的繁荣!" 康波秋季 = 涨幅巨大但量能萎缩, 警惕大转折!</div>
-<div class="grid"><div class="card">
-<div class="card-header"><span class="sym">2858.HK</span><span class="name">易方达恒生科技</span><span class="price">2.10</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">0981.HK</span><span class="name">中芯国际</span><span class="price">58.95</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">9698.HK</span><span class="name">万国数据</span><span class="price">42.48</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">2388.HK</span><span class="name">中银香港</span><span class="price">43.82</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">6030.HK</span><span class="name">中信证券</span><span class="price">26.56</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">0939.HK</span><span class="name">建设银行</span><span class="price">8.61</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">3988.HK</span><span class="name">中国银行</span><span class="price">5.09</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">2269.HK</span><span class="name">药明生物</span><span class="price">35.54</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">0267.HK</span><span class="name">中信股份</span><span class="price">12.72</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">0388.HK</span><span class="name">香港交易所</span><span class="price">406.40</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">1177.HK</span><span class="name">中国生物制药</span><span class="price">5.97</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">2018.HK</span><span class="name">瑞声科技</span><span class="price">37.90</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">2313.HK</span><span class="name">申洲国际</span><span class="price">47.30</span></div>
-<div class="kangbo">🌊 康波: 萧条期 (冬季)</div>
-<div style="font-size:.85em;color:var(--muted)">长期跌超30%, 康波萧条 → 蔡森: 抄底才有超额利润</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">9626.HK</span><span class="name">哔哩哔哩</span><span class="price">193.30</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div><div class="card">
-<div class="card-header"><span class="sym">1211.HK</span><span class="name">比亚迪</span><span class="price">111.30</span></div>
-<div class="kangbo">🌊 康波: 繁荣末期 (秋季)</div>
-<div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div>
-</div></div></div><div class="section">
-<h2>🏦 板块趋势分析</h2>
+<h2>⚠️ 康波周期警告</h2>
+<div class="note">蔡森 (第456集): "八年经济循环与康波五十年大周期! 虚假的繁荣!" 康波秋季 = 量能萎缩+涨幅大 = 警惕!</div>
+<div class="grid"><div class="card"><div class="card-header"><span class="sym">2858.HK</span><span class="name">易方达恒生科技</span><span class="price">2.10</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">0981.HK</span><span class="name">中芯国际</span><span class="price">58.95</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">9698.HK</span><span class="name">万国数据</span><span class="price">42.48</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">2388.HK</span><span class="name">中银香港</span><span class="price">43.82</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">6030.HK</span><span class="name">中信证券</span><span class="price">26.56</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">0939.HK</span><span class="name">建设银行</span><span class="price">8.61</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">3988.HK</span><span class="name">中国银行</span><span class="price">5.09</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">2269.HK</span><span class="name">药明生物</span><span class="price">35.54</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">0267.HK</span><span class="name">中信股份</span><span class="price">12.72</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">0388.HK</span><span class="name">香港交易所</span><span class="price">406.40</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">1177.HK</span><span class="name">中国生物制药</span><span class="price">5.97</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">2018.HK</span><span class="name">瑞声科技</span><span class="price">37.90</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">2313.HK</span><span class="name">申洲国际</span><span class="price">47.30</span></div>
+<div class="kangbo">🌊 萧条期 (冬季)</div><div style="font-size:.85em;color:var(--muted)">长期跌超30%, 康波萧条 → 蔡森: 抄底才有超额利润</div></div><div class="card"><div class="card-header"><span class="sym">9626.HK</span><span class="name">哔哩哔哩</span><span class="price">193.30</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div><div class="card"><div class="card-header"><span class="sym">1211.HK</span><span class="name">比亚迪</span><span class="price">111.30</span></div>
+<div class="kangbo">🌊 繁荣末期 (秋季)</div><div style="font-size:.85em;color:var(--muted)">涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!</div></div></div></div><div class="section">
+<h2>🏦 板块趋势一览</h2>
 <div class="scroll-table">
 <table>
-<tr><th>板块</th><th>标的</th><th>名称</th><th>价格</th><th>日线</th><th>周线</th><th>月线</th><th>基本面信号</th></tr>
-<tr><td rowspan="6"><b>银行</b></td>
-<td>0939.HK</td><td>建设银行</td><td>8.61</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><th>板块</th><th>代码</th><th>名称</th><th>价格</th><th>日线</th><th>周线</th><th>月线</th><th>基本面</th></tr>
+<tr><td rowspan="6"><b>🏦 银行</b></td><td>0939.HK</td><td>建设银行</td><td>8.61</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>1</td></tr>
-<tr>
-<td>1398.HK</td><td>工商银行</td><td>7.00</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>1398.HK</td><td>工商银行</td><td>7.00</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>1</td></tr>
-<tr>
-<td>3968.HK</td><td>招商银行</td><td>51.00</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>3968.HK</td><td>招商银行</td><td>51.00</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>3988.HK</td><td>中国银行</td><td>5.09</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>3988.HK</td><td>中国银行</td><td>5.09</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>1</td></tr>
-<tr>
-<td>3328.HK</td><td>交通银行</td><td>7.15</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>3328.HK</td><td>交通银行</td><td>7.15</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>2388.HK</td><td>中银香港</td><td>43.82</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>2388.HK</td><td>中银香港</td><td>43.82</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>1</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="8"><b>科技</b></td>
-<td>0700.HK</td><td>腾讯</td><td>506.00</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td rowspan="8"><b>💻 科技</b></td><td>0700.HK</td><td>腾讯</td><td>506.00</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>9988.HK</td><td>阿里巴巴</td><td>135.60</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>9988.HK</td><td>阿里巴巴</td><td>135.60</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>1810.HK</td><td>小米集团</td><td>31.54</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>1810.HK</td><td>小米集团</td><td>31.54</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>3690.HK</td><td>美团</td><td>85.25</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend bear">空头</span></td>
+<tr><td>3690.HK</td><td>美团</td><td>85.25</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td><td><span class="trend bear">空头</span></td>
 <td>0</td></tr>
-<tr>
-<td>9618.HK</td><td>京东集团</td><td>121.70</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
+<tr><td>9618.HK</td><td>京东集团</td><td>121.70</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td>
 <td>0</td></tr>
-<tr>
-<td>9888.HK</td><td>百度集团</td><td>121.70</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>9888.HK</td><td>百度集团</td><td>121.70</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>9626.HK</td><td>哔哩哔哩</td><td>193.30</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>9626.HK</td><td>哔哩哔哩</td><td>193.30</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>9698.HK</td><td>万国数据</td><td>42.48</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>9698.HK</td><td>万国数据</td><td>42.48</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>1</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="6"><b>地产</b></td>
-<td>0012.HK</td><td>恒基地产</td><td>30.10</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td rowspan="6"><b>🏠 地产</b></td><td>0012.HK</td><td>恒基地产</td><td>30.10</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>0016.HK</td><td>新鸿基地产</td><td>134.20</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>0016.HK</td><td>新鸿基地产</td><td>134.20</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>0017.HK</td><td>新世界发展</td><td>8.64</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>0017.HK</td><td>新世界发展</td><td>8.64</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>1109.HK</td><td>华润置地</td><td>31.50</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>1109.HK</td><td>华润置地</td><td>31.50</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>1113.HK</td><td>长实集团</td><td>47.18</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>1113.HK</td><td>长实集团</td><td>47.18</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>1928.HK</td><td>金沙中国</td><td>17.35</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
+<tr><td>1928.HK</td><td>金沙中国</td><td>17.35</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td>
 <td>0</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="4"><b>能源</b></td>
-<td>0857.HK</td><td>中国石油</td><td>10.51</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td rowspan="4"><b>⛽ 能源</b></td><td>0857.HK</td><td>中国石油</td><td>10.51</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>0883.HK</td><td>中国海洋石油</td><td>26.60</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>0883.HK</td><td>中国海洋石油</td><td>26.60</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>0386.HK</td><td>中国石油化工</td><td>4.54</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>0386.HK</td><td>中国石油化工</td><td>4.54</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>1088.HK</td><td>中国神华</td><td>45.96</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>1088.HK</td><td>中国神华</td><td>45.96</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="3"><b>保险</b></td>
-<td>1299.HK</td><td>友邦保险</td><td>82.20</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td rowspan="3"><b>🛡️ 保险</b></td><td>1299.HK</td><td>友邦保险</td><td>82.20</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>2628.HK</td><td>中国人寿</td><td>27.40</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>2628.HK</td><td>中国人寿</td><td>27.40</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>2318.HK</td><td>中国平安</td><td>60.90</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>2318.HK</td><td>中国平安</td><td>60.90</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="2"><b>电讯</b></td>
-<td>0941.HK</td><td>中国移动</td><td>81.55</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td rowspan="4"><b>📡 电讯</b></td><td>0941.HK</td><td>中国移动</td><td>81.55</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>3</td></tr>
-<tr>
-<td>0762.HK</td><td>中国联通</td><td>7.32</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>0762.HK</td><td>中国联通</td><td>7.32</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td>
+<td>3</td></tr>
+<tr><td>0728.HK</td><td>中国电信</td><td>4.89</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td>
+<td>0</td></tr>
+<tr><td>0788.HK</td><td>中国铁塔</td><td>10.98</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>3</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="8"><b>消费</b></td>
-<td>0175.HK</td><td>吉利汽车</td><td>24.42</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td rowspan="9"><b>🛒 消费</b></td><td>0175.HK</td><td>吉利汽车</td><td>24.42</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>1211.HK</td><td>比亚迪</td><td>111.30</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>1211.HK</td><td>比亚迪</td><td>111.30</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>2020.HK</td><td>安踏体育</td><td>84.30</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
+<tr><td>2020.HK</td><td>安踏体育</td><td>84.30</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td>
 <td>0</td></tr>
-<tr>
-<td>2313.HK</td><td>申洲国际</td><td>47.30</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
+<tr><td>2313.HK</td><td>申洲国际</td><td>47.30</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td>
 <td>0</td></tr>
-<tr>
-<td>2319.HK</td><td>蒙牛乳业</td><td>16.62</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>2319.HK</td><td>蒙牛乳业</td><td>16.62</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>9961.HK</td><td>携程集团</td><td>425.80</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>9961.HK</td><td>携程集团</td><td>425.80</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
-<tr>
-<td>9901.HK</td><td>新东方在线</td><td>45.82</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>9901.HK</td><td>新东方在线</td><td>45.82</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>2</td></tr>
-<tr>
-<td>1177.HK</td><td>中国生物制药</td><td>5.97</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>1177.HK</td><td>中国生物制药</td><td>5.97</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
+<td>0</td></tr>
+<tr><td>1880.HK</td><td>中国中免</td><td>66.05</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
+<td>1</td></tr>
+<tr style="background:var(--card)"><td colspan="8"></td></tr>
+<tr><td rowspan="3"><b>💊 医药</b></td><td>1093.HK</td><td>石药集团</td><td>8.82</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
+<td>0</td></tr>
+<tr><td>2269.HK</td><td>药明生物</td><td>35.54</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
+<td>0</td></tr>
+<tr><td>6618.HK</td><td>京东健康</td><td>48.18</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
 <td>0</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="3"><b>医药</b></td>
-<td>1093.HK</td><td>石药集团</td><td>8.82</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td>0</td></tr>
-<tr>
-<td>2269.HK</td><td>药明生物</td><td>35.54</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td>0</td></tr>
-<tr>
-<td>6618.HK</td><td>京东健康</td><td>48.18</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td>0</td></tr>
-<tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="5"><b>公用</b></td>
-<td>0002.HK</td><td>中电控股</td><td>74.65</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td rowspan="7"><b>🔌 公用</b></td><td>0002.HK</td><td>中电控股</td><td>74.65</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>3</td></tr>
-<tr>
-<td>0003.HK</td><td>香港中华煤气</td><td>7.17</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>0003.HK</td><td>香港中华煤气</td><td>7.17</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
 <td>2</td></tr>
-<tr>
-<td>0005.HK</td><td>汇丰控股</td><td>141.30</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>0005.HK</td><td>汇丰控股</td><td>141.30</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>0006.HK</td><td>电能实业</td><td>63.15</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>0006.HK</td><td>电能实业</td><td>63.15</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>0</td></tr>
-<tr>
-<td>0066.HK</td><td>港铁公司</td><td>33.62</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>0066.HK</td><td>港铁公司</td><td>33.62</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend neutral">盘整</span></td>
 <td>1</td></tr>
+<tr><td>0836.HK</td><td>华润电力</td><td>18.85</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
+<td>0</td></tr>
+<tr><td>0916.HK</td><td>龙源电力</td><td>6.26</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bear">空头</span></td>
+<td>0</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
-<tr><td rowspan="5"><b>ETF/指数</b></td>
-<td>2800.HK</td><td>盈富基金</td><td>26.36</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td rowspan="1"><b>🏭 工业</b></td><td>2050.HK</td><td>三一国际</td><td>31.72</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend neutral">盘整</span></td>
+<td>0</td></tr>
+<tr style="background:var(--card)"><td colspan="8"></td></tr>
+<tr><td rowspan="2"><b>💰 黄金</b></td><td>GC=F</td><td>黄金期货</td><td>4817.80</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
+<td>4</td></tr>
+<tr><td>GLD</td><td>黄金ETF GLD</td><td>440.08</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
+<td>0</td></tr>
+<tr style="background:var(--card)"><td colspan="8"></td></tr>
+<tr><td rowspan="5"><b>📊 ETF/指数</b></td><td>2800.HK</td><td>盈富基金</td><td>26.36</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>1</td></tr>
-<tr>
-<td>2822.HK</td><td>南方A50</td><td>15.76</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>2822.HK</td><td>南方A50</td><td>15.76</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td>
 <td>2</td></tr>
-<tr>
-<td>2823.HK</td><td>安硕A50</td><td>17.02</td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>2823.HK</td><td>安硕A50</td><td>17.02</td>
+<td><span class="trend bull">多头</span></td><td><span class="trend bull">多头</span></td><td><span class="trend neutral">盘整</span></td>
 <td>2</td></tr>
-<tr>
-<td>2827.HK</td><td>标智沪深300</td><td>47.14</td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
-<td><span class="trend neutral">盘整</span></td>
+<tr><td>2827.HK</td><td>标智沪深300</td><td>47.14</td>
+<td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td><td><span class="trend neutral">盘整</span></td>
 <td>2</td></tr>
-<tr>
-<td>2858.HK</td><td>易方达恒生科技</td><td>2.10</td>
-<td><span class="trend bear">空头</span></td>
-<td><span class="trend neutral">盘整</span></td>
-<td><span class="trend bull">多头</span></td>
+<tr><td>2858.HK</td><td>易方达恒生科技</td><td>2.10</td>
+<td><span class="trend bear">空头</span></td><td><span class="trend neutral">盘整</span></td><td><span class="trend bull">多头</span></td>
 <td>3</td></tr>
 <tr style="background:var(--card)"><td colspan="8"></td></tr>
 </table></div></div><div class="section">
-<h2>📖 分析方法论 — 蔡森技术分析 v3.0</h2>
-<div class="card" style="max-width:800px">
-<h3>🧠 蔡森核心理念</h3>
+<h2>📖 蔡森技术分析 v3.0 方法论</h2>
+<div class="card" style="max-width:900px">
+<h3>🧠 核心理念</h3>
 <ul style="padding-left:20px;color:var(--muted)">
 <li><b>量价为王</b> — 量价是最当下、最即时的信号，其他指标都是滞后指标</li>
-<li><b>型态学</b> — 通过K线型态识别主力动向：进货→拉抬→出货</li>
-<li><b>严设止损</b> — 每笔交易设好止损点，看错立即出场 (小赔大赚 3:1)</li>
-<li><b>基本面 vs 呬爛面</b> — 量能配合+R:R≥2 = 基本面; 没量能配合 = 呬爛面 (第462集)</li>
+<li><b>型态学</b> — K线型态识别主力动向：进货→拉抬→出货</li>
+<li><b>严设止损</b> — 小赔大赚 3:1 风险回报比</li>
+<li><b>基本面 vs 呬爛面</b> — 量能配合+R:R≥2 = 基本面; 没量 = 呬爛面 (第462集)</li>
 </ul>
-
-<h3>📐 v3.0 新增 (基于第452-462集)</h3>
+<h3>📐 v3.0 新增功能</h3>
 <ul style="padding-left:20px;color:var(--muted)">
-<li><b>康波周期 & 八年循环</b> — 判断宏观位置: 上行/下行/萧条/繁荣末期 (第456集)</li>
-<li><b>月线爆量翻黑</b> — 月线级别爆量收阴 = 重大顶部 (第461集)</li>
-<li><b>月线缩量见底</b> — 月线级别缩量到低位 = 底部区域 (第461集)</li>
-<li><b>颈线割喉战</b> — 反复测试关键颈线 = 多空决战区域 (第460集)</li>
-<li><b>棒康短线法</b> — Fib50%回撤位短线精确入场 (第458,460集)</li>
-<li><b>騙線确认</b> — 同一颈线多次假突破 = 空方确认 (第460集)</li>
-<li><b>对数图量幅</b> — 颈线²/底部 = 对数目标，比算术更准确 (第453集)</li>
-<li><b>月线头肩型态</b> — 用月线大图看长期反转 (第461集)</li>
+<li>🌊 <b>康波周期</b> — 上行/下行/萧条/繁荣末期 (第456集)</li>
+<li>📈 <b>月线爆量翻黑</b> — 月线级别顶部 (第461集)</li>
+<li>📉 <b>月线缩量见底</b> — 月线级别底部 (第461集)</li>
+<li>⚔️ <b>颈线割喉战</b> — 多空决战区域 (第460集)</li>
+<li>🎯 <b>棒康短线法</b> — Fib50%精确入场 (第458,460集)</li>
+<li>🕳️ <b>騙線确认</b> — 多次假突破确认 (第460集)</li>
+<li>📐 <b>对数图量幅</b> — 更精确的目标计算 (第453集)</li>
+<li>📊 <b>月线头肩型态</b> — 长期反转信号 (第461集)</li>
 </ul>
-
-<h3>🏷️ 信号质量分类</h3>
-<ul style="padding-left:20px;color:var(--muted)">
-<li>✅ <b>基本面</b>: 量能配合 + R:R ≥ 2 + 跌幅 ≥ 8% + 反弹超50% → 可信</li>
-<li>⚠️ <b>呬爛面</b>: 量能不足 或 R:R < 1.5 或 跌幅太浅 → 要小心! (第462集)</li>
-</ul>
-
-<h3>⏱️ 时间框架权重</h3>
-<ul style="padding-left:20px;color:var(--muted)">
-<li>🟣 <b>月线</b> — 最重大, 决定长期方向</li>
-<li>🔵 <b>周线</b> — 重要, "量先价行上档无压"</li>
-<li>⚪ <b>日线</b> — 找精确入场时机</li>
-</ul>
+<h3>⏱️ 时间框架权重: 🟣月线 > 🔵周线 > ⚪日线</h3>
 </div>
 </div>
-
-<!-- ===== SECTION 9: ERRORS ===== -->
 
 <div class="footer">
-  <p>蔡森技术分析工具 v3.0 | 基于蔡森《經典技術分析》第452-462集</p>
-  <p>⚠️ 本报告仅供学习研究使用，不构成投资建议。股市有风险，投资需谨慎。</p>
-  <p>Generated: 2026-04-17 12:38:46</p>
+<p>蔡森技术分析工具 v3.0 | 基于蔡森《經典技術分析》第452-462集 (20260119-20260407)</p>
+<p>⚠️ 本报告仅供学习研究使用，不构成投资建议。股市有风险，投资需谨慎。</p>
+<p>Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
 </div>
-
 </div>
 </body>
 </html>
