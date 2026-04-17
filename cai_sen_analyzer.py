@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-蔡森技术分析工具 v2.0 (Cai Sen Technical Analysis Tool)
+蔡森技术分析工具 v3.0 (Cai Sen Technical Analysis Tool)
 =======================================================
 基于蔡森的投资方法论 (26年实战经验):
 1. 只看量与价 (Volume & Price only)
@@ -9,18 +9,31 @@
 4. 颈线识别与型态分析 (Neckline & Pattern Recognition)
 5. 涨幅满足计算 (Price Target Calculation)
 6. 严格止损 (Strict Stop-Loss)
-7. 多时间框架分析 (Multi-timeframe: Daily + Weekly + Hourly)
+7. 多时间框架分析 (Multi-timeframe: Daily + Weekly + Monthly + Hourly)
 8. 岛型反转 (Island Reversal)
 9. 量先价行 (Volume Leads Price)
 10. 支撑分级 (Support Levels: Short-term vs Long-term)
 
+v3.0 基于蔡森2026年1-4月《經典技術分析》第452-462集实战教学:
+11. 康波周期 & 八年经济循环 (Kondratieff Wave & 8-Year Cycle) — Ep 456
+12. 月线爆量翻黑 (Monthly Chart Exhaustion) — Ep 461
+13. 颈线割喉战 (Neckline-Cutting Battle) — Ep 460
+14. 棒康短线高胜率法 (Bangcon Short-Term Futures) — Ep 458, 460
+15. 騙線确认增强 (Enhanced Fake Line Detection) — Ep 460
+16. 對數圖量幅 (Log-Scale Amplitude Targets) — Ep 453
+17. 長線月線大圖 (Long-Term Monthly Chart Analysis) — Ep 461
+
 Author: Stock Analysis Tool
-Version: 2.1
-Update: 2026-04-13
-  - 新增: V型反轉检测 (V-Reversal Detection with Probability Scoring)
-  - 新增: 量價背離检测 (Volume-Price Divergence Detector)
-  - 新增: 基本面 vs 呬爛面过滤器 (Real vs Bluff Signal Filter)
-  - 基于蔡森第462集《經典技術分析》20260407
+Version: 3.0
+Update: 2026-04-17
+  - 新增: 康波周期检测 (Kondratieff Wave & 8-Year Economic Cycle)
+  - 新增: 月线爆量翻黑 (Monthly Exhaustion Signal)
+  - 新增: 颈线割喉战检测 (Neckline-Cutting Battle)
+  - 新增: 棒康短线高胜率法 (Short-Term Futures High Win-Rate)
+  - 新增: 騙線确认增强 (Enhanced Fake Breakout Confirmation)
+  - 新增: 對數圖量幅计算 (Log-Scale Amplitude Targets)
+  - 新增: 長線月線分析 (Long-Term Monthly Chart Analyzer)
+  - 基于蔡森《經典技術分析》第452-462集 (20260119-20260407)
 """
 
 import sys
@@ -62,6 +75,18 @@ class SignalType(Enum):
     V_REVERSAL = "V型反转"             # V-Shaped Reversal (Long/Short)
     VOL_PRICE_DIVERGENCE_UP = "量价背离(上行)"   # Volume-Price Divergence Bullish
     VOL_PRICE_DIVERGENCE_DOWN = "量价背离(下行)"  # Volume-Price Divergence Bearish
+    # v3.0 新增信号类型 (based on episodes 452-462)
+    KANGBO_CYCLE_UP = "康波上行期"       # Kondratieff Wave Upswing (Long Macro)
+    KANGBO_CYCLE_DOWN = "康波下行期"     # Kondratieff Wave Downswing (Bearish Macro)
+    EIGHT_YEAR_CYCLE = "八年循环转折"     # 8-Year Cycle Turning Point
+    MONTHLY_EXHAUSTION_UP = "月线爆量翻黑"   # Monthly Exhaustion Top (Short)
+    MONTHLY_EXHAUSTION_DOWN = "月线缩量见底"  # Monthly Bottoming (Long)
+    NECKLINE_BATTLE = "颈线割喉战"       # Critical Neckline Battle Zone
+    BANGCON_SHORT = "棒康空点"           # Bangcon Short-Term Futures Short
+    BANGCON_LONG = "棒康多点"            # Bangcon Short-Term Futures Long
+    FAKE_LINE_CONFIRMED = "骗线确认"     # Confirmed Fake Breakout (Enhanced False Breakout)
+    LOG_SCALE_TARGET = "对数图量幅"       # Log-Scale Price Target
+    MONTHLY_HEAD_SHOULDER = "月线头肩型态"  # Monthly Head & Shoulders Pattern
 
 
 class Trend(Enum):
@@ -124,6 +149,13 @@ class AnalysisResult:
     key_support: Optional[float] = None
     key_resistance: Optional[float] = None
     long_term_support: Optional[float] = None
+    # v3.0 新增
+    monthly_trend: str = "N/A"
+    kangbo_phase: str = "未知"           # 康波周期阶段
+    eight_year_phase: str = "未知"       # 八年循环阶段
+    bangcon_signals: List[Dict] = field(default_factory=list)  # 棒康短线信号
+    neck_battle_zones: List[float] = field(default_factory=list)  # 颈线割喉区域
+    log_scale_targets: Dict = field(default_factory=dict)  # 对数图量幅目标
     summary: str = ""
 
 
@@ -132,16 +164,17 @@ class AnalysisResult:
 # ============================================================
 
 class CaiSenAnalyzer:
-    """蔡森技术分析核心引擎 v2.0"""
+    """蔡森技术分析核心引擎 v3.0"""
 
     def __init__(self, lookback_months: int = 12):
         self.lookback_months = lookback_months
         self.data: Optional[pd.DataFrame] = None
         self.weekly_data: Optional[pd.DataFrame] = None
+        self.monthly_data: Optional[pd.DataFrame] = None  # v3.0 新增: 月线数据
         self.symbol: str = ""
 
-    def fetch_data(self, symbol: str, period: str = "2y") -> pd.DataFrame:
-        """获取股票数据 (默认2年以便周线分析)"""
+    def fetch_data(self, symbol: str, period: str = "5y") -> pd.DataFrame:
+        """获取股票数据 (默认5年以便周线+月线分析)"""
         self.symbol = symbol
         ticker = yf.Ticker(symbol)
         self.data = ticker.history(period=period)
@@ -149,6 +182,8 @@ class CaiSenAnalyzer:
             raise ValueError(f"无法获取 {symbol} 的数据")
         # 生成周线数据
         self._build_weekly_data()
+        # v3.0: 生成月线数据
+        self._build_monthly_data()
         return self.data
 
     def load_data(self, symbol: str, df: pd.DataFrame):
@@ -156,6 +191,7 @@ class CaiSenAnalyzer:
         self.symbol = symbol
         self.data = df.copy()
         self._build_weekly_data()
+        self._build_monthly_data()
 
     def _build_weekly_data(self):
         """从日线数据生成周线数据"""
@@ -173,6 +209,23 @@ class CaiSenAnalyzer:
             'Volume': 'sum'
         }).dropna()
         self.weekly_data = weekly
+
+    def _build_monthly_data(self):
+        """v3.0: 从日线数据生成月线数据 (用于月线爆量翻黑 & 康波分析)"""
+        if self.data is None or len(self.data) < 60:
+            self.monthly_data = None
+            return
+        df = self.data.copy()
+        df['Year'] = df.index.year
+        df['Month'] = df.index.month
+        monthly = df.groupby(['Year', 'Month']).agg({
+            'Open': 'first',
+            'High': 'max',
+            'Low': 'min',
+            'Close': 'last',
+            'Volume': 'sum'
+        }).dropna()
+        self.monthly_data = monthly
 
     def _get_current_price(self) -> float:
         """获取当前价格，处理 NaN"""
@@ -255,7 +308,7 @@ class CaiSenAnalyzer:
     # --------------------------------------------------------
 
     def detect_patterns(self) -> List[Pattern]:
-        """识别所有技术型态"""
+        """识别所有技术型态 v3.0"""
         patterns = []
         # 日线型态 (做空)
         patterns.extend(self._detect_po_di_fan())
@@ -278,6 +331,12 @@ class CaiSenAnalyzer:
         patterns.extend(self._detect_v_reversal())
         patterns.extend(self._detect_weekly_v_reversal())
         patterns.extend(self._detect_volume_price_divergence())
+        # v3.0 新增: 基于蔡森第452-462集实战
+        patterns.extend(self._detect_monthly_exhaustion())
+        patterns.extend(self._detect_neckline_battle())
+        patterns.extend(self._detect_bangcon_signals())
+        patterns.extend(self._detect_fake_line())
+        patterns.extend(self._detect_monthly_head_shoulders())
         # 应用基本面/呬爛面过滤
         patterns = self._apply_quality_filter(patterns)
         return patterns
@@ -1860,6 +1919,517 @@ class CaiSenAnalyzer:
 
         return self._deduplicate_patterns(patterns)
 
+    # --------------------------------------------------------
+    # v3.0 新增检测方法 (基于蔡森第452-462集)
+    # --------------------------------------------------------
+
+    def _detect_monthly_exhaustion(self) -> List[Pattern]:
+        """
+        月线爆量翻黑 / 月线缩量见底 (Ep 461)
+        ========================================
+        蔡森核心观点: "月线爆量翻黑" — 月线级别爆量后翻黑是重大顶部信号
+        反之: 月线缩量收窄见底是重大底部信号
+
+        逻辑:
+        - 爆量翻黑: 月线量能超过近6月均量2倍以上 + 收阴线 + 价格在相对高位
+        - 缩量见底: 月线量能低于近6月均量50%以下 + 价格在相对低位
+        """
+        patterns = []
+        if self.monthly_data is None or len(self.monthly_data) < 12:
+            return patterns
+
+        close = self.monthly_data['Close'].values
+        volume = self.monthly_data['Volume'].values
+        opens = self.monthly_data['Open'].values
+        highs = self.monthly_data['High'].values
+        lows = self.monthly_data['Low'].values
+        n = len(close)
+
+        for i in range(6, n):
+            avg_vol_6m = np.mean(volume[max(0, i-6):i])
+            if avg_vol_6m == 0:
+                continue
+
+            vol_ratio = volume[i] / avg_vol_6m
+            is_bearish_candle = close[i] < opens[i]
+            is_bullish_candle = close[i] > opens[i]
+
+            lookback = min(12, i)
+            recent_high = np.max(highs[max(0, i-lookback):i+1])
+            recent_low = np.min(lows[max(0, i-lookback):i+1])
+            price_position = (close[i] - recent_low) / (recent_high - recent_low) if recent_high != recent_low else 0.5
+
+            # 月线爆量翻黑 (顶部信号)
+            if vol_ratio > 2.0 and is_bearish_candle and price_position > 0.7:
+                confidence = min(0.5 + (vol_ratio - 2) * 0.1 + (price_position - 0.7) * 0.5, 0.92)
+                current = close[i]
+                patterns.append(Pattern(
+                    pattern_type=SignalType.MONTHLY_EXHAUSTION_UP,
+                    confidence=round(confidence, 2),
+                    neckline=round(recent_high, 2),
+                    entry_price=round(current, 2),
+                    stop_loss=round(recent_high * 1.05, 2),
+                    target_price=round(current * 0.85, 2),
+                    target_price_2=round(current * 0.75, 2),
+                    risk_reward_ratio=2.5,
+                    start_date=str(self.monthly_data.index[max(0, i-6)]),
+                    signal_date=str(self.monthly_data.index[i]),
+                    description=(
+                        f"🔴 月线爆量翻黑: 量比 {vol_ratio:.1f}x, 高位 {price_position:.0%} 阴线"
+                        f" → 蔡森: 月线级别顶部信号, 重大卖压"
+                    ),
+                    timeframe="monthly",
+                    signal_quality="基本面"
+                ))
+
+            # 月线缩量见底 (底部信号)
+            if vol_ratio < 0.5 and price_position < 0.3 and i >= 3:
+                prev_vol_ratio = volume[i-1] / avg_vol_6m if avg_vol_6m > 0 else 1
+                if prev_vol_ratio < 0.7:
+                    confidence = min(0.5 + (1 - vol_ratio) * 0.3 + (0.3 - price_position) * 0.5, 0.88)
+                    current = close[i]
+                    patterns.append(Pattern(
+                        pattern_type=SignalType.MONTHLY_EXHAUSTION_DOWN,
+                        confidence=round(confidence, 2),
+                        neckline=round(recent_low, 2),
+                        entry_price=round(current, 2),
+                        stop_loss=round(recent_low * 0.95, 2),
+                        target_price=round(current * 1.2, 2),
+                        target_price_2=round(current * 1.382, 2),
+                        risk_reward_ratio=3.0,
+                        start_date=str(self.monthly_data.index[max(0, i-6)]),
+                        signal_date=str(self.monthly_data.index[i]),
+                        description=(
+                            f"🟢 月线缩量见底: 量比 {vol_ratio:.1f}x, 低位 {price_position:.0%}"
+                            f" → 蔡森: 卖压枯竭, 底部区域"
+                        ),
+                        timeframe="monthly",
+                        signal_quality="基本面"
+                    ))
+
+        return patterns
+
+    def _detect_neckline_battle(self) -> List[Pattern]:
+        """
+        颈线割喉战检测 (Ep 460)
+        =========================
+        蔡森: "颈线割喉战, 谁先刎颈!"
+        当价格反复测试关键颈线时形成割喉战 — 多空决战区域
+
+        逻辑:
+        - 找近60天反复测试的颈线区域 (3次以上触及, 间距<2%)
+        - 当前价格处于颈线附近 (±1.5%)
+        """
+        patterns = []
+        df = self.data
+        if len(df) < 60:
+            return patterns
+
+        close = df['Close'].values
+        high = df['High'].values
+        low = df['Low'].values
+        volume = df['Volume'].values
+        dates = df.index
+
+        lookback = min(60, len(close))
+        seg_close = close[-lookback:]
+        seg_high = high[-lookback:]
+        seg_low = low[-lookback:]
+        seg_vol = volume[-lookback:]
+        current = seg_close[-1]
+
+        touch_prices = []
+        for i in range(3, lookback - 3):
+            if seg_high[i] >= max(seg_high[i-3:i+4]):
+                touch_prices.append(seg_high[i])
+            if seg_low[i] <= min(seg_low[i-3:i+4]):
+                touch_prices.append(seg_low[i])
+
+        tolerance = current * 0.015
+        used = set()
+        clusters = []
+        for i, p in enumerate(touch_prices):
+            if i in used:
+                continue
+            cluster = [p]
+            used.add(i)
+            for j, q in enumerate(touch_prices):
+                if j in used:
+                    continue
+                if abs(p - q) < tolerance:
+                    cluster.append(q)
+                    used.add(j)
+            if len(cluster) >= 3:
+                clusters.append(cluster)
+
+        for cluster in clusters:
+            avg_price = np.mean(cluster)
+            if abs(current - avg_price) / avg_price < 0.02:
+                num_touches = len(cluster)
+                recent_vol_trend = np.mean(seg_vol[-5:]) / np.mean(seg_vol[-20:-5]) if np.mean(seg_vol[-20:-5]) > 0 else 1.0
+
+                if current < avg_price:
+                    direction = "多头割喉风险"
+                    entry = round(avg_price * 1.005, 2)
+                    stop = round(avg_price * 0.97, 2)
+                    target = round(avg_price * 1.05, 2)
+                    emoji = "🔴"
+                else:
+                    direction = "空头割喉风险"
+                    entry = round(avg_price * 0.995, 2)
+                    stop = round(avg_price * 1.03, 2)
+                    target = round(avg_price * 0.95, 2)
+                    emoji = "🟢"
+
+                confidence = min(0.5 + num_touches * 0.05 + min(recent_vol_trend - 1, 0.5) * 0.3, 0.88)
+                patterns.append(Pattern(
+                    pattern_type=SignalType.NECKLINE_BATTLE,
+                    confidence=round(confidence, 2),
+                    neckline=round(avg_price, 2),
+                    entry_price=entry,
+                    stop_loss=stop,
+                    target_price=target,
+                    target_price_2=round(target * 1.618, 2) if current < avg_price else round(target * 0.618, 2),
+                    risk_reward_ratio=3.0,
+                    start_date=str(dates[-lookback].date()),
+                    signal_date=str(dates[-1].date()),
+                    description=(
+                        f"{emoji} 颈线割喉战: {direction} 颈线 {avg_price:.2f}"
+                        f" 被触及 {num_touches} 次, 量能趋势 {recent_vol_trend:.1f}x"
+                        f" → 蔡森: 谁先刎颈, 决战区域!"
+                    ),
+                    timeframe="daily",
+                    signal_quality="基本面"
+                ))
+
+        return patterns
+
+    def _detect_bangcon_signals(self) -> List[Pattern]:
+        """
+        棒康短线高胜率法 (Ep 458, 460)
+        =================================
+        蔡森: "棒康" — 短线期货操作, 高胜率法
+        核心: 找到破线后的等幅反弹/回落点, 用时间波对称概念
+
+        逻辑:
+        - 在已确认趋势中找短线精确入场点
+        - 使用Fibonacci回撤位
+        - 量能配合确认
+        """
+        patterns = []
+        df = self.data
+        if len(df) < 40:
+            return patterns
+
+        close = df['Close'].values
+        high = df['High'].values
+        low = df['Low'].values
+        volume = df['Volume'].values
+        dates = df.index
+
+        lookback = min(20, len(close))
+        seg_close = close[-lookback:]
+        seg_high = high[-lookback:]
+        seg_low = low[-lookback:]
+        seg_vol = volume[-lookback:]
+        current = seg_close[-1]
+
+        swing_high_idx = np.argmax(seg_high)
+        swing_low_idx = np.argmin(seg_low)
+        swing_high = seg_high[swing_high_idx]
+        swing_low = seg_low[swing_low_idx]
+        swing_range = swing_high - swing_low
+
+        if swing_range == 0 or swing_range / current < 0.03:
+            return patterns
+
+        ma5 = np.mean(seg_close[-5:])
+        ma10 = np.mean(seg_close[-10:]) if lookback >= 10 else ma5
+        avg_vol = np.mean(seg_vol)
+        recent_vol = np.mean(seg_vol[-3:])
+        vol_surge = recent_vol > avg_vol * 1.3
+
+        # 棒康空点: 下跌趋势中反弹到Fib50%
+        if ma5 < ma10 and swing_high_idx < lookback - 3:
+            fib_50 = swing_low + swing_range * 0.5
+            fib_618 = swing_low + swing_range * 0.618
+            if abs(current - fib_50) / fib_50 < 0.02 and not vol_surge:
+                patterns.append(Pattern(
+                    pattern_type=SignalType.BANGCON_SHORT,
+                    confidence=0.65,
+                    neckline=round(fib_50, 2),
+                    entry_price=round(current, 2),
+                    stop_loss=round(fib_618 * 1.01, 2),
+                    target_price=round(swing_low, 2),
+                    target_price_2=round(swing_low - swing_range * 0.382, 2),
+                    risk_reward_ratio=3.0,
+                    start_date=str(dates[-lookback].date()),
+                    signal_date=str(dates[-1].date()),
+                    description=(
+                        f"🔴 棒康空点: 反弹至Fib50% {fib_50:.2f}, 量能不足"
+                        f" → 蔡森: 短线高胜率做空点"
+                    ),
+                    timeframe="daily",
+                    signal_quality="呬爛面" if not vol_surge else "基本面"
+                ))
+
+        # 棒康多点: 上升趋势中回落到Fib50%
+        if ma5 > ma10 and swing_low_idx < lookback - 3:
+            fib_50 = swing_high - swing_range * 0.5
+            fib_382 = swing_high - swing_range * 0.382
+            if abs(current - fib_50) / fib_50 < 0.02 and vol_surge:
+                patterns.append(Pattern(
+                    pattern_type=SignalType.BANGCON_LONG,
+                    confidence=0.7,
+                    neckline=round(fib_50, 2),
+                    entry_price=round(current, 2),
+                    stop_loss=round(fib_382 * 0.99, 2),
+                    target_price=round(swing_high, 2),
+                    target_price_2=round(swing_high + swing_range * 0.618, 2),
+                    risk_reward_ratio=3.5,
+                    start_date=str(dates[-lookback].date()),
+                    signal_date=str(dates[-1].date()),
+                    description=(
+                        f"🟢 棒康多点: 回落至Fib50% {fib_50:.2f}, 量能放大"
+                        f" → 蔡森: 短线高胜率做多点"
+                    ),
+                    timeframe="daily",
+                    signal_quality="基本面"
+                ))
+
+        return patterns
+
+    def _detect_fake_line(self) -> List[Pattern]:
+        """
+        騙線确认 (Ep 460, multiple episodes)
+        ======================================
+        蔡森: "騙線來了, 一騙再騙!"
+        騙線 = 假突破升级版 — 同一颈线多次假突破后确认
+
+        逻辑:
+        - 检测同一颈线附近是否有多次假突破 (2次以上)
+        - 每次假突破后量能递减 (主力出货特征)
+        """
+        patterns = []
+        df = self.data
+        if len(df) < 60:
+            return patterns
+
+        close = df['Close'].values
+        high = df['High'].values
+        volume = df['Volume'].values
+        dates = df.index
+
+        necklines = self.find_support_resistance(window=15, min_touches=2)
+
+        for nl in necklines:
+            if nl.line_type != "resistance":
+                continue
+
+            false_breakouts = []
+            for i in range(nl.start_idx, min(nl.end_idx + 1, len(close))):
+                if high[i] > nl.price * 1.005:
+                    if close[i] < nl.price * 1.002:
+                        false_breakouts.append({
+                            'idx': i, 'high': high[i],
+                            'close': close[i], 'volume': volume[i]
+                        })
+
+            if len(false_breakouts) >= 2:
+                vols = [fb['volume'] for fb in false_breakouts]
+                vol_declining = vols[-1] < vols[0] * 0.8 if len(vols) >= 2 else False
+                current = close[-1]
+
+                if current < nl.price:
+                    confidence = min(0.6 + len(false_breakouts) * 0.05 + (0.1 if vol_declining else 0), 0.9)
+                    patterns.append(Pattern(
+                        pattern_type=SignalType.FAKE_LINE_CONFIRMED,
+                        confidence=round(confidence, 2),
+                        neckline=round(nl.price, 2),
+                        entry_price=round(current, 2),
+                        stop_loss=round(max(fb['high'] for fb in false_breakouts) * 1.01, 2),
+                        target_price=round(nl.price * 0.93, 2),
+                        target_price_2=round(nl.price * 0.88, 2),
+                        risk_reward_ratio=3.0,
+                        start_date=str(dates[nl.start_idx].date()) if nl.start_idx < len(dates) else "",
+                        signal_date=str(dates[-1].date()),
+                        description=(
+                            f"🔴 騙線确认: 颈线 {nl.price:.2f} 被假突破 {len(false_breakouts)} 次"
+                            f"{' (量能递减)' if vol_declining else ''}"
+                            f" → 蔡森: 一騙再騙, 空方确认!"
+                        ),
+                        timeframe="daily",
+                        signal_quality="基本面"
+                    ))
+
+        return patterns
+
+    def _detect_monthly_head_shoulders(self) -> List[Pattern]:
+        """
+        月线头肩型态检测 (Ep 461)
+        ============================
+        蔡森: 用月线大图看长期头肩顶/底, 是最可靠的长期反转信号
+        """
+        patterns = []
+        if self.monthly_data is None or len(self.monthly_data) < 24:
+            return patterns
+
+        close = self.monthly_data['Close'].values
+        high = self.monthly_data['High'].values
+        volume = self.monthly_data['Volume'].values
+        dates = self.monthly_data.index
+        n = len(close)
+
+        lookback = min(24, n)
+        seg_high = high[-lookback:]
+        seg_close = close[-lookback:]
+
+        peaks = []
+        for i in range(2, lookback - 2):
+            if seg_high[i] >= max(seg_high[i-2:i+3]):
+                peaks.append((i, seg_high[i], seg_close[i]))
+
+        if len(peaks) >= 3:
+            for j in range(1, len(peaks) - 1):
+                left_shoulder = peaks[j-1]
+                head = peaks[j]
+                right_shoulder = peaks[j+1]
+
+                if head[1] > left_shoulder[1] and head[1] > right_shoulder[1]:
+                    shoulder_diff = abs(left_shoulder[1] - right_shoulder[1]) / left_shoulder[1]
+                    if shoulder_diff < 0.08:
+                        between_1_low = min(seg_close[left_shoulder[0]:head[0]+1]) if head[0] > left_shoulder[0] else left_shoulder[2]
+                        between_2_low = min(seg_close[head[0]:right_shoulder[0]+1]) if right_shoulder[0] > head[0] else head[2]
+                        neckline_price = (between_1_low + between_2_low) / 2
+                        current = seg_close[-1]
+
+                        if current < neckline_price:
+                            head_height = head[1] - neckline_price
+                            confidence = min(0.6 + (1 - shoulder_diff) * 0.2, 0.9)
+                            patterns.append(Pattern(
+                                pattern_type=SignalType.MONTHLY_HEAD_SHOULDER,
+                                confidence=round(confidence, 2),
+                                neckline=round(neckline_price, 2),
+                                entry_price=round(current, 2),
+                                stop_loss=round(right_shoulder[1] * 1.02, 2),
+                                target_price=round(neckline_price - head_height, 2),
+                                target_price_2=round(neckline_price - head_height * 1.618, 2),
+                                risk_reward_ratio=3.0,
+                                start_date=str(dates[-lookback]),
+                                signal_date=str(dates[-1]),
+                                description=(
+                                    f"🔴 月线头肩顶: 头 {head[1]:.2f}, 肩 {left_shoulder[1]:.2f}/{right_shoulder[1]:.2f}"
+                                    f", 颈线 {neckline_price:.2f}"
+                                    f" → 蔡森: 月线大图看空!"
+                                ),
+                                timeframe="monthly",
+                                signal_quality="基本面"
+                            ))
+
+        return patterns
+
+    def assess_kangbo_cycle(self) -> Dict:
+        """
+        康波周期评估 (Ep 456)
+        ========================
+        蔡森: "八年经济循环与康波五十年大周期! 虚假的繁荣!"
+        用月线数据判断当前处于康波哪个阶段
+        """
+        result = {'kangbo_phase': '未知', 'eight_year_phase': '未知', 'description': ''}
+
+        if self.monthly_data is None or len(self.monthly_data) < 24:
+            return result
+
+        close = self.monthly_data['Close'].values
+        volume = self.monthly_data['Volume'].values
+        n = len(close)
+
+        ma12 = np.mean(close[-12:]) if n >= 12 else np.mean(close)
+        ma24 = np.mean(close[-24:]) if n >= 24 else ma12
+        ma6 = np.mean(close[-6:])
+
+        vol_recent_6m = np.mean(volume[-6:])
+        vol_prev_6m = np.mean(volume[-12:-6]) if n >= 12 else vol_recent_6m
+        vol_trend = vol_recent_6m / vol_prev_6m if vol_prev_6m > 0 else 1.0
+
+        if n >= 24:
+            price_change_2y = (close[-1] - close[-24]) / close[-24]
+        else:
+            price_change_2y = (close[-1] - close[0]) / close[0]
+
+        if ma6 > ma12 > ma24 and vol_trend > 1.1:
+            result['kangbo_phase'] = '上行期 (繁荣)'
+            result['description'] = '量价齐升, 康波上行 → 蔡森: 顺势做多'
+        elif ma6 > ma12 and ma12 < ma24 and vol_trend > 1.3:
+            result['kangbo_phase'] = '反转上行 (复苏)'
+            result['description'] = '底部放量, 康波反转上行 → 蔡森: 人弃我取'
+        elif ma6 < ma12 < ma24 and vol_trend > 1.2:
+            result['kangbo_phase'] = '下行期 (衰退)'
+            result['description'] = '量价齐跌, 康波下行 → 蔡森: 等待底部'
+        elif ma6 < ma12 and price_change_2y < -0.3:
+            result['kangbo_phase'] = '萧条期 (冬季)'
+            result['description'] = '长期跌超30%, 康波萧条 → 蔡森: 抄底才有超额利润'
+        elif vol_trend < 0.7 and price_change_2y > 0.5:
+            result['kangbo_phase'] = '繁荣末期 (秋季)'
+            result['description'] = '涨幅巨大但量能萎缩 → 蔡森: 虚假的繁荣, 警惕!'
+        else:
+            result['kangbo_phase'] = '盘整期'
+            result['description'] = '方向不明, 等待趋势确认'
+
+        if n >= 96:
+            cycle_start = close[-96]
+            cycle_pos = (close[-1] - cycle_start) / cycle_start
+            if cycle_pos > 0.5:
+                result['eight_year_phase'] = '循环高位 (警惕转折)'
+            elif cycle_pos < -0.3:
+                result['eight_year_phase'] = '循环低位 (寻找底部)'
+            else:
+                result['eight_year_phase'] = '循环中段'
+        elif n >= 48:
+            cycle_start = close[-48]
+            cycle_pos = (close[-1] - cycle_start) / cycle_start
+            if cycle_pos > 0.3:
+                result['eight_year_phase'] = '4年上行段 (高位)'
+            elif cycle_pos < -0.2:
+                result['eight_year_phase'] = '4年下行段 (低位)'
+            else:
+                result['eight_year_phase'] = '4年中段'
+
+        return result
+
+    def calculate_log_scale_targets(self, neckline: float, bottom: float, is_breakout_up: bool = True) -> Dict:
+        """
+        对数图量幅计算 (Ep 453+)
+        ============================
+        蔡森用对数图计算涨幅满足:
+        - 对数: 目标 = 颈线² / 底部
+        - 黄金比例: 目标2 = 颈线 × (颈线/底部)^1.618
+        """
+        if bottom <= 0 or neckline <= 0:
+            return {}
+
+        ratio = neckline / bottom
+        if is_breakout_up:
+            log_target_1 = neckline * ratio
+            log_target_2 = neckline * (ratio ** 1.618)
+            arith_target_1 = neckline + (neckline - bottom)
+        else:
+            log_target_1 = neckline / ratio
+            log_target_2 = neckline / (ratio ** 1.618)
+            arith_target_1 = neckline - (bottom - neckline)
+
+        return {
+            'neckline': round(neckline, 2),
+            'bottom_or_top': round(bottom, 2),
+            'ratio': round(ratio, 4),
+            'log_target_1': round(log_target_1, 2),
+            'log_target_2': round(log_target_2, 2),
+            'arith_target_1': round(arith_target_1, 2),
+            'log_vs_arith_diff_pct': round((log_target_1 - arith_target_1) / arith_target_1 * 100, 2) if arith_target_1 != 0 else 0,
+            'method': '对数图量幅 (蔡森)',
+            'description': f'对数目标1: {log_target_1:.2f} vs 算术目标1: {arith_target_1:.2f}'
+        }
+
     def _classify_signal_quality(self, vol_surge: bool, rr_ratio: float,
                                   drop_pct: float, recovery_ratio: float,
                                   is_sharp: bool) -> str:
@@ -2081,7 +2651,7 @@ class CaiSenAnalyzer:
     # --------------------------------------------------------
 
     def analyze(self, symbol: str = None) -> AnalysisResult:
-        """执行完整分析 v2"""
+        """执行完整分析 v3.0"""
         if symbol and self.data is None:
             self.fetch_data(symbol)
 
@@ -2091,7 +2661,7 @@ class CaiSenAnalyzer:
         # 量价分析
         vp = self.analyze_volume_price()
 
-        # 型态识别 (含周线)
+        # 型态识别 (含周线+月线)
         raw_patterns = self.detect_patterns()
         patterns = self._deduplicate_patterns(raw_patterns)
 
@@ -2101,6 +2671,10 @@ class CaiSenAnalyzer:
         # 趋势
         daily_trend = self.get_trend()
         weekly_trend = self.get_trend(self.weekly_data) if self.weekly_data is not None else "N/A"
+        monthly_trend = self.get_trend(self.monthly_data) if self.monthly_data is not None else "N/A"
+
+        # v3.0: 康波周期
+        kangbo = self.assess_kangbo_cycle()
 
         # 关键支撑/压力
         supports = [sl for sl in support_levels if "支撑" in sl.level_type]
@@ -2111,13 +2685,37 @@ class CaiSenAnalyzer:
         long_term = [sl for sl in support_levels if "长线" in sl.level_type and "支撑" in sl.level_type]
         long_term_support = min(long_term, key=lambda x: x.price).price if long_term else None
 
+        # v3.0: 对数图量幅 (用最大型态的颈线计算)
+        log_targets = {}
+        if patterns:
+            best_pattern = max(patterns, key=lambda x: x.confidence)
+            if best_pattern.target_price and best_pattern.neckline:
+                is_up = best_pattern.pattern_type.value in {
+                    "破底翻", "W底", "头肩底", "岛型反转(底)", "量先价行",
+                    "颈线突破", "回踩支撑", "真突破", "底部放量突破", "V型反转",
+                    "量价背离(上行)", "月线缩量见底", "棒康多点"
+                }
+                log_targets = self.calculate_log_scale_targets(
+                    best_pattern.neckline, best_pattern.stop_loss, is_up
+                )
+
+        # v3.0: 颈线割喉区域
+        neck_battle = [p.neckline for p in patterns if p.pattern_type == SignalType.NECKLINE_BATTLE]
+
         # 生成摘要
         lines = []
-        lines.append(f"📊 {sym} 蔡森技术分析报告 v2.1")
+        lines.append(f"📊 {sym} 蔡森技术分析报告 v3.0")
         lines.append(f"📅 分析日期: {datetime.now().strftime('%Y-%m-%d')}")
         lines.append(f"💰 当前价格: {current:.2f}")
-        lines.append(f"📈 日线趋势: {daily_trend} | 周线趋势: {weekly_trend}")
+        lines.append(f"📈 日线: {daily_trend} | 周线: {weekly_trend} | 月线: {monthly_trend}")
         lines.append(f"📉 量价变化: 价格 {vp.get('price_change_pct', 0):+.1f}%, 量能 {vp.get('volume_change_pct', 0):+.1f}%")
+
+        # v3.0: 康波周期信息
+        if kangbo['kangbo_phase'] != '未知':
+            lines.append(f"\n🌊 康波周期: {kangbo['kangbo_phase']}")
+            if kangbo['eight_year_phase'] != '未知':
+                lines.append(f"   八年循环: {kangbo['eight_year_phase']}")
+            lines.append(f"   {kangbo['description']}")
 
         if key_support:
             lines.append(f"🟢 短期支撑: {key_support:.2f}")
@@ -2141,10 +2739,12 @@ class CaiSenAnalyzer:
             for p in patterns:
                 LONG_SIGNALS = {"破底翻", "W底", "头肩底", "岛型反转(底)", "量先价行",
                                 "颈线突破", "回踩支撑", "真突破", "底部放量突破",
-                                "V型反转", "量价背离(上行)"}
+                                "V型反转", "量价背离(上行)", "月线缩量见底", "棒康多点",
+                                "康波上行期"}
                 SHORT_SIGNALS = {"假突破", "头肩顶", "M顶", "岛型反转(顶)",
                                  "颈线跌破", "反弹无力", "跌破支撑",
-                                 "量价背离(下行)"}
+                                 "量价背离(下行)", "月线爆量翻黑", "骗线确认",
+                                 "棒康空点", "康波下行期", "月线头肩型态"}
                 if p.pattern_type.value in LONG_SIGNALS:
                     emoji = "🟢"
                 elif p.pattern_type.value in SHORT_SIGNALS:
@@ -2152,9 +2752,12 @@ class CaiSenAnalyzer:
                 else:
                     emoji = "⚪"
 
-                tf_tag = "【周线】" if p.timeframe == "weekly" else ""
+                tf_tag = ""
+                if p.timeframe == "weekly":
+                    tf_tag = "【周线】"
+                elif p.timeframe == "monthly":
+                    tf_tag = "【月线】"
 
-                # 基本面/呬爛面标签
                 quality_tag = ""
                 if p.signal_quality == "基本面":
                     quality_tag = " ✅基本面"
@@ -2163,7 +2766,6 @@ class CaiSenAnalyzer:
                 elif p.signal_quality == "待定":
                     quality_tag = " ❓待定"
 
-                # V型反转概率
                 v_prob = ""
                 if p.v_reversal_probability is not None:
                     v_prob = f" | V型概率: {p.v_reversal_probability:.0%}"
@@ -2179,18 +2781,25 @@ class CaiSenAnalyzer:
         else:
             lines.append("\n🔍 当前无明确型态信号，建议等待")
 
+        # v3.0: 对数图量幅
+        if log_targets:
+            lines.append(f"\n📐 对数图量幅: {log_targets.get('description', '')}")
+
         lines.append("\n💡 蔡森三心法则:")
         lines.append("   耐心 — 等待型态完成")
         lines.append("   决心 — 信号出现果断进场")
         lines.append("   平常心 — 设好止损，不焦虑短线震荡")
-        lines.append("\n📌 蔡森提醒:")
+        lines.append("\n📌 蔡森提醒 (v3.0):")
         lines.append("   • 破底翻大都会越过前高")
         lines.append("   • 利空时看收盘价判断支撑，无利空时盘中破就跑")
         lines.append("   • 量价是所有技术指标之首")
         lines.append("   • 基本面信号可信, 呬爛面信号要小心!")
         lines.append("   • V型反转看概率, 量价配合是关键 (第462集)")
+        lines.append("   • 月线爆量翻黑 = 重大顶部信号 (第461集)")
+        lines.append("   • 颈线割喉战, 谁先刎颈! (第460集)")
+        lines.append("   • 騙線一騙再騙, 空方确认! (第460集)")
+        lines.append("   • 康波下行期: 抄底才有超额利润 (第456集)")
 
-        # 统计基本面/呬爛面
         real_signals = [p for p in patterns if p.signal_quality == "基本面"]
         bluff_signals = [p for p in patterns if p.signal_quality == "呬爛面"]
         if real_signals or bluff_signals:
@@ -2203,6 +2812,7 @@ class CaiSenAnalyzer:
             current_trend=daily_trend,
             daily_trend=daily_trend,
             weekly_trend=weekly_trend,
+            monthly_trend=monthly_trend,
             patterns=patterns,
             support_levels=support_levels,
             volume_price_divergence=vp.get('divergence', False),
@@ -2210,6 +2820,10 @@ class CaiSenAnalyzer:
             key_support=key_support,
             key_resistance=key_resistance,
             long_term_support=long_term_support,
+            kangbo_phase=kangbo.get('kangbo_phase', '未知'),
+            eight_year_phase=kangbo.get('eight_year_phase', '未知'),
+            neck_battle_zones=neck_battle,
+            log_scale_targets=log_targets,
             summary="\n".join(lines)
         )
 
@@ -2218,7 +2832,7 @@ class CaiSenAnalyzer:
     # --------------------------------------------------------
 
     def _deduplicate_patterns(self, patterns: List[Pattern]) -> List[Pattern]:
-        """去重，只保留最近期、最高质量的信号"""
+        """去重，只保留最近期、最高质量的信号 v3.0"""
         if not patterns:
             return patterns
 
@@ -2239,12 +2853,13 @@ class CaiSenAnalyzer:
 
         result = [max(cluster, key=lambda x: x.confidence) for cluster in clusters]
 
-        # 周线信号优先保留, 然后按置信度排序
+        # 月线 > 周线 > 日线 优先, 然后按置信度排序
+        monthly = [p for p in result if p.timeframe == "monthly"]
         weekly = [p for p in result if p.timeframe == "weekly"]
         daily = [p for p in result if p.timeframe == "daily"]
         daily.sort(key=lambda x: x.confidence, reverse=True)
 
-        final = weekly + daily[:3]
+        final = monthly + weekly + daily[:5]
         return final
 
 
@@ -2281,9 +2896,9 @@ class WatchlistScanner:
 # ============================================================
 
 def main():
-    """命令行入口"""
+    """命令行入口 v3.0"""
     if len(sys.argv) < 2:
-        print("蔡森技术分析工具 v2.0")
+        print("蔡森技术分析工具 v3.0")
         print("=" * 50)
         print("用法:")
         print("  python cai_sen_analyzer.py <股票代码>")
@@ -2296,22 +2911,26 @@ def main():
         print("  python cai_sen_analyzer.py 000001.SZ     # 平安银行")
         print("  python cai_sen_analyzer.py 0700.HK       # 腾讯")
         print("")
-        print("v2.0 新增:")
-        print("  ⭐ 周线破底翻/假突破 (量先价行上档无压)")
-        print("  ⭐ 岛型反转检测")
-        print("  ⭐ 量先价行信号")
-        print("  ⭐ 支撑分级 (短期/长线)")
-        print("  ⭐ 双目标计算 (涨幅满足 + 黄金比例)")
-        print("  ⭐ 日线+周线多时间框架分析")
+        print("v3.0 新增 (基于蔡森第452-462集):")
+        print("  ⭐ 康波周期 & 八年经济循环 (第456集)")
+        print("  ⭐ 月线爆量翻黑/缩量见底 (第461集)")
+        print("  ⭐ 颈线割喉战检测 (第460集)")
+        print("  ⭐ 棒康短线高胜率法 (第458, 460集)")
+        print("  ⭐ 騙線确认增强 (第460集)")
+        print("  ⭐ 对数图量幅计算 (第453集)")
+        print("  ⭐ 月线头肩型态 (第461集)")
+        print("  ⭐ 月线+周线+日线 三时间框架")
+        print("  ⭐ V型反转概率 (第462集)")
+        print("  ⭐ 基本面 vs 呬爛面过滤 (第462集)")
         sys.exit(0)
 
     symbols = sys.argv[1:]
 
     if len(symbols) == 1:
         analyzer = CaiSenAnalyzer()
-        print(f"🔄 正在获取 {symbols[0]} 数据...")
+        print(f"🔄 正在获取 {symbols[0]} 数据 (5年日线 → 周线+月线)...")
         analyzer.fetch_data(symbols[0])
-        print(f"📊 正在分析 (日线 + 周线)...")
+        print(f"📊 正在分析 (日线 + 周线 + 月线 + 康波周期)...")
         result = analyzer.analyze()
         print("\n" + result.summary)
 
@@ -2323,11 +2942,16 @@ def main():
             "price": result.current_price,
             "daily_trend": result.daily_trend,
             "weekly_trend": result.weekly_trend,
+            "monthly_trend": result.monthly_trend,
+            "kangbo_phase": result.kangbo_phase,
+            "eight_year_phase": result.eight_year_phase,
             "support": result.key_support,
             "resistance": result.key_resistance,
             "long_term_support": result.long_term_support,
             "divergence": bool(result.volume_price_divergence),
             "volume_leads_price": bool(result.volume_leads_price),
+            "neck_battle_zones": result.neck_battle_zones,
+            "log_scale_targets": result.log_scale_targets,
             "patterns": [
                 {
                     "type": p.pattern_type.value,
@@ -2339,6 +2963,7 @@ def main():
                     "target": p.target_price,
                     "target_2": p.target_price_2,
                     "risk_reward": p.risk_reward_ratio,
+                    "quality": p.signal_quality,
                     "description": p.description
                 }
                 for p in result.patterns
