@@ -1,0 +1,441 @@
+[
+  {
+    "month": "2025-12",
+    "first_trading_day": "2025-12-01",
+    "last_trading_day": "2025-12-31",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "1209.HK",
+        "name": "CR Mixc",
+        "score": 76.4,
+        "buy_date": "2025-12-01",
+        "buy_price": 44.32,
+        "sell_date": "2025-12-31",
+        "sell_price": 42.98,
+        "pnl_pct": -3.02,
+        "reasons": [
+          "Strong momentum: +14.5% over prior 20 days",
+          "Volume surge: 2.6x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1880.HK",
+        "name": "CTG Duty Free",
+        "score": 70.5,
+        "buy_date": "2025-12-01",
+        "buy_price": 73.85,
+        "sell_date": "2025-12-31",
+        "sell_price": 78.85,
+        "pnl_pct": 6.77,
+        "reasons": [
+          "Strong momentum: +19.1% over prior 20 days",
+          "Volume surge: 2.3x vs prior month — strong interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "3692.HK",
+        "name": "Hansoh Pharma",
+        "score": 61.8,
+        "buy_date": "2025-12-01",
+        "buy_price": 40.2,
+        "sell_date": "2025-12-31",
+        "sell_price": 36.08,
+        "pnl_pct": -10.25,
+        "reasons": [
+          "Strong momentum: +13.5% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": -2.17,
+    "all_scores_top10": [
+      [
+        "1209.HK",
+        "CR Mixc",
+        76.4
+      ],
+      [
+        "1880.HK",
+        "CTG Duty Free",
+        70.5
+      ],
+      [
+        "3692.HK",
+        "Hansoh Pharma",
+        61.8
+      ],
+      [
+        "1378.HK",
+        "China Hongqiao",
+        61.5
+      ],
+      [
+        "0788.HK",
+        "China Tower",
+        58.2
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        58.1
+      ],
+      [
+        "1997.HK",
+        "Wharf REIC",
+        55.6
+      ],
+      [
+        "2688.HK",
+        "ENN Energy",
+        54.5
+      ],
+      [
+        "0066.HK",
+        "MTR Corp",
+        54.4
+      ],
+      [
+        "2628.HK",
+        "China Life",
+        53.5
+      ]
+    ]
+  },
+  {
+    "month": "2026-01",
+    "first_trading_day": "2026-01-02",
+    "last_trading_day": "2026-01-30",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "9888.HK",
+        "name": "Baidu",
+        "score": 66.5,
+        "buy_date": "2026-01-02",
+        "buy_price": 132.1,
+        "sell_date": "2026-01-30",
+        "sell_price": 152.8,
+        "pnl_pct": 15.67,
+        "reasons": [
+          "Strong momentum: +25.5% over prior 20 days",
+          "Below-average volume: 1.0x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "2318.HK",
+        "name": "Ping An",
+        "score": 63.9,
+        "buy_date": "2026-01-02",
+        "buy_price": 65.45,
+        "sell_date": "2026-01-30",
+        "sell_price": 72.7,
+        "pnl_pct": 11.08,
+        "reasons": [
+          "Strong momentum: +18.4% over prior 20 days",
+          "Above-average volume: 1.0x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "2050.HK",
+        "name": "Sanhua Intelligent",
+        "score": 61.0,
+        "buy_date": "2026-01-02",
+        "buy_price": 38.62,
+        "sell_date": "2026-01-30",
+        "sell_price": 35.2,
+        "pnl_pct": -8.86,
+        "reasons": [
+          "Strong momentum: +23.4% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      }
+    ],
+    "avg_pnl": 5.96,
+    "all_scores_top10": [
+      [
+        "9888.HK",
+        "Baidu",
+        66.5
+      ],
+      [
+        "2318.HK",
+        "Ping An",
+        63.9
+      ],
+      [
+        "2050.HK",
+        "Sanhua Intelligent",
+        61.0
+      ],
+      [
+        "2899.HK",
+        "Zijin Mining",
+        60.9
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        57.4
+      ],
+      [
+        "9961.HK",
+        "Trip.com",
+        55.4
+      ],
+      [
+        "0006.HK",
+        "Power Assets",
+        55.3
+      ],
+      [
+        "3690.HK",
+        "Meituan",
+        50.0
+      ],
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        48.6
+      ],
+      [
+        "2388.HK",
+        "BOC HK",
+        48.5
+      ]
+    ]
+  },
+  {
+    "month": "2026-02",
+    "first_trading_day": "2026-02-02",
+    "last_trading_day": "2026-02-27",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "0016.HK",
+        "name": "SHK Properties",
+        "score": 74.3,
+        "buy_date": "2026-02-02",
+        "buy_price": 124.3,
+        "sell_date": "2026-02-27",
+        "sell_price": 146.0,
+        "pnl_pct": 17.46,
+        "reasons": [
+          "Strong momentum: +22.1% over prior 20 days",
+          "Volume surge: 2.3x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9698.HK",
+        "name": "Wangsu Science",
+        "score": 74.0,
+        "buy_date": "2026-02-02",
+        "buy_price": 43.78,
+        "sell_date": "2026-02-27",
+        "sell_price": 41.82,
+        "pnl_pct": -4.48,
+        "reasons": [
+          "Strong momentum: +16.2% over prior 20 days",
+          "Volume surge: 2.0x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Mid-range — balanced risk/reward"
+        ]
+      },
+      {
+        "symbol": "0066.HK",
+        "name": "MTR Corp",
+        "score": 71.9,
+        "buy_date": "2026-02-02",
+        "buy_price": 34.42,
+        "sell_date": "2026-02-27",
+        "sell_price": 37.34,
+        "pnl_pct": 8.48,
+        "reasons": [
+          "Strong momentum: +15.9% over prior 20 days",
+          "Volume surge: 1.7x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 7.15,
+    "all_scores_top10": [
+      [
+        "0016.HK",
+        "SHK Properties",
+        74.3
+      ],
+      [
+        "9698.HK",
+        "Wangsu Science",
+        74.0
+      ],
+      [
+        "0066.HK",
+        "MTR Corp",
+        71.9
+      ],
+      [
+        "2013.HK",
+        "WuXi Biologics",
+        71.4
+      ],
+      [
+        "9626.HK",
+        "Bilibili",
+        69.4
+      ],
+      [
+        "0386.HK",
+        "China Petroleum",
+        68.8
+      ],
+      [
+        "1997.HK",
+        "Wharf REIC",
+        67.1
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        64.7
+      ],
+      [
+        "0669.HK",
+        "Techtronic Ind",
+        62.5
+      ],
+      [
+        "0241.HK",
+        "Ali Health",
+        62.4
+      ]
+    ]
+  },
+  {
+    "month": "2026-03",
+    "first_trading_day": "2026-03-02",
+    "last_trading_day": "2026-03-31",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "0669.HK",
+        "name": "Techtronic Ind",
+        "score": 76.6,
+        "buy_date": "2026-03-02",
+        "buy_price": 125.5,
+        "sell_date": "2026-03-31",
+        "sell_price": 102.1,
+        "pnl_pct": -18.65,
+        "reasons": [
+          "Strong momentum: +18.2% over prior 20 days",
+          "Volume surge: 2.1x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0016.HK",
+        "name": "SHK Properties",
+        "score": 69.8,
+        "buy_date": "2026-03-02",
+        "buy_price": 146.0,
+        "sell_date": "2026-03-31",
+        "sell_price": 129.2,
+        "pnl_pct": -11.51,
+        "reasons": [
+          "Strong momentum: +16.4% over prior 20 days",
+          "Above-average volume: 1.5x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0916.HK",
+        "name": "Longfor Group",
+        "score": 53.2,
+        "buy_date": "2026-03-02",
+        "buy_price": 7.52,
+        "sell_date": "2026-03-31",
+        "sell_price": 7.13,
+        "pnl_pct": -5.19,
+        "reasons": [
+          "Strong momentum: +7.4% over prior 20 days",
+          "Above-average volume: 1.0x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      }
+    ],
+    "avg_pnl": -11.78,
+    "all_scores_top10": [
+      [
+        "0669.HK",
+        "Techtronic Ind",
+        76.6
+      ],
+      [
+        "0016.HK",
+        "SHK Properties",
+        69.8
+      ],
+      [
+        "0916.HK",
+        "Longfor Group",
+        53.2
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        51.4
+      ],
+      [
+        "0857.HK",
+        "PetroChina",
+        49.8
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        49.4
+      ],
+      [
+        "0883.HK",
+        "CNOOC",
+        47.1
+      ],
+      [
+        "1113.HK",
+        "CK Asset",
+        44.6
+      ],
+      [
+        "0288.HK",
+        "WH Group",
+        44.3
+      ],
+      [
+        "0006.HK",
+        "Power Assets",
+        43.3
+      ]
+    ]
+  }
+]

@@ -1,0 +1,796 @@
+====================================================================================================
+HK BLUE CHIP MONTHLY ROTATION BACKTEST — 20 MONTHS (AUG 2024 – MAR 2026)
+Using actual Yahoo Finance data. Multi-factor scoring: momentum, volume, trend, risk/reward, reversal.
+====================================================================================================
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2024-08  |  Buy: 2024-08-01  →  Sell: 2024-08-30  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 1038.HK (CKI Holdings)  |  Score: 75.4
+      Buy:   2024-08-01  @  HK$ 51.85
+      Sell:  2024-08-30  @  HK$ 57.9
+      P&L:   +11.67%
+      Reasons:
+        • Strong momentum: +21.0% over prior 20 days
+        • Volume surge: 2.2x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📈 0006.HK (Power Assets)  |  Score: 75.1
+      Buy:   2024-08-01  @  HK$ 49.9
+      Sell:  2024-08-30  @  HK$ 54.45
+      P&L:   +9.12%
+      Reasons:
+        • Strong momentum: +23.6% over prior 20 days
+        • Volume surge: 2.1x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📈 6030.HK (CITIC Securities)  |  Score: 48.5
+      Buy:   2024-08-01  @  HK$ 11.76
+      Sell:  2024-08-30  @  HK$ 11.78
+      P&L:   +0.17%
+      Reasons:
+        • Strong momentum: +8.5% over prior 20 days
+        • Above-average volume: 1.3x — moderate interest
+        • Price above 3/4 moving averages — uptrend
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  Monthly avg P&L: 📈 +6.99%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2024-09  |  Buy: 2024-09-02  →  Sell: 2024-09-30  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 3692.HK (Hansoh Pharma)  |  Score: 69.6
+      Buy:   2024-09-02  @  HK$ 19.96
+      Sell:  2024-09-30  @  HK$ 20.95
+      P&L:   +4.96%
+      Reasons:
+        • Strong momentum: +8.5% over prior 20 days
+        • Volume surge: 1.9x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  #2 📈 1810.HK (Xiaomi)  |  Score: 67.3
+      Buy:   2024-09-02  @  HK$ 19.3
+      Sell:  2024-09-30  @  HK$ 22.5
+      P&L:   +16.58%
+      Reasons:
+        • Strong momentum: +20.5% over prior 20 days
+        • Above-average volume: 1.3x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📈 0012.HK (Henderson Land)  |  Score: 64.4
+      Buy:   2024-09-02  @  HK$ 24.2
+      Sell:  2024-09-30  @  HK$ 24.8
+      P&L:   +2.48%
+      Reasons:
+        • Strong momentum: +8.9% over prior 20 days
+        • Volume surge: 1.7x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  Monthly avg P&L: 📈 +8.01%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2024-10  |  Buy: 2024-10-02  →  Sell: 2024-10-31  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 2318.HK (Ping An)  |  Score: 80.7
+      Buy:   2024-10-02  @  HK$ 50.0
+      Sell:  2024-10-31  @  HK$ 48.15
+      P&L:   -3.70%
+      Reasons:
+        • Strong momentum: +53.0% over prior 20 days
+        • Volume surge: 2.5x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  #2 📉 0388.HK (HKEX)  |  Score: 80.6
+      Buy:   2024-10-02  @  HK$ 335.8
+      Sell:  2024-10-31  @  HK$ 310.8
+      P&L:   -7.44%
+      Reasons:
+        • Strong momentum: +57.4% over prior 20 days
+        • Volume surge: 3.6x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  #3 📉 2013.HK (WuXi Biologics)  |  Score: 80.3
+      Buy:   2024-10-02  @  HK$ 1.87
+      Sell:  2024-10-31  @  HK$ 1.62
+      P&L:   -13.37%
+      Reasons:
+        • Strong momentum: +111.9% over prior 20 days
+        • Volume surge: 2.6x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  Monthly avg P&L: 📉 -8.17%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2024-11  |  Buy: 2024-11-01  →  Sell: 2024-11-29  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 1810.HK (Xiaomi)  |  Score: 56.6
+      Buy:   2024-11-01  @  HK$ 27.0
+      Sell:  2024-11-29  @  HK$ 27.75
+      P&L:   +2.78%
+      Reasons:
+        • Strong momentum: +11.2% over prior 20 days
+        • Above-average volume: 1.2x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📈 0175.HK (Geely Auto)  |  Score: 51.0
+      Buy:   2024-11-01  @  HK$ 13.6
+      Sell:  2024-11-29  @  HK$ 13.86
+      P&L:   +1.91%
+      Reasons:
+        • Strong momentum: +6.5% over prior 20 days
+        • Volume surge: 1.6x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📉 1928.HK (Sands China)  |  Score: 47.2
+      Buy:   2024-11-01  @  HK$ 19.94
+      Sell:  2024-11-29  @  HK$ 19.84
+      P&L:   -0.50%
+      Reasons:
+        • Positive momentum: +2.0% over prior 20 days
+        • Below-average volume: 0.9x — declining interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+        • Bouncing off recent low — potential reversal
+
+  Monthly avg P&L: 📈 +1.40%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2024-12  |  Buy: 2024-12-02  →  Sell: 2024-12-31  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 2382.HK (Sunny Optical)  |  Score: 64.7
+      Buy:   2024-12-02  @  HK$ 63.25
+      Sell:  2024-12-31  @  HK$ 68.9
+      P&L:   +8.93%
+      Reasons:
+        • Strong momentum: +15.8% over prior 20 days
+        • Above-average volume: 1.2x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📈 9633.HK (Nongfu Spring)  |  Score: 53.8
+      Buy:   2024-12-02  @  HK$ 34.0
+      Sell:  2024-12-31  @  HK$ 34.0
+      P&L:   +0.00%
+      Reasons:
+        • Strong momentum: +7.8% over prior 20 days
+        • Above-average volume: 1.1x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  #3 📈 9999.HK (NetEase)  |  Score: 43.1
+      Buy:   2024-12-02  @  HK$ 135.1
+      Sell:  2024-12-31  @  HK$ 139.2
+      P&L:   +3.03%
+      Reasons:
+        • Strong momentum: +10.9% over prior 20 days
+        • Below-average volume: 0.9x — declining interest
+        • Price above 4/4 moving averages — uptrend
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📈 +3.99%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-01  |  Buy: 2025-01-02  →  Sell: 2025-01-28  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 2013.HK (WuXi Biologics)  |  Score: 78.8
+      Buy:   2025-01-02  @  HK$ 3.45
+      Sell:  2025-01-28  @  HK$ 2.3
+      P&L:   -33.33%
+      Reasons:
+        • Strong momentum: +110.8% over prior 20 days
+        • Volume surge: 5.4x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  #2 📈 0981.HK (SMIC)  |  Score: 60.7
+      Buy:   2025-01-02  @  HK$ 31.55
+      Sell:  2025-01-28  @  HK$ 38.0
+      P&L:   +20.44%
+      Reasons:
+        • Strong momentum: +11.5% over prior 20 days
+        • Below-average volume: 0.8x — declining interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Mid-range — balanced risk/reward
+        • W-bottom pattern detected — bullish reversal
+
+  #3 📈 1810.HK (Xiaomi)  |  Score: 57.9
+      Buy:   2025-01-02  @  HK$ 34.8
+      Sell:  2025-01-28  @  HK$ 38.15
+      P&L:   +9.63%
+      Reasons:
+        • Strong momentum: +16.8% over prior 20 days
+        • Below-average volume: 0.8x — declining interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📉 -1.09%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-02  |  Buy: 2025-02-03  →  Sell: 2025-02-28  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 9999.HK (NetEase)  |  Score: 67.3
+      Buy:   2025-02-03  @  HK$ 157.8
+      Sell:  2025-02-28  @  HK$ 154.8
+      P&L:   -1.90%
+      Reasons:
+        • Strong momentum: +16.8% over prior 20 days
+        • Above-average volume: 1.4x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📈 0981.HK (SMIC)  |  Score: 64.4
+      Buy:   2025-02-03  @  HK$ 38.6
+      Sell:  2025-02-28  @  HK$ 53.6
+      P&L:   +38.86%
+      Reasons:
+        • Strong momentum: +44.5% over prior 20 days
+        • Volume surge: 1.8x vs prior month — strong interest
+        • Price above 4/4 moving averages — uptrend
+        • Near 20-day high — reduced upside room
+
+  #3 📈 1810.HK (Xiaomi)  |  Score: 60.9
+      Buy:   2025-02-03  @  HK$ 38.9
+      Sell:  2025-02-28  @  HK$ 51.85
+      P&L:   +33.29%
+      Reasons:
+        • Strong momentum: +11.6% over prior 20 days
+        • Above-average volume: 1.2x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📈 +23.42%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-03  |  Buy: 2025-03-03  →  Sell: 2025-03-31  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 0960.HK (Longfor Group)  |  Score: 78.7
+      Buy:   2025-03-03  @  HK$ 10.74
+      Sell:  2025-03-31  @  HK$ 9.81
+      P&L:   -8.66%
+      Reasons:
+        • Strong momentum: +11.7% over prior 20 days
+        • Volume surge: 2.1x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  #2 📉 2015.HK (Li Auto)  |  Score: 75.7
+      Buy:   2025-03-03  @  HK$ 118.3
+      Sell:  2025-03-31  @  HK$ 99.05
+      P&L:   -16.27%
+      Reasons:
+        • Strong momentum: +18.7% over prior 20 days
+        • Volume surge: 2.9x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Mid-range — balanced risk/reward
+
+  #3 📈 1211.HK (BYD)  |  Score: 72.6
+      Buy:   2025-03-03  @  HK$ 125.4
+      Sell:  2025-03-31  @  HK$ 130.93
+      P&L:   +4.41%
+      Reasons:
+        • Strong momentum: +27.0% over prior 20 days
+        • Volume surge: 3.3x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📉 -6.84%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-04  |  Buy: 2025-04-01  →  Sell: 2025-04-30  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 1093.HK (CSPC Pharma)  |  Score: 70.9
+      Buy:   2025-04-01  @  HK$ 4.99
+      Sell:  2025-04-30  @  HK$ 6.13
+      P&L:   +22.85%
+      Reasons:
+        • Strong momentum: +14.9% over prior 20 days
+        • Above-average volume: 1.2x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  #2 📉 2688.HK (ENN Energy)  |  Score: 70.7
+      Buy:   2025-04-01  @  HK$ 64.5
+      Sell:  2025-04-30  @  HK$ 61.55
+      P&L:   -4.57%
+      Reasons:
+        • Strong momentum: +21.8% over prior 20 days
+        • Above-average volume: 1.4x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📉 3692.HK (Hansoh Pharma)  |  Score: 70.5
+      Buy:   2025-04-01  @  HK$ 24.6
+      Sell:  2025-04-30  @  HK$ 24.1
+      P&L:   -2.03%
+      Reasons:
+        • Strong momentum: +28.5% over prior 20 days
+        • Above-average volume: 1.5x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📈 +5.42%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-05  |  Buy: 2025-05-02  →  Sell: 2025-05-30  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 1093.HK (CSPC Pharma)  |  Score: 71.5
+      Buy:   2025-05-02  @  HK$ 6.15
+      Sell:  2025-05-30  @  HK$ 8.1
+      P&L:   +31.71%
+      Reasons:
+        • Strong momentum: +13.3% over prior 20 days
+        • Volume surge: 1.9x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📈 1929.HK (Chow Tai Fook)  |  Score: 65.4
+      Buy:   2025-05-02  @  HK$ 10.26
+      Sell:  2025-05-30  @  HK$ 11.18
+      P&L:   +8.97%
+      Reasons:
+        • Strong momentum: +15.3% over prior 20 days
+        • Above-average volume: 1.2x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📉 1880.HK (CTG Duty Free)  |  Score: 60.7
+      Buy:   2025-05-02  @  HK$ 53.7
+      Sell:  2025-05-30  @  HK$ 49.8
+      P&L:   -7.26%
+      Reasons:
+        • Strong momentum: +7.7% over prior 20 days
+        • Volume surge: 2.5x vs prior month — strong interest
+        • Price above 4/4 moving averages — uptrend
+        • Mid-range — balanced risk/reward
+        • Bullish volume divergence (price down, volume shrinking)
+
+  Monthly avg P&L: 📈 +11.14%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-06  |  Buy: 2025-06-02  →  Sell: 2025-06-30  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 1093.HK (CSPC Pharma)  |  Score: 66.8
+      Buy:   2025-06-02  @  HK$ 7.88
+      Sell:  2025-06-30  @  HK$ 7.7
+      P&L:   -2.28%
+      Reasons:
+        • Strong momentum: +32.0% over prior 20 days
+        • Above-average volume: 1.1x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📈 9999.HK (NetEase)  |  Score: 61.5
+      Buy:   2025-06-02  @  HK$ 193.6
+      Sell:  2025-06-30  @  HK$ 211.0
+      P&L:   +8.99%
+      Reasons:
+        • Strong momentum: +14.4% over prior 20 days
+        • Above-average volume: 1.1x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📈 0027.HK (Galaxy Ent)  |  Score: 60.4
+      Buy:   2025-06-02  @  HK$ 33.35
+      Sell:  2025-06-30  @  HK$ 34.85
+      P&L:   +4.50%
+      Reasons:
+        • Strong momentum: +14.9% over prior 20 days
+        • Below-average volume: 0.9x — declining interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📈 +3.74%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-07  |  Buy: 2025-07-02  →  Sell: 2025-07-31  |  Stocks analyzed: 82
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 1177.HK (Sino Biopharm)  |  Score: 77.9
+      Buy:   2025-07-02  @  HK$ 5.36
+      Sell:  2025-07-31  @  HK$ 7.52
+      P&L:   +40.30%
+      Reasons:
+        • Strong momentum: +15.4% over prior 20 days
+        • Volume surge: 1.8x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📉 0012.HK (Henderson Land)  |  Score: 76.0
+      Buy:   2025-07-02  @  HK$ 27.8
+      Sell:  2025-07-31  @  HK$ 27.5
+      P&L:   -1.08%
+      Reasons:
+        • Strong momentum: +17.9% over prior 20 days
+        • Volume surge: 1.9x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • Bouncing off recent low — potential reversal
+
+  #3 📉 1929.HK (Chow Tai Fook)  |  Score: 69.8
+      Buy:   2025-07-02  @  HK$ 13.42
+      Sell:  2025-07-31  @  HK$ 13.16
+      P&L:   -1.94%
+      Reasons:
+        • Strong momentum: +13.8% over prior 20 days
+        • Volume surge: 1.7x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📈 +12.43%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-08  |  Buy: 2025-08-01  →  Sell: 2025-08-29  |  Stocks analyzed: 83
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 2007.HK (Country Garden)  |  Score: 75.0
+      Buy:   2025-08-01  @  HK$ 0.47
+      Sell:  2025-08-29  @  HK$ 0.44
+      P&L:   -7.45%
+      Reasons:
+        • Strong momentum: +20.8% over prior 20 days
+        • Volume surge: 4.6x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Mid-range — balanced risk/reward
+
+  #2 📈 2359.HK (WuXi AppTec)  |  Score: 74.0
+      Buy:   2025-08-01  @  HK$ 105.0
+      Sell:  2025-08-29  @  HK$ 107.9
+      P&L:   +2.76%
+      Reasons:
+        • Strong momentum: +28.7% over prior 20 days
+        • Volume surge: 1.8x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📈 2013.HK (WuXi Biologics)  |  Score: 72.8
+      Buy:   2025-08-01  @  HK$ 2.19
+      Sell:  2025-08-29  @  HK$ 2.62
+      P&L:   +19.63%
+      Reasons:
+        • Strong momentum: +14.0% over prior 20 days
+        • Volume surge: 2.7x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Mid-range — balanced risk/reward
+
+  Monthly avg P&L: 📈 +4.98%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-09  |  Buy: 2025-09-01  →  Sell: 2025-09-30  |  Stocks analyzed: 83
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 0981.HK (SMIC)  |  Score: 73.6
+      Buy:   2025-09-01  @  HK$ 64.75
+      Sell:  2025-09-30  @  HK$ 79.55
+      P&L:   +22.86%
+      Reasons:
+        • Strong momentum: +24.8% over prior 20 days
+        • Volume surge: 1.8x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📈 9961.HK (Trip.com)  |  Score: 71.3
+      Buy:   2025-09-01  @  HK$ 579.5
+      Sell:  2025-09-30  @  HK$ 596.0
+      P&L:   +2.85%
+      Reasons:
+        • Strong momentum: +17.8% over prior 20 days
+        • Volume surge: 1.6x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📈 9988.HK (Alibaba)  |  Score: 70.9
+      Buy:   2025-09-01  @  HK$ 133.0
+      Sell:  2025-09-30  @  HK$ 177.0
+      P&L:   +33.08%
+      Reasons:
+        • Strong momentum: +18.2% over prior 20 days
+        • Above-average volume: 1.1x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+        • Bouncing off recent low — potential reversal
+
+  Monthly avg P&L: 📈 +19.60%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-10  |  Buy: 2025-10-02  →  Sell: 2025-10-31  |  Stocks analyzed: 83
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 2050.HK (Sanhua Intelligent)  |  Score: 75.7
+      Buy:   2025-10-02  @  HK$ 44.8
+      Sell:  2025-10-31  @  HK$ 40.88
+      P&L:   -8.75%
+      Reasons:
+        • Strong momentum: +59.8% over prior 20 days
+        • Volume surge: 2.7x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📉 9888.HK (Baidu)  |  Score: 75.7
+      Buy:   2025-10-02  @  HK$ 134.3
+      Sell:  2025-10-31  @  HK$ 117.6
+      P&L:   -12.43%
+      Reasons:
+        • Strong momentum: +45.0% over prior 20 days
+        • Volume surge: 3.3x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📉 2007.HK (Country Garden)  |  Score: 74.5
+      Buy:   2025-10-02  @  HK$ 0.61
+      Sell:  2025-10-31  @  HK$ 0.57
+      P&L:   -6.56%
+      Reasons:
+        • Strong momentum: +34.8% over prior 20 days
+        • Volume surge: 6.7x vs prior month — strong interest
+        • Price above 4/4 moving averages — uptrend
+        • Mid-range — balanced risk/reward
+        • Bullish volume divergence (price down, volume shrinking)
+
+  Monthly avg P&L: 📉 -9.25%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-11  |  Buy: 2025-11-03  →  Sell: 2025-11-28  |  Stocks analyzed: 83
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 0883.HK (CNOOC)  |  Score: 64.8
+      Buy:   2025-11-03  @  HK$ 19.98
+      Sell:  2025-11-28  @  HK$ 21.18
+      P&L:   +6.01%
+      Reasons:
+        • Strong momentum: +8.5% over prior 20 days
+        • Volume surge: 1.6x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+        • Bouncing off recent low — potential reversal
+
+  #2 📈 0857.HK (PetroChina)  |  Score: 64.7
+      Buy:   2025-11-03  @  HK$ 8.1
+      Sell:  2025-11-28  @  HK$ 8.68
+      P&L:   +7.16%
+      Reasons:
+        • Strong momentum: +16.1% over prior 20 days
+        • Above-average volume: 1.2x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📈 1378.HK (China Hongqiao)  |  Score: 63.5
+      Buy:   2025-11-03  @  HK$ 29.66
+      Sell:  2025-11-28  @  HK$ 30.86
+      P&L:   +4.05%
+      Reasons:
+        • Strong momentum: +13.3% over prior 20 days
+        • Below-average volume: 0.9x — declining interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  Monthly avg P&L: 📈 +5.74%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2025-12  |  Buy: 2025-12-01  →  Sell: 2025-12-31  |  Stocks analyzed: 83
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 1209.HK (CR Mixc)  |  Score: 76.4
+      Buy:   2025-12-01  @  HK$ 44.32
+      Sell:  2025-12-31  @  HK$ 42.98
+      P&L:   -3.02%
+      Reasons:
+        • Strong momentum: +14.5% over prior 20 days
+        • Volume surge: 2.6x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📈 1880.HK (CTG Duty Free)  |  Score: 70.5
+      Buy:   2025-12-01  @  HK$ 73.85
+      Sell:  2025-12-31  @  HK$ 78.85
+      P&L:   +6.77%
+      Reasons:
+        • Strong momentum: +19.1% over prior 20 days
+        • Volume surge: 2.3x vs prior month — strong interest
+        • Price above 4/4 moving averages — uptrend
+        • Near 20-day high — reduced upside room
+
+  #3 📉 3692.HK (Hansoh Pharma)  |  Score: 61.8
+      Buy:   2025-12-01  @  HK$ 40.2
+      Sell:  2025-12-31  @  HK$ 36.08
+      P&L:   -10.25%
+      Reasons:
+        • Strong momentum: +13.5% over prior 20 days
+        • Above-average volume: 1.1x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📉 -2.17%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2026-01  |  Buy: 2026-01-02  →  Sell: 2026-01-30  |  Stocks analyzed: 83
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 9888.HK (Baidu)  |  Score: 66.5
+      Buy:   2026-01-02  @  HK$ 132.1
+      Sell:  2026-01-30  @  HK$ 152.8
+      P&L:   +15.67%
+      Reasons:
+        • Strong momentum: +25.5% over prior 20 days
+        • Below-average volume: 1.0x — declining interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  #2 📈 2318.HK (Ping An)  |  Score: 63.9
+      Buy:   2026-01-02  @  HK$ 65.45
+      Sell:  2026-01-30  @  HK$ 72.7
+      P&L:   +11.08%
+      Reasons:
+        • Strong momentum: +18.4% over prior 20 days
+        • Above-average volume: 1.0x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📉 2050.HK (Sanhua Intelligent)  |  Score: 61.0
+      Buy:   2026-01-02  @  HK$ 38.62
+      Sell:  2026-01-30  @  HK$ 35.2
+      P&L:   -8.86%
+      Reasons:
+        • Strong momentum: +23.4% over prior 20 days
+        • Above-average volume: 1.2x — moderate interest
+        • Price above 4/4 moving averages — uptrend
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  Monthly avg P&L: 📈 +5.96%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2026-02  |  Buy: 2026-02-02  →  Sell: 2026-02-27  |  Stocks analyzed: 83
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📈 0016.HK (SHK Properties)  |  Score: 74.3
+      Buy:   2026-02-02  @  HK$ 124.3
+      Sell:  2026-02-27  @  HK$ 146.0
+      P&L:   +17.46%
+      Reasons:
+        • Strong momentum: +22.1% over prior 20 days
+        • Volume surge: 2.3x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📉 9698.HK (Wangsu Science)  |  Score: 74.0
+      Buy:   2026-02-02  @  HK$ 43.78
+      Sell:  2026-02-27  @  HK$ 41.82
+      P&L:   -4.48%
+      Reasons:
+        • Strong momentum: +16.2% over prior 20 days
+        • Volume surge: 2.0x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Mid-range — balanced risk/reward
+
+  #3 📈 0066.HK (MTR Corp)  |  Score: 71.9
+      Buy:   2026-02-02  @  HK$ 34.42
+      Sell:  2026-02-27  @  HK$ 37.34
+      P&L:   +8.48%
+      Reasons:
+        • Strong momentum: +15.9% over prior 20 days
+        • Volume surge: 1.7x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  Monthly avg P&L: 📈 +7.15%
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+📅 2026-03  |  Buy: 2026-03-02  →  Sell: 2026-03-31  |  Stocks analyzed: 83
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  #1 📉 0669.HK (Techtronic Ind)  |  Score: 76.6
+      Buy:   2026-03-02  @  HK$ 125.5
+      Sell:  2026-03-31  @  HK$ 102.1
+      P&L:   -18.65%
+      Reasons:
+        • Strong momentum: +18.2% over prior 20 days
+        • Volume surge: 2.1x vs prior month — strong interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #2 📉 0016.HK (SHK Properties)  |  Score: 69.8
+      Buy:   2026-03-02  @  HK$ 146.0
+      Sell:  2026-03-31  @  HK$ 129.2
+      P&L:   -11.51%
+      Reasons:
+        • Strong momentum: +16.4% over prior 20 days
+        • Above-average volume: 1.5x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+
+  #3 📉 0916.HK (Longfor Group)  |  Score: 53.2
+      Buy:   2026-03-02  @  HK$ 7.52
+      Sell:  2026-03-31  @  HK$ 7.13
+      P&L:   -5.19%
+      Reasons:
+        • Strong momentum: +7.4% over prior 20 days
+        • Above-average volume: 1.0x — moderate interest
+        • Bullish MA alignment (MA5 > MA10 > MA20 > MA60)
+        • Near 20-day high — reduced upside room
+        • W-bottom pattern detected — bullish reversal
+
+  Monthly avg P&L: 📉 -11.78%
+
+====================================================================================================
+📊 OVERALL SUMMARY
+====================================================================================================
+Total months:     20
+Total trades:     60
+Winners:          35 (58.3%)
+Losers:           25 (41.7%)
+Avg P&L/trade:    +4.03%
+Best trade:       +40.30%
+Worst trade:      -33.33%
+Cumulative (sum): +80.67%
+
+Monthly breakdown:
+  📈 2024-08: avg +6.99%  →  1038.HK(+11.7%), 0006.HK(+9.1%), 6030.HK(+0.2%)
+  📈 2024-09: avg +8.01%  →  3692.HK(+5.0%), 1810.HK(+16.6%), 0012.HK(+2.5%)
+  📉 2024-10: avg -8.17%  →  2318.HK(-3.7%), 0388.HK(-7.4%), 2013.HK(-13.4%)
+  📈 2024-11: avg +1.40%  →  1810.HK(+2.8%), 0175.HK(+1.9%), 1928.HK(-0.5%)
+  📈 2024-12: avg +3.99%  →  2382.HK(+8.9%), 9633.HK(+0.0%), 9999.HK(+3.0%)
+  📉 2025-01: avg -1.09%  →  2013.HK(-33.3%), 0981.HK(+20.4%), 1810.HK(+9.6%)
+  📈 2025-02: avg +23.42%  →  9999.HK(-1.9%), 0981.HK(+38.9%), 1810.HK(+33.3%)
+  📉 2025-03: avg -6.84%  →  0960.HK(-8.7%), 2015.HK(-16.3%), 1211.HK(+4.4%)
+  📈 2025-04: avg +5.42%  →  1093.HK(+22.9%), 2688.HK(-4.6%), 3692.HK(-2.0%)
+  📈 2025-05: avg +11.14%  →  1093.HK(+31.7%), 1929.HK(+9.0%), 1880.HK(-7.3%)
+  📈 2025-06: avg +3.74%  →  1093.HK(-2.3%), 9999.HK(+9.0%), 0027.HK(+4.5%)
+  📈 2025-07: avg +12.43%  →  1177.HK(+40.3%), 0012.HK(-1.1%), 1929.HK(-1.9%)
+  📈 2025-08: avg +4.98%  →  2007.HK(-7.5%), 2359.HK(+2.8%), 2013.HK(+19.6%)
+  📈 2025-09: avg +19.60%  →  0981.HK(+22.9%), 9961.HK(+2.9%), 9988.HK(+33.1%)
+  📉 2025-10: avg -9.25%  →  2050.HK(-8.8%), 9888.HK(-12.4%), 2007.HK(-6.6%)
+  📈 2025-11: avg +5.74%  →  0883.HK(+6.0%), 0857.HK(+7.2%), 1378.HK(+4.0%)
+  📉 2025-12: avg -2.17%  →  1209.HK(-3.0%), 1880.HK(+6.8%), 3692.HK(-10.2%)
+  📈 2026-01: avg +5.96%  →  9888.HK(+15.7%), 2318.HK(+11.1%), 2050.HK(-8.9%)
+  📈 2026-02: avg +7.15%  →  0016.HK(+17.5%), 9698.HK(-4.5%), 0066.HK(+8.5%)
+  📉 2026-03: avg -11.78%  →  0669.HK(-18.6%), 0016.HK(-11.5%), 0916.HK(-5.2%)
+
+Top 5 Winners:
+  📈 1177.HK (Sino Biopharm) in 2025-07: +40.30%
+  📈 0981.HK (SMIC) in 2025-02: +38.86%
+  📈 1810.HK (Xiaomi) in 2025-02: +33.29%
+  📈 9988.HK (Alibaba) in 2025-09: +33.08%
+  📈 1093.HK (CSPC Pharma) in 2025-05: +31.71%
+
+Top 5 Losers:
+  📉 2013.HK (WuXi Biologics) in 2025-01: -33.33%
+  📉 0669.HK (Techtronic Ind) in 2026-03: -18.65%
+  📉 2015.HK (Li Auto) in 2025-03: -16.27%
+  📉 2013.HK (WuXi Biologics) in 2024-10: -13.37%
+  📉 9888.HK (Baidu) in 2025-10: -12.43%

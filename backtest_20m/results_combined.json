@@ -1,0 +1,2206 @@
+[
+  {
+    "month": "2024-08",
+    "first_trading_day": "2024-08-01",
+    "last_trading_day": "2024-08-30",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1038.HK",
+        "name": "CKI Holdings",
+        "score": 75.4,
+        "buy_date": "2024-08-01",
+        "buy_price": 51.85,
+        "sell_date": "2024-08-30",
+        "sell_price": 57.9,
+        "pnl_pct": 11.67,
+        "reasons": [
+          "Strong momentum: +21.0% over prior 20 days",
+          "Volume surge: 2.2x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0006.HK",
+        "name": "Power Assets",
+        "score": 75.1,
+        "buy_date": "2024-08-01",
+        "buy_price": 49.9,
+        "sell_date": "2024-08-30",
+        "sell_price": 54.45,
+        "pnl_pct": 9.12,
+        "reasons": [
+          "Strong momentum: +23.6% over prior 20 days",
+          "Volume surge: 2.1x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "6030.HK",
+        "name": "CITIC Securities",
+        "score": 48.5,
+        "buy_date": "2024-08-01",
+        "buy_price": 11.76,
+        "sell_date": "2024-08-30",
+        "sell_price": 11.78,
+        "pnl_pct": 0.17,
+        "reasons": [
+          "Strong momentum: +8.5% over prior 20 days",
+          "Above-average volume: 1.3x — moderate interest",
+          "Price above 3/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      }
+    ],
+    "avg_pnl": 6.99,
+    "all_scores_top10": [
+      [
+        "1038.HK",
+        "CKI Holdings",
+        75.4
+      ],
+      [
+        "0006.HK",
+        "Power Assets",
+        75.1
+      ],
+      [
+        "6030.HK",
+        "CITIC Securities",
+        48.5
+      ],
+      [
+        "0823.HK",
+        "Link REIT",
+        48.3
+      ],
+      [
+        "0002.HK",
+        "CLP Holdings",
+        47.7
+      ],
+      [
+        "0669.HK",
+        "Techtronic Ind",
+        44.6
+      ],
+      [
+        "9988.HK",
+        "Alibaba",
+        42.2
+      ],
+      [
+        "2359.HK",
+        "WuXi AppTec",
+        40.3
+      ],
+      [
+        "9698.HK",
+        "Wangsu Science",
+        39.9
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        35.9
+      ]
+    ]
+  },
+  {
+    "month": "2024-09",
+    "first_trading_day": "2024-09-02",
+    "last_trading_day": "2024-09-30",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "3692.HK",
+        "name": "Hansoh Pharma",
+        "score": 69.6,
+        "buy_date": "2024-09-02",
+        "buy_price": 19.96,
+        "sell_date": "2024-09-30",
+        "sell_price": 20.95,
+        "pnl_pct": 4.96,
+        "reasons": [
+          "Strong momentum: +8.5% over prior 20 days",
+          "Volume surge: 1.9x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "1810.HK",
+        "name": "Xiaomi",
+        "score": 67.3,
+        "buy_date": "2024-09-02",
+        "buy_price": 19.3,
+        "sell_date": "2024-09-30",
+        "sell_price": 22.5,
+        "pnl_pct": 16.58,
+        "reasons": [
+          "Strong momentum: +20.5% over prior 20 days",
+          "Above-average volume: 1.3x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0012.HK",
+        "name": "Henderson Land",
+        "score": 64.4,
+        "buy_date": "2024-09-02",
+        "buy_price": 24.2,
+        "sell_date": "2024-09-30",
+        "sell_price": 24.8,
+        "pnl_pct": 2.48,
+        "reasons": [
+          "Strong momentum: +8.9% over prior 20 days",
+          "Volume surge: 1.7x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      }
+    ],
+    "avg_pnl": 8.01,
+    "all_scores_top10": [
+      [
+        "3692.HK",
+        "Hansoh Pharma",
+        69.6
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        67.3
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        64.4
+      ],
+      [
+        "9698.HK",
+        "Wangsu Science",
+        63.6
+      ],
+      [
+        "9961.HK",
+        "Trip.com",
+        60.0
+      ],
+      [
+        "0669.HK",
+        "Techtronic Ind",
+        57.7
+      ],
+      [
+        "9618.HK",
+        "JD.com",
+        57.1
+      ],
+      [
+        "1209.HK",
+        "CR Mixc",
+        54.6
+      ],
+      [
+        "2628.HK",
+        "China Life",
+        54.5
+      ],
+      [
+        "2020.HK",
+        "Anta Sports",
+        54.4
+      ]
+    ]
+  },
+  {
+    "month": "2024-10",
+    "first_trading_day": "2024-10-02",
+    "last_trading_day": "2024-10-31",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "2318.HK",
+        "name": "Ping An",
+        "score": 80.7,
+        "buy_date": "2024-10-02",
+        "buy_price": 50.0,
+        "sell_date": "2024-10-31",
+        "sell_price": 48.15,
+        "pnl_pct": -3.7,
+        "reasons": [
+          "Strong momentum: +53.0% over prior 20 days",
+          "Volume surge: 2.5x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "0388.HK",
+        "name": "HKEX",
+        "score": 80.6,
+        "buy_date": "2024-10-02",
+        "buy_price": 335.8,
+        "sell_date": "2024-10-31",
+        "sell_price": 310.8,
+        "pnl_pct": -7.44,
+        "reasons": [
+          "Strong momentum: +57.4% over prior 20 days",
+          "Volume surge: 3.6x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "2013.HK",
+        "name": "WuXi Biologics",
+        "score": 80.3,
+        "buy_date": "2024-10-02",
+        "buy_price": 1.87,
+        "sell_date": "2024-10-31",
+        "sell_price": 1.62,
+        "pnl_pct": -13.37,
+        "reasons": [
+          "Strong momentum: +111.9% over prior 20 days",
+          "Volume surge: 2.6x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      }
+    ],
+    "avg_pnl": -8.17,
+    "all_scores_top10": [
+      [
+        "2318.HK",
+        "Ping An",
+        80.7
+      ],
+      [
+        "0388.HK",
+        "HKEX",
+        80.6
+      ],
+      [
+        "2013.HK",
+        "WuXi Biologics",
+        80.3
+      ],
+      [
+        "2822.HK",
+        "CSI 300 ETF",
+        80.3
+      ],
+      [
+        "6030.HK",
+        "CITIC Securities",
+        80.0
+      ],
+      [
+        "0241.HK",
+        "Ali Health",
+        79.6
+      ],
+      [
+        "2020.HK",
+        "Anta Sports",
+        78.3
+      ],
+      [
+        "2319.HK",
+        "Mengniu Dairy",
+        77.9
+      ],
+      [
+        "9988.HK",
+        "Alibaba",
+        76.3
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        76.0
+      ]
+    ]
+  },
+  {
+    "month": "2024-11",
+    "first_trading_day": "2024-11-01",
+    "last_trading_day": "2024-11-29",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1810.HK",
+        "name": "Xiaomi",
+        "score": 56.6,
+        "buy_date": "2024-11-01",
+        "buy_price": 27.0,
+        "sell_date": "2024-11-29",
+        "sell_price": 27.75,
+        "pnl_pct": 2.78,
+        "reasons": [
+          "Strong momentum: +11.2% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0175.HK",
+        "name": "Geely Auto",
+        "score": 51.0,
+        "buy_date": "2024-11-01",
+        "buy_price": 13.6,
+        "sell_date": "2024-11-29",
+        "sell_price": 13.86,
+        "pnl_pct": 1.91,
+        "reasons": [
+          "Strong momentum: +6.5% over prior 20 days",
+          "Volume surge: 1.6x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1928.HK",
+        "name": "Sands China",
+        "score": 47.2,
+        "buy_date": "2024-11-01",
+        "buy_price": 19.94,
+        "sell_date": "2024-11-29",
+        "sell_price": 19.84,
+        "pnl_pct": -0.5,
+        "reasons": [
+          "Positive momentum: +2.0% over prior 20 days",
+          "Below-average volume: 0.9x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal",
+          "Bouncing off recent low — potential reversal"
+        ]
+      }
+    ],
+    "avg_pnl": 1.4,
+    "all_scores_top10": [
+      [
+        "1810.HK",
+        "Xiaomi",
+        56.6
+      ],
+      [
+        "0175.HK",
+        "Geely Auto",
+        51.0
+      ],
+      [
+        "1928.HK",
+        "Sands China",
+        47.2
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        41.9
+      ],
+      [
+        "0762.HK",
+        "China Unicom",
+        29.4
+      ],
+      [
+        "2388.HK",
+        "BOC HK",
+        29.3
+      ],
+      [
+        "0006.HK",
+        "Power Assets",
+        27.4
+      ],
+      [
+        "1398.HK",
+        "ICBC",
+        26.7
+      ],
+      [
+        "0968.HK",
+        "Xinyi Solar",
+        26.3
+      ],
+      [
+        "1038.HK",
+        "CKI Holdings",
+        25.7
+      ]
+    ]
+  },
+  {
+    "month": "2024-12",
+    "first_trading_day": "2024-12-02",
+    "last_trading_day": "2024-12-31",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "2382.HK",
+        "name": "Sunny Optical",
+        "score": 64.7,
+        "buy_date": "2024-12-02",
+        "buy_price": 63.25,
+        "sell_date": "2024-12-31",
+        "sell_price": 68.9,
+        "pnl_pct": 8.93,
+        "reasons": [
+          "Strong momentum: +15.8% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9633.HK",
+        "name": "Nongfu Spring",
+        "score": 53.8,
+        "buy_date": "2024-12-02",
+        "buy_price": 34.0,
+        "sell_date": "2024-12-31",
+        "sell_price": 34.0,
+        "pnl_pct": 0.0,
+        "reasons": [
+          "Strong momentum: +7.8% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "9999.HK",
+        "name": "NetEase",
+        "score": 43.1,
+        "buy_date": "2024-12-02",
+        "buy_price": 135.1,
+        "sell_date": "2024-12-31",
+        "sell_price": 139.2,
+        "pnl_pct": 3.03,
+        "reasons": [
+          "Strong momentum: +10.9% over prior 20 days",
+          "Below-average volume: 0.9x — declining interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 3.99,
+    "all_scores_top10": [
+      [
+        "2382.HK",
+        "Sunny Optical",
+        64.7
+      ],
+      [
+        "9633.HK",
+        "Nongfu Spring",
+        53.8
+      ],
+      [
+        "9999.HK",
+        "NetEase",
+        43.1
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        34.0
+      ],
+      [
+        "0288.HK",
+        "WH Group",
+        32.9
+      ],
+      [
+        "3692.HK",
+        "Hansoh Pharma",
+        32.9
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        28.4
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        26.4
+      ],
+      [
+        "0941.HK",
+        "China Mobile",
+        25.0
+      ],
+      [
+        "0027.HK",
+        "Galaxy Ent",
+        24.3
+      ]
+    ]
+  },
+  {
+    "month": "2025-01",
+    "first_trading_day": "2025-01-02",
+    "last_trading_day": "2025-01-28",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "2013.HK",
+        "name": "WuXi Biologics",
+        "score": 78.8,
+        "buy_date": "2025-01-02",
+        "buy_price": 3.45,
+        "sell_date": "2025-01-28",
+        "sell_price": 2.3,
+        "pnl_pct": -33.33,
+        "reasons": [
+          "Strong momentum: +110.8% over prior 20 days",
+          "Volume surge: 5.4x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "0981.HK",
+        "name": "SMIC",
+        "score": 60.7,
+        "buy_date": "2025-01-02",
+        "buy_price": 31.55,
+        "sell_date": "2025-01-28",
+        "sell_price": 38.0,
+        "pnl_pct": 20.44,
+        "reasons": [
+          "Strong momentum: +11.5% over prior 20 days",
+          "Below-average volume: 0.8x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Mid-range — balanced risk/reward",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "1810.HK",
+        "name": "Xiaomi",
+        "score": 57.9,
+        "buy_date": "2025-01-02",
+        "buy_price": 34.8,
+        "sell_date": "2025-01-28",
+        "sell_price": 38.15,
+        "pnl_pct": 9.63,
+        "reasons": [
+          "Strong momentum: +16.8% over prior 20 days",
+          "Below-average volume: 0.8x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": -1.09,
+    "all_scores_top10": [
+      [
+        "2013.HK",
+        "WuXi Biologics",
+        78.8
+      ],
+      [
+        "0981.HK",
+        "SMIC",
+        60.7
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        57.9
+      ],
+      [
+        "9698.HK",
+        "Wangsu Science",
+        52.2
+      ],
+      [
+        "0788.HK",
+        "China Tower",
+        49.9
+      ],
+      [
+        "0762.HK",
+        "China Unicom",
+        48.4
+      ],
+      [
+        "3328.HK",
+        "Bank of Comms",
+        45.3
+      ],
+      [
+        "0006.HK",
+        "Power Assets",
+        43.2
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        41.7
+      ],
+      [
+        "9901.HK",
+        "New Oriental",
+        40.9
+      ]
+    ]
+  },
+  {
+    "month": "2025-02",
+    "first_trading_day": "2025-02-03",
+    "last_trading_day": "2025-02-28",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "9999.HK",
+        "name": "NetEase",
+        "score": 67.3,
+        "buy_date": "2025-02-03",
+        "buy_price": 157.8,
+        "sell_date": "2025-02-28",
+        "sell_price": 154.8,
+        "pnl_pct": -1.9,
+        "reasons": [
+          "Strong momentum: +16.8% over prior 20 days",
+          "Above-average volume: 1.4x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0981.HK",
+        "name": "SMIC",
+        "score": 64.4,
+        "buy_date": "2025-02-03",
+        "buy_price": 38.6,
+        "sell_date": "2025-02-28",
+        "sell_price": 53.6,
+        "pnl_pct": 38.86,
+        "reasons": [
+          "Strong momentum: +44.5% over prior 20 days",
+          "Volume surge: 1.8x vs prior month — strong interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1810.HK",
+        "name": "Xiaomi",
+        "score": 60.9,
+        "buy_date": "2025-02-03",
+        "buy_price": 38.9,
+        "sell_date": "2025-02-28",
+        "sell_price": 51.85,
+        "pnl_pct": 33.29,
+        "reasons": [
+          "Strong momentum: +11.6% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 23.42,
+    "all_scores_top10": [
+      [
+        "9999.HK",
+        "NetEase",
+        67.3
+      ],
+      [
+        "0981.HK",
+        "SMIC",
+        64.4
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        60.9
+      ],
+      [
+        "1398.HK",
+        "ICBC",
+        57.7
+      ],
+      [
+        "9988.HK",
+        "Alibaba",
+        55.9
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        55.8
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        52.0
+      ],
+      [
+        "2269.HK",
+        "WuXi Bio",
+        51.2
+      ],
+      [
+        "1378.HK",
+        "China Hongqiao",
+        49.4
+      ],
+      [
+        "2382.HK",
+        "Sunny Optical",
+        49.1
+      ]
+    ]
+  },
+  {
+    "month": "2025-03",
+    "first_trading_day": "2025-03-03",
+    "last_trading_day": "2025-03-31",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "0960.HK",
+        "name": "Longfor Group",
+        "score": 78.7,
+        "buy_date": "2025-03-03",
+        "buy_price": 10.74,
+        "sell_date": "2025-03-31",
+        "sell_price": 9.81,
+        "pnl_pct": -8.66,
+        "reasons": [
+          "Strong momentum: +11.7% over prior 20 days",
+          "Volume surge: 2.1x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "2015.HK",
+        "name": "Li Auto",
+        "score": 75.7,
+        "buy_date": "2025-03-03",
+        "buy_price": 118.3,
+        "sell_date": "2025-03-31",
+        "sell_price": 99.05,
+        "pnl_pct": -16.27,
+        "reasons": [
+          "Strong momentum: +18.7% over prior 20 days",
+          "Volume surge: 2.9x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Mid-range — balanced risk/reward"
+        ]
+      },
+      {
+        "symbol": "1211.HK",
+        "name": "BYD",
+        "score": 72.6,
+        "buy_date": "2025-03-03",
+        "buy_price": 125.4,
+        "sell_date": "2025-03-31",
+        "sell_price": 130.93,
+        "pnl_pct": 4.41,
+        "reasons": [
+          "Strong momentum: +27.0% over prior 20 days",
+          "Volume surge: 3.3x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": -6.84,
+    "all_scores_top10": [
+      [
+        "0960.HK",
+        "Longfor Group",
+        78.7
+      ],
+      [
+        "2015.HK",
+        "Li Auto",
+        75.7
+      ],
+      [
+        "1211.HK",
+        "BYD",
+        72.6
+      ],
+      [
+        "0688.HK",
+        "China Overseas",
+        72.5
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        72.1
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        71.8
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        71.6
+      ],
+      [
+        "0175.HK",
+        "Geely Auto",
+        71.0
+      ],
+      [
+        "9988.HK",
+        "Alibaba",
+        70.9
+      ],
+      [
+        "1209.HK",
+        "CR Mixc",
+        69.1
+      ]
+    ]
+  },
+  {
+    "month": "2025-04",
+    "first_trading_day": "2025-04-01",
+    "last_trading_day": "2025-04-30",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1093.HK",
+        "name": "CSPC Pharma",
+        "score": 70.9,
+        "buy_date": "2025-04-01",
+        "buy_price": 4.99,
+        "sell_date": "2025-04-30",
+        "sell_price": 6.13,
+        "pnl_pct": 22.85,
+        "reasons": [
+          "Strong momentum: +14.9% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "2688.HK",
+        "name": "ENN Energy",
+        "score": 70.7,
+        "buy_date": "2025-04-01",
+        "buy_price": 64.5,
+        "sell_date": "2025-04-30",
+        "sell_price": 61.55,
+        "pnl_pct": -4.57,
+        "reasons": [
+          "Strong momentum: +21.8% over prior 20 days",
+          "Above-average volume: 1.4x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "3692.HK",
+        "name": "Hansoh Pharma",
+        "score": 70.5,
+        "buy_date": "2025-04-01",
+        "buy_price": 24.6,
+        "sell_date": "2025-04-30",
+        "sell_price": 24.1,
+        "pnl_pct": -2.03,
+        "reasons": [
+          "Strong momentum: +28.5% over prior 20 days",
+          "Above-average volume: 1.5x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 5.42,
+    "all_scores_top10": [
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        70.9
+      ],
+      [
+        "2688.HK",
+        "ENN Energy",
+        70.7
+      ],
+      [
+        "3692.HK",
+        "Hansoh Pharma",
+        70.5
+      ],
+      [
+        "1378.HK",
+        "China Hongqiao",
+        66.1
+      ],
+      [
+        "1177.HK",
+        "Sino Biopharm",
+        64.9
+      ],
+      [
+        "2899.HK",
+        "Zijin Mining",
+        59.7
+      ],
+      [
+        "2359.HK",
+        "WuXi AppTec",
+        51.7
+      ],
+      [
+        "2388.HK",
+        "BOC HK",
+        51.3
+      ],
+      [
+        "0288.HK",
+        "WH Group",
+        50.6
+      ],
+      [
+        "2319.HK",
+        "Mengniu Dairy",
+        50.2
+      ]
+    ]
+  },
+  {
+    "month": "2025-05",
+    "first_trading_day": "2025-05-02",
+    "last_trading_day": "2025-05-30",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1093.HK",
+        "name": "CSPC Pharma",
+        "score": 71.5,
+        "buy_date": "2025-05-02",
+        "buy_price": 6.15,
+        "sell_date": "2025-05-30",
+        "sell_price": 8.1,
+        "pnl_pct": 31.71,
+        "reasons": [
+          "Strong momentum: +13.3% over prior 20 days",
+          "Volume surge: 1.9x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1929.HK",
+        "name": "Chow Tai Fook",
+        "score": 65.4,
+        "buy_date": "2025-05-02",
+        "buy_price": 10.26,
+        "sell_date": "2025-05-30",
+        "sell_price": 11.18,
+        "pnl_pct": 8.97,
+        "reasons": [
+          "Strong momentum: +15.3% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1880.HK",
+        "name": "CTG Duty Free",
+        "score": 60.7,
+        "buy_date": "2025-05-02",
+        "buy_price": 53.7,
+        "sell_date": "2025-05-30",
+        "sell_price": 49.8,
+        "pnl_pct": -7.26,
+        "reasons": [
+          "Strong momentum: +7.7% over prior 20 days",
+          "Volume surge: 2.5x vs prior month — strong interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Mid-range — balanced risk/reward",
+          "Bullish volume divergence (price down, volume shrinking)"
+        ]
+      }
+    ],
+    "avg_pnl": 11.14,
+    "all_scores_top10": [
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        71.5
+      ],
+      [
+        "1929.HK",
+        "Chow Tai Fook",
+        65.4
+      ],
+      [
+        "1880.HK",
+        "CTG Duty Free",
+        60.7
+      ],
+      [
+        "1209.HK",
+        "CR Mixc",
+        58.3
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        52.1
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        48.8
+      ],
+      [
+        "0002.HK",
+        "CLP Holdings",
+        45.5
+      ],
+      [
+        "1038.HK",
+        "CKI Holdings",
+        43.4
+      ],
+      [
+        "0066.HK",
+        "MTR Corp",
+        42.9
+      ],
+      [
+        "0960.HK",
+        "Longfor Group",
+        42.4
+      ]
+    ]
+  },
+  {
+    "month": "2025-06",
+    "first_trading_day": "2025-06-02",
+    "last_trading_day": "2025-06-30",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1093.HK",
+        "name": "CSPC Pharma",
+        "score": 66.8,
+        "buy_date": "2025-06-02",
+        "buy_price": 7.88,
+        "sell_date": "2025-06-30",
+        "sell_price": 7.7,
+        "pnl_pct": -2.28,
+        "reasons": [
+          "Strong momentum: +32.0% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9999.HK",
+        "name": "NetEase",
+        "score": 61.5,
+        "buy_date": "2025-06-02",
+        "buy_price": 193.6,
+        "sell_date": "2025-06-30",
+        "sell_price": 211.0,
+        "pnl_pct": 8.99,
+        "reasons": [
+          "Strong momentum: +14.4% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0027.HK",
+        "name": "Galaxy Ent",
+        "score": 60.4,
+        "buy_date": "2025-06-02",
+        "buy_price": 33.35,
+        "sell_date": "2025-06-30",
+        "sell_price": 34.85,
+        "pnl_pct": 4.5,
+        "reasons": [
+          "Strong momentum: +14.9% over prior 20 days",
+          "Below-average volume: 0.9x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 3.74,
+    "all_scores_top10": [
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        66.8
+      ],
+      [
+        "9999.HK",
+        "NetEase",
+        61.5
+      ],
+      [
+        "0027.HK",
+        "Galaxy Ent",
+        60.4
+      ],
+      [
+        "1177.HK",
+        "Sino Biopharm",
+        55.6
+      ],
+      [
+        "0823.HK",
+        "Link REIT",
+        52.2
+      ],
+      [
+        "0016.HK",
+        "SHK Properties",
+        51.3
+      ],
+      [
+        "2359.HK",
+        "WuXi AppTec",
+        50.2
+      ],
+      [
+        "1088.HK",
+        "China Shenhua",
+        48.3
+      ],
+      [
+        "0388.HK",
+        "HKEX",
+        47.2
+      ],
+      [
+        "0857.HK",
+        "PetroChina",
+        46.8
+      ]
+    ]
+  },
+  {
+    "month": "2025-07",
+    "first_trading_day": "2025-07-02",
+    "last_trading_day": "2025-07-31",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1177.HK",
+        "name": "Sino Biopharm",
+        "score": 77.9,
+        "buy_date": "2025-07-02",
+        "buy_price": 5.36,
+        "sell_date": "2025-07-31",
+        "sell_price": 7.52,
+        "pnl_pct": 40.3,
+        "reasons": [
+          "Strong momentum: +15.4% over prior 20 days",
+          "Volume surge: 1.8x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0012.HK",
+        "name": "Henderson Land",
+        "score": 76.0,
+        "buy_date": "2025-07-02",
+        "buy_price": 27.8,
+        "sell_date": "2025-07-31",
+        "sell_price": 27.5,
+        "pnl_pct": -1.08,
+        "reasons": [
+          "Strong momentum: +17.9% over prior 20 days",
+          "Volume surge: 1.9x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "Bouncing off recent low — potential reversal"
+        ]
+      },
+      {
+        "symbol": "1929.HK",
+        "name": "Chow Tai Fook",
+        "score": 69.8,
+        "buy_date": "2025-07-02",
+        "buy_price": 13.42,
+        "sell_date": "2025-07-31",
+        "sell_price": 13.16,
+        "pnl_pct": -1.94,
+        "reasons": [
+          "Strong momentum: +13.8% over prior 20 days",
+          "Volume surge: 1.7x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 12.43,
+    "all_scores_top10": [
+      [
+        "1177.HK",
+        "Sino Biopharm",
+        77.9
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        76.0
+      ],
+      [
+        "1929.HK",
+        "Chow Tai Fook",
+        69.8
+      ],
+      [
+        "2331.HK",
+        "Li Ning",
+        69.8
+      ],
+      [
+        "1024.HK",
+        "Kuaishou",
+        67.4
+      ],
+      [
+        "1997.HK",
+        "Wharf REIC",
+        66.6
+      ],
+      [
+        "6030.HK",
+        "CITIC Securities",
+        66.4
+      ],
+      [
+        "9626.HK",
+        "Bilibili",
+        66.2
+      ],
+      [
+        "0016.HK",
+        "SHK Properties",
+        66.1
+      ],
+      [
+        "9901.HK",
+        "New Oriental",
+        66.1
+      ]
+    ]
+  },
+  {
+    "month": "2025-08",
+    "first_trading_day": "2025-08-01",
+    "last_trading_day": "2025-08-29",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "2007.HK",
+        "name": "Country Garden",
+        "score": 75.0,
+        "buy_date": "2025-08-01",
+        "buy_price": 0.47,
+        "sell_date": "2025-08-29",
+        "sell_price": 0.44,
+        "pnl_pct": -7.45,
+        "reasons": [
+          "Strong momentum: +20.8% over prior 20 days",
+          "Volume surge: 4.6x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Mid-range — balanced risk/reward"
+        ]
+      },
+      {
+        "symbol": "2359.HK",
+        "name": "WuXi AppTec",
+        "score": 74.0,
+        "buy_date": "2025-08-01",
+        "buy_price": 105.0,
+        "sell_date": "2025-08-29",
+        "sell_price": 107.9,
+        "pnl_pct": 2.76,
+        "reasons": [
+          "Strong momentum: +28.7% over prior 20 days",
+          "Volume surge: 1.8x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "2013.HK",
+        "name": "WuXi Biologics",
+        "score": 72.8,
+        "buy_date": "2025-08-01",
+        "buy_price": 2.19,
+        "sell_date": "2025-08-29",
+        "sell_price": 2.62,
+        "pnl_pct": 19.63,
+        "reasons": [
+          "Strong momentum: +14.0% over prior 20 days",
+          "Volume surge: 2.7x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Mid-range — balanced risk/reward"
+        ]
+      }
+    ],
+    "avg_pnl": 4.98,
+    "all_scores_top10": [
+      [
+        "2007.HK",
+        "Country Garden",
+        75.0
+      ],
+      [
+        "2359.HK",
+        "WuXi AppTec",
+        74.0
+      ],
+      [
+        "2013.HK",
+        "WuXi Biologics",
+        72.8
+      ],
+      [
+        "9633.HK",
+        "Nongfu Spring",
+        66.9
+      ],
+      [
+        "2269.HK",
+        "WuXi Bio",
+        66.6
+      ],
+      [
+        "0968.HK",
+        "Xinyi Solar",
+        63.9
+      ],
+      [
+        "2628.HK",
+        "China Life",
+        63.8
+      ],
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        62.9
+      ],
+      [
+        "1177.HK",
+        "Sino Biopharm",
+        62.1
+      ],
+      [
+        "9866.HK",
+        "NIO",
+        61.9
+      ]
+    ]
+  },
+  {
+    "month": "2025-09",
+    "first_trading_day": "2025-09-01",
+    "last_trading_day": "2025-09-30",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "0981.HK",
+        "name": "SMIC",
+        "score": 73.6,
+        "buy_date": "2025-09-01",
+        "buy_price": 64.75,
+        "sell_date": "2025-09-30",
+        "sell_price": 79.55,
+        "pnl_pct": 22.86,
+        "reasons": [
+          "Strong momentum: +24.8% over prior 20 days",
+          "Volume surge: 1.8x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9961.HK",
+        "name": "Trip.com",
+        "score": 71.3,
+        "buy_date": "2025-09-01",
+        "buy_price": 579.5,
+        "sell_date": "2025-09-30",
+        "sell_price": 596.0,
+        "pnl_pct": 2.85,
+        "reasons": [
+          "Strong momentum: +17.8% over prior 20 days",
+          "Volume surge: 1.6x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9988.HK",
+        "name": "Alibaba",
+        "score": 70.9,
+        "buy_date": "2025-09-01",
+        "buy_price": 133.0,
+        "sell_date": "2025-09-30",
+        "sell_price": 177.0,
+        "pnl_pct": 33.08,
+        "reasons": [
+          "Strong momentum: +18.2% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal",
+          "Bouncing off recent low — potential reversal"
+        ]
+      }
+    ],
+    "avg_pnl": 19.6,
+    "all_scores_top10": [
+      [
+        "0981.HK",
+        "SMIC",
+        73.6
+      ],
+      [
+        "9961.HK",
+        "Trip.com",
+        71.3
+      ],
+      [
+        "9988.HK",
+        "Alibaba",
+        70.9
+      ],
+      [
+        "2013.HK",
+        "WuXi Biologics",
+        66.3
+      ],
+      [
+        "2382.HK",
+        "Sunny Optical",
+        65.5
+      ],
+      [
+        "1177.HK",
+        "Sino Biopharm",
+        64.4
+      ],
+      [
+        "1378.HK",
+        "China Hongqiao",
+        63.5
+      ],
+      [
+        "9866.HK",
+        "NIO",
+        63.4
+      ],
+      [
+        "0241.HK",
+        "Ali Health",
+        62.6
+      ],
+      [
+        "2269.HK",
+        "WuXi Bio",
+        61.6
+      ]
+    ]
+  },
+  {
+    "month": "2025-10",
+    "first_trading_day": "2025-10-02",
+    "last_trading_day": "2025-10-31",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "2050.HK",
+        "name": "Sanhua Intelligent",
+        "score": 75.7,
+        "buy_date": "2025-10-02",
+        "buy_price": 44.8,
+        "sell_date": "2025-10-31",
+        "sell_price": 40.88,
+        "pnl_pct": -8.75,
+        "reasons": [
+          "Strong momentum: +59.8% over prior 20 days",
+          "Volume surge: 2.7x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9888.HK",
+        "name": "Baidu",
+        "score": 75.7,
+        "buy_date": "2025-10-02",
+        "buy_price": 134.3,
+        "sell_date": "2025-10-31",
+        "sell_price": 117.6,
+        "pnl_pct": -12.43,
+        "reasons": [
+          "Strong momentum: +45.0% over prior 20 days",
+          "Volume surge: 3.3x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "2007.HK",
+        "name": "Country Garden",
+        "score": 74.5,
+        "buy_date": "2025-10-02",
+        "buy_price": 0.61,
+        "sell_date": "2025-10-31",
+        "sell_price": 0.57,
+        "pnl_pct": -6.56,
+        "reasons": [
+          "Strong momentum: +34.8% over prior 20 days",
+          "Volume surge: 6.7x vs prior month — strong interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Mid-range — balanced risk/reward",
+          "Bullish volume divergence (price down, volume shrinking)"
+        ]
+      }
+    ],
+    "avg_pnl": -9.25,
+    "all_scores_top10": [
+      [
+        "2050.HK",
+        "Sanhua Intelligent",
+        75.7
+      ],
+      [
+        "9888.HK",
+        "Baidu",
+        75.7
+      ],
+      [
+        "2007.HK",
+        "Country Garden",
+        74.5
+      ],
+      [
+        "2899.HK",
+        "Zijin Mining",
+        74.4
+      ],
+      [
+        "0916.HK",
+        "Longfor Group",
+        68.0
+      ],
+      [
+        "1024.HK",
+        "Kuaishou",
+        67.5
+      ],
+      [
+        "9988.HK",
+        "Alibaba",
+        67.2
+      ],
+      [
+        "9618.HK",
+        "JD.com",
+        65.6
+      ],
+      [
+        "9626.HK",
+        "Bilibili",
+        64.4
+      ],
+      [
+        "9866.HK",
+        "NIO",
+        64.3
+      ]
+    ]
+  },
+  {
+    "month": "2025-11",
+    "first_trading_day": "2025-11-03",
+    "last_trading_day": "2025-11-28",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "0883.HK",
+        "name": "CNOOC",
+        "score": 64.8,
+        "buy_date": "2025-11-03",
+        "buy_price": 19.98,
+        "sell_date": "2025-11-28",
+        "sell_price": 21.18,
+        "pnl_pct": 6.01,
+        "reasons": [
+          "Strong momentum: +8.5% over prior 20 days",
+          "Volume surge: 1.6x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal",
+          "Bouncing off recent low — potential reversal"
+        ]
+      },
+      {
+        "symbol": "0857.HK",
+        "name": "PetroChina",
+        "score": 64.7,
+        "buy_date": "2025-11-03",
+        "buy_price": 8.1,
+        "sell_date": "2025-11-28",
+        "sell_price": 8.68,
+        "pnl_pct": 7.16,
+        "reasons": [
+          "Strong momentum: +16.1% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1378.HK",
+        "name": "China Hongqiao",
+        "score": 63.5,
+        "buy_date": "2025-11-03",
+        "buy_price": 29.66,
+        "sell_date": "2025-11-28",
+        "sell_price": 30.86,
+        "pnl_pct": 4.05,
+        "reasons": [
+          "Strong momentum: +13.3% over prior 20 days",
+          "Below-average volume: 0.9x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      }
+    ],
+    "avg_pnl": 5.74,
+    "all_scores_top10": [
+      [
+        "0883.HK",
+        "CNOOC",
+        64.8
+      ],
+      [
+        "0857.HK",
+        "PetroChina",
+        64.7
+      ],
+      [
+        "1378.HK",
+        "China Hongqiao",
+        63.5
+      ],
+      [
+        "0066.HK",
+        "MTR Corp",
+        55.0
+      ],
+      [
+        "2628.HK",
+        "China Life",
+        55.0
+      ],
+      [
+        "1088.HK",
+        "China Shenhua",
+        51.4
+      ],
+      [
+        "9901.HK",
+        "New Oriental",
+        49.3
+      ],
+      [
+        "2388.HK",
+        "BOC HK",
+        48.7
+      ],
+      [
+        "1044.HK",
+        "Hengan Intl",
+        45.0
+      ],
+      [
+        "3328.HK",
+        "Bank of Comms",
+        43.8
+      ]
+    ]
+  },
+  {
+    "month": "2025-12",
+    "first_trading_day": "2025-12-01",
+    "last_trading_day": "2025-12-31",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "1209.HK",
+        "name": "CR Mixc",
+        "score": 76.4,
+        "buy_date": "2025-12-01",
+        "buy_price": 44.32,
+        "sell_date": "2025-12-31",
+        "sell_price": 42.98,
+        "pnl_pct": -3.02,
+        "reasons": [
+          "Strong momentum: +14.5% over prior 20 days",
+          "Volume surge: 2.6x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1880.HK",
+        "name": "CTG Duty Free",
+        "score": 70.5,
+        "buy_date": "2025-12-01",
+        "buy_price": 73.85,
+        "sell_date": "2025-12-31",
+        "sell_price": 78.85,
+        "pnl_pct": 6.77,
+        "reasons": [
+          "Strong momentum: +19.1% over prior 20 days",
+          "Volume surge: 2.3x vs prior month — strong interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "3692.HK",
+        "name": "Hansoh Pharma",
+        "score": 61.8,
+        "buy_date": "2025-12-01",
+        "buy_price": 40.2,
+        "sell_date": "2025-12-31",
+        "sell_price": 36.08,
+        "pnl_pct": -10.25,
+        "reasons": [
+          "Strong momentum: +13.5% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": -2.17,
+    "all_scores_top10": [
+      [
+        "1209.HK",
+        "CR Mixc",
+        76.4
+      ],
+      [
+        "1880.HK",
+        "CTG Duty Free",
+        70.5
+      ],
+      [
+        "3692.HK",
+        "Hansoh Pharma",
+        61.8
+      ],
+      [
+        "1378.HK",
+        "China Hongqiao",
+        61.5
+      ],
+      [
+        "0788.HK",
+        "China Tower",
+        58.2
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        58.1
+      ],
+      [
+        "1997.HK",
+        "Wharf REIC",
+        55.6
+      ],
+      [
+        "2688.HK",
+        "ENN Energy",
+        54.5
+      ],
+      [
+        "0066.HK",
+        "MTR Corp",
+        54.4
+      ],
+      [
+        "2628.HK",
+        "China Life",
+        53.5
+      ]
+    ]
+  },
+  {
+    "month": "2026-01",
+    "first_trading_day": "2026-01-02",
+    "last_trading_day": "2026-01-30",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "9888.HK",
+        "name": "Baidu",
+        "score": 66.5,
+        "buy_date": "2026-01-02",
+        "buy_price": 132.1,
+        "sell_date": "2026-01-30",
+        "sell_price": 152.8,
+        "pnl_pct": 15.67,
+        "reasons": [
+          "Strong momentum: +25.5% over prior 20 days",
+          "Below-average volume: 1.0x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "2318.HK",
+        "name": "Ping An",
+        "score": 63.9,
+        "buy_date": "2026-01-02",
+        "buy_price": 65.45,
+        "sell_date": "2026-01-30",
+        "sell_price": 72.7,
+        "pnl_pct": 11.08,
+        "reasons": [
+          "Strong momentum: +18.4% over prior 20 days",
+          "Above-average volume: 1.0x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "2050.HK",
+        "name": "Sanhua Intelligent",
+        "score": 61.0,
+        "buy_date": "2026-01-02",
+        "buy_price": 38.62,
+        "sell_date": "2026-01-30",
+        "sell_price": 35.2,
+        "pnl_pct": -8.86,
+        "reasons": [
+          "Strong momentum: +23.4% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      }
+    ],
+    "avg_pnl": 5.96,
+    "all_scores_top10": [
+      [
+        "9888.HK",
+        "Baidu",
+        66.5
+      ],
+      [
+        "2318.HK",
+        "Ping An",
+        63.9
+      ],
+      [
+        "2050.HK",
+        "Sanhua Intelligent",
+        61.0
+      ],
+      [
+        "2899.HK",
+        "Zijin Mining",
+        60.9
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        57.4
+      ],
+      [
+        "9961.HK",
+        "Trip.com",
+        55.4
+      ],
+      [
+        "0006.HK",
+        "Power Assets",
+        55.3
+      ],
+      [
+        "3690.HK",
+        "Meituan",
+        50.0
+      ],
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        48.6
+      ],
+      [
+        "2388.HK",
+        "BOC HK",
+        48.5
+      ]
+    ]
+  },
+  {
+    "month": "2026-02",
+    "first_trading_day": "2026-02-02",
+    "last_trading_day": "2026-02-27",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "0016.HK",
+        "name": "SHK Properties",
+        "score": 74.3,
+        "buy_date": "2026-02-02",
+        "buy_price": 124.3,
+        "sell_date": "2026-02-27",
+        "sell_price": 146.0,
+        "pnl_pct": 17.46,
+        "reasons": [
+          "Strong momentum: +22.1% over prior 20 days",
+          "Volume surge: 2.3x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9698.HK",
+        "name": "Wangsu Science",
+        "score": 74.0,
+        "buy_date": "2026-02-02",
+        "buy_price": 43.78,
+        "sell_date": "2026-02-27",
+        "sell_price": 41.82,
+        "pnl_pct": -4.48,
+        "reasons": [
+          "Strong momentum: +16.2% over prior 20 days",
+          "Volume surge: 2.0x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Mid-range — balanced risk/reward"
+        ]
+      },
+      {
+        "symbol": "0066.HK",
+        "name": "MTR Corp",
+        "score": 71.9,
+        "buy_date": "2026-02-02",
+        "buy_price": 34.42,
+        "sell_date": "2026-02-27",
+        "sell_price": 37.34,
+        "pnl_pct": 8.48,
+        "reasons": [
+          "Strong momentum: +15.9% over prior 20 days",
+          "Volume surge: 1.7x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 7.15,
+    "all_scores_top10": [
+      [
+        "0016.HK",
+        "SHK Properties",
+        74.3
+      ],
+      [
+        "9698.HK",
+        "Wangsu Science",
+        74.0
+      ],
+      [
+        "0066.HK",
+        "MTR Corp",
+        71.9
+      ],
+      [
+        "2013.HK",
+        "WuXi Biologics",
+        71.4
+      ],
+      [
+        "9626.HK",
+        "Bilibili",
+        69.4
+      ],
+      [
+        "0386.HK",
+        "China Petroleum",
+        68.8
+      ],
+      [
+        "1997.HK",
+        "Wharf REIC",
+        67.1
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        64.7
+      ],
+      [
+        "0669.HK",
+        "Techtronic Ind",
+        62.5
+      ],
+      [
+        "0241.HK",
+        "Ali Health",
+        62.4
+      ]
+    ]
+  },
+  {
+    "month": "2026-03",
+    "first_trading_day": "2026-03-02",
+    "last_trading_day": "2026-03-31",
+    "total_stocks_analyzed": 83,
+    "trades": [
+      {
+        "symbol": "0669.HK",
+        "name": "Techtronic Ind",
+        "score": 76.6,
+        "buy_date": "2026-03-02",
+        "buy_price": 125.5,
+        "sell_date": "2026-03-31",
+        "sell_price": 102.1,
+        "pnl_pct": -18.65,
+        "reasons": [
+          "Strong momentum: +18.2% over prior 20 days",
+          "Volume surge: 2.1x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0016.HK",
+        "name": "SHK Properties",
+        "score": 69.8,
+        "buy_date": "2026-03-02",
+        "buy_price": 146.0,
+        "sell_date": "2026-03-31",
+        "sell_price": 129.2,
+        "pnl_pct": -11.51,
+        "reasons": [
+          "Strong momentum: +16.4% over prior 20 days",
+          "Above-average volume: 1.5x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0916.HK",
+        "name": "Longfor Group",
+        "score": 53.2,
+        "buy_date": "2026-03-02",
+        "buy_price": 7.52,
+        "sell_date": "2026-03-31",
+        "sell_price": 7.13,
+        "pnl_pct": -5.19,
+        "reasons": [
+          "Strong momentum: +7.4% over prior 20 days",
+          "Above-average volume: 1.0x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      }
+    ],
+    "avg_pnl": -11.78,
+    "all_scores_top10": [
+      [
+        "0669.HK",
+        "Techtronic Ind",
+        76.6
+      ],
+      [
+        "0016.HK",
+        "SHK Properties",
+        69.8
+      ],
+      [
+        "0916.HK",
+        "Longfor Group",
+        53.2
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        51.4
+      ],
+      [
+        "0857.HK",
+        "PetroChina",
+        49.8
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        49.4
+      ],
+      [
+        "0883.HK",
+        "CNOOC",
+        47.1
+      ],
+      [
+        "1113.HK",
+        "CK Asset",
+        44.6
+      ],
+      [
+        "0288.HK",
+        "WH Group",
+        44.3
+      ],
+      [
+        "0006.HK",
+        "Power Assets",
+        43.3
+      ]
+    ]
+  }
+]

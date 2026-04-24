@@ -1,0 +1,441 @@
+[
+  {
+    "month": "2025-04",
+    "first_trading_day": "2025-04-01",
+    "last_trading_day": "2025-04-30",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1093.HK",
+        "name": "CSPC Pharma",
+        "score": 70.9,
+        "buy_date": "2025-04-01",
+        "buy_price": 4.99,
+        "sell_date": "2025-04-30",
+        "sell_price": 6.13,
+        "pnl_pct": 22.85,
+        "reasons": [
+          "Strong momentum: +14.9% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "2688.HK",
+        "name": "ENN Energy",
+        "score": 70.7,
+        "buy_date": "2025-04-01",
+        "buy_price": 64.5,
+        "sell_date": "2025-04-30",
+        "sell_price": 61.55,
+        "pnl_pct": -4.57,
+        "reasons": [
+          "Strong momentum: +21.8% over prior 20 days",
+          "Above-average volume: 1.4x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "3692.HK",
+        "name": "Hansoh Pharma",
+        "score": 70.5,
+        "buy_date": "2025-04-01",
+        "buy_price": 24.6,
+        "sell_date": "2025-04-30",
+        "sell_price": 24.1,
+        "pnl_pct": -2.03,
+        "reasons": [
+          "Strong momentum: +28.5% over prior 20 days",
+          "Above-average volume: 1.5x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 5.42,
+    "all_scores_top10": [
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        70.9
+      ],
+      [
+        "2688.HK",
+        "ENN Energy",
+        70.7
+      ],
+      [
+        "3692.HK",
+        "Hansoh Pharma",
+        70.5
+      ],
+      [
+        "1378.HK",
+        "China Hongqiao",
+        66.1
+      ],
+      [
+        "1177.HK",
+        "Sino Biopharm",
+        64.9
+      ],
+      [
+        "2899.HK",
+        "Zijin Mining",
+        59.7
+      ],
+      [
+        "2359.HK",
+        "WuXi AppTec",
+        51.7
+      ],
+      [
+        "2388.HK",
+        "BOC HK",
+        51.3
+      ],
+      [
+        "0288.HK",
+        "WH Group",
+        50.6
+      ],
+      [
+        "2319.HK",
+        "Mengniu Dairy",
+        50.2
+      ]
+    ]
+  },
+  {
+    "month": "2025-05",
+    "first_trading_day": "2025-05-02",
+    "last_trading_day": "2025-05-30",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1093.HK",
+        "name": "CSPC Pharma",
+        "score": 71.5,
+        "buy_date": "2025-05-02",
+        "buy_price": 6.15,
+        "sell_date": "2025-05-30",
+        "sell_price": 8.1,
+        "pnl_pct": 31.71,
+        "reasons": [
+          "Strong momentum: +13.3% over prior 20 days",
+          "Volume surge: 1.9x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1929.HK",
+        "name": "Chow Tai Fook",
+        "score": 65.4,
+        "buy_date": "2025-05-02",
+        "buy_price": 10.26,
+        "sell_date": "2025-05-30",
+        "sell_price": 11.18,
+        "pnl_pct": 8.97,
+        "reasons": [
+          "Strong momentum: +15.3% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1880.HK",
+        "name": "CTG Duty Free",
+        "score": 60.7,
+        "buy_date": "2025-05-02",
+        "buy_price": 53.7,
+        "sell_date": "2025-05-30",
+        "sell_price": 49.8,
+        "pnl_pct": -7.26,
+        "reasons": [
+          "Strong momentum: +7.7% over prior 20 days",
+          "Volume surge: 2.5x vs prior month — strong interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Mid-range — balanced risk/reward",
+          "Bullish volume divergence (price down, volume shrinking)"
+        ]
+      }
+    ],
+    "avg_pnl": 11.14,
+    "all_scores_top10": [
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        71.5
+      ],
+      [
+        "1929.HK",
+        "Chow Tai Fook",
+        65.4
+      ],
+      [
+        "1880.HK",
+        "CTG Duty Free",
+        60.7
+      ],
+      [
+        "1209.HK",
+        "CR Mixc",
+        58.3
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        52.1
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        48.8
+      ],
+      [
+        "0002.HK",
+        "CLP Holdings",
+        45.5
+      ],
+      [
+        "1038.HK",
+        "CKI Holdings",
+        43.4
+      ],
+      [
+        "0066.HK",
+        "MTR Corp",
+        42.9
+      ],
+      [
+        "0960.HK",
+        "Longfor Group",
+        42.4
+      ]
+    ]
+  },
+  {
+    "month": "2025-06",
+    "first_trading_day": "2025-06-02",
+    "last_trading_day": "2025-06-30",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1093.HK",
+        "name": "CSPC Pharma",
+        "score": 66.8,
+        "buy_date": "2025-06-02",
+        "buy_price": 7.88,
+        "sell_date": "2025-06-30",
+        "sell_price": 7.7,
+        "pnl_pct": -2.28,
+        "reasons": [
+          "Strong momentum: +32.0% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9999.HK",
+        "name": "NetEase",
+        "score": 61.5,
+        "buy_date": "2025-06-02",
+        "buy_price": 193.6,
+        "sell_date": "2025-06-30",
+        "sell_price": 211.0,
+        "pnl_pct": 8.99,
+        "reasons": [
+          "Strong momentum: +14.4% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0027.HK",
+        "name": "Galaxy Ent",
+        "score": 60.4,
+        "buy_date": "2025-06-02",
+        "buy_price": 33.35,
+        "sell_date": "2025-06-30",
+        "sell_price": 34.85,
+        "pnl_pct": 4.5,
+        "reasons": [
+          "Strong momentum: +14.9% over prior 20 days",
+          "Below-average volume: 0.9x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 3.74,
+    "all_scores_top10": [
+      [
+        "1093.HK",
+        "CSPC Pharma",
+        66.8
+      ],
+      [
+        "9999.HK",
+        "NetEase",
+        61.5
+      ],
+      [
+        "0027.HK",
+        "Galaxy Ent",
+        60.4
+      ],
+      [
+        "1177.HK",
+        "Sino Biopharm",
+        55.6
+      ],
+      [
+        "0823.HK",
+        "Link REIT",
+        52.2
+      ],
+      [
+        "0016.HK",
+        "SHK Properties",
+        51.3
+      ],
+      [
+        "2359.HK",
+        "WuXi AppTec",
+        50.2
+      ],
+      [
+        "1088.HK",
+        "China Shenhua",
+        48.3
+      ],
+      [
+        "0388.HK",
+        "HKEX",
+        47.2
+      ],
+      [
+        "0857.HK",
+        "PetroChina",
+        46.8
+      ]
+    ]
+  },
+  {
+    "month": "2025-07",
+    "first_trading_day": "2025-07-02",
+    "last_trading_day": "2025-07-31",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "1177.HK",
+        "name": "Sino Biopharm",
+        "score": 77.9,
+        "buy_date": "2025-07-02",
+        "buy_price": 5.36,
+        "sell_date": "2025-07-31",
+        "sell_price": 7.52,
+        "pnl_pct": 40.3,
+        "reasons": [
+          "Strong momentum: +15.4% over prior 20 days",
+          "Volume surge: 1.8x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0012.HK",
+        "name": "Henderson Land",
+        "score": 76.0,
+        "buy_date": "2025-07-02",
+        "buy_price": 27.8,
+        "sell_date": "2025-07-31",
+        "sell_price": 27.5,
+        "pnl_pct": -1.08,
+        "reasons": [
+          "Strong momentum: +17.9% over prior 20 days",
+          "Volume surge: 1.9x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "Bouncing off recent low — potential reversal"
+        ]
+      },
+      {
+        "symbol": "1929.HK",
+        "name": "Chow Tai Fook",
+        "score": 69.8,
+        "buy_date": "2025-07-02",
+        "buy_price": 13.42,
+        "sell_date": "2025-07-31",
+        "sell_price": 13.16,
+        "pnl_pct": -1.94,
+        "reasons": [
+          "Strong momentum: +13.8% over prior 20 days",
+          "Volume surge: 1.7x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 12.43,
+    "all_scores_top10": [
+      [
+        "1177.HK",
+        "Sino Biopharm",
+        77.9
+      ],
+      [
+        "0012.HK",
+        "Henderson Land",
+        76.0
+      ],
+      [
+        "1929.HK",
+        "Chow Tai Fook",
+        69.8
+      ],
+      [
+        "2331.HK",
+        "Li Ning",
+        69.8
+      ],
+      [
+        "1024.HK",
+        "Kuaishou",
+        67.4
+      ],
+      [
+        "1997.HK",
+        "Wharf REIC",
+        66.6
+      ],
+      [
+        "6030.HK",
+        "CITIC Securities",
+        66.4
+      ],
+      [
+        "9626.HK",
+        "Bilibili",
+        66.2
+      ],
+      [
+        "0016.HK",
+        "SHK Properties",
+        66.1
+      ],
+      [
+        "9901.HK",
+        "New Oriental",
+        66.1
+      ]
+    ]
+  }
+]

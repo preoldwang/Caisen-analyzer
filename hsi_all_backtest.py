@@ -143,7 +143,7 @@ def download_all():
         print(f"  [{i:3d}/{n}] {symbol:<12} {name:<20}", end=" ", flush=True)
         try:
             ticker = yf.Ticker(symbol)
-            df = ticker.history(period="2y")
+            df = ticker.history(period="2y", auto_adjust=False)
             if len(df) > 120:
                 data[symbol] = df
                 print(f"✅ {len(df)} rows")

@@ -46,7 +46,7 @@ def download_all():
         print(f"  📥 {symbol}...", end=" ", flush=True)
         try:
             ticker = yf.Ticker(symbol)
-            df = ticker.history(period="2y")
+            df = ticker.history(period="2y", auto_adjust=False)
             if len(df) > 60:
                 data[symbol] = df
                 print(f"✅ {len(df)} rows")

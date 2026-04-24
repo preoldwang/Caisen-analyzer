@@ -373,7 +373,7 @@ def download_data(symbols: Dict[str, str]) -> Dict[str, pd.DataFrame]:
         print(f"  [{i:3d}/{n}] {sym:<12} {name:<20}", end=" ", flush=True)
         try:
             ticker = yf.Ticker(sym)
-            df = ticker.history(period="2y")
+            df = ticker.history(period="2y", auto_adjust=False)
             if len(df) > 120:
                 data[sym] = df
                 print(f"✅ {len(df)} rows")

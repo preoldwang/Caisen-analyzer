@@ -24,7 +24,7 @@ def download_data():
     """Download enough data: 2y before cutoff + 3 months after for verification"""
     print(f"📥 Downloading {SYMBOL} data (2024-01 to 2026-04)...")
     ticker = yf.Ticker(SYMBOL)
-    df = ticker.history(period="2y")
+    df = ticker.history(period="2y", auto_adjust=False)
     if df.empty:
         raise ValueError(f"Cannot fetch {SYMBOL}")
     print(f"   Got {len(df)} rows: {df.index[0].date()} → {df.index[-1].date()}")

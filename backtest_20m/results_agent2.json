@@ -1,0 +1,442 @@
+[
+  {
+    "month": "2024-12",
+    "first_trading_day": "2024-12-02",
+    "last_trading_day": "2024-12-31",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "2382.HK",
+        "name": "Sunny Optical",
+        "score": 64.7,
+        "buy_date": "2024-12-02",
+        "buy_price": 63.25,
+        "sell_date": "2024-12-31",
+        "sell_price": 68.9,
+        "pnl_pct": 8.93,
+        "reasons": [
+          "Strong momentum: +15.8% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "9633.HK",
+        "name": "Nongfu Spring",
+        "score": 53.8,
+        "buy_date": "2024-12-02",
+        "buy_price": 34.0,
+        "sell_date": "2024-12-31",
+        "sell_price": 34.0,
+        "pnl_pct": 0.0,
+        "reasons": [
+          "Strong momentum: +7.8% over prior 20 days",
+          "Above-average volume: 1.1x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "9999.HK",
+        "name": "NetEase",
+        "score": 43.1,
+        "buy_date": "2024-12-02",
+        "buy_price": 135.1,
+        "sell_date": "2024-12-31",
+        "sell_price": 139.2,
+        "pnl_pct": 3.03,
+        "reasons": [
+          "Strong momentum: +10.9% over prior 20 days",
+          "Below-average volume: 0.9x — declining interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 3.99,
+    "all_scores_top10": [
+      [
+        "2382.HK",
+        "Sunny Optical",
+        64.7
+      ],
+      [
+        "9633.HK",
+        "Nongfu Spring",
+        53.8
+      ],
+      [
+        "9999.HK",
+        "NetEase",
+        43.1
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        34.0
+      ],
+      [
+        "0288.HK",
+        "WH Group",
+        32.9
+      ],
+      [
+        "3692.HK",
+        "Hansoh Pharma",
+        32.9
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        28.4
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        26.4
+      ],
+      [
+        "0941.HK",
+        "China Mobile",
+        25.0
+      ],
+      [
+        "0027.HK",
+        "Galaxy Ent",
+        24.3
+      ]
+    ]
+  },
+  {
+    "month": "2025-01",
+    "first_trading_day": "2025-01-02",
+    "last_trading_day": "2025-01-28",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "2013.HK",
+        "name": "WuXi Biologics",
+        "score": 78.8,
+        "buy_date": "2025-01-02",
+        "buy_price": 3.45,
+        "sell_date": "2025-01-28",
+        "sell_price": 2.3,
+        "pnl_pct": -33.33,
+        "reasons": [
+          "Strong momentum: +110.8% over prior 20 days",
+          "Volume surge: 5.4x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "0981.HK",
+        "name": "SMIC",
+        "score": 60.7,
+        "buy_date": "2025-01-02",
+        "buy_price": 31.55,
+        "sell_date": "2025-01-28",
+        "sell_price": 38.0,
+        "pnl_pct": 20.44,
+        "reasons": [
+          "Strong momentum: +11.5% over prior 20 days",
+          "Below-average volume: 0.8x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Mid-range — balanced risk/reward",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "1810.HK",
+        "name": "Xiaomi",
+        "score": 57.9,
+        "buy_date": "2025-01-02",
+        "buy_price": 34.8,
+        "sell_date": "2025-01-28",
+        "sell_price": 38.15,
+        "pnl_pct": 9.63,
+        "reasons": [
+          "Strong momentum: +16.8% over prior 20 days",
+          "Below-average volume: 0.8x — declining interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": -1.09,
+    "all_scores_top10": [
+      [
+        "2013.HK",
+        "WuXi Biologics",
+        78.8
+      ],
+      [
+        "0981.HK",
+        "SMIC",
+        60.7
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        57.9
+      ],
+      [
+        "9698.HK",
+        "Wangsu Science",
+        52.2
+      ],
+      [
+        "0788.HK",
+        "China Tower",
+        49.9
+      ],
+      [
+        "0762.HK",
+        "China Unicom",
+        48.4
+      ],
+      [
+        "3328.HK",
+        "Bank of Comms",
+        45.3
+      ],
+      [
+        "0006.HK",
+        "Power Assets",
+        43.2
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        41.7
+      ],
+      [
+        "9901.HK",
+        "New Oriental",
+        40.9
+      ]
+    ]
+  },
+  {
+    "month": "2025-02",
+    "first_trading_day": "2025-02-03",
+    "last_trading_day": "2025-02-28",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "9999.HK",
+        "name": "NetEase",
+        "score": 67.3,
+        "buy_date": "2025-02-03",
+        "buy_price": 157.8,
+        "sell_date": "2025-02-28",
+        "sell_price": 154.8,
+        "pnl_pct": -1.9,
+        "reasons": [
+          "Strong momentum: +16.8% over prior 20 days",
+          "Above-average volume: 1.4x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "0981.HK",
+        "name": "SMIC",
+        "score": 64.4,
+        "buy_date": "2025-02-03",
+        "buy_price": 38.6,
+        "sell_date": "2025-02-28",
+        "sell_price": 53.6,
+        "pnl_pct": 38.86,
+        "reasons": [
+          "Strong momentum: +44.5% over prior 20 days",
+          "Volume surge: 1.8x vs prior month — strong interest",
+          "Price above 4/4 moving averages — uptrend",
+          "Near 20-day high — reduced upside room"
+        ]
+      },
+      {
+        "symbol": "1810.HK",
+        "name": "Xiaomi",
+        "score": 60.9,
+        "buy_date": "2025-02-03",
+        "buy_price": 38.9,
+        "sell_date": "2025-02-28",
+        "sell_price": 51.85,
+        "pnl_pct": 33.29,
+        "reasons": [
+          "Strong momentum: +11.6% over prior 20 days",
+          "Above-average volume: 1.2x — moderate interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": 23.42,
+    "all_scores_top10": [
+      [
+        "9999.HK",
+        "NetEase",
+        67.3
+      ],
+      [
+        "0981.HK",
+        "SMIC",
+        64.4
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        60.9
+      ],
+      [
+        "1398.HK",
+        "ICBC",
+        57.7
+      ],
+      [
+        "9988.HK",
+        "Alibaba",
+        55.9
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        55.8
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        52.0
+      ],
+      [
+        "2269.HK",
+        "WuXi Bio",
+        51.2
+      ],
+      [
+        "1378.HK",
+        "China Hongqiao",
+        49.4
+      ],
+      [
+        "2382.HK",
+        "Sunny Optical",
+        49.1
+      ]
+    ]
+  },
+  {
+    "month": "2025-03",
+    "first_trading_day": "2025-03-03",
+    "last_trading_day": "2025-03-31",
+    "total_stocks_analyzed": 82,
+    "trades": [
+      {
+        "symbol": "0960.HK",
+        "name": "Longfor Group",
+        "score": 78.7,
+        "buy_date": "2025-03-03",
+        "buy_price": 10.74,
+        "sell_date": "2025-03-31",
+        "sell_price": 9.81,
+        "pnl_pct": -8.66,
+        "reasons": [
+          "Strong momentum: +11.7% over prior 20 days",
+          "Volume surge: 2.1x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room",
+          "W-bottom pattern detected — bullish reversal"
+        ]
+      },
+      {
+        "symbol": "2015.HK",
+        "name": "Li Auto",
+        "score": 75.7,
+        "buy_date": "2025-03-03",
+        "buy_price": 118.3,
+        "sell_date": "2025-03-31",
+        "sell_price": 99.05,
+        "pnl_pct": -16.27,
+        "reasons": [
+          "Strong momentum: +18.7% over prior 20 days",
+          "Volume surge: 2.9x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Mid-range — balanced risk/reward"
+        ]
+      },
+      {
+        "symbol": "1211.HK",
+        "name": "BYD",
+        "score": 72.6,
+        "buy_date": "2025-03-03",
+        "buy_price": 125.4,
+        "sell_date": "2025-03-31",
+        "sell_price": 130.93,
+        "pnl_pct": 4.41,
+        "reasons": [
+          "Strong momentum: +27.0% over prior 20 days",
+          "Volume surge: 3.3x vs prior month — strong interest",
+          "Bullish MA alignment (MA5 > MA10 > MA20 > MA60)",
+          "Near 20-day high — reduced upside room"
+        ]
+      }
+    ],
+    "avg_pnl": -6.84,
+    "all_scores_top10": [
+      [
+        "0960.HK",
+        "Longfor Group",
+        78.7
+      ],
+      [
+        "2015.HK",
+        "Li Auto",
+        75.7
+      ],
+      [
+        "1211.HK",
+        "BYD",
+        72.6
+      ],
+      [
+        "0688.HK",
+        "China Overseas",
+        72.5
+      ],
+      [
+        "6618.HK",
+        "JD Health",
+        72.1
+      ],
+      [
+        "1810.HK",
+        "Xiaomi",
+        71.8
+      ],
+      [
+        "0005.HK",
+        "HSBC",
+        71.6
+      ],
+      [
+        "0175.HK",
+        "Geely Auto",
+        71.0
+      ],
+      [
+        "9988.HK",
+        "Alibaba",
+        70.9
+      ],
+      [
+        "1209.HK",
+        "CR Mixc",
+        69.1
+      ]
+    ]
+  }
+]

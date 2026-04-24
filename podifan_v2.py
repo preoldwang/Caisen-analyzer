@@ -67,7 +67,7 @@ def download_all():
     for i, (sym, name) in enumerate(BLUE_CHIPS.items(), 1):
         print(f"  [{i:3d}/{n}] {sym:<12} {name:<18}", end=" ", flush=True)
         try:
-            df = yf.Ticker(sym).history(period="2y")
+            df = yf.Ticker(sym).history(period="2y", auto_adjust=False)
             if len(df) > 120:
                 data[sym] = df
                 print(f"✅ {len(df)}")

@@ -19,7 +19,7 @@ def create_chart(symbol: str, period: str = "6mo", output_file: str = None):
     """
     # 获取数据
     ticker = yf.Ticker(symbol)
-    df = ticker.history(period=period)
+    df = ticker.history(period=period, auto_adjust=False)
 
     if df.empty:
         print(f"❌ 无法获取 {symbol} 数据")

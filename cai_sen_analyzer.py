@@ -177,7 +177,7 @@ class CaiSenAnalyzer:
         """获取股票数据 (默认5年以便周线+月线分析)"""
         self.symbol = symbol
         ticker = yf.Ticker(symbol)
-        self.data = ticker.history(period=period)
+        self.data = ticker.history(period=period, auto_adjust=False)
         if self.data.empty:
             raise ValueError(f"无法获取 {symbol} 的数据")
         # 生成周线数据

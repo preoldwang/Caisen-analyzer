@@ -84,7 +84,7 @@ def download_all_data() -> Dict[str, pd.DataFrame]:
         print(f"  📥 {ticker} ({name})...", end=" ", flush=True)
         try:
             t = yf.Ticker(ticker)
-            df = t.history(period="2y")
+            df = t.history(period="2y", auto_adjust=False)
             if df.empty:
                 print("⚠️ EMPTY")
                 continue
