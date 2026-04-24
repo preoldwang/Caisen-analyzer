@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HK Blue Chip Monthly Backtest - Cai Sen Analysis</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.6; }
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+h1 { text-align: center; color: #00d4ff; font-size: 2em; margin-bottom: 5px; }
+.subtitle { text-align: center; color: #888; margin-bottom: 30px; font-size: 0.95em; }
+.summary-box { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid #0f3460; border-radius: 12px; padding: 25px; margin-bottom: 30px; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+.summary-item { text-align: center; }
+.summary-item .label { color: #888; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; }
+.summary-item .value { font-size: 1.8em; font-weight: bold; margin-top: 5px; }
+.positive { color: #00ff88; }
+.negative { color: #ff4444; }
+.neutral { color: #ffaa00; }
+.month-card { background: #111; border: 1px solid #222; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+.month-header { background: linear-gradient(90deg, #1a1a2e, #0f3460); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.month-header h2 { color: #00d4ff; font-size: 1.2em; }
+.month-header .dates { color: #888; font-size: 0.85em; }
+.month-header .pnl { font-size: 1.1em; font-weight: bold; }
+.month-body { padding: 20px; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th { background: #1a1a2e; color: #00d4ff; padding: 10px 12px; text-align: left; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+td { padding: 10px 12px; border-bottom: 1px solid #1a1a1a; font-size: 0.9em; }
+tr:hover { background: #1a1a1a; }
+.stock-name { color: #aaa; font-size: 0.85em; }
+.reason { color: #888; font-size: 0.8em; max-width: 400px; line-height: 1.4; }
+.reason .signal { color: #ffaa00; }
+.buy-price { color: #00d4ff; }
+.sell-price { color: #ffaa00; }
+.pnl-positive { color: #00ff88; font-weight: bold; }
+.pnl-negative { color: #ff4444; font-weight: bold; }
+.footer { text-align: center; color: #555; margin-top: 40px; padding: 20px; border-top: 1px solid #222; }
+.methodology { background: #111; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-bottom: 30px; }
+.methodology h3 { color: #00d4ff; margin-bottom: 10px; }
+.methodology p { color: #888; font-size: 0.9em; margin-bottom: 8px; }
+.cumulative-chart { background: #111; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-bottom: 30px; }
+.bar { display: inline-block; margin: 2px; border-radius: 3px 3px 0 0; min-width: 30px; text-align: center; font-size: 0.7em; padding-top: 3px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📊 HK Blue Chip Monthly Backtest</h1>
+<p class="subtitle">Cai Sen Technical Analysis (蔡森技術分析) · 20-Month Backtest · Top 3 Picks per Month</p>
+
+<div class="summary-box">
+<h2 style="color: #e0e0e0;">📋 Overall Summary</h2>
+<div class="summary-grid">
+<div class="summary-item"><div class="label">Total Trades</div><div class="value">12</div></div>
+<div class="summary-item"><div class="label">Winners / Losers</div><div class="value"><span class="positive">7</span> / <span class="negative">5</span></div></div>
+<div class="summary-item"><div class="label">Win Rate</div><div class="value positive">58.3%</div></div>
+<div class="summary-item"><div class="label">Avg Monthly P&L</div><div class="value positive">+7.04%</div></div>
+<div class="summary-item"><div class="label">Cumulative Return</div><div class="value positive">+106.79%</div></div>
+<div class="summary-item"><div class="label">Best Trade</div><div class="value positive">+33.38%</div></div>
+<div class="summary-item"><div class="label">Worst Trade</div><div class="value negative">-14.06%</div></div>
+</div>
+</div>
+
+<div class="methodology">
+<h3>📐 Methodology</h3>
+<p><strong>Selection:</strong> Each month, all 84 HK stocks are analyzed using Cai Sen's volume-price methodology. 
+The top 3 are selected based on: trend alignment (MA20/60/120), volume confirmation, and pattern signals 
+(破底翻, W底, 颈线突破, 量先价行, 量价背离, etc.).</p>
+<p><strong>Trading:</strong> Buy at market open on the first trading day of the month. Sell at close on the last trading day.</p>
+<p><strong>Data Source:</strong> Yahoo Finance (yfinance) — validated against historical records.</p>
+<p><strong>Disclaimer:</strong> This backtest is for research purposes only. Past performance does not guarantee future results.</p>
+</div>
+<div class="cumulative-chart"><h3 style="color:#00d4ff; margin-bottom:15px;">📈 Monthly P&L Overview</h3><div style="display:flex; flex-wrap:wrap; align-items:flex-end; height:150px; padding:10px 0;"><div class="bar" style="height:33.35px; background:#00ff88;">+6.7%</div><div class="bar" style="height:5px; background:#ff4444;">-1.0%</div><div class="bar" style="height:111.85000000000001px; background:#00ff88;">+22.4%</div><div class="bar" style="height:5px; background:#00ff88;">+0.1%</div></div></div>
+<div class="month-card">
+<div class="month-header">
+<div>
+<h2>📅 2024-12</h2>
+<span class="dates">Buy: 2024-12-02 → Sell: 2024-12-31</span>
+</div>
+<div class="pnl"><span class="positive">+6.67%</span></div>
+</div>
+<div class="month-body">
+<table>
+<tr>
+<th>Rank</th>
+<th>Stock</th>
+<th>Buy Date</th>
+<th>Buy Price (HKD)</th>
+<th>Sell Date</th>
+<th>Sell Price (HKD)</th>
+<th>P&L</th>
+<th>Score</th>
+<th>Reason</th>
+</tr>
+
+<tr>
+<td>#1</td>
+<td><strong>0981.HK</strong><br><span class="stock-name">SMIC</span></td>
+<td>2024-12-02</td>
+<td class="buy-price">26.25</td>
+<td>2024-12-31</td>
+<td class="sell-price">31.7</td>
+<td class="pnl-positive">+20.76%</td>
+<td>13</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | <span class="signal">★</span> 破底翻 signal: Broke below 25.45, recovered above. Bullish reversal. | <span class="signal">★</span> W bottom pattern: W bottom with lows at 24.20/24.15, neckline 18.40 | <span class="signal">★</span> Bullish volume-price divergence: Price near lows but volume shrinking. Potential reversal. | <span class="signal">★</span> Pullback to support: Pullback to support zone (15.24) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+
+<tr>
+<td>#2</td>
+<td><strong>6030.HK</strong><br><span class="stock-name">CITIC Securities</span></td>
+<td>2024-12-02</td>
+<td class="buy-price">21.9</td>
+<td>2024-12-31</td>
+<td class="sell-price">21.25</td>
+<td class="pnl-negative">-2.97%</td>
+<td>13</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | <span class="signal">★</span> 破底翻 signal: Broke below 21.70, recovered above. Bullish reversal. | <span class="signal">★</span> W bottom pattern: W bottom with lows at 20.10/20.40, neckline 17.26 | <span class="signal">★</span> Bullish volume-price divergence: Price near lows but volume shrinking. Potential reversal. | <span class="signal">★</span> Pullback to support: Pullback to support zone (11.36) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+
+<tr>
+<td>#3</td>
+<td><strong>1880.HK</strong><br><span class="stock-name">China Tourism Group</span></td>
+<td>2024-12-02</td>
+<td class="buy-price">51.95</td>
+<td>2024-12-31</td>
+<td class="sell-price">53.1</td>
+<td class="pnl-positive">+2.21%</td>
+<td>12</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | <span class="signal">★</span> 破底翻 signal: Broke below 51.77, recovered above. Bullish reversal. | <span class="signal">★</span> Bullish volume-price divergence: Price near lows but volume shrinking. Potential reversal. | <span class="signal">★</span> Pullback to support: Pullback to support zone (37.85) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+</table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div>
+<h2>📅 2025-01</h2>
+<span class="dates">Buy: 2025-01-02 → Sell: 2025-01-28</span>
+</div>
+<div class="pnl"><span class="negative">-0.97%</span></div>
+</div>
+<div class="month-body">
+<table>
+<tr>
+<th>Rank</th>
+<th>Stock</th>
+<th>Buy Date</th>
+<th>Buy Price (HKD)</th>
+<th>Sell Date</th>
+<th>Sell Price (HKD)</th>
+<th>P&L</th>
+<th>Score</th>
+<th>Reason</th>
+</tr>
+
+<tr>
+<td>#1</td>
+<td><strong>0005.HK</strong><br><span class="stock-name">HSBC</span></td>
+<td>2025-01-02</td>
+<td class="buy-price">75.8</td>
+<td>2025-01-28</td>
+<td class="sell-price">79.95</td>
+<td class="pnl-positive">+5.47%</td>
+<td>10</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | Above-average volume (1.3x) | <span class="signal">★</span> Neckline breakout: Breaking resistance at 75.90 with volume confirmation. | <span class="signal">★</span> Pullback to support: Pullback to support zone (67.35) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+
+<tr>
+<td>#2</td>
+<td><strong>3328.HK</strong><br><span class="stock-name">Bank of Communications</span></td>
+<td>2025-01-02</td>
+<td class="buy-price">6.39</td>
+<td>2025-01-28</td>
+<td class="sell-price">6.29</td>
+<td class="pnl-negative">-1.56%</td>
+<td>10</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | Volume surge (1.6x average) — strong buying interest | <span class="signal">★</span> W bottom pattern: W bottom with lows at 5.57/5.62, neckline 4.93 | <span class="signal">★</span> Pullback to support: Pullback to support zone (5.57) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+
+<tr>
+<td>#3</td>
+<td><strong>0006.HK</strong><br><span class="stock-name">Power Assets</span></td>
+<td>2025-01-02</td>
+<td class="buy-price">54.2</td>
+<td>2025-01-28</td>
+<td class="sell-price">50.5</td>
+<td class="pnl-negative">-6.83%</td>
+<td>9</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | <span class="signal">★</span> W bottom pattern: W bottom with lows at 49.60/50.20, neckline 45.70 | <span class="signal">★</span> Pullback to support: Pullback to support zone (47.75) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+</table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div>
+<h2>📅 2025-02</h2>
+<span class="dates">Buy: 2025-02-03 → Sell: 2025-02-28</span>
+</div>
+<div class="pnl"><span class="positive">+22.37%</span></div>
+</div>
+<div class="month-body">
+<table>
+<tr>
+<th>Rank</th>
+<th>Stock</th>
+<th>Buy Date</th>
+<th>Buy Price (HKD)</th>
+<th>Sell Date</th>
+<th>Sell Price (HKD)</th>
+<th>P&L</th>
+<th>Score</th>
+<th>Reason</th>
+</tr>
+
+<tr>
+<td>#1</td>
+<td><strong>0005.HK</strong><br><span class="stock-name">HSBC</span></td>
+<td>2025-02-03</td>
+<td class="buy-price">80.0</td>
+<td>2025-02-28</td>
+<td class="sell-price">89.25</td>
+<td class="pnl-positive">+11.56%</td>
+<td>12</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | Above-average volume (1.4x) | <span class="signal">★</span> W bottom pattern: W bottom with lows at 74.00/74.85, neckline 60.85 | <span class="signal">★</span> Volume leads price: Volume surging (2 days) while price range narrow (1.7%). Breakout imminent. | <span class="signal">★</span> Neckline breakout: Breaking resistance at 80.25 with volume confirmation. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+
+<tr>
+<td>#2</td>
+<td><strong>0762.HK</strong><br><span class="stock-name">China Unicom</span></td>
+<td>2025-02-03</td>
+<td class="buy-price">7.1</td>
+<td>2025-02-28</td>
+<td class="sell-price">9.47</td>
+<td class="pnl-positive">+33.38%</td>
+<td>12</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | <span class="signal">★</span> 破底翻 signal: Broke below 7.12, recovered above. Bullish reversal. | <span class="signal">★</span> W bottom pattern: W bottom with lows at 6.77/6.89, neckline 6.54 | <span class="signal">★</span> Pullback to support: Pullback to support zone (6.22) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+
+<tr>
+<td>#3</td>
+<td><strong>0728.HK</strong><br><span class="stock-name">China Telecom</span></td>
+<td>2025-02-03</td>
+<td class="buy-price">4.78</td>
+<td>2025-02-28</td>
+<td class="sell-price">5.84</td>
+<td class="pnl-positive">+22.18%</td>
+<td>10</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | <span class="signal">★</span> W bottom pattern: W bottom with lows at 4.68/4.62, neckline 4.44 | <span class="signal">★</span> Pullback to support: Pullback to support zone (4.23) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+</table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div>
+<h2>📅 2025-03</h2>
+<span class="dates">Buy: 2025-03-03 → Sell: 2025-03-31</span>
+</div>
+<div class="pnl"><span class="positive">+0.08%</span></div>
+</div>
+<div class="month-body">
+<table>
+<tr>
+<th>Rank</th>
+<th>Stock</th>
+<th>Buy Date</th>
+<th>Buy Price (HKD)</th>
+<th>Sell Date</th>
+<th>Sell Price (HKD)</th>
+<th>P&L</th>
+<th>Score</th>
+<th>Reason</th>
+</tr>
+
+<tr>
+<td>#1</td>
+<td><strong>0669.HK</strong><br><span class="stock-name">Techtronic Ind</span></td>
+<td>2025-03-03</td>
+<td class="buy-price">108.5</td>
+<td>2025-03-31</td>
+<td class="sell-price">93.25</td>
+<td class="pnl-negative">-14.06%</td>
+<td>12</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | Volume surge (1.7x average) — strong buying interest | <span class="signal">★</span> W bottom pattern: W bottom with lows at 98.35/100.20, neckline 88.95 | <span class="signal">★</span> Neckline breakout: Breaking resistance at 112.00 with volume confirmation. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+
+<tr>
+<td>#2</td>
+<td><strong>9618.HK</strong><br><span class="stock-name">JD.com</span></td>
+<td>2025-03-03</td>
+<td class="buy-price">161.3</td>
+<td>2025-03-31</td>
+<td class="sell-price">160.8</td>
+<td class="pnl-negative">-0.31%</td>
+<td>11</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | <span class="signal">★</span> 破底翻 signal: Broke below 156.80, recovered above. Bullish reversal. | <span class="signal">★</span> Pullback to support: Pullback to support zone (126.60) in uptrend. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+
+<tr>
+<td>#3</td>
+<td><strong>2388.HK</strong><br><span class="stock-name">BOC Hong Kong</span></td>
+<td>2025-03-03</td>
+<td class="buy-price">27.4</td>
+<td>2025-03-31</td>
+<td class="sell-price">31.4</td>
+<td class="pnl-positive">+14.60%</td>
+<td>11</td>
+<td class="reason">Strong bullish trend (price above all MAs, MAs aligned bullishly) | Volume surge (1.7x average) — strong buying interest | <span class="signal">★</span> Neckline breakout: Breaking resistance at 28.35 with volume confirmation. | Favorable risk-reward ratio (2.0:1)</td>
+</tr>
+</table></div></div>
+<div class="footer">
+<p>Generated on 2026-04-24 11:22 · Cai Sen Technical Analysis Tool v3.0</p>
+<p>蔡森技術分析 · 基于量价关系的股票型态识别 · 仅供研究用途</p>
+</div>
+</div>
+</body>
+</html>

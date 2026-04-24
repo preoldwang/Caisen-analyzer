@@ -1,0 +1,476 @@
+[
+  {
+    "month": "2025-12",
+    "first_trading_day": "2025-12-01",
+    "last_trading_day": "2025-12-31",
+    "trades": [
+      {
+        "symbol": "2899.HK",
+        "name": "Zijin Mining",
+        "buy_date": "2025-12-01",
+        "buy_price": 31.22,
+        "sell_date": "2025-12-31",
+        "sell_price": 35.66,
+        "pnl_pct": 14.22,
+        "score": 15,
+        "signals": [
+          {
+            "type": "破底翻",
+            "description": "Broke below 30.80, recovered above. Bullish reversal.",
+            "confidence": 0.75,
+            "neckline": 30.8
+          },
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 29.06/29.66, neckline 13.02",
+            "confidence": 0.7,
+            "neckline": 13.02
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (26.38) in uptrend.",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 3,
+        "trend_score": 5,
+        "vol_ratio": 1.53,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | Volume surge (1.5x average) — strong buying interest | ★ 破底翻 signal: Broke below 30.80, recovered above. Bullish reversal. | ★ W bottom pattern: W bottom with lows at 29.06/29.66, neckline 13.02 | ★ Pullback to support: Pullback to support zone (26.38) in uptrend. | Favorable risk-reward ratio (2.0:1)"
+      },
+      {
+        "symbol": "0006.HK",
+        "name": "Power Assets",
+        "buy_date": "2025-12-01",
+        "buy_price": 52.05,
+        "sell_date": "2025-12-31",
+        "sell_price": 55.25,
+        "pnl_pct": 6.15,
+        "score": 12,
+        "signals": [
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 48.62/49.88, neckline 45.40",
+            "confidence": 0.7,
+            "neckline": 45.4
+          },
+          {
+            "type": "颈线突破",
+            "description": "Breaking resistance at 52.50 with volume confirmation.",
+            "confidence": 0.7,
+            "neckline": 52.5
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (48.62) in uptrend.",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 3,
+        "trend_score": 4,
+        "vol_ratio": 1.26,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | Above-average volume (1.3x) | ★ W bottom pattern: W bottom with lows at 48.62/49.88, neckline 45.40 | ★ Neckline breakout: Breaking resistance at 52.50 with volume confirmation. | ★ Pullback to support: Pullback to support zone (48.62) in uptrend. | Favorable risk-reward ratio (2.0:1)"
+      },
+      {
+        "symbol": "0012.HK",
+        "name": "Henderson Land",
+        "buy_date": "2025-12-01",
+        "buy_price": 29.48,
+        "sell_date": "2025-12-31",
+        "sell_price": 28.14,
+        "pnl_pct": -4.55,
+        "score": 12,
+        "signals": [
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 26.76/27.38, neckline 24.35",
+            "confidence": 0.7,
+            "neckline": 24.35
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (25.76) in uptrend.",
+            "confidence": 0.6
+          },
+          {
+            "type": "假跌破反转",
+            "description": "Shot below recent low 29.20 but recovered. Bullish.",
+            "confidence": 0.65
+          }
+        ],
+        "signal_count": 3,
+        "trend_score": 5,
+        "vol_ratio": 0.84,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | ★ W bottom pattern: W bottom with lows at 26.76/27.38, neckline 24.35 | ★ Pullback to support: Pullback to support zone (25.76) in uptrend. | ★ False breakdown reversal: Shot below recent low 29.20 but recovered. Bullish. | Favorable risk-reward ratio (2.0:1)"
+      }
+    ],
+    "avg_pnl": 5.27,
+    "all_analyses_count": 83,
+    "top3_scores": [
+      15,
+      12,
+      12
+    ]
+  },
+  {
+    "month": "2026-01",
+    "first_trading_day": "2026-01-02",
+    "last_trading_day": "2026-01-30",
+    "trades": [
+      {
+        "symbol": "0066.HK",
+        "name": "MTR Corp",
+        "buy_date": "2026-01-02",
+        "buy_price": 29.8,
+        "sell_date": "2026-01-30",
+        "sell_price": 34.58,
+        "pnl_pct": 16.04,
+        "score": 15,
+        "signals": [
+          {
+            "type": "破底翻",
+            "description": "Broke below 30.20, recovered above. Bullish reversal.",
+            "confidence": 0.75,
+            "neckline": 30.2
+          },
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 29.64/29.58, neckline 28.35",
+            "confidence": 0.7,
+            "neckline": 28.35
+          },
+          {
+            "type": "量价背离(上行)",
+            "description": "Price near lows but volume shrinking. Potential reversal.",
+            "confidence": 0.65
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (26.08) in uptrend.",
+            "confidence": 0.6
+          },
+          {
+            "type": "假跌破反转",
+            "description": "Shot below recent low 29.60 but recovered. Bullish.",
+            "confidence": 0.65
+          }
+        ],
+        "signal_count": 5,
+        "trend_score": 4,
+        "vol_ratio": 0.84,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | ★ 破底翻 signal: Broke below 30.20, recovered above. Bullish reversal. | ★ W bottom pattern: W bottom with lows at 29.64/29.58, neckline 28.35 | ★ Bullish volume-price divergence: Price near lows but volume shrinking. Potential reversal. | ★ Pullback to support: Pullback to support zone (26.08) in uptrend. | ★ False breakdown reversal: Shot below recent low 29.60 but recovered. Bullish. | Favorable risk-reward ratio (2.0:1)"
+      },
+      {
+        "symbol": "0012.HK",
+        "name": "Henderson Land",
+        "buy_date": "2026-01-02",
+        "buy_price": 28.18,
+        "sell_date": "2026-01-30",
+        "sell_price": 31.12,
+        "pnl_pct": 10.43,
+        "score": 13,
+        "signals": [
+          {
+            "type": "破底翻",
+            "description": "Broke below 28.78, recovered above. Bullish reversal.",
+            "confidence": 0.75,
+            "neckline": 28.78
+          },
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 28.64/28.08, neckline 21.70",
+            "confidence": 0.7,
+            "neckline": 21.7
+          },
+          {
+            "type": "量价背离(上行)",
+            "description": "Price near lows but volume shrinking. Potential reversal.",
+            "confidence": 0.65
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (26.76) in uptrend.",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 4,
+        "trend_score": 4,
+        "vol_ratio": 1.08,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | ★ 破底翻 signal: Broke below 28.78, recovered above. Bullish reversal. | ★ W bottom pattern: W bottom with lows at 28.64/28.08, neckline 21.70 | ★ Bullish volume-price divergence: Price near lows but volume shrinking. Potential reversal. | ★ Pullback to support: Pullback to support zone (26.76) in uptrend. | Favorable risk-reward ratio (2.0:1)"
+      },
+      {
+        "symbol": "1044.HK",
+        "name": "Hengan Int'l",
+        "buy_date": "2026-01-02",
+        "buy_price": 27.52,
+        "sell_date": "2026-01-30",
+        "sell_price": 28.3,
+        "pnl_pct": 2.83,
+        "score": 13,
+        "signals": [
+          {
+            "type": "破底翻",
+            "description": "Broke below 28.20, recovered above. Bullish reversal.",
+            "confidence": 0.75,
+            "neckline": 28.2
+          },
+          {
+            "type": "量价背离(上行)",
+            "description": "Price near lows but volume shrinking. Potential reversal.",
+            "confidence": 0.65
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (25.12) in uptrend.",
+            "confidence": 0.6
+          },
+          {
+            "type": "假跌破反转",
+            "description": "Shot below recent low 27.58 but recovered. Bullish.",
+            "confidence": 0.65
+          }
+        ],
+        "signal_count": 4,
+        "trend_score": 4,
+        "vol_ratio": 1.0,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | ★ 破底翻 signal: Broke below 28.20, recovered above. Bullish reversal. | ★ Bullish volume-price divergence: Price near lows but volume shrinking. Potential reversal. | ★ Pullback to support: Pullback to support zone (25.12) in uptrend. | ★ False breakdown reversal: Shot below recent low 27.58 but recovered. Bullish. | Favorable risk-reward ratio (2.0:1)"
+      }
+    ],
+    "avg_pnl": 9.77,
+    "all_analyses_count": 83,
+    "top3_scores": [
+      15,
+      13,
+      13
+    ]
+  },
+  {
+    "month": "2026-02",
+    "first_trading_day": "2026-02-02",
+    "last_trading_day": "2026-02-27",
+    "trades": [
+      {
+        "symbol": "0066.HK",
+        "name": "MTR Corp",
+        "buy_date": "2026-02-02",
+        "buy_price": 34.42,
+        "sell_date": "2026-02-27",
+        "sell_price": 37.34,
+        "pnl_pct": 8.48,
+        "score": 14,
+        "signals": [
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 29.58/30.12, neckline 27.00",
+            "confidence": 0.7,
+            "neckline": 27.0
+          },
+          {
+            "type": "量先价行",
+            "description": "Volume surging (2 days) while price range narrow (2.8%). Breakout imminent.",
+            "confidence": 0.6
+          },
+          {
+            "type": "颈线突破",
+            "description": "Breaking resistance at 34.98 with volume confirmation.",
+            "confidence": 0.7,
+            "neckline": 34.98
+          }
+        ],
+        "signal_count": 3,
+        "trend_score": 5,
+        "vol_ratio": 1.59,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | Volume surge (1.6x average) — strong buying interest | ★ W bottom pattern: W bottom with lows at 29.58/30.12, neckline 27.00 | ★ Volume leads price: Volume surging (2 days) while price range narrow (2.8%). Breakout imminent. | ★ Neckline breakout: Breaking resistance at 34.98 with volume confirmation. | Favorable risk-reward ratio (2.0:1)"
+      },
+      {
+        "symbol": "1209.HK",
+        "name": "China Resources Mixc",
+        "buy_date": "2026-02-02",
+        "buy_price": 45.12,
+        "sell_date": "2026-02-27",
+        "sell_price": 47.6,
+        "pnl_pct": 5.5,
+        "score": 13,
+        "signals": [
+          {
+            "type": "破底翻",
+            "description": "Broke below 43.13, recovered above. Bullish reversal.",
+            "confidence": 0.75,
+            "neckline": 43.13
+          },
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 42.10/41.52, neckline 25.45",
+            "confidence": 0.7,
+            "neckline": 25.45
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (39.60) in uptrend.",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 3,
+        "trend_score": 5,
+        "vol_ratio": 0.65,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | ★ 破底翻 signal: Broke below 43.13, recovered above. Bullish reversal. | ★ W bottom pattern: W bottom with lows at 42.10/41.52, neckline 25.45 | ★ Pullback to support: Pullback to support zone (39.60) in uptrend. | Favorable risk-reward ratio (2.0:1)"
+      },
+      {
+        "symbol": "2899.HK",
+        "name": "Zijin Mining",
+        "buy_date": "2026-02-02",
+        "buy_price": 37.72,
+        "sell_date": "2026-02-27",
+        "sell_price": 45.0,
+        "pnl_pct": 19.3,
+        "score": 12,
+        "signals": [
+          {
+            "type": "破底翻",
+            "description": "Broke below 38.51, recovered above. Bullish reversal.",
+            "confidence": 0.75,
+            "neckline": 38.51
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (29.66) in uptrend.",
+            "confidence": 0.6
+          },
+          {
+            "type": "假跌破反转",
+            "description": "Shot below recent low 37.88 but recovered. Bullish.",
+            "confidence": 0.65
+          }
+        ],
+        "signal_count": 3,
+        "trend_score": 4,
+        "vol_ratio": 2.05,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | Volume surge (2.0x average) — strong buying interest | ★ 破底翻 signal: Broke below 38.51, recovered above. Bullish reversal. | ★ Pullback to support: Pullback to support zone (29.66) in uptrend. | ★ False breakdown reversal: Shot below recent low 37.88 but recovered. Bullish. | Favorable risk-reward ratio (2.0:1)"
+      }
+    ],
+    "avg_pnl": 11.09,
+    "all_analyses_count": 83,
+    "top3_scores": [
+      14,
+      13,
+      12
+    ]
+  },
+  {
+    "month": "2026-03",
+    "first_trading_day": "2026-03-02",
+    "last_trading_day": "2026-03-31",
+    "trades": [
+      {
+        "symbol": "0002.HK",
+        "name": "CLP Holdings",
+        "buy_date": "2026-03-02",
+        "buy_price": 74.0,
+        "sell_date": "2026-03-31",
+        "sell_price": 73.5,
+        "pnl_pct": -0.68,
+        "score": 12,
+        "signals": [
+          {
+            "type": "破底翻",
+            "description": "Broke below 73.95, recovered above. Bullish reversal.",
+            "confidence": 0.75,
+            "neckline": 73.95
+          },
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 71.65/72.15, neckline 65.85",
+            "confidence": 0.7,
+            "neckline": 65.85
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (66.60) in uptrend.",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 3,
+        "trend_score": 4,
+        "vol_ratio": 1.24,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | Above-average volume (1.2x) | ★ 破底翻 signal: Broke below 73.95, recovered above. Bullish reversal. | ★ W bottom pattern: W bottom with lows at 71.65/72.15, neckline 65.85 | ★ Pullback to support: Pullback to support zone (66.60) in uptrend. | Favorable risk-reward ratio (2.0:1)"
+      },
+      {
+        "symbol": "1044.HK",
+        "name": "Hengan Int'l",
+        "buy_date": "2026-03-02",
+        "buy_price": 28.84,
+        "sell_date": "2026-03-31",
+        "sell_price": 27.5,
+        "pnl_pct": -4.65,
+        "score": 12,
+        "signals": [
+          {
+            "type": "W底",
+            "description": "W bottom with lows at 27.10/27.44, neckline 27.25",
+            "confidence": 0.7,
+            "neckline": 27.25
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (26.72) in uptrend.",
+            "confidence": 0.6
+          },
+          {
+            "type": "假跌破反转",
+            "description": "Shot below recent low 28.80 but recovered. Bullish.",
+            "confidence": 0.65
+          }
+        ],
+        "signal_count": 3,
+        "trend_score": 5,
+        "vol_ratio": 0.81,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | ★ W bottom pattern: W bottom with lows at 27.10/27.44, neckline 27.25 | ★ Pullback to support: Pullback to support zone (26.72) in uptrend. | ★ False breakdown reversal: Shot below recent low 28.80 but recovered. Bullish. | Favorable risk-reward ratio (2.0:1)"
+      },
+      {
+        "symbol": "0386.HK",
+        "name": "China Petroleum",
+        "buy_date": "2026-03-02",
+        "buy_price": 5.58,
+        "sell_date": "2026-03-31",
+        "sell_price": 4.49,
+        "pnl_pct": -19.53,
+        "score": 12,
+        "signals": [
+          {
+            "type": "颈线突破",
+            "description": "Breaking resistance at 5.70 with volume confirmation.",
+            "confidence": 0.7,
+            "neckline": 5.7
+          },
+          {
+            "type": "回踩支撑",
+            "description": "Pullback to support zone (4.27) in uptrend.",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 2,
+        "trend_score": 5,
+        "vol_ratio": 1.79,
+        "rr_ratio": 2.0,
+        "reason": "Strong bullish trend (price above all MAs, MAs aligned bullishly) | Volume surge (1.8x average) — strong buying interest | ★ Neckline breakout: Breaking resistance at 5.70 with volume confirmation. | ★ Pullback to support: Pullback to support zone (4.27) in uptrend. | Favorable risk-reward ratio (2.0:1)"
+      }
+    ],
+    "avg_pnl": -8.29,
+    "all_analyses_count": 83,
+    "top3_scores": [
+      12,
+      12,
+      12
+    ]
+  }
+]
