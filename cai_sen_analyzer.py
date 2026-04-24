@@ -180,6 +180,10 @@ class CaiSenAnalyzer:
         self.data = ticker.history(period=period, auto_adjust=False)
         if self.data.empty:
             raise ValueError(f"无法获取 {symbol} 的数据")
+        # SAFETY: Drop Adj Close to guarantee raw unadjusted data only
+        for col in ['Adj Close', 'Dividends', 'Stock Splits']:
+            if col in self.data.columns:
+                self.data = self.data.drop(columns=[col])
         # 生成周线数据
         self._build_weekly_data()
         # v3.0: 生成月线数据
