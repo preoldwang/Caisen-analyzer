@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cai Sen Analyzer — 3-Way Strategy Comparison (20 Months)</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+h1{text-align:center;color:#00d4ff;font-size:1.8em;margin-bottom:5px}
+.subtitle{text-align:center;color:#888;margin-bottom:30px;font-size:0.95em}
+.meta-box{background:#111;border:1px solid #333;border-radius:10px;padding:20px;margin-bottom:25px}
+.meta-box h3{color:#00d4ff;margin-bottom:12px;font-size:1.1em}
+.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.meta-card{background:#1a1a2e;border-radius:8px;padding:15px;border-left:4px solid #00d4ff}
+.meta-card.pdfan{border-left-color:#ff8800}
+.meta-card.smart{border-left-color:#00ff88}
+.meta-card h4{color:#ccc;margin-bottom:8px;font-size:0.95em}
+.meta-card .engine{color:#00d4ff;font-weight:bold;font-size:0.9em}
+.meta-card .window{color:#888;font-size:0.85em}
+.meta-card .desc{color:#666;font-size:0.8em;margin-top:5px}
+.rank-section{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:25px}
+.rank-card{border-radius:12px;padding:20px;text-align:center}
+.rank-card.gold{background:linear-gradient(135deg,#2a2a0a,#1a1a00);border:2px solid #ffd700}
+.rank-card.silver{background:linear-gradient(135deg,#1a1a1a,#111);border:2px solid #888}
+.rank-card.bronze{background:linear-gradient(135deg,#2a1a0a,#1a1000);border:2px solid #cd7f32}
+.rank-card .medal{font-size:2em}
+.rank-card .name{font-size:1.1em;font-weight:bold;margin:5px 0}
+.rank-card .big{font-size:2em;font-weight:bold}
+.rank-card .detail{color:#888;font-size:0.85em;margin-top:5px}
+.stats-table{width:100%;border-collapse:collapse;margin:20px 0;background:#111;border-radius:10px;overflow:hidden}
+.stats-table th{background:#1a1a2e;color:#00d4ff;padding:10px 15px;text-align:right;font-size:0.8em;text-transform:uppercase}
+.stats-table th:first-child{text-align:left}
+.stats-table td{padding:10px 15px;border-bottom:1px solid #1a1a1a;font-size:0.85em;text-align:right}
+.stats-table td:first-child{text-align:left;color:#ccc;font-weight:500}
+.stats-table tr:hover{background:#1a1a1a}
+.stats-table .best{background:rgba(0,255,136,0.08)}
+.section-title{color:#00d4ff;font-size:1.2em;margin:30px 0 15px;padding-bottom:8px;border-bottom:1px solid #222}
+.month-card{background:#111;border:1px solid #222;border-radius:10px;margin-bottom:12px;overflow:hidden}
+.month-header{background:linear-gradient(90deg,#1a1a2e,#0f3460);padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
+.month-header h2{color:#00d4ff;font-size:1em}
+.month-header .scores{display:flex;gap:15px;font-size:0.9em}
+.month-body{padding:15px 20px}
+.month-body table{width:100%;border-collapse:collapse}
+.month-body th{background:#1a1a2e;color:#888;padding:6px 10px;text-align:left;font-size:0.75em;text-transform:uppercase}
+.month-body td{padding:6px 10px;border-bottom:1px solid #1a1a1a;font-size:0.82em}
+.positive{color:#00ff88}.negative{color:#ff4444}.neutral{color:#ffaa00}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:bold}
+.badge-full{background:#0d47a1;color:#64b5f6}
+.badge-pdfan{background:#4a2000;color:#ffaa00}
+.badge-smart{background:#004d00;color:#00ff88}
+.badge-skip{background:#333;color:#888}
+.badge-cash{background:#1a1a00;color:#888}
+.winner-badge{background:linear-gradient(135deg,#004d00,#003300);border:1px solid #00ff88;color:#00ff88;padding:3px 10px;border-radius:5px;font-size:0.8em;font-weight:bold}
+.bar-chart{display:flex;align-items:flex-end;height:180px;gap:6px;padding:15px 0;justify-content:center}
+.bar-item{display:flex;flex-direction:column;align-items:center;min-width:50px}
+.bar{border-radius:4px 4px 0 0;width:40px;transition:height 0.3s}
+.bar-label{font-size:0.7em;color:#888;margin-top:4px;writing-mode:horizontal-tb}
+.bar-value{font-size:0.7em;font-weight:bold;margin-bottom:2px}
+.footer{text-align:center;color:#555;margin-top:40px;padding:20px;border-top:1px solid #222;font-size:0.85em}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🎯 Cai Sen Analyzer — 3-Way Strategy Comparison</h1>
+<p class="subtitle">20-Month Backtest: Aug 2024 → Mar 2026 · HK Blue Chip Universe · Buy Open 1st Trading Day, Sell Close Last Trading Day</p>
+
+<!-- Analysis Engine & Window Reference -->
+<div class="meta-box">
+<h3>📋 Analysis Engine & Time Window Reference</h3>
+<div class="meta-grid">
+<div class="meta-card">
+<h4>🧠 Strategy 1: FULL (Top 3)</h4>
+<div class="engine">Engine: cai_sen_analyzer.py v3.0</div>
+<div class="window">Window: 5 years historical data (for monthly+weekly+daily multi-timeframe)</div>
+<div class="window">Selection: Top 3 by composite signal score across ALL signal types</div>
+<div class="desc">Signals: 破底翻, 假突破, W底, 头肩顶/底, 岛型反转, 量先价行, 颈线突破, 回踩支撑, 量价背离, 康波周期, 月线爆量翻黑, etc. (20+ types)</div>
+</div>
+<div class="meta-card pdfan">
+<h4>🔥 Strategy 2: 破底翻-ONLY</h4>
+<div class="engine">Engine: cai_sen_analyzer.py v3.0 (filtered)</div>
+<div class="window">Window: Same as FULL (5yr data, multi-timeframe)</div>
+<div class="window">Selection: Only picks with 破底翻 signal, ranked by confidence. Cash when none available.</div>
+<div class="desc">Based on 12-month full backtest: 破底翻 = 77.2% hit rate, +26% avg return, 82.7% win rate, 4.79:1 win/loss ratio</div>
+</div>
+<div class="meta-card smart">
+<h4>🎯 Strategy 3: SMART (Top 2 + Filter)</h4>
+<div class="engine">Engine: cai_sen_analyzer.py v3.0 + improved_backtest.py filter</div>
+<div class="window">Window: Same as FULL (5yr data, multi-timeframe)</div>
+<div class="window">Selection: Top 2 picks only. Trade if: (1) has 颈线突破 or 量价背离(上行) signal, OR (2) both scores ≥ 12. Otherwise skip month.</div>
+<div class="desc">Key finding: 3rd pick is dead weight. Top 2 beats Top 3 on every metric. Smart filter avoids low-conviction months.</div>
+</div>
+</div>
+</div>
+
+<!-- Podifan v2 Reference -->
+<div class="meta-box" style="border-color:#ff8800">
+<h3>📖 Additional Reference: podifan_v2.py (Standalone Signal Verifier)</h3>
+<div style="color:#888;font-size:0.85em">
+<p><strong>Engine:</strong> podifan_v2.py — imports CaiSenAnalyzer from cai_sen_analyzer.py, filters to 破底翻 only</p>
+<p><strong>Window:</strong> 12-month rolling (May 2025 → Apr 2026), 2-year lookback per stock</p>
+<p><strong>Universe:</strong> 83 HK blue chips + Gold Futures</p>
+<p><strong>Method:</strong> At each monthly cutoff, scans all stocks for 破底翻 signals, verifies outcome (target1/target2/stop_loss) over 1M and 3M windows</p>
+<p><strong>Key Results:</strong> 77.2% hit rate, +26% avg return, 82.7% win rate, 4.79:1 win/loss, +1409% cumulative (162 signals)</p>
+<p><strong>Note:</strong> This is a signal verification tool (did the pattern work?), NOT a monthly rotation portfolio backtest. The 3 strategies above use monthly rotation.</p>
+</div>
+</div>
+
+<!-- Podifan Analyzer Reference -->
+<div class="meta-box" style="border-color:#ff8800">
+<h3>📖 Additional Reference: podifan_analyzer.py v4.0 (Focused Analyzer)</h3>
+<div style="color:#888;font-size:0.85em">
+<p><strong>Engine:</strong> Standalone implementation (does NOT import from cai_sen_analyzer.py)</p>
+<p><strong>Window:</strong> 2-year lookback per stock, daily + weekly timeframes</p>
+<p><strong>Focus:</strong> 破底翻 signal only, with entry/stop-loss/target calculation</p>
+<p><strong>Purpose:</strong> Real-time focused scanner for 破底翻 signals only (production use)</p>
+</div>
+</div>
+
+<!-- Monthly Backtest Reference -->
+<div class="meta-box" style="border-color:#666">
+<h3>📖 Additional Reference: monthly_backtest.py (Simplified Quant)</h3>
+<div style="color:#888;font-size:0.85em">
+<p><strong>Engine:</strong> Separate engine — NO Cai Sen patterns. Generic multi-factor scoring.</p>
+<p><strong>Window:</strong> 2-year lookback per stock</p>
+<p><strong>Scoring:</strong> Momentum (30%) + Volume trend (20%) + Trend strength/MAs (25%) + Risk-reward (15%) + Reversal signals (10%)</p>
+<p><strong>Selection:</strong> Top 3 by composite score, no signal filtering</p>
+<p><strong>Note:</strong> Not comparable to Cai Sen strategies above — different methodology entirely. Included in earlier comparison as baseline reference.</p>
+</div>
+</div>
+
+<!-- Podifan Analyzer Reference -->
+<div class="meta-box" style="border-color:#ff8800">
+<h3>📖 Additional Reference: podifan_v2.py (Standalone Signal Verifier)</h3>
+<div style="color:#888;font-size:0.85em">
+<p><strong>Engine:</strong> podifan_v2.py — imports CaiSenAnalyzer from cai_sen_analyzer.py, filters to 破底翻 only</p>
+<p><strong>Window:</strong> 12-month rolling (May 2025 → Apr 2026), 2-year lookback per stock</p>
+<p><strong>Universe:</strong> 83 HK blue chips + Gold Futures</p>
+<p><strong>Method:</strong> At each monthly cutoff, scans all stocks for 破底翻 signals, verifies outcome (target1/target2/stop_loss) over 1M and 3M windows</p>
+<p><strong>Key Results:</strong> 77.2% hit rate, +26% avg return, 82.7% win rate, 4.79:1 win/loss, +1409% cumulative (162 signals)</p>
+<p><strong>Note:</strong> This is a signal verification tool (did the pattern work?), NOT a monthly rotation portfolio backtest. The 3 strategies above use monthly rotation.</p>
+</div>
+</div>
+
+<!-- Rankings -->
+<h3 class="section-title">🏆 Rankings</h3>
+<div class="rank-section">
+<div class="rank-card gold">
+<div class="medal">🥇</div>
+<div class="name">SMART (Top 2+Filter)</div>
+<div class="big positive">+166.46%</div>
+<div class="detail">36 trades · 61.1% win rate · PF 5.08 · Sharpe 0.55</div>
+</div>
+<div class="rank-card silver">
+<div class="medal">🥈</div>
+<div class="name">破底翻-ONLY</div>
+<div class="big positive">+159.81%</div>
+<div class="detail">28 trades · 57.1% win rate · PF 4.74 · Sharpe 0.50</div>
+</div>
+<div class="rank-card bronze">
+<div class="medal">🥉</div>
+<div class="name">FULL (Top 3)</div>
+<div class="big positive">+102.80%</div>
+<div class="detail">60 trades · 56.7% win rate · PF 2.83 · Sharpe 0.47</div>
+</div>
+</div>
+
+<!-- Stats Table -->
+<h3 class="section-title">📊 Full Statistics</h3>
+<table class="stats-table">
+<tr><th>Metric</th><th>🧠 FULL (Top 3)</th><th>🔥 破底翻-ONLY</th><th>🎯 SMART (Top 2+Filter)</th></tr>
+<tr><td>Analysis Engine</td><td>cai_sen_analyzer v3.0</td><td>cai_sen_analyzer v3.0 (filtered)</td><td>cai_sen_analyzer v3.0 + smart filter</td></tr>
+<tr><td>Data Window</td><td>5yr lookback, multi-TF</td><td>5yr lookback, multi-TF</td><td>5yr lookback, multi-TF</td></tr>
+<tr><td>Selection Rule</td><td>Top 3 all signals</td><td>Top 3 破底翻 only</td><td>Top 2 + premium/score filter</td></tr>
+<tr><td>Compound Return</td><td><span style="color:#00ff88;font-weight:bold">+102.80%</span></td><td><span style="color:#00ff88;font-weight:bold">+159.81%</span></td><td class="best"><span style="color:#00ff88;font-weight:bold">+166.46%</span></td></tr>
+<tr><td>Avg Monthly Return</td><td><span style="color:#00ff88;font-weight:bold">+3.90%</span></td><td><span style="color:#00ff88;font-weight:bold">+5.38%</span></td><td class="best"><span style="color:#00ff88;font-weight:bold">+5.43%</span></td></tr>
+<tr><td>Winning Months</td><td>14/20</td><td>10/20</td><td class="best">12/20</td></tr>
+<tr><td>Total Trades</td><td>60</td><td>28</td><td>36</td></tr>
+<tr><td>Trade Win Rate</td><td>56.7%</td><td>57.1%</td><td class="best">61.1%</td></tr>
+<tr><td>Avg Trade Return</td><td><span style="color:#00ff88;font-weight:bold">+3.90%</span></td><td class="best"><span style="color:#00ff88;font-weight:bold">+6.47%</span></td><td><span style="color:#00ff88;font-weight:bold">+6.04%</span></td></tr>
+<tr><td>Best Single Trade</td><td><span style="color:#00ff88;font-weight:bold">+55.62%</span></td><td><span style="color:#00ff88;font-weight:bold">+55.62%</span></td><td><span style="color:#00ff88;font-weight:bold">+55.62%</span></td></tr>
+<tr><td>Worst Single Trade</td><td><span style="color:#ff4444;font-weight:bold">-19.53%</span></td><td class="best"><span style="color:#ff4444;font-weight:bold">-12.81%</span></td><td><span style="color:#ff4444;font-weight:bold">-14.06%</span></td></tr>
+<tr><td>Max Drawdown</td><td>+8.29%</td><td>+9.03%</td><td>+9.55%</td></tr>
+<tr><td>Profit Factor</td><td>2.83</td><td>4.74</td><td class="best">5.08</td></tr>
+<tr><td>Sharpe Ratio</td><td>0.47</td><td>0.50</td><td class="best">0.55</td></tr>
+<tr><td>Return Per Trade</td><td><span style="color:#00ff88;font-weight:bold">+1.71%</span></td><td class="best"><span style="color:#00ff88;font-weight:bold">+5.71%</span></td><td><span style="color:#00ff88;font-weight:bold">+4.62%</span></td></tr>
+</table>
+
+<!-- Bar Chart -->
+<h3 class="section-title">📈 Compound Return Comparison</h3>
+<div style="text-align:center;margin:20px 0">
+<div class="bar-chart">
+<div class="bar-item">
+<div class="bar-value positive">+102.8%</div>
+<div class="bar" style="height:93px;background:linear-gradient(#1565c0,#0d47a1)"></div>
+<div class="bar-label">FULL<br>(Top 3)</div>
+</div>
+<div class="bar-item">
+<div class="bar-value positive">+159.8%</div>
+<div class="bar" style="height:144px;background:linear-gradient(#ff8f00,#e65100)"></div>
+<div class="bar-label">破底翻<br>ONLY</div>
+</div>
+<div class="bar-item">
+<div class="bar-value positive" style="color:#ffd700">+166.5%</div>
+<div class="bar" style="height:150px;background:linear-gradient(#00c853,#004d00);border:2px solid #ffd700"></div>
+<div class="bar-label">SMART<br>(Top 2+Filter) 🏆</div>
+</div>
+</div>
+</div>
+
+<!-- Monthly Detail -->
+<h3 class="section-title">📅 Monthly Detail — All 3 Strategies</h3>
+
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2024-08 <span style="color:#888;font-size:0.8em">(2024-08-01 → 2024-08-30)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +20.91%</span>
+<span class="badge badge-pdfan">PDFAN: +26.81% (2/3)</span>
+<span class="badge badge-smart">SMART: +32.37% ✓</span>
+<span class="winner-badge">🏆 SMART</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0006.HK</strong> Power Assets<br>49.90→54.45 <span class="positive" style="font-weight:bold">+9.12%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><strong>9698.HK</strong> Wangsu Science<br>10.68→16.62 <span class="positive" style="font-weight:bold">+55.62%</span><br><span style="color:#666;font-size:0.8em">破底翻, 量价背离(上行), 回踩支撑</span></td><td><strong>0006.HK</strong> Power Assets<br>49.90→54.45 <span class="positive" style="font-weight:bold">+9.12%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td></tr><tr><td>2</td><td><strong>9698.HK</strong> Wangsu Science<br>10.68→16.62 <span class="positive" style="font-weight:bold">+55.62%</span><br><span style="color:#666;font-size:0.8em">破底翻, 量价背离(上行), 回踩支撑</span></td><td><strong>0005.HK</strong> HSBC<br>70.00→68.60 <span class="negative" style="font-weight:bold">-2.00%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底</span></td><td><strong>9698.HK</strong> Wangsu Science<br>10.68→16.62 <span class="positive" style="font-weight:bold">+55.62%</span><br><span style="color:#666;font-size:0.8em">破底翻, 量价背离(上行), 回踩支撑</span></td></tr><tr><td>3</td><td><strong>0005.HK</strong> HSBC<br>70.00→68.60 <span class="negative" style="font-weight:bold">-2.00%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2024-09 <span style="color:#888;font-size:0.8em">(2024-09-02 → 2024-09-30)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +1.19%</span>
+<span class="badge badge-pdfan">PDFAN: +4.96% (1/3)</span>
+<span class="badge badge-smart">SMART: +6.12% ✓</span>
+<span class="winner-badge">🏆 SMART</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0788.HK</strong> China Tower<br>9.60→10.30 <span class="positive" style="font-weight:bold">+7.29%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 颈线突破, 假跌破反转</span></td><td><strong>3692.HK</strong> Hansoh Pharma<br>19.96→20.95 <span class="positive" style="font-weight:bold">+4.96%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底</span></td><td><strong>0788.HK</strong> China Tower<br>9.60→10.30 <span class="positive" style="font-weight:bold">+7.29%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 颈线突破, 假跌破反转</span></td></tr><tr><td>2</td><td><strong>3692.HK</strong> Hansoh Pharma<br>19.96→20.95 <span class="positive" style="font-weight:bold">+4.96%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>3692.HK</strong> Hansoh Pharma<br>19.96→20.95 <span class="positive" style="font-weight:bold">+4.96%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底</span></td></tr><tr><td>3</td><td><strong>0386.HK</strong> China Petroleum<br>5.30→4.84 <span class="negative" style="font-weight:bold">-8.68%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2024-10 <span style="color:#888;font-size:0.8em">(2024-10-02 → 2024-10-31)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +0.33%</span>
+<span class="badge badge-pdfan">PDFAN: -0.67% (1/3)</span>
+<span class="badge badge-smart">SMART: -0.47% ✓</span>
+<span class="winner-badge">🏆 FULL</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0669.HK</strong> Techtronic Ind<br>112.50→112.20 <span class="negative" style="font-weight:bold">-0.27%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><strong>0728.HK</strong> China Telecom<br>4.47→4.44 <span class="negative" style="font-weight:bold">-0.67%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底</span></td><td><strong>0669.HK</strong> Techtronic Ind<br>112.50→112.20 <span class="negative" style="font-weight:bold">-0.27%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td></tr><tr><td>2</td><td><strong>0728.HK</strong> China Telecom<br>4.47→4.44 <span class="negative" style="font-weight:bold">-0.67%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>0728.HK</strong> China Telecom<br>4.47→4.44 <span class="negative" style="font-weight:bold">-0.67%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底</span></td></tr><tr><td>3</td><td><strong>0788.HK</strong> China Tower<br>10.30→10.50 <span class="positive" style="font-weight:bold">+1.94%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2024-11 <span style="color:#888;font-size:0.8em">(2024-11-01 → 2024-11-29)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: -7.10%</span>
+<span class="badge badge-pdfan">PDFAN: -7.10% (3/3)</span>
+<span class="badge badge-smart">SMART: +0.00% SKIP</span>
+<span class="winner-badge">🏆 FULL</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>1398.HK</strong> ICBC<br>4.69→4.56 <span class="negative" style="font-weight:bold">-2.77%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td><td><strong>1398.HK</strong> ICBC<br>4.69→4.56 <span class="negative" style="font-weight:bold">-2.77%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No premium signal + scores low</span></td></tr><tr><td>2</td><td><strong>2388.HK</strong> BOC Hong Kong<br>25.35→23.90 <span class="negative" style="font-weight:bold">-5.72%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td><td><strong>2388.HK</strong> BOC Hong Kong<br>25.35→23.90 <span class="negative" style="font-weight:bold">-5.72%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No premium signal + scores low</span></td></tr><tr><td>3</td><td><strong>9626.HK</strong> Bilibili<br>170.90→149.00 <span class="negative" style="font-weight:bold">-12.81%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td><td><strong>9626.HK</strong> Bilibili<br>170.90→149.00 <span class="negative" style="font-weight:bold">-12.81%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No premium signal + scores low</span></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2024-12 <span style="color:#888;font-size:0.8em">(2024-12-02 → 2024-12-31)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +6.67%</span>
+<span class="badge badge-pdfan">PDFAN: +6.67% (3/3)</span>
+<span class="badge badge-smart">SMART: +8.90% ✓</span>
+<span class="winner-badge">🏆 SMART</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0981.HK</strong> SMIC<br>26.25→31.70 <span class="positive" style="font-weight:bold">+20.76%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td><td><strong>0981.HK</strong> SMIC<br>26.25→31.70 <span class="positive" style="font-weight:bold">+20.76%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td><td><strong>0981.HK</strong> SMIC<br>26.25→31.70 <span class="positive" style="font-weight:bold">+20.76%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td></tr><tr><td>2</td><td><strong>6030.HK</strong> CITIC Securities<br>21.90→21.25 <span class="negative" style="font-weight:bold">-2.97%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td><td><strong>6030.HK</strong> CITIC Securities<br>21.90→21.25 <span class="negative" style="font-weight:bold">-2.97%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td><td><strong>6030.HK</strong> CITIC Securities<br>21.90→21.25 <span class="negative" style="font-weight:bold">-2.97%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td></tr><tr><td>3</td><td><strong>1880.HK</strong> China Tourism Group<br>51.95→53.10 <span class="positive" style="font-weight:bold">+2.21%</span><br><span style="color:#666;font-size:0.8em">破底翻, 量价背离(上行), 回踩支撑</span></td><td><strong>1880.HK</strong> China Tourism Group<br>51.95→53.10 <span class="positive" style="font-weight:bold">+2.21%</span><br><span style="color:#666;font-size:0.8em">破底翻, 量价背离(上行), 回踩支撑</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-01 <span style="color:#888;font-size:0.8em">(2025-01-02 → 2025-01-28)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: -0.97%</span>
+<span class="badge badge-pdfan">PDFAN: +0.00% (0/3)</span>
+<span class="badge badge-smart">SMART: +1.95% ✓</span>
+<span class="winner-badge">🏆 SMART</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0005.HK</strong> HSBC<br>75.80→79.95 <span class="positive" style="font-weight:bold">+5.47%</span><br><span style="color:#666;font-size:0.8em">颈线突破, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>0005.HK</strong> HSBC<br>75.80→79.95 <span class="positive" style="font-weight:bold">+5.47%</span><br><span style="color:#666;font-size:0.8em">颈线突破, 回踩支撑</span></td></tr><tr><td>2</td><td><strong>3328.HK</strong> Bank of Communications<br>6.39→6.29 <span class="negative" style="font-weight:bold">-1.56%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>3328.HK</strong> Bank of Communications<br>6.39→6.29 <span class="negative" style="font-weight:bold">-1.56%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑</span></td></tr><tr><td>3</td><td><strong>0006.HK</strong> Power Assets<br>54.20→50.50 <span class="negative" style="font-weight:bold">-6.83%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-02 <span style="color:#888;font-size:0.8em">(2025-02-03 → 2025-02-28)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +22.37%</span>
+<span class="badge badge-pdfan">PDFAN: +33.38% (1/3)</span>
+<span class="badge badge-smart">SMART: +22.47% ✓</span>
+<span class="winner-badge">🏆 PDFAN</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0005.HK</strong> HSBC<br>80.00→89.25 <span class="positive" style="font-weight:bold">+11.56%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 颈线突破</span></td><td><strong>0762.HK</strong> China Unicom<br>7.10→9.47 <span class="positive" style="font-weight:bold">+33.38%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0005.HK</strong> HSBC<br>80.00→89.25 <span class="positive" style="font-weight:bold">+11.56%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 颈线突破</span></td></tr><tr><td>2</td><td><strong>0762.HK</strong> China Unicom<br>7.10→9.47 <span class="positive" style="font-weight:bold">+33.38%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>0762.HK</strong> China Unicom<br>7.10→9.47 <span class="positive" style="font-weight:bold">+33.38%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td></tr><tr><td>3</td><td><strong>0728.HK</strong> China Telecom<br>4.78→5.84 <span class="positive" style="font-weight:bold">+22.18%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-03 <span style="color:#888;font-size:0.8em">(2025-03-03 → 2025-03-31)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +0.08%</span>
+<span class="badge badge-pdfan">PDFAN: -0.31% (1/3)</span>
+<span class="badge badge-smart">SMART: -7.19% ✓</span>
+<span class="winner-badge">🏆 FULL</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0669.HK</strong> Techtronic Ind<br>108.50→93.25 <span class="negative" style="font-weight:bold">-14.06%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><strong>9618.HK</strong> JD.com<br>161.30→160.80 <span class="negative" style="font-weight:bold">-0.31%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td><td><strong>0669.HK</strong> Techtronic Ind<br>108.50→93.25 <span class="negative" style="font-weight:bold">-14.06%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td></tr><tr><td>2</td><td><strong>9618.HK</strong> JD.com<br>161.30→160.80 <span class="negative" style="font-weight:bold">-0.31%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>9618.HK</strong> JD.com<br>161.30→160.80 <span class="negative" style="font-weight:bold">-0.31%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑</span></td></tr><tr><td>3</td><td><strong>2388.HK</strong> BOC Hong Kong<br>27.40→31.40 <span class="positive" style="font-weight:bold">+14.60%</span><br><span style="color:#666;font-size:0.8em">颈线突破</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-04 <span style="color:#888;font-size:0.8em">(2025-04-01 → 2025-04-30)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: -2.10%</span>
+<span class="badge badge-pdfan">PDFAN: -8.72% (1/3)</span>
+<span class="badge badge-smart">SMART: -2.37% ✓</span>
+<span class="winner-badge">🏆 FULL</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0728.HK</strong> China Telecom<br>5.85→5.34 <span class="negative" style="font-weight:bold">-8.72%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0728.HK</strong> China Telecom<br>5.85→5.34 <span class="negative" style="font-weight:bold">-8.72%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0728.HK</strong> China Telecom<br>5.85→5.34 <span class="negative" style="font-weight:bold">-8.72%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td></tr><tr><td>2</td><td><strong>9999.HK</strong> NetEase<br>160.60→167.00 <span class="positive" style="font-weight:bold">+3.99%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>9999.HK</strong> NetEase<br>160.60→167.00 <span class="positive" style="font-weight:bold">+3.99%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td></tr><tr><td>3</td><td><strong>0175.HK</strong> Geely Auto<br>16.62→16.36 <span class="negative" style="font-weight:bold">-1.56%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑, 假跌破反转</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-05 <span style="color:#888;font-size:0.8em">(2025-05-02 → 2025-05-30)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +6.05%</span>
+<span class="badge badge-pdfan">PDFAN: +0.00% (0/3)</span>
+<span class="badge badge-smart">SMART: +0.00% SKIP</span>
+<span class="winner-badge">🏆 FULL</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0836.HK</strong> China Resources Power<br>18.88→20.40 <span class="positive" style="font-weight:bold">+8.05%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No premium signal + scores low</span></td></tr><tr><td>2</td><td><strong>0941.HK</strong> China Mobile<br>80.80→88.00 <span class="positive" style="font-weight:bold">+8.91%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No premium signal + scores low</span></td></tr><tr><td>3</td><td><strong>3328.HK</strong> Bank of Communications<br>6.79→6.87 <span class="positive" style="font-weight:bold">+1.18%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No premium signal + scores low</span></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-06 <span style="color:#888;font-size:0.8em">(2025-06-02 → 2025-06-30)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +11.28%</span>
+<span class="badge badge-pdfan">PDFAN: +17.50% (2/3)</span>
+<span class="badge badge-smart">SMART: +17.50% ✓</span>
+<span class="winner-badge">🏆 PDFAN</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>2899.HK</strong> Zijin Mining<br>17.42→20.05 <span class="positive" style="font-weight:bold">+15.10%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑, 假跌破反转</span></td><td><strong>2899.HK</strong> Zijin Mining<br>17.42→20.05 <span class="positive" style="font-weight:bold">+15.10%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑, 假跌破反转</span></td><td><strong>2899.HK</strong> Zijin Mining<br>17.42→20.05 <span class="positive" style="font-weight:bold">+15.10%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑, 假跌破反转</span></td></tr><tr><td>2</td><td><strong>1810.HK</strong> Xiaomi<br>50.00→59.95 <span class="positive" style="font-weight:bold">+19.90%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑, 假跌破反转</span></td><td><strong>1810.HK</strong> Xiaomi<br>50.00→59.95 <span class="positive" style="font-weight:bold">+19.90%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑, 假跌破反转</span></td><td><strong>1810.HK</strong> Xiaomi<br>50.00→59.95 <span class="positive" style="font-weight:bold">+19.90%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑, 假跌破反转</span></td></tr><tr><td>3</td><td><strong>0762.HK</strong> China Unicom<br>9.41→9.30 <span class="negative" style="font-weight:bold">-1.17%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑, 假跌破反转</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-07 <span style="color:#888;font-size:0.8em">(2025-07-02 → 2025-07-31)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +2.58%</span>
+<span class="badge badge-pdfan">PDFAN: +2.10% (1/3)</span>
+<span class="badge badge-smart">SMART: +2.33% ✓</span>
+<span class="winner-badge">🏆 FULL</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0836.HK</strong> China Resources Power<br>19.06→19.46 <span class="positive" style="font-weight:bold">+2.10%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0836.HK</strong> China Resources Power<br>19.06→19.46 <span class="positive" style="font-weight:bold">+2.10%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0836.HK</strong> China Resources Power<br>19.06→19.46 <span class="positive" style="font-weight:bold">+2.10%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td></tr><tr><td>2</td><td><strong>2822.HK</strong> CSI 300 ETF<br>13.33→13.67 <span class="positive" style="font-weight:bold">+2.55%</span><br><span style="color:#666;font-size:0.8em">量先价行, 颈线突破, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>2822.HK</strong> CSI 300 ETF<br>13.33→13.67 <span class="positive" style="font-weight:bold">+2.55%</span><br><span style="color:#666;font-size:0.8em">量先价行, 颈线突破, 回踩支撑</span></td></tr><tr><td>3</td><td><strong>0002.HK</strong> CLP Holdings<br>66.10→68.15 <span class="positive" style="font-weight:bold">+3.10%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-08 <span style="color:#888;font-size:0.8em">(2025-08-01 → 2025-08-29)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: -4.37%</span>
+<span class="badge badge-pdfan">PDFAN: +0.00% (0/3)</span>
+<span class="badge badge-smart">SMART: -3.75% ✓</span>
+<span class="winner-badge">🏆 PDFAN</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0002.HK</strong> CLP Holdings<br>68.15→65.85 <span class="negative" style="font-weight:bold">-3.37%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 颈线突破</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>0002.HK</strong> CLP Holdings<br>68.15→65.85 <span class="negative" style="font-weight:bold">-3.37%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 颈线突破</span></td></tr><tr><td>2</td><td><strong>0728.HK</strong> China Telecom<br>6.05→5.80 <span class="negative" style="font-weight:bold">-4.13%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>0728.HK</strong> China Telecom<br>6.05→5.80 <span class="negative" style="font-weight:bold">-4.13%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td></tr><tr><td>3</td><td><strong>1038.HK</strong> CKI Holdings<br>55.35→52.25 <span class="negative" style="font-weight:bold">-5.60%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-09 <span style="color:#888;font-size:0.8em">(2025-09-01 → 2025-09-30)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: -3.37%</span>
+<span class="badge badge-pdfan">PDFAN: -3.53% (2/3)</span>
+<span class="badge badge-smart">SMART: -3.53% ✓</span>
+<span class="winner-badge">🏆 FULL</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>2388.HK</strong> BOC Hong Kong<br>36.80→36.54 <span class="negative" style="font-weight:bold">-0.71%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 颈线突破, 回踩支撑</span></td><td><strong>2388.HK</strong> BOC Hong Kong<br>36.80→36.54 <span class="negative" style="font-weight:bold">-0.71%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 颈线突破, 回踩支撑</span></td><td><strong>2388.HK</strong> BOC Hong Kong<br>36.80→36.54 <span class="negative" style="font-weight:bold">-0.71%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 颈线突破, 回踩支撑</span></td></tr><tr><td>2</td><td><strong>0857.HK</strong> PetroChina<br>7.56→7.08 <span class="negative" style="font-weight:bold">-6.35%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0857.HK</strong> PetroChina<br>7.56→7.08 <span class="negative" style="font-weight:bold">-6.35%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0857.HK</strong> PetroChina<br>7.56→7.08 <span class="negative" style="font-weight:bold">-6.35%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td></tr><tr><td>3</td><td><strong>0883.HK</strong> CNOOC<br>19.64→19.04 <span class="negative" style="font-weight:bold">-3.05%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-10 <span style="color:#888;font-size:0.8em">(2025-10-02 → 2025-10-31)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +0.87%</span>
+<span class="badge badge-pdfan">PDFAN: +0.87% (3/3)</span>
+<span class="badge badge-smart">SMART: +1.04% ✓</span>
+<span class="winner-badge">🏆 SMART</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0388.HK</strong> HKEX<br>444.80→423.60 <span class="negative" style="font-weight:bold">-4.77%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0388.HK</strong> HKEX<br>444.80→423.60 <span class="negative" style="font-weight:bold">-4.77%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0388.HK</strong> HKEX<br>444.80→423.60 <span class="negative" style="font-weight:bold">-4.77%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td></tr><tr><td>2</td><td><strong>2313.HK</strong> Shenzhou Int'l<br>62.80→67.10 <span class="positive" style="font-weight:bold">+6.85%</span><br><span style="color:#666;font-size:0.8em">破底翻, 颈线突破</span></td><td><strong>2313.HK</strong> Shenzhou Int'l<br>62.80→67.10 <span class="positive" style="font-weight:bold">+6.85%</span><br><span style="color:#666;font-size:0.8em">破底翻, 颈线突破</span></td><td><strong>2313.HK</strong> Shenzhou Int'l<br>62.80→67.10 <span class="positive" style="font-weight:bold">+6.85%</span><br><span style="color:#666;font-size:0.8em">破底翻, 颈线突破</span></td></tr><tr><td>3</td><td><strong>0016.HK</strong> SHK Properties<br>93.95→94.45 <span class="positive" style="font-weight:bold">+0.53%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0016.HK</strong> SHK Properties<br>93.95→94.45 <span class="positive" style="font-weight:bold">+0.53%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-11 <span style="color:#888;font-size:0.8em">(2025-11-03 → 2025-11-28)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +5.69%</span>
+<span class="badge badge-pdfan">PDFAN: +0.00% (0/3)</span>
+<span class="badge badge-smart">SMART: +5.53% ✓</span>
+<span class="winner-badge">🏆 FULL</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0016.HK</strong> SHK Properties<br>94.90→98.60 <span class="positive" style="font-weight:bold">+3.90%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>0016.HK</strong> SHK Properties<br>94.90→98.60 <span class="positive" style="font-weight:bold">+3.90%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破, 回踩支撑</span></td></tr><tr><td>2</td><td><strong>0857.HK</strong> PetroChina<br>8.10→8.68 <span class="positive" style="font-weight:bold">+7.16%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>0857.HK</strong> PetroChina<br>8.10→8.68 <span class="positive" style="font-weight:bold">+7.16%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td></tr><tr><td>3</td><td><strong>0883.HK</strong> CNOOC<br>19.98→21.18 <span class="positive" style="font-weight:bold">+6.01%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2025-12 <span style="color:#888;font-size:0.8em">(2025-12-01 → 2025-12-31)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +5.27%</span>
+<span class="badge badge-pdfan">PDFAN: +14.22% (1/3)</span>
+<span class="badge badge-smart">SMART: +10.19% ✓</span>
+<span class="winner-badge">🏆 PDFAN</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>2899.HK</strong> Zijin Mining<br>31.22→35.66 <span class="positive" style="font-weight:bold">+14.22%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>2899.HK</strong> Zijin Mining<br>31.22→35.66 <span class="positive" style="font-weight:bold">+14.22%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>2899.HK</strong> Zijin Mining<br>31.22→35.66 <span class="positive" style="font-weight:bold">+14.22%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td></tr><tr><td>2</td><td><strong>0006.HK</strong> Power Assets<br>52.05→55.25 <span class="positive" style="font-weight:bold">+6.15%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>0006.HK</strong> Power Assets<br>52.05→55.25 <span class="positive" style="font-weight:bold">+6.15%</span><br><span style="color:#666;font-size:0.8em">W底, 颈线突破, 回踩支撑</span></td></tr><tr><td>3</td><td><strong>0012.HK</strong> Henderson Land<br>29.48→28.14 <span class="negative" style="font-weight:bold">-4.55%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑, 假跌破反转</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2026-01 <span style="color:#888;font-size:0.8em">(2026-01-02 → 2026-01-30)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +9.77%</span>
+<span class="badge badge-pdfan">PDFAN: +9.77% (3/3)</span>
+<span class="badge badge-smart">SMART: +13.23% ✓</span>
+<span class="winner-badge">🏆 SMART</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0066.HK</strong> MTR Corp<br>29.80→34.58 <span class="positive" style="font-weight:bold">+16.04%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑, 假跌破反转</span></td><td><strong>0066.HK</strong> MTR Corp<br>29.80→34.58 <span class="positive" style="font-weight:bold">+16.04%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑, 假跌破反转</span></td><td><strong>0066.HK</strong> MTR Corp<br>29.80→34.58 <span class="positive" style="font-weight:bold">+16.04%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑, 假跌破反转</span></td></tr><tr><td>2</td><td><strong>0012.HK</strong> Henderson Land<br>28.18→31.12 <span class="positive" style="font-weight:bold">+10.43%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td><td><strong>0012.HK</strong> Henderson Land<br>28.18→31.12 <span class="positive" style="font-weight:bold">+10.43%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td><td><strong>0012.HK</strong> Henderson Land<br>28.18→31.12 <span class="positive" style="font-weight:bold">+10.43%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 量价背离(上行), 回踩支撑</span></td></tr><tr><td>3</td><td><strong>1044.HK</strong> Hengan Int'l<br>27.52→28.30 <span class="positive" style="font-weight:bold">+2.83%</span><br><span style="color:#666;font-size:0.8em">破底翻, 量价背离(上行), 回踩支撑, 假跌破反转</span></td><td><strong>1044.HK</strong> Hengan Int'l<br>27.52→28.30 <span class="positive" style="font-weight:bold">+2.83%</span><br><span style="color:#666;font-size:0.8em">破底翻, 量价背离(上行), 回踩支撑, 假跌破反转</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2026-02 <span style="color:#888;font-size:0.8em">(2026-02-02 → 2026-02-27)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: +11.09%</span>
+<span class="badge badge-pdfan">PDFAN: +12.40% (2/3)</span>
+<span class="badge badge-smart">SMART: +6.99% ✓</span>
+<span class="winner-badge">🏆 PDFAN</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0066.HK</strong> MTR Corp<br>34.42→37.34 <span class="positive" style="font-weight:bold">+8.48%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 颈线突破</span></td><td><strong>1209.HK</strong> China Resources Mixc<br>45.12→47.60 <span class="positive" style="font-weight:bold">+5.50%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0066.HK</strong> MTR Corp<br>34.42→37.34 <span class="positive" style="font-weight:bold">+8.48%</span><br><span style="color:#666;font-size:0.8em">W底, 量先价行, 颈线突破</span></td></tr><tr><td>2</td><td><strong>1209.HK</strong> China Resources Mixc<br>45.12→47.60 <span class="positive" style="font-weight:bold">+5.50%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>2899.HK</strong> Zijin Mining<br>37.72→45.00 <span class="positive" style="font-weight:bold">+19.30%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑, 假跌破反转</span></td><td><strong>1209.HK</strong> China Resources Mixc<br>45.12→47.60 <span class="positive" style="font-weight:bold">+5.50%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td></tr><tr><td>3</td><td><strong>2899.HK</strong> Zijin Mining<br>37.72→45.00 <span class="positive" style="font-weight:bold">+19.30%</span><br><span style="color:#666;font-size:0.8em">破底翻, 回踩支撑, 假跌破反转</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="month-card">
+<div class="month-header">
+<div><h2>📅 2026-03 <span style="color:#888;font-size:0.8em">(2026-03-02 → 2026-03-31)</span></h2></div>
+<div class="scores">
+<span class="badge badge-full">FULL: -8.29%</span>
+<span class="badge badge-pdfan">PDFAN: -0.68% (1/3)</span>
+<span class="badge badge-smart">SMART: -2.67% ✓</span>
+<span class="winner-badge">🏆 PDFAN</span>
+</div>
+</div>
+<div class="month-body">
+<table>
+<tr><th style="width:5%">#</th><th style="width:28%">FULL (Top 3)</th><th style="width:28%">破底翻-ONLY</th><th style="width:28%">SMART (Top 2+Filter)</th></tr>
+<tr><td>1</td><td><strong>0002.HK</strong> CLP Holdings<br>74.00→73.50 <span class="negative" style="font-weight:bold">-0.68%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0002.HK</strong> CLP Holdings<br>74.00→73.50 <span class="negative" style="font-weight:bold">-0.68%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td><td><strong>0002.HK</strong> CLP Holdings<br>74.00→73.50 <span class="negative" style="font-weight:bold">-0.68%</span><br><span style="color:#666;font-size:0.8em">破底翻, W底, 回踩支撑</span></td></tr><tr><td>2</td><td><strong>1044.HK</strong> Hengan Int'l<br>28.84→27.50 <span class="negative" style="font-weight:bold">-4.65%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑, 假跌破反转</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td><strong>1044.HK</strong> Hengan Int'l<br>28.84→27.50 <span class="negative" style="font-weight:bold">-4.65%</span><br><span style="color:#666;font-size:0.8em">W底, 回踩支撑, 假跌破反转</span></td></tr><tr><td>3</td><td><strong>0386.HK</strong> China Petroleum<br>5.58→4.49 <span class="negative" style="font-weight:bold">-19.53%</span><br><span style="color:#666;font-size:0.8em">颈线突破, 回踩支撑</span></td><td><span style="color:#888">💤 CASH</span><br><span style="color:#555;font-size:0.8em">No 破底翻 signal</span></td><td></td></tr></table></div></div>
+<div class="footer">
+<p>Generated: 2026-04-24 17:33 · Cai Sen Technical Analysis Tool v3.0</p>
+<p>All 3 strategies use the same engine (cai_sen_analyzer.py v3.0) with 5-year data lookback and multi-timeframe analysis (monthly + weekly + daily)</p>
+<p>Data: Yahoo Finance RAW (unadjusted) prices · Universe: 83 HK Blue Chips</p>
+</div>
+</div>
+</body>
+</html>
