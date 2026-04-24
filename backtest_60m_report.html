@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HK Blue Chip 60-Month Backtest — Cai Sen Analyzer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #e4e4e7; line-height: 1.6; }
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+h1 { font-size: 2em; color: #fbbf24; margin-bottom: 8px; }
+h2 { font-size: 1.4em; color: #60a5fa; margin: 30px 0 15px; border-bottom: 1px solid #2d3748; padding-bottom: 8px; }
+h3 { font-size: 1.1em; color: #a78bfa; margin: 15px 0 10px; }
+.subtitle { color: #9ca3af; margin-bottom: 20px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+.stat-card { background: #1a1b23; border-radius: 12px; padding: 20px; border: 1px solid #2d3748; }
+.stat-label { font-size: 0.85em; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-value { font-size: 1.8em; font-weight: 700; margin-top: 5px; }
+.stat-value.positive { color: #34d399; }
+.stat-value.negative { color: #f87171; }
+.stat-value.neutral { color: #fbbf24; }
+table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+th { background: #1e1f2b; color: #9ca3af; padding: 10px 12px; text-align: left; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; position: sticky; top: 0; }
+td { padding: 10px 12px; border-bottom: 1px solid #1e1f2b; font-size: 0.9em; }
+tr:hover { background: #1a1b23; }
+.pnl-positive { color: #34d399; font-weight: 600; }
+.pnl-negative { color: #f87171; font-weight: 600; }
+.reason { font-size: 0.8em; color: #9ca3af; max-width: 400px; }
+.reason .star { color: #fbbf24; }
+.signal-tag { display: inline-block; background: #2d3748; color: #a78bfa; padding: 2px 8px; border-radius: 4px; font-size: 0.75em; margin: 2px; }
+.month-header { background: #1a1b23; }
+.month-header td { font-weight: 700; color: #fbbf24; font-size: 1em; }
+.equity-chart { background: #1a1b23; border-radius: 12px; padding: 20px; border: 1px solid #2d3748; margin: 20px 0; }
+.bar { display: inline-block; margin: 1px; border-radius: 2px; min-width: 8px; }
+.bar.up { background: #34d399; }
+.bar.down { background: #f87171; }
+.stock-freq { display: flex; flex-wrap: wrap; gap: 10px; }
+.stock-badge { background: #1e1f2b; border: 1px solid #2d3748; border-radius: 8px; padding: 8px 14px; }
+.stock-badge .count { color: #fbbf24; font-weight: 700; }
+.stock-badge .pnl { font-size: 0.85em; }
+.note { background: #1a1b23; border-left: 3px solid #fbbf24; padding: 12px 16px; margin: 10px 0; border-radius: 0 8px 8px 0; font-size: 0.9em; }
+footer { text-align: center; color: #6b7280; margin-top: 40px; padding: 20px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🇭🇰 HK Blue Chip 60-Month Backtest</h1>
+<p class="subtitle">Cai Sen Technical Analysis · Best 2 Monthly Picks · Buy First Trading Day, Sell Last · 2021-04 to 2026-03</p>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-label">Total Months</div>
+    <div class="stat-value neutral">60</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Total Trades</div>
+    <div class="stat-value neutral">120</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Win Rate</div>
+    <div class="stat-value positive">57.5%</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Avg Monthly P&L</div>
+    <div class="stat-value positive">+1.39%</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Cumulative Return</div>
+    <div class="stat-value positive">+152.3%</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Winners / Losers</div>
+    <div class="stat-value neutral">69 / 51</div>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-label">Best Trade</div>
+    <div class="stat-value positive">9988.HK +37.8%</div>
+    <div style="font-size:0.8em;color:#9ca3af">Alibaba (2025-02-03)</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Worst Trade</div>
+    <div class="stat-value negative">1928.HK -30.0%</div>
+    <div style="font-size:0.8em;color:#9ca3af">Sands China (2022-10-03)</div>
+  </div>
+</div>
+
+<h2>📈 Monthly Returns</h2>
+<div class="equity-chart">
+<div class="bar down" style="height:4px" title="2021-04: -1.37%"></div>
+<div class="bar up" style="height:16px" title="2021-05: +5.37%"></div>
+<div class="bar up" style="height:28px" title="2021-06: +9.41%"></div>
+<div class="bar down" style="height:14px" title="2021-07: -4.95%"></div>
+<div class="bar up" style="height:6px" title="2021-08: +2.22%"></div>
+<div class="bar down" style="height:25px" title="2021-09: -8.49%"></div>
+<div class="bar up" style="height:8px" title="2021-10: +2.88%"></div>
+<div class="bar down" style="height:5px" title="2021-11: -1.94%"></div>
+<div class="bar up" style="height:49px" title="2021-12: +16.62%"></div>
+<div class="bar up" style="height:25px" title="2022-01: +8.40%"></div>
+<div class="bar down" style="height:20px" title="2022-02: -6.72%"></div>
+<div class="bar down" style="height:48px" title="2022-03: -16.08%"></div>
+<div class="bar up" style="height:6px" title="2022-04: +2.18%"></div>
+<div class="bar down" style="height:3px" title="2022-05: -0.33%"></div>
+<div class="bar down" style="height:14px" title="2022-06: -4.78%"></div>
+<div class="bar up" style="height:3px" title="2022-07: +1.14%"></div>
+<div class="bar down" style="height:18px" title="2022-08: -6.02%"></div>
+<div class="bar down" style="height:22px" title="2022-09: -7.65%"></div>
+<div class="bar down" style="height:80px" title="2022-10: -26.64%"></div>
+<div class="bar up" style="height:43px" title="2022-11: +14.62%"></div>
+<div class="bar up" style="height:27px" title="2022-12: +9.04%"></div>
+<div class="bar up" style="height:27px" title="2023-01: +9.00%"></div>
+<div class="bar down" style="height:44px" title="2023-02: -14.76%"></div>
+<div class="bar up" style="height:42px" title="2023-03: +14.02%"></div>
+<div class="bar up" style="height:4px" title="2023-04: +1.44%"></div>
+<div class="bar down" style="height:14px" title="2023-05: -4.68%"></div>
+<div class="bar up" style="height:3px" title="2023-06: +0.53%"></div>
+<div class="bar up" style="height:42px" title="2023-07: +14.31%"></div>
+<div class="bar up" style="height:4px" title="2023-08: +1.52%"></div>
+<div class="bar down" style="height:4px" title="2023-09: -1.34%"></div>
+<div class="bar down" style="height:31px" title="2023-10: -10.38%"></div>
+<div class="bar up" style="height:3px" title="2023-11: +0.10%"></div>
+<div class="bar down" style="height:6px" title="2023-12: -2.32%"></div>
+<div class="bar up" style="height:16px" title="2024-01: +5.64%"></div>
+<div class="bar up" style="height:5px" title="2024-02: +1.72%"></div>
+<div class="bar up" style="height:40px" title="2024-03: +13.58%"></div>
+<div class="bar up" style="height:26px" title="2024-04: +8.75%"></div>
+<div class="bar up" style="height:8px" title="2024-05: +2.72%"></div>
+<div class="bar up" style="height:19px" title="2024-06: +6.60%"></div>
+<div class="bar down" style="height:34px" title="2024-07: -11.49%"></div>
+<div class="bar up" style="height:24px" title="2024-08: +8.00%"></div>
+<div class="bar down" style="height:3px" title="2024-09: -0.04%"></div>
+<div class="bar down" style="height:10px" title="2024-10: -3.49%"></div>
+<div class="bar down" style="height:8px" title="2024-11: -2.84%"></div>
+<div class="bar up" style="height:43px" title="2024-12: +14.54%"></div>
+<div class="bar up" style="height:6px" title="2025-01: +2.28%"></div>
+<div class="bar up" style="height:74px" title="2025-02: +24.66%"></div>
+<div class="bar up" style="height:3px" title="2025-03: +0.27%"></div>
+<div class="bar up" style="height:3px" title="2025-04: +0.60%"></div>
+<div class="bar up" style="height:3px" title="2025-05: +0.55%"></div>
+<div class="bar up" style="height:14px" title="2025-06: +4.90%"></div>
+<div class="bar down" style="height:3px" title="2025-07: -0.19%"></div>
+<div class="bar down" style="height:11px" title="2025-08: -3.75%"></div>
+<div class="bar up" style="height:45px" title="2025-09: +15.01%"></div>
+<div class="bar down" style="height:50px" title="2025-10: -16.96%"></div>
+<div class="bar up" style="height:19px" title="2025-11: +6.58%"></div>
+<div class="bar up" style="height:6px" title="2025-12: +2.07%"></div>
+<div class="bar down" style="height:16px" title="2026-01: -5.50%"></div>
+<div class="bar up" style="height:27px" title="2026-02: +9.02%"></div>
+<div class="bar up" style="height:17px" title="2026-03: +5.85%"></div>
+</div>
+
+<h2>📊 Stock Selection Frequency (Top 15)</h2>
+<div class="stock-freq">
+<div class="stock-badge"><strong>0002.HK</strong> CLP Holdings<br><span class="count">×7</span> <span class="pnl pnl-positive">Σ+7.9%</span></div>
+<div class="stock-badge"><strong>0006.HK</strong> Power Assets<br><span class="count">×7</span> <span class="pnl pnl-negative">Σ-24.1%</span></div>
+<div class="stock-badge"><strong>1038.HK</strong> CKI Holdings<br><span class="count">×7</span> <span class="pnl pnl-positive">Σ+11.9%</span></div>
+<div class="stock-badge"><strong>2388.HK</strong> BOC Hong Kong<br><span class="count">×6</span> <span class="pnl pnl-positive">Σ+42.7%</span></div>
+<div class="stock-badge"><strong>0005.HK</strong> HSBC<br><span class="count">×6</span> <span class="pnl pnl-positive">Σ+11.3%</span></div>
+<div class="stock-badge"><strong>0857.HK</strong> PetroChina<br><span class="count">×5</span> <span class="pnl pnl-positive">Σ+25.9%</span></div>
+<div class="stock-badge"><strong>0027.HK</strong> Galaxy Ent<br><span class="count">×5</span> <span class="pnl pnl-negative">Σ-31.3%</span></div>
+<div class="stock-badge"><strong>0012.HK</strong> Henderson Land<br><span class="count">×4</span> <span class="pnl pnl-negative">Σ-10.9%</span></div>
+<div class="stock-badge"><strong>0066.HK</strong> MTR Corp<br><span class="count">×4</span> <span class="pnl pnl-positive">Σ+17.6%</span></div>
+<div class="stock-badge"><strong>3968.HK</strong> China Merchants Bank<br><span class="count">×3</span> <span class="pnl pnl-negative">Σ-9.1%</span></div>
+<div class="stock-badge"><strong>0016.HK</strong> SHK Properties<br><span class="count">×3</span> <span class="pnl pnl-positive">Σ+22.3%</span></div>
+<div class="stock-badge"><strong>0883.HK</strong> CNOOC<br><span class="count">×3</span> <span class="pnl pnl-positive">Σ+8.2%</span></div>
+<div class="stock-badge"><strong>1929.HK</strong> Chow Tai Fook<br><span class="count">×2</span> <span class="pnl pnl-positive">Σ+18.7%</span></div>
+<div class="stock-badge"><strong>1211.HK</strong> BYD<br><span class="count">×2</span> <span class="pnl pnl-positive">Σ+3.3%</span></div>
+<div class="stock-badge"><strong>3328.HK</strong> Bank of Communications<br><span class="count">×2</span> <span class="pnl pnl-negative">Σ-0.1%</span></div>
+</div>
+
+<h2>📋 Full Transaction Log</h2>
+<div class="note">Buy at <strong>Open</strong> on the first trading day of each month. Sell at <strong>Close</strong> on the last trading day. Top 2 picks by Cai Sen technical score.</div>
+
+<table>
+<thead>
+<tr><th>#</th><th>Month</th><th>Stock</th><th>Name</th><th>Buy Date</th><th>Buy Price</th><th>Sell Date</th><th>Sell Price</th><th>P&L %</th><th>Score</th><th>Reason / Signals</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>2021-04</td>
+  <td><strong>2007.HK</strong></td>
+  <td>Country Garden</td>
+  <td>2021-04-01</td>
+  <td>9.99</td>
+  <td>2021-04-30</td>
+  <td>9.25</td>
+  <td class="pnl-negative">-7.41%</td>
+  <td>17</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底9.06/8.82，颈线10.10 | <span class="star">★ </span>W底: W底形态，两底9.06/8.82，颈线10.10 | <span class="star">★ </span>破底翻: 跌破9.06后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破9.06后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破9.06后收回，可能反转</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>2021-04</td>
+  <td><strong>1929.HK</strong></td>
+  <td>Chow Tai Fook</td>
+  <td>2021-04-01</td>
+  <td>11.98</td>
+  <td>2021-04-30</td>
+  <td>12.54</td>
+  <td class="pnl-positive">+4.67%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(12.40) > MA20(11.14) > MA60(10.50) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.6倍 | <span class="star">★ </span>突破20日高点: 突破前高11.98 | <span class="star">★ </span>W底: W底形态，两底9.33/9.30，颈线12.60 | RSI超买: RSI=74.5，超买</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>2021-05</td>
+  <td><strong>1177.HK</strong></td>
+  <td>Sino Biopharm</td>
+  <td>2021-05-03</td>
+  <td>8.45</td>
+  <td>2021-05-31</td>
+  <td>8.72</td>
+  <td class="pnl-positive">+3.20%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(8.41) > MA20(8.19) > MA60(8.14) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底7.74/7.60，颈线8.55</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>2021-05</td>
+  <td><strong>0012.HK</strong></td>
+  <td>Henderson Land</td>
+  <td>2021-05-03</td>
+  <td>34.50</td>
+  <td>2021-05-31</td>
+  <td>37.10</td>
+  <td class="pnl-positive">+7.54%</td>
+  <td>7</td>
+  <td class="reason"><span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">量价背离(上行)</span> <span class="signal-tag">接近支撑</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 量价背离(上行): 价格下跌但成交量萎缩，可能见底 | 接近支撑: 接近20日低点33.85 | RSI超卖回升: RSI=34.8，从超卖区回升 | 风险回报比佳: R:R = 3.0:1</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>2021-06</td>
+  <td><strong>0857.HK</strong></td>
+  <td>PetroChina</td>
+  <td>2021-06-01</td>
+  <td>3.17</td>
+  <td>2021-06-30</td>
+  <td>3.78</td>
+  <td class="pnl-positive">+19.24%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(3.25) > MA20(3.13) > MA60(2.94) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底2.69/2.68，颈线3.30 | <span class="star">★ </span>W底: W底形态，两底2.69/2.68，颈线3.30</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>2021-06</td>
+  <td><strong>0012.HK</strong></td>
+  <td>Henderson Land</td>
+  <td>2021-06-01</td>
+  <td>36.95</td>
+  <td>2021-06-30</td>
+  <td>36.80</td>
+  <td class="pnl-negative">-0.41%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(37.40) > MA20(35.78) > MA60(34.88) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底34.20/33.85，颈线37.90 | <span class="star">★ </span>W底: W底形态，两底33.30/32.50，颈线37.90 | RSI超买: RSI=73.9，超买</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>2021-07</td>
+  <td><strong>0027.HK</strong></td>
+  <td>Galaxy Ent</td>
+  <td>2021-07-02</td>
+  <td>62.65</td>
+  <td>2021-07-30</td>
+  <td>52.70</td>
+  <td class="pnl-negative">-15.88%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">异常放量</span> <span class="signal-tag">量价背离(上行)</span> <span class="signal-tag">接近支撑</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>趋势空头: 价格(60.70) < MA20(61.84) < MA60(65.22) | 异常放量: 成交量是20日均量的2.1倍 | 量价背离(上行): 价格下跌但成交量萎缩，可能见底 | 接近支撑: 接近20日低点59.50 | 接近中期支撑: 接近60日低点59.50 | <span class="star">★ </span>破底翻: 跌破60.60后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破60.60后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破60.60后收回，可能反转 | RSI超卖回升: RSI=42.5，从超卖区回升 | 风险回报比佳: R:R = 3.6:1</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>2021-07</td>
+  <td><strong>0066.HK</strong></td>
+  <td>MTR Corp</td>
+  <td>2021-07-02</td>
+  <td>43.45</td>
+  <td>2021-07-30</td>
+  <td>46.05</td>
+  <td class="pnl-positive">+5.98%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">接近支撑</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br>年线上方: 价格在250日线上方 | 接近支撑: 接近20日低点42.30 | 接近中期支撑: 接近60日低点42.30 | <span class="star">★ </span>W底: W底形态，两底42.70/42.30，颈线43.80 | <span class="star">★ </span>W底: W底形态，两底42.70/42.30，颈线43.80</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td>2021-08</td>
+  <td><strong>1211.HK</strong></td>
+  <td>BYD</td>
+  <td>2021-08-02</td>
+  <td>82.67</td>
+  <td>2021-08-31</td>
+  <td>87.80</td>
+  <td class="pnl-positive">+6.21%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(86.07) > MA20(74.07) > MA60(67.28) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高80.00 | <span class="star">★ </span>W底: W底形态，两底46.20/46.13，颈线86.73 | <span class="star">★ </span>颈线突破: 突破30日高点86.73，成交量确认</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td>2021-08</td>
+  <td><strong>2899.HK</strong></td>
+  <td>Zijin Mining</td>
+  <td>2021-08-02</td>
+  <td>11.28</td>
+  <td>2021-08-31</td>
+  <td>11.08</td>
+  <td class="pnl-negative">-1.77%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br>年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.5倍 | <span class="star">★ </span>突破20日高点: 突破前高11.66 | <span class="star">★ </span>W底: W底形态，两底9.62/9.56，颈线11.80 | <span class="star">★ </span>W底: W底形态，两底9.62/9.56，颈线11.80 | <span class="star">★ </span>颈线突破: 突破30日高点11.80，成交量确认</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td>2021-09</td>
+  <td><strong>3328.HK</strong></td>
+  <td>Bank of Communications</td>
+  <td>2021-09-01</td>
+  <td>4.43</td>
+  <td>2021-09-30</td>
+  <td>4.62</td>
+  <td class="pnl-positive">+4.29%</td>
+  <td>18</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <br>年线上方: 价格在250日线上方 | 接近中期支撑: 接近60日低点4.35 | <span class="star">★ </span>W底: W底形态，两底4.44/4.35，颈线4.54 | <span class="star">★ </span>W底: W底形态，两底4.44/4.35，颈线4.54 | <span class="star">★ </span>破底翻: 跌破4.44后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破4.44后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破4.44后收回，可能反转 | RSI超卖回升: RSI=41.3，从超卖区回升</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td>2021-09</td>
+  <td><strong>0027.HK</strong></td>
+  <td>Galaxy Ent</td>
+  <td>2021-09-01</td>
+  <td>50.80</td>
+  <td>2021-09-30</td>
+  <td>40.00</td>
+  <td class="pnl-negative">-21.26%</td>
+  <td>16</td>
+  <td class="reason"><span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <br><span class="star">★ </span>突破20日高点: 突破前高50.80 | <span class="star">★ </span>W底: W底形态，两底43.60/43.20，颈线51.35 | <span class="star">★ </span>W底: W底形态，两底43.60/43.20，颈线51.35 | <span class="star">★ </span>破底翻: 跌破45.70后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破45.70后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破45.70后收回，可能反转</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td>2021-10</td>
+  <td><strong>0688.HK</strong></td>
+  <td>China Overseas</td>
+  <td>2021-10-04</td>
+  <td>17.72</td>
+  <td>2021-10-29</td>
+  <td>17.16</td>
+  <td class="pnl-negative">-3.16%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <br><span class="star">★ </span>W底: W底形态，两底15.82/15.42，颈线18.08 | <span class="star">★ </span>W底: W底形态，两底15.82/15.42，颈线18.08 | <span class="star">★ </span>破底翻: 跌破16.18后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破16.18后收回，可能反转</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td>2021-10</td>
+  <td><strong>1997.HK</strong></td>
+  <td>Wharf REIC</td>
+  <td>2021-10-04</td>
+  <td>40.30</td>
+  <td>2021-10-29</td>
+  <td>43.90</td>
+  <td class="pnl-positive">+8.93%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>破底翻: 跌破36.65后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破36.65后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破36.65后收回，可能反转 | RSI超卖回升: RSI=45.8，从超卖区回升</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td>2021-11</td>
+  <td><strong>3328.HK</strong></td>
+  <td>Bank of Communications</td>
+  <td>2021-11-01</td>
+  <td>4.75</td>
+  <td>2021-11-30</td>
+  <td>4.54</td>
+  <td class="pnl-negative">-4.42%</td>
+  <td>16</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(4.79) > MA20(4.67) > MA60(4.57) | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高4.76 | <span class="star">★ </span>W底: W底形态，两底4.37/4.35，颈线4.79 | <span class="star">★ </span>W底: W底形态，两底4.46/4.35，颈线4.79 | <span class="star">★ </span>颈线突破: 突破30日高点4.79，成交量确认 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td>2021-11</td>
+  <td><strong>0002.HK</strong></td>
+  <td>CLP Holdings</td>
+  <td>2021-11-01</td>
+  <td>76.00</td>
+  <td>2021-11-30</td>
+  <td>76.40</td>
+  <td class="pnl-positive">+0.53%</td>
+  <td>8</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | 接近中期支撑: 接近60日低点73.80 | <span class="star">★ </span>W底: W底形态，两底73.90/73.80，颈线76.75 | <span class="star">★ </span>W底: W底形态，两底73.90/73.80，颈线76.75 | RSI超买: RSI=70.6，超买</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td>2021-12</td>
+  <td><strong>0836.HK</strong></td>
+  <td>China Resources Power</td>
+  <td>2021-12-01</td>
+  <td>20.00</td>
+  <td>2021-12-31</td>
+  <td>26.10</td>
+  <td class="pnl-positive">+30.50%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超买</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高21.30 | <span class="star">★ </span>W底: W底形态，两底17.66/17.18，颈线21.75 | <span class="star">★ </span>W底: W底形态，两底17.66/17.18，颈线21.75 | <span class="star">★ </span>破底翻: 跌破17.66后收回，可能反转 | RSI超买: RSI=70.6，超买</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td>2021-12</td>
+  <td><strong>0002.HK</strong></td>
+  <td>CLP Holdings</td>
+  <td>2021-12-01</td>
+  <td>76.65</td>
+  <td>2021-12-31</td>
+  <td>78.75</td>
+  <td class="pnl-positive">+2.74%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">接近支撑</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(76.35) > MA20(76.06) > MA60(75.70) | 年线上方: 价格在250日线上方 | 接近支撑: 接近20日低点75.20 | 接近中期支撑: 接近60日低点73.80 | <span class="star">★ </span>W底: W底形态，两底74.20/73.80，颈线77.25 | <span class="star">★ </span>W底: W底形态，两底73.90/73.80，颈线77.25</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td>2022-01</td>
+  <td><strong>2388.HK</strong></td>
+  <td>BOC Hong Kong</td>
+  <td>2022-01-03</td>
+  <td>25.55</td>
+  <td>2022-01-31</td>
+  <td>30.00</td>
+  <td class="pnl-positive">+17.42%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(25.95) > MA20(25.01) > MA60(24.72) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高25.75 | <span class="star">★ </span>W底: W底形态，两底23.85/23.20，颈线26.05 | <span class="star">★ </span>W底: W底形态，两底23.85/23.20，颈线26.05 | RSI超买: RSI=74.1，超买</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td>2022-01</td>
+  <td><strong>0002.HK</strong></td>
+  <td>CLP Holdings</td>
+  <td>2022-01-03</td>
+  <td>78.75</td>
+  <td>2022-01-31</td>
+  <td>78.25</td>
+  <td class="pnl-negative">-0.63%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(79.75) > MA20(77.18) > MA60(76.19) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高79.60 | <span class="star">★ </span>W底: W底形态，两底74.75/74.55，颈线80.10 | <span class="star">★ </span>颈线突破: 突破30日高点80.10，成交量确认 | RSI超买: RSI=86.0，超买</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td>2022-02</td>
+  <td><strong>0012.HK</strong></td>
+  <td>Henderson Land</td>
+  <td>2022-02-04</td>
+  <td>34.70</td>
+  <td>2022-02-28</td>
+  <td>32.50</td>
+  <td class="pnl-negative">-6.34%</td>
+  <td>16</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(35.00) > MA20(33.85) > MA60(33.39) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.0倍 | <span class="star">★ </span>W底: W底形态，两底32.10/31.70，颈线35.20 | <span class="star">★ </span>W底: W底形态，两底31.80/31.70，颈线35.20 | <span class="star">★ </span>颈线突破: 突破30日高点35.20，成交量确认</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td>2022-02</td>
+  <td><strong>2388.HK</strong></td>
+  <td>BOC Hong Kong</td>
+  <td>2022-02-04</td>
+  <td>30.25</td>
+  <td>2022-02-28</td>
+  <td>28.10</td>
+  <td class="pnl-negative">-7.11%</td>
+  <td>16</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(31.10) > MA20(29.18) > MA60(26.21) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高30.30 | <span class="star">★ </span>W底: W底形态，两底24.35/24.30，颈线31.35 | <span class="star">★ </span>W底: W底形态，两底23.85/23.20，颈线31.35 | <span class="star">★ </span>颈线突破: 突破30日高点31.35，成交量确认 | RSI超买: RSI=80.6，超买 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td>2022-03</td>
+  <td><strong>9633.HK</strong></td>
+  <td>Nongfu Spring</td>
+  <td>2022-03-01</td>
+  <td>49.25</td>
+  <td>2022-03-31</td>
+  <td>41.75</td>
+  <td class="pnl-negative">-15.23%</td>
+  <td>16</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(49.50) > MA20(47.66) > MA60(47.28) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高49.00 | <span class="star">★ </span>W底: W底形态，两底42.80/42.75，颈线49.95 | <span class="star">★ </span>W底: W底形态，两底42.80/42.75，颈线49.95 | <span class="star">★ </span>颈线突破: 突破30日高点49.95，成交量确认</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td>2022-03</td>
+  <td><strong>2319.HK</strong></td>
+  <td>Mengniu Dairy</td>
+  <td>2022-03-01</td>
+  <td>50.80</td>
+  <td>2022-03-31</td>
+  <td>42.20</td>
+  <td class="pnl-negative">-16.93%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(50.80) > MA20(48.65) > MA60(46.59) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底43.15/42.95，颈线51.30 | <span class="star">★ </span>颈线突破: 突破30日高点51.30，成交量确认</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td>2022-04</td>
+  <td><strong>0006.HK</strong></td>
+  <td>Power Assets</td>
+  <td>2022-04-01</td>
+  <td>51.15</td>
+  <td>2022-04-29</td>
+  <td>52.85</td>
+  <td class="pnl-positive">+3.32%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>趋势多头: 价格(51.70) > MA20(50.94) > MA60(49.71) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底48.40/47.90，颈线51.95 | <span class="star">★ </span>W底: W底形态，两底48.00/47.60，颈线51.95 | RSI超卖回升: RSI=47.9，从超卖区回升</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td>2022-04</td>
+  <td><strong>1038.HK</strong></td>
+  <td>CKI Holdings</td>
+  <td>2022-04-01</td>
+  <td>52.30</td>
+  <td>2022-04-29</td>
+  <td>52.85</td>
+  <td class="pnl-positive">+1.05%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(53.95) > MA20(52.10) > MA60(50.13) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底47.10/47.05，颈线54.35 | <span class="star">★ </span>W底: W底形态，两底47.10/47.05，颈线54.35</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td>2022-05</td>
+  <td><strong>2388.HK</strong></td>
+  <td>BOC Hong Kong</td>
+  <td>2022-05-03</td>
+  <td>29.05</td>
+  <td>2022-05-31</td>
+  <td>30.15</td>
+  <td class="pnl-positive">+3.79%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>趋势多头: 价格(30.00) > MA20(29.58) > MA60(29.40) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>W底: W底形态，两底26.45/26.10，颈线30.50 | RSI超卖回升: RSI=48.6，从超卖区回升</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td>2022-05</td>
+  <td><strong>6690.HK</strong></td>
+  <td>Haier Smart Home</td>
+  <td>2022-05-03</td>
+  <td>29.25</td>
+  <td>2022-05-31</td>
+  <td>27.95</td>
+  <td class="pnl-negative">-4.44%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高28.80 | <span class="star">★ </span>W底: W底形态，两底22.10/21.90，颈线30.60 | <span class="star">★ </span>W底: W底形态，两底22.10/21.90，颈线30.60 | RSI超买: RSI=71.0，超买</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td>2022-06</td>
+  <td><strong>0012.HK</strong></td>
+  <td>Henderson Land</td>
+  <td>2022-06-01</td>
+  <td>33.30</td>
+  <td>2022-06-30</td>
+  <td>29.40</td>
+  <td class="pnl-negative">-11.71%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高33.65 | <span class="star">★ </span>W底: W底形态，两底31.30/30.50，颈线34.00 | <span class="star">★ </span>W底: W底形态，两底30.35/29.90，颈线34.35 | <span class="star">★ </span>颈线突破: 突破30日高点34.00，成交量确认 | RSI超买: RSI=80.5，超买</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td>2022-06</td>
+  <td><strong>9633.HK</strong></td>
+  <td>Nongfu Spring</td>
+  <td>2022-06-01</td>
+  <td>44.10</td>
+  <td>2022-06-30</td>
+  <td>45.05</td>
+  <td class="pnl-positive">+2.15%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(43.30) > MA20(41.56) > MA60(40.83) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底39.70/39.05，颈线44.10 | <span class="star">★ </span>W底: W底形态，两底33.05/32.35，颈线44.10</td>
+</tr>
+<tr>
+  <td>31</td>
+  <td>2022-07</td>
+  <td><strong>0788.HK</strong></td>
+  <td>China Tower</td>
+  <td>2022-07-04</td>
+  <td>10.10</td>
+  <td>2022-07-29</td>
+  <td>10.10</td>
+  <td class="pnl-negative">+0.00%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(10.10) > MA20(9.60) > MA60(9.23) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底8.70/8.50，颈线10.20 | <span class="star">★ </span>W底: W底形态，两底8.60/8.50，颈线10.20 | <span class="star">★ </span>颈线突破: 突破30日高点10.20，成交量确认 | RSI超买: RSI=88.9，超买</td>
+</tr>
+<tr>
+  <td>32</td>
+  <td>2022-07</td>
+  <td><strong>1038.HK</strong></td>
+  <td>CKI Holdings</td>
+  <td>2022-07-04</td>
+  <td>48.10</td>
+  <td>2022-07-29</td>
+  <td>49.20</td>
+  <td class="pnl-positive">+2.29%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">接近支撑</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势空头: 价格(48.75) < MA20(49.51) < MA60(52.07) | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | 接近支撑: 接近20日低点47.50 | 接近中期支撑: 接近60日低点47.50 | <span class="star">★ </span>W底: W底形态，两底47.75/47.50，颈线49.30 | <span class="star">★ </span>W底: W底形态，两底47.75/47.50，颈线49.30 | RSI超卖回升: RSI=34.2，从超卖区回升 | 风险回报比佳: R:R = 3.0:1 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>33</td>
+  <td>2022-08</td>
+  <td><strong>1038.HK</strong></td>
+  <td>CKI Holdings</td>
+  <td>2022-08-01</td>
+  <td>49.20</td>
+  <td>2022-08-31</td>
+  <td>47.80</td>
+  <td class="pnl-negative">-2.85%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">接近支撑</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | 接近支撑: 接近20日低点48.05 | 接近中期支撑: 接近60日低点47.50 | <span class="star">★ </span>W底: W底形态，两底47.75/47.50，颈线49.40 | <span class="star">★ </span>W底: W底形态，两底47.75/47.50，颈线49.40</td>
+</tr>
+<tr>
+  <td>34</td>
+  <td>2022-08</td>
+  <td><strong>0006.HK</strong></td>
+  <td>Power Assets</td>
+  <td>2022-08-01</td>
+  <td>51.75</td>
+  <td>2022-08-31</td>
+  <td>47.00</td>
+  <td class="pnl-negative">-9.18%</td>
+  <td>8</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底48.50/48.30，颈线51.90 | <span class="star">★ </span>W底: W底形态，两底48.50/48.30，颈线51.90</td>
+</tr>
+<tr>
+  <td>35</td>
+  <td>2022-09</td>
+  <td><strong>6690.HK</strong></td>
+  <td>Haier Smart Home</td>
+  <td>2022-09-01</td>
+  <td>25.80</td>
+  <td>2022-09-30</td>
+  <td>24.05</td>
+  <td class="pnl-negative">-6.78%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br>短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高26.00 | <span class="star">★ </span>W底: W底形态，两底23.10/22.95，颈线26.50 | <span class="star">★ </span>W底: W底形态，两底23.10/22.95，颈线26.50</td>
+</tr>
+<tr>
+  <td>36</td>
+  <td>2022-09</td>
+  <td><strong>3968.HK</strong></td>
+  <td>China Merchants Bank</td>
+  <td>2022-09-01</td>
+  <td>39.90</td>
+  <td>2022-09-30</td>
+  <td>36.50</td>
+  <td class="pnl-negative">-8.52%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">量价背离(上行)</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>趋势空头: 价格(40.00) < MA20(40.41) < MA60(44.41) | 量价背离(上行): 价格下跌但成交量萎缩，可能见底 | 接近中期支撑: 接近60日低点38.35 | <span class="star">★ </span>破底翻: 跌破39.35后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破39.35后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破39.35后收回，可能反转 | RSI超卖回升: RSI=38.5，从超卖区回升</td>
+</tr>
+<tr>
+  <td>37</td>
+  <td>2022-10</td>
+  <td><strong>1209.HK</strong></td>
+  <td>China Resources Mixc</td>
+  <td>2022-10-03</td>
+  <td>30.00</td>
+  <td>2022-10-31</td>
+  <td>23.00</td>
+  <td class="pnl-negative">-23.33%</td>
+  <td>7</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>趋势空头: 价格(31.70) < MA20(33.33) < MA60(34.10) | <span class="star">★ </span>破底翻: 跌破30.40后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破30.40后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破30.40后收回，可能反转 | RSI超卖回升: RSI=33.2，从超卖区回升</td>
+</tr>
+<tr>
+  <td>38</td>
+  <td>2022-10</td>
+  <td><strong>1928.HK</strong></td>
+  <td>Sands China</td>
+  <td>2022-10-03</td>
+  <td>19.56</td>
+  <td>2022-10-31</td>
+  <td>13.70</td>
+  <td class="pnl-negative">-29.96%</td>
+  <td>7</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ 放量上涨</span> <br><span class="star">★ </span>趋势多头: 价格(19.96) > MA20(18.43) > MA60(17.82) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍</td>
+</tr>
+<tr>
+  <td>39</td>
+  <td>2022-11</td>
+  <td><strong>1093.HK</strong></td>
+  <td>CSPC Pharma</td>
+  <td>2022-11-01</td>
+  <td>8.44</td>
+  <td>2022-11-30</td>
+  <td>9.99</td>
+  <td class="pnl-positive">+18.36%</td>
+  <td>16</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(8.80) > MA20(8.08) > MA60(7.92) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高8.79 | <span class="star">★ </span>W底: W底形态，两底7.00/6.96，颈线8.94 | <span class="star">★ </span>W底: W底形态，两底7.00/6.96，颈线8.94</td>
+</tr>
+<tr>
+  <td>40</td>
+  <td>2022-11</td>
+  <td><strong>0016.HK</strong></td>
+  <td>SHK Properties</td>
+  <td>2022-11-01</td>
+  <td>84.50</td>
+  <td>2022-11-30</td>
+  <td>93.70</td>
+  <td class="pnl-positive">+10.89%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>趋势空头: 价格(85.90) < MA20(88.97) < MA60(92.10) | 接近中期支撑: 接近60日低点83.10 | <span class="star">★ </span>破底翻: 跌破84.95后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破84.95后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破84.95后收回，可能反转 | RSI超卖回升: RSI=43.6，从超卖区回升 | 风险回报比佳: R:R = 3.0:1</td>
+</tr>
+<tr>
+  <td>41</td>
+  <td>2022-12</td>
+  <td><strong>1929.HK</strong></td>
+  <td>Chow Tai Fook</td>
+  <td>2022-12-01</td>
+  <td>13.96</td>
+  <td>2022-12-30</td>
+  <td>15.92</td>
+  <td class="pnl-positive">+14.04%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">量价背离(上行)</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>放量上涨: 成交量是20日均量的5.7倍 | 量价背离(上行): 价格下跌但成交量萎缩，可能见底 | <span class="star">★ </span>破底翻: 跌破13.38后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破13.38后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破13.38后收回，可能反转 | RSI超卖回升: RSI=35.5，从超卖区回升</td>
+</tr>
+<tr>
+  <td>42</td>
+  <td>2022-12</td>
+  <td><strong>0939.HK</strong></td>
+  <td>CCB</td>
+  <td>2022-12-01</td>
+  <td>4.70</td>
+  <td>2022-12-30</td>
+  <td>4.89</td>
+  <td class="pnl-positive">+4.04%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(4.73) > MA20(4.56) > MA60(4.53) | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底4.16/4.10，颈线4.76 | <span class="star">★ </span>W底: W底形态，两底4.16/4.10，颈线4.76 | <span class="star">★ </span>颈线突破: 突破30日高点4.76，成交量确认</td>
+</tr>
+<tr>
+  <td>43</td>
+  <td>2023-01</td>
+  <td><strong>0916.HK</strong></td>
+  <td>Longfor Group</td>
+  <td>2023-01-03</td>
+  <td>9.50</td>
+  <td>2023-01-31</td>
+  <td>10.78</td>
+  <td class="pnl-positive">+13.47%</td>
+  <td>20</td>
+  <td class="reason"><span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>放量上涨: 成交量是20日均量的2.1倍 | <span class="star">★ </span>突破20日高点: 突破前高9.91 | <span class="star">★ </span>W底: W底形态，两底8.35/8.27，颈线10.40 | <span class="star">★ </span>W底: W底形态，两底8.35/8.27，颈线10.40 | <span class="star">★ </span>破底翻: 跌破8.43后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.43后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.43后收回，可能反转 | <span class="star">★ </span>颈线突破: 突破30日高点10.40，成交量确认</td>
+</tr>
+<tr>
+  <td>44</td>
+  <td>2023-01</td>
+  <td><strong>0016.HK</strong></td>
+  <td>SHK Properties</td>
+  <td>2023-01-03</td>
+  <td>106.30</td>
+  <td>2023-01-31</td>
+  <td>111.10</td>
+  <td class="pnl-positive">+4.52%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(109.20) > MA20(102.57) > MA60(93.83) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高108.70 | <span class="star">★ </span>W底: W底形态，两底84.70/83.10，颈线110.00 | <span class="star">★ </span>颈线突破: 突破30日高点110.00，成交量确认 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>45</td>
+  <td>2023-02</td>
+  <td><strong>0669.HK</strong></td>
+  <td>Techtronic Ind</td>
+  <td>2023-02-01</td>
+  <td>103.30</td>
+  <td>2023-02-28</td>
+  <td>78.05</td>
+  <td class="pnl-negative">-24.44%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(106.20) > MA20(96.19) > MA60(92.11) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>突破20日高点: 突破前高105.40 | <span class="star">★ </span>W底: W底形态，两底85.25/84.10，颈线106.50 | <span class="star">★ </span>颈线突破: 突破30日高点106.50，成交量确认</td>
+</tr>
+<tr>
+  <td>46</td>
+  <td>2023-02</td>
+  <td><strong>0027.HK</strong></td>
+  <td>Galaxy Ent</td>
+  <td>2023-02-01</td>
+  <td>55.00</td>
+  <td>2023-02-28</td>
+  <td>52.20</td>
+  <td class="pnl-negative">-5.09%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(56.40) > MA20(53.74) > MA60(49.55) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>颈线突破: 突破30日高点56.75，成交量确认</td>
+</tr>
+<tr>
+  <td>47</td>
+  <td>2023-03</td>
+  <td><strong>0941.HK</strong></td>
+  <td>China Mobile</td>
+  <td>2023-03-01</td>
+  <td>59.00</td>
+  <td>2023-03-31</td>
+  <td>63.60</td>
+  <td class="pnl-positive">+7.80%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(60.60) > MA20(57.56) > MA60(54.63) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.2倍 | <span class="star">★ </span>突破20日高点: 突破前高59.45 | <span class="star">★ </span>W底: W底形态，两底51.05/50.75，颈线60.80 | <span class="star">★ </span>颈线突破: 突破30日高点60.80，成交量确认 | RSI超买: RSI=70.6，超买 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>48</td>
+  <td>2023-03</td>
+  <td><strong>0992.HK</strong></td>
+  <td>Lenovo</td>
+  <td>2023-03-01</td>
+  <td>7.07</td>
+  <td>2023-03-31</td>
+  <td>8.50</td>
+  <td class="pnl-positive">+20.23%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(7.32) > MA20(6.78) > MA60(6.47) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底6.01/5.93，颈线7.40 | <span class="star">★ </span>W底: W底形态，两底5.99/5.93，颈线7.40</td>
+</tr>
+<tr>
+  <td>49</td>
+  <td>2023-04</td>
+  <td><strong>0027.HK</strong></td>
+  <td>Galaxy Ent</td>
+  <td>2023-04-03</td>
+  <td>53.95</td>
+  <td>2023-04-28</td>
+  <td>55.50</td>
+  <td class="pnl-positive">+2.87%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高55.20 | <span class="star">★ </span>W底: W底形态，两底50.10/49.60，颈线55.80 | <span class="star">★ </span>W底: W底形态，两底50.10/49.60，颈线55.80 | <span class="star">★ </span>颈线突破: 突破30日高点55.80，成交量确认 | RSI超买: RSI=71.3，超买</td>
+</tr>
+<tr>
+  <td>50</td>
+  <td>2023-04</td>
+  <td><strong>1997.HK</strong></td>
+  <td>Wharf REIC</td>
+  <td>2023-04-03</td>
+  <td>45.10</td>
+  <td>2023-04-28</td>
+  <td>45.10</td>
+  <td class="pnl-negative">+0.00%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高45.90 | <span class="star">★ </span>W底: W底形态，两底41.90/40.95，颈线46.75 | <span class="star">★ </span>W底: W底形态，两底41.90/40.95，颈线46.75 | <span class="star">★ </span>颈线突破: 突破30日高点46.75，成交量确认</td>
+</tr>
+<tr>
+  <td>51</td>
+  <td>2023-05</td>
+  <td><strong>1038.HK</strong></td>
+  <td>CKI Holdings</td>
+  <td>2023-05-02</td>
+  <td>44.65</td>
+  <td>2023-05-31</td>
+  <td>43.30</td>
+  <td class="pnl-negative">-3.02%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(45.20) > MA20(43.71) > MA60(43.16) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高44.70 | <span class="star">★ </span>W底: W底形态，两底41.65/41.55，颈线45.30 | <span class="star">★ </span>W底: W底形态，两底41.40/41.35，颈线45.30 | <span class="star">★ </span>颈线突破: 突破30日高点45.30，成交量确认 | RSI超买: RSI=72.8，超买</td>
+</tr>
+<tr>
+  <td>52</td>
+  <td>2023-05</td>
+  <td><strong>0006.HK</strong></td>
+  <td>Power Assets</td>
+  <td>2023-05-02</td>
+  <td>45.00</td>
+  <td>2023-05-31</td>
+  <td>42.15</td>
+  <td class="pnl-negative">-6.33%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(44.95) > MA20(43.38) > MA60(42.98) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高44.85 | <span class="star">★ </span>W底: W底形态，两底41.30/41.10，颈线45.10 | <span class="star">★ </span>W底: W底形态，两底41.30/41.10，颈线45.10 | RSI超买: RSI=84.9，超买</td>
+</tr>
+<tr>
+  <td>53</td>
+  <td>2023-06</td>
+  <td><strong>1928.HK</strong></td>
+  <td>Sands China</td>
+  <td>2023-06-01</td>
+  <td>25.35</td>
+  <td>2023-06-30</td>
+  <td>26.70</td>
+  <td class="pnl-positive">+5.33%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>趋势空头: 价格(24.80) < MA20(25.93) < MA60(27.05) | 年线上方: 价格在250日线上方 | 接近中期支撑: 接近60日低点24.00 | <span class="star">★ </span>破底翻: 跌破24.70后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破24.70后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破24.70后收回，可能反转 | RSI超卖回升: RSI=39.7，从超卖区回升 | 风险回报比佳: R:R = 3.1:1</td>
+</tr>
+<tr>
+  <td>54</td>
+  <td>2023-06</td>
+  <td><strong>1038.HK</strong></td>
+  <td>CKI Holdings</td>
+  <td>2023-06-01</td>
+  <td>43.30</td>
+  <td>2023-06-30</td>
+  <td>41.45</td>
+  <td class="pnl-negative">-4.27%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 接近中期支撑: 接近60日低点41.15 | <span class="star">★ </span>W底: W底形态，两底42.25/41.15，颈线43.50 | <span class="star">★ </span>W底: W底形态，两底41.55/41.15，颈线43.50 | 风险回报比佳: R:R = 2.3:1</td>
+</tr>
+<tr>
+  <td>55</td>
+  <td>2023-07</td>
+  <td><strong>3968.HK</strong></td>
+  <td>China Merchants Bank</td>
+  <td>2023-07-03</td>
+  <td>35.70</td>
+  <td>2023-07-31</td>
+  <td>38.45</td>
+  <td class="pnl-positive">+7.70%</td>
+  <td>16</td>
+  <td class="reason"><span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>W底: W底形态，两底35.30/34.50，颈线37.20 | <span class="star">★ </span>W底: W底形态，两底35.30/34.50，颈线37.20 | <span class="star">★ </span>破底翻: 跌破35.30后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破35.30后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破35.30后收回，可能反转 | RSI超卖回升: RSI=45.7，从超卖区回升 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>56</td>
+  <td>2023-07</td>
+  <td><strong>2015.HK</strong></td>
+  <td>Li Auto</td>
+  <td>2023-07-03</td>
+  <td>137.20</td>
+  <td>2023-07-31</td>
+  <td>165.90</td>
+  <td class="pnl-positive">+20.92%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(147.00) > MA20(130.83) > MA60(111.55) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高141.00 | <span class="star">★ </span>W底: W底形态，两底88.50/86.80，颈线147.60 | <span class="star">★ </span>颈线突破: 突破30日高点147.60，成交量确认 | RSI超买: RSI=75.8，超买 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>57</td>
+  <td>2023-08</td>
+  <td><strong>2359.HK</strong></td>
+  <td>WuXi AppTec</td>
+  <td>2023-08-01</td>
+  <td>76.35</td>
+  <td>2023-08-31</td>
+  <td>85.90</td>
+  <td class="pnl-positive">+12.51%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(79.10) > MA20(68.39) > MA60(67.64) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.7倍 | <span class="star">★ </span>突破20日高点: 突破前高75.50 | <span class="star">★ </span>W底: W底形态，两底61.20/59.50，颈线79.15 | <span class="star">★ </span>W底: W底形态，两底61.20/59.50，颈线79.15 | <span class="star">★ </span>颈线突破: 突破30日高点79.15，成交量确认 | RSI超买: RSI=94.0，超买</td>
+</tr>
+<tr>
+  <td>58</td>
+  <td>2023-08</td>
+  <td><strong>0005.HK</strong></td>
+  <td>HSBC</td>
+  <td>2023-08-01</td>
+  <td>65.00</td>
+  <td>2023-08-31</td>
+  <td>58.85</td>
+  <td class="pnl-negative">-9.46%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(66.30) > MA20(63.10) > MA60(60.80) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.8倍 | <span class="star">★ </span>突破20日高点: 突破前高65.35 | <span class="star">★ </span>W底: W底形态，两底57.15/57.05，颈线66.70 | <span class="star">★ </span>颈线突破: 突破30日高点66.70，成交量确认 | RSI超买: RSI=89.4，超买</td>
+</tr>
+<tr>
+  <td>59</td>
+  <td>2023-09</td>
+  <td><strong>0006.HK</strong></td>
+  <td>Power Assets</td>
+  <td>2023-09-04</td>
+  <td>39.05</td>
+  <td>2023-09-29</td>
+  <td>37.90</td>
+  <td class="pnl-negative">-2.94%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>趋势空头: 价格(39.25) < MA20(39.55) < MA60(40.43) | 接近中期支撑: 接近60日低点37.85 | <span class="star">★ </span>W底: W底形态，两底38.00/37.85，颈线39.85 | <span class="star">★ </span>W底: W底形态，两底38.00/37.85，颈线39.85 | <span class="star">★ </span>破底翻: 跌破39.00后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破39.00后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破39.00后收回，可能反转 | RSI超卖回升: RSI=41.0，从超卖区回升</td>
+</tr>
+<tr>
+  <td>60</td>
+  <td>2023-09</td>
+  <td><strong>0981.HK</strong></td>
+  <td>SMIC</td>
+  <td>2023-09-04</td>
+  <td>20.00</td>
+  <td>2023-09-29</td>
+  <td>20.05</td>
+  <td class="pnl-positive">+0.25%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.8倍 | <span class="star">★ </span>突破20日高点: 突破前高20.30 | <span class="star">★ </span>W底: W底形态，两底17.04/17.02，颈线21.85 | <span class="star">★ </span>W底: W底形态，两底17.04/17.02，颈线21.85 | <span class="star">★ </span>颈线突破: 突破30日高点21.85，成交量确认 | RSI超买: RSI=80.7，超买</td>
+</tr>
+<tr>
+  <td>61</td>
+  <td>2023-10</td>
+  <td><strong>1024.HK</strong></td>
+  <td>Kuaishou</td>
+  <td>2023-10-03</td>
+  <td>61.85</td>
+  <td>2023-10-31</td>
+  <td>50.35</td>
+  <td class="pnl-negative">-18.59%</td>
+  <td>7</td>
+  <td class="reason"><span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底60.20/59.40，颈线63.85 | RSI超卖回升: RSI=43.0，从超卖区回升</td>
+</tr>
+<tr>
+  <td>62</td>
+  <td>2023-10</td>
+  <td><strong>1109.HK</strong></td>
+  <td>China Resources Land</td>
+  <td>2023-10-03</td>
+  <td>29.95</td>
+  <td>2023-10-31</td>
+  <td>29.30</td>
+  <td class="pnl-negative">-2.17%</td>
+  <td>5</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>趋势空头: 价格(30.55) < MA20(32.65) < MA60(32.88) | 接近中期支撑: 接近60日低点29.65 | <span class="star">★ </span>破底翻: 跌破30.15后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破30.15后收回，可能反转 | 风险回报比佳: R:R = 7.7:1</td>
+</tr>
+<tr>
+  <td>63</td>
+  <td>2023-11</td>
+  <td><strong>0005.HK</strong></td>
+  <td>HSBC</td>
+  <td>2023-11-01</td>
+  <td>56.60</td>
+  <td>2023-11-30</td>
+  <td>59.20</td>
+  <td class="pnl-positive">+4.59%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">接近支撑</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">风险回报比佳</span> <br>年线上方: 价格在250日线上方 | 接近支撑: 接近20日低点55.50 | 接近中期支撑: 接近60日低点55.50 | <span class="star">★ </span>破底翻: 跌破56.85后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破56.85后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破56.85后收回，可能反转 | 风险回报比佳: R:R = 4.9:1</td>
+</tr>
+<tr>
+  <td>64</td>
+  <td>2023-11</td>
+  <td><strong>0175.HK</strong></td>
+  <td>Geely Auto</td>
+  <td>2023-11-01</td>
+  <td>8.90</td>
+  <td>2023-11-30</td>
+  <td>8.51</td>
+  <td class="pnl-negative">-4.38%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>趋势空头: 价格(8.85) < MA20(9.00) < MA60(9.45) | 接近中期支撑: 接近60日低点8.56 | <span class="star">★ </span>破底翻: 跌破8.82后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.82后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.82后收回，可能反转 | RSI超卖回升: RSI=43.0，从超卖区回升 | 风险回报比佳: R:R = 2.4:1</td>
+</tr>
+<tr>
+  <td>65</td>
+  <td>2023-12</td>
+  <td><strong>9901.HK</strong></td>
+  <td>New Oriental</td>
+  <td>2023-12-01</td>
+  <td>63.25</td>
+  <td>2023-12-29</td>
+  <td>55.25</td>
+  <td class="pnl-negative">-12.65%</td>
+  <td>17</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(64.65) > MA20(55.98) > MA60(50.11) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.5倍 | <span class="star">★ </span>突破20日高点: 突破前高63.40 | <span class="star">★ </span>W底: W底形态，两底46.30/46.05，颈线65.10 | <span class="star">★ </span>W底: W底形态，两底41.90/41.85，颈线65.10 | <span class="star">★ </span>颈线突破: 突破30日高点65.10，成交量确认 | RSI超买: RSI=89.5，超买</td>
+</tr>
+<tr>
+  <td>66</td>
+  <td>2023-12</td>
+  <td><strong>0027.HK</strong></td>
+  <td>Galaxy Ent</td>
+  <td>2023-12-01</td>
+  <td>40.50</td>
+  <td>2023-12-29</td>
+  <td>43.75</td>
+  <td class="pnl-positive">+8.02%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>趋势空头: 价格(40.90) < MA20(42.95) < MA60(45.50) | 接近中期支撑: 接近60日低点39.50 | <span class="star">★ </span>破底翻: 跌破40.35后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破40.35后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破40.35后收回，可能反转 | RSI超卖回升: RSI=47.2，从超卖区回升 | 风险回报比佳: R:R = 4.1:1</td>
+</tr>
+<tr>
+  <td>67</td>
+  <td>2024-01</td>
+  <td><strong>1088.HK</strong></td>
+  <td>China Shenhua</td>
+  <td>2024-01-02</td>
+  <td>26.85</td>
+  <td>2024-01-31</td>
+  <td>29.55</td>
+  <td class="pnl-positive">+10.06%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(27.50) > MA20(25.37) > MA60(24.87) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高26.85 | <span class="star">★ </span>W底: W底形态，两底23.60/23.40，颈线27.55 | <span class="star">★ </span>颈线突破: 突破30日高点27.55，成交量确认 | RSI超买: RSI=86.1，超买</td>
+</tr>
+<tr>
+  <td>68</td>
+  <td>2024-01</td>
+  <td><strong>0006.HK</strong></td>
+  <td>Power Assets</td>
+  <td>2024-01-02</td>
+  <td>45.25</td>
+  <td>2024-01-31</td>
+  <td>45.80</td>
+  <td class="pnl-positive">+1.22%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(45.30) > MA20(43.05) > MA60(40.05) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高45.25 | <span class="star">★ </span>W底: W底形态，两底38.10/38.00，颈线45.40 | RSI超买: RSI=74.0，超买</td>
+</tr>
+<tr>
+  <td>69</td>
+  <td>2024-02</td>
+  <td><strong>0005.HK</strong></td>
+  <td>HSBC</td>
+  <td>2024-02-01</td>
+  <td>61.35</td>
+  <td>2024-02-29</td>
+  <td>60.25</td>
+  <td class="pnl-negative">-1.79%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>趋势多头: 价格(60.90) > MA20(60.73) > MA60(60.35) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底59.10/57.80，颈线61.65 | RSI超卖回升: RSI=46.1，从超卖区回升</td>
+</tr>
+<tr>
+  <td>70</td>
+  <td>2024-02</td>
+  <td><strong>0002.HK</strong></td>
+  <td>CLP Holdings</td>
+  <td>2024-02-01</td>
+  <td>62.00</td>
+  <td>2024-02-29</td>
+  <td>65.25</td>
+  <td class="pnl-positive">+5.24%</td>
+  <td>7</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(63.05) > MA20(62.07) > MA60(61.45) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | RSI超卖回升: RSI=49.3，从超卖区回升 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>71</td>
+  <td>2024-03</td>
+  <td><strong>0762.HK</strong></td>
+  <td>China Unicom</td>
+  <td>2024-03-01</td>
+  <td>5.40</td>
+  <td>2024-03-28</td>
+  <td>5.65</td>
+  <td class="pnl-positive">+4.63%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(5.82) > MA20(5.46) > MA60(5.08) | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的4.5倍 | <span class="star">★ </span>突破20日高点: 突破前高5.75 | <span class="star">★ </span>W底: W底形态，两底4.50/4.45，颈线5.82 | <span class="star">★ </span>颈线突破: 突破30日高点5.82，成交量确认 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>72</td>
+  <td>2024-03</td>
+  <td><strong>3690.HK</strong></td>
+  <td>Meituan</td>
+  <td>2024-03-01</td>
+  <td>79.00</td>
+  <td>2024-03-28</td>
+  <td>96.80</td>
+  <td class="pnl-positive">+22.53%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br>短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.8倍 | <span class="star">★ </span>突破20日高点: 突破前高83.00 | <span class="star">★ </span>W底: W底形态，两底61.90/61.10，颈线88.70 | <span class="star">★ </span>W底: W底形态，两底61.90/61.10，颈线88.70 | <span class="star">★ </span>颈线突破: 突破30日高点88.70，成交量确认 | RSI超买: RSI=81.4，超买</td>
+</tr>
+<tr>
+  <td>73</td>
+  <td>2024-04</td>
+  <td><strong>0857.HK</strong></td>
+  <td>PetroChina</td>
+  <td>2024-04-02</td>
+  <td>6.85</td>
+  <td>2024-04-30</td>
+  <td>7.38</td>
+  <td class="pnl-positive">+7.74%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(7.14) > MA20(6.38) > MA60(5.86) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高6.80 | <span class="star">★ </span>W底: W底形态，两底5.52/5.50，颈线7.22 | <span class="star">★ </span>W底: W底形态，两底4.87/4.81，颈线7.22 | RSI超买: RSI=78.6，超买</td>
+</tr>
+<tr>
+  <td>74</td>
+  <td>2024-04</td>
+  <td><strong>2388.HK</strong></td>
+  <td>BOC Hong Kong</td>
+  <td>2024-04-02</td>
+  <td>22.00</td>
+  <td>2024-04-30</td>
+  <td>24.15</td>
+  <td class="pnl-positive">+9.77%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(22.95) > MA20(21.22) > MA60(19.99) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.4倍 | <span class="star">★ </span>突破20日高点: 突破前高22.05 | <span class="star">★ </span>W底: W底形态，两底18.30/17.86，颈线22.95 | <span class="star">★ </span>颈线突破: 突破30日高点22.95，成交量确认 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>75</td>
+  <td>2024-05</td>
+  <td><strong>0005.HK</strong></td>
+  <td>HSBC</td>
+  <td>2024-05-02</td>
+  <td>68.00</td>
+  <td>2024-05-31</td>
+  <td>68.65</td>
+  <td class="pnl-positive">+0.96%</td>
+  <td>18</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(69.25) > MA20(64.07) > MA60(61.68) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高67.05 | <span class="star">★ </span>W底: W底形态，两底58.30/58.10，颈线69.25 | <span class="star">★ </span>W底: W底形态，两底58.30/58.10，颈线69.25 | <span class="star">★ </span>颈线突破: 突破30日高点69.25，成交量确认</td>
+</tr>
+<tr>
+  <td>76</td>
+  <td>2024-05</td>
+  <td><strong>1398.HK</strong></td>
+  <td>ICBC</td>
+  <td>2024-05-02</td>
+  <td>4.23</td>
+  <td>2024-05-31</td>
+  <td>4.42</td>
+  <td class="pnl-positive">+4.49%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(4.23) > MA20(4.09) > MA60(4.01) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底3.89/3.87，颈线4.28 | <span class="star">★ </span>W底: W底形态，两底3.76/3.75，颈线4.28</td>
+</tr>
+<tr>
+  <td>77</td>
+  <td>2024-06</td>
+  <td><strong>0762.HK</strong></td>
+  <td>China Unicom</td>
+  <td>2024-06-03</td>
+  <td>6.47</td>
+  <td>2024-06-28</td>
+  <td>7.17</td>
+  <td class="pnl-positive">+10.82%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(6.51) > MA20(6.22) > MA60(5.91) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高6.50 | <span class="star">★ </span>W底: W底形态，两底5.42/5.38，颈线6.57 | <span class="star">★ </span>颈线突破: 突破30日高点6.57，成交量确认 | RSI超买: RSI=73.0，超买</td>
+</tr>
+<tr>
+  <td>78</td>
+  <td>2024-06</td>
+  <td><strong>0941.HK</strong></td>
+  <td>China Mobile</td>
+  <td>2024-06-03</td>
+  <td>75.20</td>
+  <td>2024-06-28</td>
+  <td>77.00</td>
+  <td class="pnl-positive">+2.39%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(76.20) > MA20(73.25) > MA60(69.80) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高75.50 | <span class="star">★ </span>W底: W底形态，两底66.00/65.65，颈线77.10 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>79</td>
+  <td>2024-07</td>
+  <td><strong>0857.HK</strong></td>
+  <td>PetroChina</td>
+  <td>2024-07-02</td>
+  <td>7.98</td>
+  <td>2024-07-31</td>
+  <td>6.81</td>
+  <td class="pnl-negative">-14.66%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(8.23) > MA20(7.73) > MA60(7.56) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.8倍 | <span class="star">★ </span>突破20日高点: 突破前高8.22 | <span class="star">★ </span>W底: W底形态，两底7.00/6.95，颈线8.30 | <span class="star">★ </span>颈线突破: 突破30日高点8.30，成交量确认 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>80</td>
+  <td>2024-07</td>
+  <td><strong>3968.HK</strong></td>
+  <td>China Merchants Bank</td>
+  <td>2024-07-02</td>
+  <td>35.45</td>
+  <td>2024-07-31</td>
+  <td>32.50</td>
+  <td class="pnl-negative">-8.32%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(36.40) > MA20(35.11) > MA60(34.88) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高36.30 | <span class="star">★ </span>W底: W底形态，两底33.20/33.15，颈线36.75</td>
+</tr>
+<tr>
+  <td>81</td>
+  <td>2024-08</td>
+  <td><strong>0002.HK</strong></td>
+  <td>CLP Holdings</td>
+  <td>2024-08-01</td>
+  <td>67.00</td>
+  <td>2024-08-30</td>
+  <td>69.90</td>
+  <td class="pnl-positive">+4.33%</td>
+  <td>17</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(69.15) > MA20(65.26) > MA60(64.85) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.5倍 | <span class="star">★ </span>突破20日高点: 突破前高67.40 | <span class="star">★ </span>W底: W底形态，两底62.85/61.60，颈线69.45 | <span class="star">★ </span>W底: W底形态，两底61.85/61.60，颈线69.45 | <span class="star">★ </span>颈线突破: 突破30日高点69.45，成交量确认 | RSI超买: RSI=72.5，超买</td>
+</tr>
+<tr>
+  <td>82</td>
+  <td>2024-08</td>
+  <td><strong>1038.HK</strong></td>
+  <td>CKI Holdings</td>
+  <td>2024-08-01</td>
+  <td>51.85</td>
+  <td>2024-08-30</td>
+  <td>57.90</td>
+  <td class="pnl-positive">+11.67%</td>
+  <td>17</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(53.60) > MA20(49.61) > MA60(46.57) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.5倍 | <span class="star">★ </span>突破20日高点: 突破前高52.75 | <span class="star">★ </span>W底: W底形态，两底42.20/42.05，颈线53.85 | <span class="star">★ </span>W底: W底形态，两底42.20/42.05，颈线53.85 | <span class="star">★ </span>颈线突破: 突破30日高点53.85，成交量确认 | RSI超买: RSI=74.3，超买</td>
+</tr>
+<tr>
+  <td>83</td>
+  <td>2024-09</td>
+  <td><strong>0288.HK</strong></td>
+  <td>WH Group</td>
+  <td>2024-09-02</td>
+  <td>5.68</td>
+  <td>2024-09-30</td>
+  <td>6.16</td>
+  <td class="pnl-positive">+8.45%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(5.66) > MA20(5.48) > MA60(5.26) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底4.89/4.84，颈线5.74 | <span class="star">★ </span>W底: W底形态，两底4.89/4.84，颈线5.74</td>
+</tr>
+<tr>
+  <td>84</td>
+  <td>2024-09</td>
+  <td><strong>0006.HK</strong></td>
+  <td>Power Assets</td>
+  <td>2024-09-02</td>
+  <td>54.45</td>
+  <td>2024-09-30</td>
+  <td>49.80</td>
+  <td class="pnl-negative">-8.54%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>趋势多头: 价格(54.40) > MA20(53.83) > MA60(47.90) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底41.55/41.05，颈线55.10 | RSI超卖回升: RSI=47.7，从超卖区回升</td>
+</tr>
+<tr>
+  <td>85</td>
+  <td>2024-10</td>
+  <td><strong>0788.HK</strong></td>
+  <td>China Tower</td>
+  <td>2024-10-02</td>
+  <td>10.30</td>
+  <td>2024-10-31</td>
+  <td>10.50</td>
+  <td class="pnl-positive">+1.94%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(10.60) > MA20(9.90) > MA60(9.83) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.4倍 | <span class="star">★ </span>突破20日高点: 突破前高10.40 | <span class="star">★ </span>W底: W底形态，两底9.30/9.20，颈线10.60 | <span class="star">★ </span>颈线突破: 突破30日高点10.60，成交量确认</td>
+</tr>
+<tr>
+  <td>86</td>
+  <td>2024-10</td>
+  <td><strong>2822.HK</strong></td>
+  <td>CSI 300 ETF</td>
+  <td>2024-10-02</td>
+  <td>14.46</td>
+  <td>2024-10-31</td>
+  <td>13.17</td>
+  <td class="pnl-negative">-8.92%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(15.28) > MA20(12.00) > MA60(11.82) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的4.1倍 | <span class="star">★ </span>突破20日高点: 突破前高14.50 | <span class="star">★ </span>W底: W底形态，两底11.20/11.13，颈线15.36 | <span class="star">★ </span>W底: W底形态，两底11.20/11.13，颈线15.36 | <span class="star">★ </span>颈线突破: 突破30日高点15.36，成交量确认 | RSI超买: RSI=97.8，超买</td>
+</tr>
+<tr>
+  <td>87</td>
+  <td>2024-11</td>
+  <td><strong>9901.HK</strong></td>
+  <td>New Oriental</td>
+  <td>2024-11-01</td>
+  <td>48.35</td>
+  <td>2024-11-29</td>
+  <td>46.40</td>
+  <td class="pnl-negative">-4.03%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>破底翻: 跌破45.25后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破45.20后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破45.20后收回，可能反转 | 风险回报比佳: R:R = 4.5:1</td>
+</tr>
+<tr>
+  <td>88</td>
+  <td>2024-11</td>
+  <td><strong>0006.HK</strong></td>
+  <td>Power Assets</td>
+  <td>2024-11-01</td>
+  <td>51.85</td>
+  <td>2024-11-29</td>
+  <td>51.00</td>
+  <td class="pnl-negative">-1.64%</td>
+  <td>8</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底48.55/47.75，颈线52.40 | <span class="star">★ </span>W底: W底形态，两底48.55/47.75，颈线52.40</td>
+</tr>
+<tr>
+  <td>89</td>
+  <td>2024-12</td>
+  <td><strong>9698.HK</strong></td>
+  <td>Wangsu Science</td>
+  <td>2024-12-02</td>
+  <td>19.10</td>
+  <td>2024-12-31</td>
+  <td>22.95</td>
+  <td class="pnl-positive">+20.16%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底17.42/17.40，颈线19.38 | <span class="star">★ </span>破底翻: 跌破18.04后收回，可能反转 | RSI超卖回升: RSI=32.6，从超卖区回升 | 风险回报比佳: R:R = 2.7:1</td>
+</tr>
+<tr>
+  <td>90</td>
+  <td>2024-12</td>
+  <td><strong>2382.HK</strong></td>
+  <td>Sunny Optical</td>
+  <td>2024-12-02</td>
+  <td>63.25</td>
+  <td>2024-12-31</td>
+  <td>68.90</td>
+  <td class="pnl-positive">+8.93%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(65.15) > MA20(57.55) > MA60(52.54) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高64.65 | <span class="star">★ </span>W底: W底形态，两底43.40/42.30，颈线66.00 | RSI超买: RSI=73.8，超买</td>
+</tr>
+<tr>
+  <td>91</td>
+  <td>2025-01</td>
+  <td><strong>0005.HK</strong></td>
+  <td>HSBC</td>
+  <td>2025-01-02</td>
+  <td>75.80</td>
+  <td>2025-01-28</td>
+  <td>79.95</td>
+  <td class="pnl-positive">+5.47%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(75.70) > MA20(74.70) > MA60(71.75) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底69.30/68.70，颈线75.90 | <span class="star">★ </span>颈线突破: 突破30日高点75.90，成交量确认</td>
+</tr>
+<tr>
+  <td>92</td>
+  <td>2025-01</td>
+  <td><strong>0002.HK</strong></td>
+  <td>CLP Holdings</td>
+  <td>2025-01-02</td>
+  <td>65.25</td>
+  <td>2025-01-28</td>
+  <td>64.65</td>
+  <td class="pnl-negative">-0.92%</td>
+  <td>7</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">接近支撑</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>趋势空头: 价格(64.15) < MA20(64.78) < MA60(65.82) | 接近支撑: 接近20日低点63.30 | 接近中期支撑: 接近60日低点63.30 | <span class="star">★ </span>W底: W底形态，两底63.55/63.30，颈线65.40 | <span class="star">★ </span>W底: W底形态，两底63.55/63.30，颈线65.40 | RSI超卖回升: RSI=39.0，从超卖区回升 | 风险回报比佳: R:R = 2.5:1</td>
+</tr>
+<tr>
+  <td>93</td>
+  <td>2025-02</td>
+  <td><strong>9988.HK</strong></td>
+  <td>Alibaba</td>
+  <td>2025-02-03</td>
+  <td>92.55</td>
+  <td>2025-02-28</td>
+  <td>127.50</td>
+  <td class="pnl-positive">+37.76%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br>年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.6倍 | <span class="star">★ </span>突破20日高点: 突破前高88.35 | <span class="star">★ </span>W底: W底形态，两底79.35/77.35，颈线94.10 | <span class="star">★ </span>W底: W底形态，两底79.35/77.35，颈线94.10 | <span class="star">★ </span>颈线突破: 突破30日高点94.10，成交量确认 | RSI超买: RSI=78.4，超买</td>
+</tr>
+<tr>
+  <td>94</td>
+  <td>2025-02</td>
+  <td><strong>0005.HK</strong></td>
+  <td>HSBC</td>
+  <td>2025-02-03</td>
+  <td>80.00</td>
+  <td>2025-02-28</td>
+  <td>89.25</td>
+  <td class="pnl-positive">+11.56%</td>
+  <td>10</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(79.90) > MA20(77.30) > MA60(74.35) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底69.30/68.70，颈线80.25 | <span class="star">★ </span>颈线突破: 突破30日高点80.25，成交量确认 | RSI超买: RSI=74.2，超买</td>
+</tr>
+<tr>
+  <td>95</td>
+  <td>2025-03</td>
+  <td><strong>0669.HK</strong></td>
+  <td>Techtronic Ind</td>
+  <td>2025-03-03</td>
+  <td>108.50</td>
+  <td>2025-03-31</td>
+  <td>93.25</td>
+  <td class="pnl-negative">-14.06%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(111.40) > MA20(105.71) > MA60(104.79) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>W底: W底形态，两底96.40/95.40，颈线112.00 | <span class="star">★ </span>W底: W底形态，两底96.40/95.40，颈线112.00 | <span class="star">★ </span>颈线突破: 突破30日高点112.00，成交量确认 | RSI超买: RSI=72.1，超买</td>
+</tr>
+<tr>
+  <td>96</td>
+  <td>2025-03</td>
+  <td><strong>2388.HK</strong></td>
+  <td>BOC Hong Kong</td>
+  <td>2025-03-03</td>
+  <td>27.40</td>
+  <td>2025-03-31</td>
+  <td>31.40</td>
+  <td class="pnl-positive">+14.60%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(28.00) > MA20(26.69) > MA60(25.45) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高27.90 | <span class="star">★ </span>W底: W底形态，两底24.40/24.20，颈线28.35 | RSI超买: RSI=77.8，超买</td>
+</tr>
+<tr>
+  <td>97</td>
+  <td>2025-04</td>
+  <td><strong>9999.HK</strong></td>
+  <td>NetEase</td>
+  <td>2025-04-01</td>
+  <td>160.60</td>
+  <td>2025-04-30</td>
+  <td>167.00</td>
+  <td class="pnl-positive">+3.99%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(164.50) > MA20(159.22) > MA60(156.97) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底151.80/149.40，颈线166.10 | <span class="star">★ </span>颈线突破: 突破30日高点166.10，成交量确认 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>98</td>
+  <td>2025-04</td>
+  <td><strong>0288.HK</strong></td>
+  <td>WH Group</td>
+  <td>2025-04-01</td>
+  <td>7.14</td>
+  <td>2025-04-30</td>
+  <td>6.94</td>
+  <td class="pnl-negative">-2.80%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(7.05) > MA20(6.83) > MA60(6.36) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底5.88/5.84，颈线7.18</td>
+</tr>
+<tr>
+  <td>99</td>
+  <td>2025-05</td>
+  <td><strong>1209.HK</strong></td>
+  <td>China Resources Mixc</td>
+  <td>2025-05-02</td>
+  <td>37.00</td>
+  <td>2025-05-30</td>
+  <td>37.35</td>
+  <td class="pnl-positive">+0.95%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(38.30) > MA20(36.18) > MA60(33.45) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高38.25 | <span class="star">★ </span>W底: W底形态，两底31.40/31.00，颈线38.35 | <span class="star">★ </span>W底: W底形态，两底28.55/28.30，颈线38.35 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>100</td>
+  <td>2025-05</td>
+  <td><strong>9618.HK</strong></td>
+  <td>JD.com</td>
+  <td>2025-05-02</td>
+  <td>128.70</td>
+  <td>2025-05-30</td>
+  <td>128.90</td>
+  <td class="pnl-positive">+0.16%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势空头</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <span class="signal-tag">风险回报比佳</span> <br><span class="star">★ </span>趋势空头: 价格(132.10) < MA20(137.95) < MA60(154.15) | <span class="star">★ </span>W底: W底形态，两底125.20/122.10，颈线132.70 | <span class="star">★ </span>W底: W底形态，两底125.20/122.10，颈线132.70 | <span class="star">★ </span>破底翻: 跌破125.20后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破125.20后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破125.20后收回，可能反转 | RSI超卖回升: RSI=45.3，从超卖区回升 | 风险回报比佳: R:R = 3.2:1</td>
+</tr>
+<tr>
+  <td>101</td>
+  <td>2025-06</td>
+  <td><strong>0066.HK</strong></td>
+  <td>MTR Corp</td>
+  <td>2025-06-02</td>
+  <td>27.40</td>
+  <td>2025-06-30</td>
+  <td>28.20</td>
+  <td class="pnl-positive">+2.92%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>趋势多头: 价格(27.45) > MA20(27.38) > MA60(26.47) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底24.25/23.80，颈线28.00 | RSI超卖回升: RSI=48.6，从超卖区回升</td>
+</tr>
+<tr>
+  <td>102</td>
+  <td>2025-06</td>
+  <td><strong>0016.HK</strong></td>
+  <td>SHK Properties</td>
+  <td>2025-06-02</td>
+  <td>84.25</td>
+  <td>2025-06-30</td>
+  <td>90.05</td>
+  <td class="pnl-positive">+6.88%</td>
+  <td>8</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(83.05) > MA20(81.05) > MA60(75.95) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底66.50/65.20，颈线84.70</td>
+</tr>
+<tr>
+  <td>103</td>
+  <td>2025-07</td>
+  <td><strong>0066.HK</strong></td>
+  <td>MTR Corp</td>
+  <td>2025-07-02</td>
+  <td>28.20</td>
+  <td>2025-07-31</td>
+  <td>28.25</td>
+  <td class="pnl-positive">+0.18%</td>
+  <td>13</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <br><span class="star">★ </span>趋势多头: 价格(28.70) > MA20(27.77) > MA60(26.99) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高28.50 | <span class="star">★ </span>W底: W底形态，两底26.70/26.30，颈线28.75 | <span class="star">★ </span>颈线突破: 突破30日高点28.75，成交量确认</td>
+</tr>
+<tr>
+  <td>104</td>
+  <td>2025-07</td>
+  <td><strong>0916.HK</strong></td>
+  <td>Longfor Group</td>
+  <td>2025-07-02</td>
+  <td>7.13</td>
+  <td>2025-07-31</td>
+  <td>7.09</td>
+  <td class="pnl-negative">-0.56%</td>
+  <td>9</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(7.20) > MA20(6.89) > MA60(6.54) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高7.16 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>105</td>
+  <td>2025-08</td>
+  <td><strong>0002.HK</strong></td>
+  <td>CLP Holdings</td>
+  <td>2025-08-01</td>
+  <td>68.15</td>
+  <td>2025-08-29</td>
+  <td>65.85</td>
+  <td class="pnl-negative">-3.37%</td>
+  <td>11</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">接近中期支撑</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(67.60) > MA20(66.69) > MA60(66.46) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 接近中期支撑: 接近60日低点65.35 | <span class="star">★ </span>W底: W底形态，两底65.60/65.35，颈线68.65 | <span class="star">★ </span>W底: W底形态，两底65.50/65.35，颈线68.65 | RSI超买: RSI=70.7，超买</td>
+</tr>
+<tr>
+  <td>106</td>
+  <td>2025-08</td>
+  <td><strong>0728.HK</strong></td>
+  <td>China Telecom</td>
+  <td>2025-08-01</td>
+  <td>6.05</td>
+  <td>2025-08-29</td>
+  <td>5.80</td>
+  <td class="pnl-negative">-4.13%</td>
+  <td>8</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(6.12) > MA20(5.74) > MA60(5.73) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>W底: W底形态，两底5.51/5.48，颈线6.23 | RSI超买: RSI=89.2，超买</td>
+</tr>
+<tr>
+  <td>107</td>
+  <td>2025-09</td>
+  <td><strong>0883.HK</strong></td>
+  <td>CNOOC</td>
+  <td>2025-09-01</td>
+  <td>19.64</td>
+  <td>2025-09-30</td>
+  <td>19.04</td>
+  <td class="pnl-negative">-3.05%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(19.95) > MA20(18.89) > MA60(18.58) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高19.78 | <span class="star">★ </span>W底: W底形态，两底17.78/17.50，颈线20.06 | <span class="star">★ </span>颈线突破: 突破30日高点20.06，成交量确认 | RSI超买: RSI=70.6，超买</td>
+</tr>
+<tr>
+  <td>108</td>
+  <td>2025-09</td>
+  <td><strong>9988.HK</strong></td>
+  <td>Alibaba</td>
+  <td>2025-09-01</td>
+  <td>133.00</td>
+  <td>2025-09-30</td>
+  <td>177.00</td>
+  <td class="pnl-positive">+33.08%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(137.10) > MA20(119.55) > MA60(115.28) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.9倍 | <span class="star">★ </span>突破20日高点: 突破前高126.00 | <span class="star">★ </span>W底: W底形态，两底102.30/101.80，颈线138.00 | <span class="star">★ </span>颈线突破: 突破30日高点138.00，成交量确认 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>109</td>
+  <td>2025-10</td>
+  <td><strong>1024.HK</strong></td>
+  <td>Kuaishou</td>
+  <td>2025-10-02</td>
+  <td>87.10</td>
+  <td>2025-10-31</td>
+  <td>72.35</td>
+  <td class="pnl-negative">-16.93%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(91.85) > MA20(76.24) > MA60(74.59) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高85.00 | <span class="star">★ </span>W底: W底形态，两底70.85/69.05，颈线92.60 | <span class="star">★ </span>颈线突破: 突破30日高点92.60，成交量确认 | RSI超买: RSI=78.1，超买</td>
+</tr>
+<tr>
+  <td>110</td>
+  <td>2025-10</td>
+  <td><strong>2382.HK</strong></td>
+  <td>Sunny Optical</td>
+  <td>2025-10-02</td>
+  <td>90.60</td>
+  <td>2025-10-31</td>
+  <td>75.20</td>
+  <td class="pnl-negative">-17.00%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(90.90) > MA20(83.29) > MA60(79.48) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高90.80 | <span class="star">★ </span>W底: W底形态，两底75.50/74.00，颈线91.40 | <span class="star">★ </span>W底: W底形态，两底71.65/70.50，颈线91.40</td>
+</tr>
+<tr>
+  <td>111</td>
+  <td>2025-11</td>
+  <td><strong>0857.HK</strong></td>
+  <td>PetroChina</td>
+  <td>2025-11-03</td>
+  <td>8.10</td>
+  <td>2025-11-28</td>
+  <td>8.68</td>
+  <td class="pnl-positive">+7.16%</td>
+  <td>17</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(8.29) > MA20(7.61) > MA60(7.49) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.5倍 | <span class="star">★ </span>突破20日高点: 突破前高8.17 | <span class="star">★ </span>W底: W底形态，两底7.03/6.99，颈线8.35 | <span class="star">★ </span>W底: W底形态，两底7.03/6.99，颈线8.35 | <span class="star">★ </span>颈线突破: 突破30日高点8.35，成交量确认 | RSI超买: RSI=83.2，超买</td>
+</tr>
+<tr>
+  <td>112</td>
+  <td>2025-11</td>
+  <td><strong>0883.HK</strong></td>
+  <td>CNOOC</td>
+  <td>2025-11-03</td>
+  <td>19.98</td>
+  <td>2025-11-28</td>
+  <td>21.18</td>
+  <td class="pnl-positive">+6.01%</td>
+  <td>17</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(20.46) > MA20(19.28) > MA60(19.23) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.8倍 | <span class="star">★ </span>突破20日高点: 突破前高20.24 | <span class="star">★ </span>W底: W底形态，两底18.45/18.42，颈线20.66 | <span class="star">★ </span>W底: W底形态，两底18.45/18.42，颈线20.66 | <span class="star">★ </span>颈线突破: 突破30日高点20.66，成交量确认 | RSI超买: RSI=73.4，超买</td>
+</tr>
+<tr>
+  <td>113</td>
+  <td>2025-12</td>
+  <td><strong>1211.HK</strong></td>
+  <td>BYD</td>
+  <td>2025-12-01</td>
+  <td>97.95</td>
+  <td>2025-12-31</td>
+  <td>95.10</td>
+  <td class="pnl-negative">-2.91%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">RSI超卖回升</span> <br><span class="star">★ </span>W底: W底形态，两底93.95/92.15，颈线99.20 | <span class="star">★ </span>W底: W底形态，两底93.95/92.15，颈线99.20 | <span class="star">★ </span>破底翻: 跌破94.00后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破94.00后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破94.00后收回，可能反转 | RSI超卖回升: RSI=42.1，从超卖区回升</td>
+</tr>
+<tr>
+  <td>114</td>
+  <td>2025-12</td>
+  <td><strong>1038.HK</strong></td>
+  <td>CKI Holdings</td>
+  <td>2025-12-01</td>
+  <td>53.90</td>
+  <td>2025-12-31</td>
+  <td>57.70</td>
+  <td class="pnl-positive">+7.05%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(55.10) > MA20(53.59) > MA60(52.53) | 年线上方: 价格在250日线上方 | <span class="star">★ </span>突破20日高点: 突破前高54.85 | <span class="star">★ </span>W底: W底形态，两底50.50/50.20，颈线55.10 | <span class="star">★ </span>W底: W底形态，两底50.50/50.20，颈线55.10 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>115</td>
+  <td>2026-01</td>
+  <td><strong>9961.HK</strong></td>
+  <td>Trip.com</td>
+  <td>2026-01-02</td>
+  <td>568.50</td>
+  <td>2026-01-30</td>
+  <td>481.80</td>
+  <td class="pnl-negative">-15.25%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <br><span class="star">★ </span>趋势多头: 价格(583.00) > MA20(556.48) > MA60(554.34) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高577.00 | <span class="star">★ </span>W底: W底形态，两底532.00/531.50，颈线583.00 | <span class="star">★ </span>W底: W底形态，两底539.00/530.00，颈线583.00</td>
+</tr>
+<tr>
+  <td>116</td>
+  <td>2026-01</td>
+  <td><strong>2388.HK</strong></td>
+  <td>BOC Hong Kong</td>
+  <td>2026-01-02</td>
+  <td>39.56</td>
+  <td>2026-01-30</td>
+  <td>41.24</td>
+  <td class="pnl-positive">+4.25%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(40.24) > MA20(38.31) > MA60(38.01) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高39.84 | <span class="star">★ </span>W底: W底形态，两底36.88/36.36，颈线40.24 | <span class="star">★ </span>颈线突破: 突破30日高点40.24，成交量确认 | RSI超买: RSI=82.7，超买</td>
+</tr>
+<tr>
+  <td>117</td>
+  <td>2026-02</td>
+  <td><strong>0992.HK</strong></td>
+  <td>Lenovo</td>
+  <td>2026-02-02</td>
+  <td>8.88</td>
+  <td>2026-02-27</td>
+  <td>9.73</td>
+  <td class="pnl-positive">+9.57%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ W底</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <span class="signal-tag">★ 破底翻</span> <br><span class="star">★ </span>W底: W底形态，两底8.66/8.52，颈线9.12 | <span class="star">★ </span>W底: W底形态，两底8.66/8.52，颈线9.12 | <span class="star">★ </span>破底翻: 跌破8.66后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.66后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.66后收回，可能反转</td>
+</tr>
+<tr>
+  <td>118</td>
+  <td>2026-02</td>
+  <td><strong>0066.HK</strong></td>
+  <td>MTR Corp</td>
+  <td>2026-02-02</td>
+  <td>34.42</td>
+  <td>2026-02-27</td>
+  <td>37.34</td>
+  <td class="pnl-positive">+8.48%</td>
+  <td>12</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <br><span class="star">★ </span>趋势多头: 价格(34.80) > MA20(32.16) > MA60(30.99) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>W底: W底形态，两底29.60/29.58，颈线34.98 | <span class="star">★ </span>颈线突破: 突破30日高点34.98，成交量确认 | RSI超买: RSI=94.0，超买</td>
+</tr>
+<tr>
+  <td>119</td>
+  <td>2026-03</td>
+  <td><strong>0883.HK</strong></td>
+  <td>CNOOC</td>
+  <td>2026-03-02</td>
+  <td>26.60</td>
+  <td>2026-03-31</td>
+  <td>28.00</td>
+  <td class="pnl-positive">+5.26%</td>
+  <td>15</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">★ 颈线突破</span> <span class="signal-tag">RSI超买</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(26.74) > MA20(24.73) > MA60(22.55) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的4.3倍 | <span class="star">★ </span>突破20日高点: 突破前高26.16 | <span class="star">★ </span>W底: W底形态，两底20.10/19.92，颈线26.88 | <span class="star">★ </span>颈线突破: 突破30日高点26.88，成交量确认 | RSI超买: RSI=71.6，超买 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+<tr>
+  <td>120</td>
+  <td>2026-03</td>
+  <td><strong>0857.HK</strong></td>
+  <td>PetroChina</td>
+  <td>2026-03-02</td>
+  <td>10.10</td>
+  <td>2026-03-31</td>
+  <td>10.75</td>
+  <td class="pnl-positive">+6.44%</td>
+  <td>14</td>
+  <td class="reason"><span class="signal-tag">★ 趋势多头</span> <span class="signal-tag">★ 均线多头排列</span> <span class="signal-tag">年线上方</span> <span class="signal-tag">短期均线多头</span> <span class="signal-tag">★ 放量上涨</span> <span class="signal-tag">★ 突破20日高点</span> <span class="signal-tag">★ W底</span> <span class="signal-tag">MACD金叉</span> <br><span class="star">★ </span>趋势多头: 价格(9.93) > MA20(9.35) > MA60(8.69) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.9倍 | <span class="star">★ </span>突破20日高点: 突破前高9.76 | <span class="star">★ </span>W底: W底形态，两底7.90/7.86，颈线10.10 | MACD金叉: MACD线上穿信号线</td>
+</tr>
+</tbody>
+</table>
+
+<h2>📅 Monthly Detail</h2>
+
+<h3>2021-04 — Avg P&L: <span class="pnl-negative">-1.37%</span> (2021-04-01 → 2021-04-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>2007.HK</strong> Country Garden</td><td>2021-04-01 @ 9.99</td><td>2021-04-30 @ 9.25</td><td class="pnl-negative">-7.41%</td><td>17</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底9.06/8.82，颈线10.10 | <span class="star">★ </span>W底: W底形态，两底9.06/8.82，颈线10.10 | <span class="star">★ </span>破底翻: 跌破9.06后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破9.06后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破9.06后收回，可能反转</td></tr>
+<tr><td><strong>1929.HK</strong> Chow Tai Fook</td><td>2021-04-01 @ 11.98</td><td>2021-04-30 @ 12.54</td><td class="pnl-positive">+4.67%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(12.40) > MA20(11.14) > MA60(10.50) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.6倍 | <span class="star">★ </span>突破20日高点: 突破前高11.98 | <span class="star">★ </span>W底: W底形态，两底9.33/9.30，颈线12.60 | RSI超买: RSI=74.5，超买</td></tr>
+</tbody></table>
+
+<h3>2021-05 — Avg P&L: <span class="pnl-positive">+5.37%</span> (2021-05-03 → 2021-05-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1177.HK</strong> Sino Biopharm</td><td>2021-05-03 @ 8.45</td><td>2021-05-31 @ 8.72</td><td class="pnl-positive">+3.20%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(8.41) > MA20(8.19) > MA60(8.14) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底7.74/7.60，颈线8.55</td></tr>
+<tr><td><strong>0012.HK</strong> Henderson Land</td><td>2021-05-03 @ 34.50</td><td>2021-05-31 @ 37.10</td><td class="pnl-positive">+7.54%</td><td>7</td><td class="reason"><span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 量价背离(上行): 价格下跌但成交量萎缩，可能见底 | 接近支撑: 接近20日低点33.85 | RSI超卖回升: RSI=34.8，从超卖区回升 | 风险回报比佳: R:R = 3.0:1</td></tr>
+</tbody></table>
+
+<h3>2021-06 — Avg P&L: <span class="pnl-positive">+9.41%</span> (2021-06-01 → 2021-06-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0857.HK</strong> PetroChina</td><td>2021-06-01 @ 3.17</td><td>2021-06-30 @ 3.78</td><td class="pnl-positive">+19.24%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(3.25) > MA20(3.13) > MA60(2.94) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底2.69/2.68，颈线3.30 | <span class="star">★ </span>W底: W底形态，两底2.69/2.68，颈线3.30</td></tr>
+<tr><td><strong>0012.HK</strong> Henderson Land</td><td>2021-06-01 @ 36.95</td><td>2021-06-30 @ 36.80</td><td class="pnl-negative">-0.41%</td><td>11</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(37.40) > MA20(35.78) > MA60(34.88) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底34.20/33.85，颈线37.90 | <span class="star">★ </span>W底: W底形态，两底33.30/32.50，颈线37.90 | RSI超买: RSI=73.9，超买</td></tr>
+</tbody></table>
+
+<h3>2021-07 — Avg P&L: <span class="pnl-negative">-4.95%</span> (2021-07-02 → 2021-07-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0027.HK</strong> Galaxy Ent</td><td>2021-07-02 @ 62.65</td><td>2021-07-30 @ 52.70</td><td class="pnl-negative">-15.88%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(60.70) < MA20(61.84) < MA60(65.22) | 异常放量: 成交量是20日均量的2.1倍 | 量价背离(上行): 价格下跌但成交量萎缩，可能见底 | 接近支撑: 接近20日低点59.50 | 接近中期支撑: 接近60日低点59.50 | <span class="star">★ </span>破底翻: 跌破60.60后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破60.60后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破60.60后收回，可能反转 | RSI超卖回升: RSI=42.5，从超卖区回升 | 风险回报比佳: R:R = 3.6:1</td></tr>
+<tr><td><strong>0066.HK</strong> MTR Corp</td><td>2021-07-02 @ 43.45</td><td>2021-07-30 @ 46.05</td><td class="pnl-positive">+5.98%</td><td>9</td><td class="reason">年线上方: 价格在250日线上方 | 接近支撑: 接近20日低点42.30 | 接近中期支撑: 接近60日低点42.30 | <span class="star">★ </span>W底: W底形态，两底42.70/42.30，颈线43.80 | <span class="star">★ </span>W底: W底形态，两底42.70/42.30，颈线43.80</td></tr>
+</tbody></table>
+
+<h3>2021-08 — Avg P&L: <span class="pnl-positive">+2.22%</span> (2021-08-02 → 2021-08-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1211.HK</strong> BYD</td><td>2021-08-02 @ 82.67</td><td>2021-08-31 @ 87.80</td><td class="pnl-positive">+6.21%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(86.07) > MA20(74.07) > MA60(67.28) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高80.00 | <span class="star">★ </span>W底: W底形态，两底46.20/46.13，颈线86.73 | <span class="star">★ </span>颈线突破: 突破30日高点86.73，成交量确认</td></tr>
+<tr><td><strong>2899.HK</strong> Zijin Mining</td><td>2021-08-02 @ 11.28</td><td>2021-08-31 @ 11.08</td><td class="pnl-negative">-1.77%</td><td>13</td><td class="reason">年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.5倍 | <span class="star">★ </span>突破20日高点: 突破前高11.66 | <span class="star">★ </span>W底: W底形态，两底9.62/9.56，颈线11.80 | <span class="star">★ </span>W底: W底形态，两底9.62/9.56，颈线11.80 | <span class="star">★ </span>颈线突破: 突破30日高点11.80，成交量确认</td></tr>
+</tbody></table>
+
+<h3>2021-09 — Avg P&L: <span class="pnl-negative">-8.49%</span> (2021-09-01 → 2021-09-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>3328.HK</strong> Bank of Communications</td><td>2021-09-01 @ 4.43</td><td>2021-09-30 @ 4.62</td><td class="pnl-positive">+4.29%</td><td>18</td><td class="reason">年线上方: 价格在250日线上方 | 接近中期支撑: 接近60日低点4.35 | <span class="star">★ </span>W底: W底形态，两底4.44/4.35，颈线4.54 | <span class="star">★ </span>W底: W底形态，两底4.44/4.35，颈线4.54 | <span class="star">★ </span>破底翻: 跌破4.44后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破4.44后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破4.44后收回，可能反转 | RSI超卖回升: RSI=41.3，从超卖区回升</td></tr>
+<tr><td><strong>0027.HK</strong> Galaxy Ent</td><td>2021-09-01 @ 50.80</td><td>2021-09-30 @ 40.00</td><td class="pnl-negative">-21.26%</td><td>16</td><td class="reason"><span class="star">★ </span>突破20日高点: 突破前高50.80 | <span class="star">★ </span>W底: W底形态，两底43.60/43.20，颈线51.35 | <span class="star">★ </span>W底: W底形态，两底43.60/43.20，颈线51.35 | <span class="star">★ </span>破底翻: 跌破45.70后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破45.70后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破45.70后收回，可能反转</td></tr>
+</tbody></table>
+
+<h3>2021-10 — Avg P&L: <span class="pnl-positive">+2.88%</span> (2021-10-04 → 2021-10-29)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0688.HK</strong> China Overseas</td><td>2021-10-04 @ 17.72</td><td>2021-10-29 @ 17.16</td><td class="pnl-negative">-3.16%</td><td>11</td><td class="reason"><span class="star">★ </span>W底: W底形态，两底15.82/15.42，颈线18.08 | <span class="star">★ </span>W底: W底形态，两底15.82/15.42，颈线18.08 | <span class="star">★ </span>破底翻: 跌破16.18后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破16.18后收回，可能反转</td></tr>
+<tr><td><strong>1997.HK</strong> Wharf REIC</td><td>2021-10-04 @ 40.30</td><td>2021-10-29 @ 43.90</td><td class="pnl-positive">+8.93%</td><td>9</td><td class="reason"><span class="star">★ </span>破底翻: 跌破36.65后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破36.65后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破36.65后收回，可能反转 | RSI超卖回升: RSI=45.8，从超卖区回升</td></tr>
+</tbody></table>
+
+<h3>2021-11 — Avg P&L: <span class="pnl-negative">-1.94%</span> (2021-11-01 → 2021-11-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>3328.HK</strong> Bank of Communications</td><td>2021-11-01 @ 4.75</td><td>2021-11-30 @ 4.54</td><td class="pnl-negative">-4.42%</td><td>16</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(4.79) > MA20(4.67) > MA60(4.57) | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高4.76 | <span class="star">★ </span>W底: W底形态，两底4.37/4.35，颈线4.79 | <span class="star">★ </span>W底: W底形态，两底4.46/4.35，颈线4.79 | <span class="star">★ </span>颈线突破: 突破30日高点4.79，成交量确认 | MACD金叉: MACD线上穿信号线</td></tr>
+<tr><td><strong>0002.HK</strong> CLP Holdings</td><td>2021-11-01 @ 76.00</td><td>2021-11-30 @ 76.40</td><td class="pnl-positive">+0.53%</td><td>8</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | 接近中期支撑: 接近60日低点73.80 | <span class="star">★ </span>W底: W底形态，两底73.90/73.80，颈线76.75 | <span class="star">★ </span>W底: W底形态，两底73.90/73.80，颈线76.75 | RSI超买: RSI=70.6，超买</td></tr>
+</tbody></table>
+
+<h3>2021-12 — Avg P&L: <span class="pnl-positive">+16.62%</span> (2021-12-01 → 2021-12-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0836.HK</strong> China Resources Power</td><td>2021-12-01 @ 20.00</td><td>2021-12-31 @ 26.10</td><td class="pnl-positive">+30.50%</td><td>14</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高21.30 | <span class="star">★ </span>W底: W底形态，两底17.66/17.18，颈线21.75 | <span class="star">★ </span>W底: W底形态，两底17.66/17.18，颈线21.75 | <span class="star">★ </span>破底翻: 跌破17.66后收回，可能反转 | RSI超买: RSI=70.6，超买</td></tr>
+<tr><td><strong>0002.HK</strong> CLP Holdings</td><td>2021-12-01 @ 76.65</td><td>2021-12-31 @ 78.75</td><td class="pnl-positive">+2.74%</td><td>11</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(76.35) > MA20(76.06) > MA60(75.70) | 年线上方: 价格在250日线上方 | 接近支撑: 接近20日低点75.20 | 接近中期支撑: 接近60日低点73.80 | <span class="star">★ </span>W底: W底形态，两底74.20/73.80，颈线77.25 | <span class="star">★ </span>W底: W底形态，两底73.90/73.80，颈线77.25</td></tr>
+</tbody></table>
+
+<h3>2022-01 — Avg P&L: <span class="pnl-positive">+8.40%</span> (2022-01-03 → 2022-01-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>2388.HK</strong> BOC Hong Kong</td><td>2022-01-03 @ 25.55</td><td>2022-01-31 @ 30.00</td><td class="pnl-positive">+17.42%</td><td>13</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(25.95) > MA20(25.01) > MA60(24.72) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高25.75 | <span class="star">★ </span>W底: W底形态，两底23.85/23.20，颈线26.05 | <span class="star">★ </span>W底: W底形态，两底23.85/23.20，颈线26.05 | RSI超买: RSI=74.1，超买</td></tr>
+<tr><td><strong>0002.HK</strong> CLP Holdings</td><td>2022-01-03 @ 78.75</td><td>2022-01-31 @ 78.25</td><td class="pnl-negative">-0.63%</td><td>10</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(79.75) > MA20(77.18) > MA60(76.19) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高79.60 | <span class="star">★ </span>W底: W底形态，两底74.75/74.55，颈线80.10 | <span class="star">★ </span>颈线突破: 突破30日高点80.10，成交量确认 | RSI超买: RSI=86.0，超买</td></tr>
+</tbody></table>
+
+<h3>2022-02 — Avg P&L: <span class="pnl-negative">-6.72%</span> (2022-02-04 → 2022-02-28)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0012.HK</strong> Henderson Land</td><td>2022-02-04 @ 34.70</td><td>2022-02-28 @ 32.50</td><td class="pnl-negative">-6.34%</td><td>16</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(35.00) > MA20(33.85) > MA60(33.39) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.0倍 | <span class="star">★ </span>W底: W底形态，两底32.10/31.70，颈线35.20 | <span class="star">★ </span>W底: W底形态，两底31.80/31.70，颈线35.20 | <span class="star">★ </span>颈线突破: 突破30日高点35.20，成交量确认</td></tr>
+<tr><td><strong>2388.HK</strong> BOC Hong Kong</td><td>2022-02-04 @ 30.25</td><td>2022-02-28 @ 28.10</td><td class="pnl-negative">-7.11%</td><td>16</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(31.10) > MA20(29.18) > MA60(26.21) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高30.30 | <span class="star">★ </span>W底: W底形态，两底24.35/24.30，颈线31.35 | <span class="star">★ </span>W底: W底形态，两底23.85/23.20，颈线31.35 | <span class="star">★ </span>颈线突破: 突破30日高点31.35，成交量确认 | RSI超买: RSI=80.6，超买 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2022-03 — Avg P&L: <span class="pnl-negative">-16.08%</span> (2022-03-01 → 2022-03-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>9633.HK</strong> Nongfu Spring</td><td>2022-03-01 @ 49.25</td><td>2022-03-31 @ 41.75</td><td class="pnl-negative">-15.23%</td><td>16</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(49.50) > MA20(47.66) > MA60(47.28) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高49.00 | <span class="star">★ </span>W底: W底形态，两底42.80/42.75，颈线49.95 | <span class="star">★ </span>W底: W底形态，两底42.80/42.75，颈线49.95 | <span class="star">★ </span>颈线突破: 突破30日高点49.95，成交量确认</td></tr>
+<tr><td><strong>2319.HK</strong> Mengniu Dairy</td><td>2022-03-01 @ 50.80</td><td>2022-03-31 @ 42.20</td><td class="pnl-negative">-16.93%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(50.80) > MA20(48.65) > MA60(46.59) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底43.15/42.95，颈线51.30 | <span class="star">★ </span>颈线突破: 突破30日高点51.30，成交量确认</td></tr>
+</tbody></table>
+
+<h3>2022-04 — Avg P&L: <span class="pnl-positive">+2.18%</span> (2022-04-01 → 2022-04-29)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0006.HK</strong> Power Assets</td><td>2022-04-01 @ 51.15</td><td>2022-04-29 @ 52.85</td><td class="pnl-positive">+3.32%</td><td>13</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(51.70) > MA20(50.94) > MA60(49.71) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底48.40/47.90，颈线51.95 | <span class="star">★ </span>W底: W底形态，两底48.00/47.60，颈线51.95 | RSI超卖回升: RSI=47.9，从超卖区回升</td></tr>
+<tr><td><strong>1038.HK</strong> CKI Holdings</td><td>2022-04-01 @ 52.30</td><td>2022-04-29 @ 52.85</td><td class="pnl-positive">+1.05%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(53.95) > MA20(52.10) > MA60(50.13) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底47.10/47.05，颈线54.35 | <span class="star">★ </span>W底: W底形态，两底47.10/47.05，颈线54.35</td></tr>
+</tbody></table>
+
+<h3>2022-05 — Avg P&L: <span class="pnl-negative">-0.33%</span> (2022-05-03 → 2022-05-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>2388.HK</strong> BOC Hong Kong</td><td>2022-05-03 @ 29.05</td><td>2022-05-31 @ 30.15</td><td class="pnl-positive">+3.79%</td><td>11</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(30.00) > MA20(29.58) > MA60(29.40) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>W底: W底形态，两底26.45/26.10，颈线30.50 | RSI超卖回升: RSI=48.6，从超卖区回升</td></tr>
+<tr><td><strong>6690.HK</strong> Haier Smart Home</td><td>2022-05-03 @ 29.25</td><td>2022-05-31 @ 27.95</td><td class="pnl-negative">-4.44%</td><td>11</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高28.80 | <span class="star">★ </span>W底: W底形态，两底22.10/21.90，颈线30.60 | <span class="star">★ </span>W底: W底形态，两底22.10/21.90，颈线30.60 | RSI超买: RSI=71.0，超买</td></tr>
+</tbody></table>
+
+<h3>2022-06 — Avg P&L: <span class="pnl-negative">-4.78%</span> (2022-06-01 → 2022-06-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0012.HK</strong> Henderson Land</td><td>2022-06-01 @ 33.30</td><td>2022-06-30 @ 29.40</td><td class="pnl-negative">-11.71%</td><td>11</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高33.65 | <span class="star">★ </span>W底: W底形态，两底31.30/30.50，颈线34.00 | <span class="star">★ </span>W底: W底形态，两底30.35/29.90，颈线34.35 | <span class="star">★ </span>颈线突破: 突破30日高点34.00，成交量确认 | RSI超买: RSI=80.5，超买</td></tr>
+<tr><td><strong>9633.HK</strong> Nongfu Spring</td><td>2022-06-01 @ 44.10</td><td>2022-06-30 @ 45.05</td><td class="pnl-positive">+2.15%</td><td>10</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(43.30) > MA20(41.56) > MA60(40.83) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底39.70/39.05，颈线44.10 | <span class="star">★ </span>W底: W底形态，两底33.05/32.35，颈线44.10</td></tr>
+</tbody></table>
+
+<h3>2022-07 — Avg P&L: <span class="pnl-positive">+1.14%</span> (2022-07-04 → 2022-07-29)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0788.HK</strong> China Tower</td><td>2022-07-04 @ 10.10</td><td>2022-07-29 @ 10.10</td><td class="pnl-negative">+0.00%</td><td>13</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(10.10) > MA20(9.60) > MA60(9.23) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底8.70/8.50，颈线10.20 | <span class="star">★ </span>W底: W底形态，两底8.60/8.50，颈线10.20 | <span class="star">★ </span>颈线突破: 突破30日高点10.20，成交量确认 | RSI超买: RSI=88.9，超买</td></tr>
+<tr><td><strong>1038.HK</strong> CKI Holdings</td><td>2022-07-04 @ 48.10</td><td>2022-07-29 @ 49.20</td><td class="pnl-positive">+2.29%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(48.75) < MA20(49.51) < MA60(52.07) | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | 接近支撑: 接近20日低点47.50 | 接近中期支撑: 接近60日低点47.50 | <span class="star">★ </span>W底: W底形态，两底47.75/47.50，颈线49.30 | <span class="star">★ </span>W底: W底形态，两底47.75/47.50，颈线49.30 | RSI超卖回升: RSI=34.2，从超卖区回升 | 风险回报比佳: R:R = 3.0:1 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2022-08 — Avg P&L: <span class="pnl-negative">-6.02%</span> (2022-08-01 → 2022-08-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1038.HK</strong> CKI Holdings</td><td>2022-08-01 @ 49.20</td><td>2022-08-31 @ 47.80</td><td class="pnl-negative">-2.85%</td><td>10</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | 接近支撑: 接近20日低点48.05 | 接近中期支撑: 接近60日低点47.50 | <span class="star">★ </span>W底: W底形态，两底47.75/47.50，颈线49.40 | <span class="star">★ </span>W底: W底形态，两底47.75/47.50，颈线49.40</td></tr>
+<tr><td><strong>0006.HK</strong> Power Assets</td><td>2022-08-01 @ 51.75</td><td>2022-08-31 @ 47.00</td><td class="pnl-negative">-9.18%</td><td>8</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底48.50/48.30，颈线51.90 | <span class="star">★ </span>W底: W底形态，两底48.50/48.30，颈线51.90</td></tr>
+</tbody></table>
+
+<h3>2022-09 — Avg P&L: <span class="pnl-negative">-7.65%</span> (2022-09-01 → 2022-09-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>6690.HK</strong> Haier Smart Home</td><td>2022-09-01 @ 25.80</td><td>2022-09-30 @ 24.05</td><td class="pnl-negative">-6.78%</td><td>10</td><td class="reason">短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高26.00 | <span class="star">★ </span>W底: W底形态，两底23.10/22.95，颈线26.50 | <span class="star">★ </span>W底: W底形态，两底23.10/22.95，颈线26.50</td></tr>
+<tr><td><strong>3968.HK</strong> China Merchants Bank</td><td>2022-09-01 @ 39.90</td><td>2022-09-30 @ 36.50</td><td class="pnl-negative">-8.52%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(40.00) < MA20(40.41) < MA60(44.41) | 量价背离(上行): 价格下跌但成交量萎缩，可能见底 | 接近中期支撑: 接近60日低点38.35 | <span class="star">★ </span>破底翻: 跌破39.35后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破39.35后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破39.35后收回，可能反转 | RSI超卖回升: RSI=38.5，从超卖区回升</td></tr>
+</tbody></table>
+
+<h3>2022-10 — Avg P&L: <span class="pnl-negative">-26.64%</span> (2022-10-03 → 2022-10-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1209.HK</strong> China Resources Mixc</td><td>2022-10-03 @ 30.00</td><td>2022-10-31 @ 23.00</td><td class="pnl-negative">-23.33%</td><td>7</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(31.70) < MA20(33.33) < MA60(34.10) | <span class="star">★ </span>破底翻: 跌破30.40后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破30.40后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破30.40后收回，可能反转 | RSI超卖回升: RSI=33.2，从超卖区回升</td></tr>
+<tr><td><strong>1928.HK</strong> Sands China</td><td>2022-10-03 @ 19.56</td><td>2022-10-31 @ 13.70</td><td class="pnl-negative">-29.96%</td><td>7</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(19.96) > MA20(18.43) > MA60(17.82) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍</td></tr>
+</tbody></table>
+
+<h3>2022-11 — Avg P&L: <span class="pnl-positive">+14.62%</span> (2022-11-01 → 2022-11-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1093.HK</strong> CSPC Pharma</td><td>2022-11-01 @ 8.44</td><td>2022-11-30 @ 9.99</td><td class="pnl-positive">+18.36%</td><td>16</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(8.80) > MA20(8.08) > MA60(7.92) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高8.79 | <span class="star">★ </span>W底: W底形态，两底7.00/6.96，颈线8.94 | <span class="star">★ </span>W底: W底形态，两底7.00/6.96，颈线8.94</td></tr>
+<tr><td><strong>0016.HK</strong> SHK Properties</td><td>2022-11-01 @ 84.50</td><td>2022-11-30 @ 93.70</td><td class="pnl-positive">+10.89%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(85.90) < MA20(88.97) < MA60(92.10) | 接近中期支撑: 接近60日低点83.10 | <span class="star">★ </span>破底翻: 跌破84.95后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破84.95后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破84.95后收回，可能反转 | RSI超卖回升: RSI=43.6，从超卖区回升 | 风险回报比佳: R:R = 3.0:1</td></tr>
+</tbody></table>
+
+<h3>2022-12 — Avg P&L: <span class="pnl-positive">+9.04%</span> (2022-12-01 → 2022-12-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1929.HK</strong> Chow Tai Fook</td><td>2022-12-01 @ 13.96</td><td>2022-12-30 @ 15.92</td><td class="pnl-positive">+14.04%</td><td>12</td><td class="reason"><span class="star">★ </span>放量上涨: 成交量是20日均量的5.7倍 | 量价背离(上行): 价格下跌但成交量萎缩，可能见底 | <span class="star">★ </span>破底翻: 跌破13.38后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破13.38后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破13.38后收回，可能反转 | RSI超卖回升: RSI=35.5，从超卖区回升</td></tr>
+<tr><td><strong>0939.HK</strong> CCB</td><td>2022-12-01 @ 4.70</td><td>2022-12-30 @ 4.89</td><td class="pnl-positive">+4.04%</td><td>10</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(4.73) > MA20(4.56) > MA60(4.53) | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底4.16/4.10，颈线4.76 | <span class="star">★ </span>W底: W底形态，两底4.16/4.10，颈线4.76 | <span class="star">★ </span>颈线突破: 突破30日高点4.76，成交量确认</td></tr>
+</tbody></table>
+
+<h3>2023-01 — Avg P&L: <span class="pnl-positive">+9.00%</span> (2023-01-03 → 2023-01-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0916.HK</strong> Longfor Group</td><td>2023-01-03 @ 9.50</td><td>2023-01-31 @ 10.78</td><td class="pnl-positive">+13.47%</td><td>20</td><td class="reason"><span class="star">★ </span>放量上涨: 成交量是20日均量的2.1倍 | <span class="star">★ </span>突破20日高点: 突破前高9.91 | <span class="star">★ </span>W底: W底形态，两底8.35/8.27，颈线10.40 | <span class="star">★ </span>W底: W底形态，两底8.35/8.27，颈线10.40 | <span class="star">★ </span>破底翻: 跌破8.43后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.43后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.43后收回，可能反转 | <span class="star">★ </span>颈线突破: 突破30日高点10.40，成交量确认</td></tr>
+<tr><td><strong>0016.HK</strong> SHK Properties</td><td>2023-01-03 @ 106.30</td><td>2023-01-31 @ 111.10</td><td class="pnl-positive">+4.52%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(109.20) > MA20(102.57) > MA60(93.83) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高108.70 | <span class="star">★ </span>W底: W底形态，两底84.70/83.10，颈线110.00 | <span class="star">★ </span>颈线突破: 突破30日高点110.00，成交量确认 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2023-02 — Avg P&L: <span class="pnl-negative">-14.76%</span> (2023-02-01 → 2023-02-28)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0669.HK</strong> Techtronic Ind</td><td>2023-02-01 @ 103.30</td><td>2023-02-28 @ 78.05</td><td class="pnl-negative">-24.44%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(106.20) > MA20(96.19) > MA60(92.11) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>突破20日高点: 突破前高105.40 | <span class="star">★ </span>W底: W底形态，两底85.25/84.10，颈线106.50 | <span class="star">★ </span>颈线突破: 突破30日高点106.50，成交量确认</td></tr>
+<tr><td><strong>0027.HK</strong> Galaxy Ent</td><td>2023-02-01 @ 55.00</td><td>2023-02-28 @ 52.20</td><td class="pnl-negative">-5.09%</td><td>10</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(56.40) > MA20(53.74) > MA60(49.55) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>颈线突破: 突破30日高点56.75，成交量确认</td></tr>
+</tbody></table>
+
+<h3>2023-03 — Avg P&L: <span class="pnl-positive">+14.02%</span> (2023-03-01 → 2023-03-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0941.HK</strong> China Mobile</td><td>2023-03-01 @ 59.00</td><td>2023-03-31 @ 63.60</td><td class="pnl-positive">+7.80%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(60.60) > MA20(57.56) > MA60(54.63) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.2倍 | <span class="star">★ </span>突破20日高点: 突破前高59.45 | <span class="star">★ </span>W底: W底形态，两底51.05/50.75，颈线60.80 | <span class="star">★ </span>颈线突破: 突破30日高点60.80，成交量确认 | RSI超买: RSI=70.6，超买 | MACD金叉: MACD线上穿信号线</td></tr>
+<tr><td><strong>0992.HK</strong> Lenovo</td><td>2023-03-01 @ 7.07</td><td>2023-03-31 @ 8.50</td><td class="pnl-positive">+20.23%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(7.32) > MA20(6.78) > MA60(6.47) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底6.01/5.93，颈线7.40 | <span class="star">★ </span>W底: W底形态，两底5.99/5.93，颈线7.40</td></tr>
+</tbody></table>
+
+<h3>2023-04 — Avg P&L: <span class="pnl-positive">+1.44%</span> (2023-04-03 → 2023-04-28)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0027.HK</strong> Galaxy Ent</td><td>2023-04-03 @ 53.95</td><td>2023-04-28 @ 55.50</td><td class="pnl-positive">+2.87%</td><td>13</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.9倍 | <span class="star">★ </span>突破20日高点: 突破前高55.20 | <span class="star">★ </span>W底: W底形态，两底50.10/49.60，颈线55.80 | <span class="star">★ </span>W底: W底形态，两底50.10/49.60，颈线55.80 | <span class="star">★ </span>颈线突破: 突破30日高点55.80，成交量确认 | RSI超买: RSI=71.3，超买</td></tr>
+<tr><td><strong>1997.HK</strong> Wharf REIC</td><td>2023-04-03 @ 45.10</td><td>2023-04-28 @ 45.10</td><td class="pnl-negative">+0.00%</td><td>12</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高45.90 | <span class="star">★ </span>W底: W底形态，两底41.90/40.95，颈线46.75 | <span class="star">★ </span>W底: W底形态，两底41.90/40.95，颈线46.75 | <span class="star">★ </span>颈线突破: 突破30日高点46.75，成交量确认</td></tr>
+</tbody></table>
+
+<h3>2023-05 — Avg P&L: <span class="pnl-negative">-4.68%</span> (2023-05-02 → 2023-05-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1038.HK</strong> CKI Holdings</td><td>2023-05-02 @ 44.65</td><td>2023-05-31 @ 43.30</td><td class="pnl-negative">-3.02%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(45.20) > MA20(43.71) > MA60(43.16) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高44.70 | <span class="star">★ </span>W底: W底形态，两底41.65/41.55，颈线45.30 | <span class="star">★ </span>W底: W底形态，两底41.40/41.35，颈线45.30 | <span class="star">★ </span>颈线突破: 突破30日高点45.30，成交量确认 | RSI超买: RSI=72.8，超买</td></tr>
+<tr><td><strong>0006.HK</strong> Power Assets</td><td>2023-05-02 @ 45.00</td><td>2023-05-31 @ 42.15</td><td class="pnl-negative">-6.33%</td><td>13</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(44.95) > MA20(43.38) > MA60(42.98) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高44.85 | <span class="star">★ </span>W底: W底形态，两底41.30/41.10，颈线45.10 | <span class="star">★ </span>W底: W底形态，两底41.30/41.10，颈线45.10 | RSI超买: RSI=84.9，超买</td></tr>
+</tbody></table>
+
+<h3>2023-06 — Avg P&L: <span class="pnl-positive">+0.53%</span> (2023-06-01 → 2023-06-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1928.HK</strong> Sands China</td><td>2023-06-01 @ 25.35</td><td>2023-06-30 @ 26.70</td><td class="pnl-positive">+5.33%</td><td>11</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(24.80) < MA20(25.93) < MA60(27.05) | 年线上方: 价格在250日线上方 | 接近中期支撑: 接近60日低点24.00 | <span class="star">★ </span>破底翻: 跌破24.70后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破24.70后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破24.70后收回，可能反转 | RSI超卖回升: RSI=39.7，从超卖区回升 | 风险回报比佳: R:R = 3.1:1</td></tr>
+<tr><td><strong>1038.HK</strong> CKI Holdings</td><td>2023-06-01 @ 43.30</td><td>2023-06-30 @ 41.45</td><td class="pnl-negative">-4.27%</td><td>9</td><td class="reason"><span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 接近中期支撑: 接近60日低点41.15 | <span class="star">★ </span>W底: W底形态，两底42.25/41.15，颈线43.50 | <span class="star">★ </span>W底: W底形态，两底41.55/41.15，颈线43.50 | 风险回报比佳: R:R = 2.3:1</td></tr>
+</tbody></table>
+
+<h3>2023-07 — Avg P&L: <span class="pnl-positive">+14.31%</span> (2023-07-03 → 2023-07-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>3968.HK</strong> China Merchants Bank</td><td>2023-07-03 @ 35.70</td><td>2023-07-31 @ 38.45</td><td class="pnl-positive">+7.70%</td><td>16</td><td class="reason"><span class="star">★ </span>W底: W底形态，两底35.30/34.50，颈线37.20 | <span class="star">★ </span>W底: W底形态，两底35.30/34.50，颈线37.20 | <span class="star">★ </span>破底翻: 跌破35.30后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破35.30后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破35.30后收回，可能反转 | RSI超卖回升: RSI=45.7，从超卖区回升 | MACD金叉: MACD线上穿信号线</td></tr>
+<tr><td><strong>2015.HK</strong> Li Auto</td><td>2023-07-03 @ 137.20</td><td>2023-07-31 @ 165.90</td><td class="pnl-positive">+20.92%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(147.00) > MA20(130.83) > MA60(111.55) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高141.00 | <span class="star">★ </span>W底: W底形态，两底88.50/86.80，颈线147.60 | <span class="star">★ </span>颈线突破: 突破30日高点147.60，成交量确认 | RSI超买: RSI=75.8，超买 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2023-08 — Avg P&L: <span class="pnl-positive">+1.52%</span> (2023-08-01 → 2023-08-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>2359.HK</strong> WuXi AppTec</td><td>2023-08-01 @ 76.35</td><td>2023-08-31 @ 85.90</td><td class="pnl-positive">+12.51%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(79.10) > MA20(68.39) > MA60(67.64) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.7倍 | <span class="star">★ </span>突破20日高点: 突破前高75.50 | <span class="star">★ </span>W底: W底形态，两底61.20/59.50，颈线79.15 | <span class="star">★ </span>W底: W底形态，两底61.20/59.50，颈线79.15 | <span class="star">★ </span>颈线突破: 突破30日高点79.15，成交量确认 | RSI超买: RSI=94.0，超买</td></tr>
+<tr><td><strong>0005.HK</strong> HSBC</td><td>2023-08-01 @ 65.00</td><td>2023-08-31 @ 58.85</td><td class="pnl-negative">-9.46%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(66.30) > MA20(63.10) > MA60(60.80) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.8倍 | <span class="star">★ </span>突破20日高点: 突破前高65.35 | <span class="star">★ </span>W底: W底形态，两底57.15/57.05，颈线66.70 | <span class="star">★ </span>颈线突破: 突破30日高点66.70，成交量确认 | RSI超买: RSI=89.4，超买</td></tr>
+</tbody></table>
+
+<h3>2023-09 — Avg P&L: <span class="pnl-negative">-1.34%</span> (2023-09-04 → 2023-09-29)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0006.HK</strong> Power Assets</td><td>2023-09-04 @ 39.05</td><td>2023-09-29 @ 37.90</td><td class="pnl-negative">-2.94%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(39.25) < MA20(39.55) < MA60(40.43) | 接近中期支撑: 接近60日低点37.85 | <span class="star">★ </span>W底: W底形态，两底38.00/37.85，颈线39.85 | <span class="star">★ </span>W底: W底形态，两底38.00/37.85，颈线39.85 | <span class="star">★ </span>破底翻: 跌破39.00后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破39.00后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破39.00后收回，可能反转 | RSI超卖回升: RSI=41.0，从超卖区回升</td></tr>
+<tr><td><strong>0981.HK</strong> SMIC</td><td>2023-09-04 @ 20.00</td><td>2023-09-29 @ 20.05</td><td class="pnl-positive">+0.25%</td><td>13</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.8倍 | <span class="star">★ </span>突破20日高点: 突破前高20.30 | <span class="star">★ </span>W底: W底形态，两底17.04/17.02，颈线21.85 | <span class="star">★ </span>W底: W底形态，两底17.04/17.02，颈线21.85 | <span class="star">★ </span>颈线突破: 突破30日高点21.85，成交量确认 | RSI超买: RSI=80.7，超买</td></tr>
+</tbody></table>
+
+<h3>2023-10 — Avg P&L: <span class="pnl-negative">-10.38%</span> (2023-10-03 → 2023-10-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1024.HK</strong> Kuaishou</td><td>2023-10-03 @ 61.85</td><td>2023-10-31 @ 50.35</td><td class="pnl-negative">-18.59%</td><td>7</td><td class="reason"><span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底60.20/59.40，颈线63.85 | RSI超卖回升: RSI=43.0，从超卖区回升</td></tr>
+<tr><td><strong>1109.HK</strong> China Resources Land</td><td>2023-10-03 @ 29.95</td><td>2023-10-31 @ 29.30</td><td class="pnl-negative">-2.17%</td><td>5</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(30.55) < MA20(32.65) < MA60(32.88) | 接近中期支撑: 接近60日低点29.65 | <span class="star">★ </span>破底翻: 跌破30.15后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破30.15后收回，可能反转 | 风险回报比佳: R:R = 7.7:1</td></tr>
+</tbody></table>
+
+<h3>2023-11 — Avg P&L: <span class="pnl-positive">+0.10%</span> (2023-11-01 → 2023-11-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0005.HK</strong> HSBC</td><td>2023-11-01 @ 56.60</td><td>2023-11-30 @ 59.20</td><td class="pnl-positive">+4.59%</td><td>13</td><td class="reason">年线上方: 价格在250日线上方 | 接近支撑: 接近20日低点55.50 | 接近中期支撑: 接近60日低点55.50 | <span class="star">★ </span>破底翻: 跌破56.85后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破56.85后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破56.85后收回，可能反转 | 风险回报比佳: R:R = 4.9:1</td></tr>
+<tr><td><strong>0175.HK</strong> Geely Auto</td><td>2023-11-01 @ 8.90</td><td>2023-11-30 @ 8.51</td><td class="pnl-negative">-4.38%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(8.85) < MA20(9.00) < MA60(9.45) | 接近中期支撑: 接近60日低点8.56 | <span class="star">★ </span>破底翻: 跌破8.82后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.82后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.82后收回，可能反转 | RSI超卖回升: RSI=43.0，从超卖区回升 | 风险回报比佳: R:R = 2.4:1</td></tr>
+</tbody></table>
+
+<h3>2023-12 — Avg P&L: <span class="pnl-negative">-2.32%</span> (2023-12-01 → 2023-12-29)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>9901.HK</strong> New Oriental</td><td>2023-12-01 @ 63.25</td><td>2023-12-29 @ 55.25</td><td class="pnl-negative">-12.65%</td><td>17</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(64.65) > MA20(55.98) > MA60(50.11) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.5倍 | <span class="star">★ </span>突破20日高点: 突破前高63.40 | <span class="star">★ </span>W底: W底形态，两底46.30/46.05，颈线65.10 | <span class="star">★ </span>W底: W底形态，两底41.90/41.85，颈线65.10 | <span class="star">★ </span>颈线突破: 突破30日高点65.10，成交量确认 | RSI超买: RSI=89.5，超买</td></tr>
+<tr><td><strong>0027.HK</strong> Galaxy Ent</td><td>2023-12-01 @ 40.50</td><td>2023-12-29 @ 43.75</td><td class="pnl-positive">+8.02%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(40.90) < MA20(42.95) < MA60(45.50) | 接近中期支撑: 接近60日低点39.50 | <span class="star">★ </span>破底翻: 跌破40.35后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破40.35后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破40.35后收回，可能反转 | RSI超卖回升: RSI=47.2，从超卖区回升 | 风险回报比佳: R:R = 4.1:1</td></tr>
+</tbody></table>
+
+<h3>2024-01 — Avg P&L: <span class="pnl-positive">+5.64%</span> (2024-01-02 → 2024-01-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1088.HK</strong> China Shenhua</td><td>2024-01-02 @ 26.85</td><td>2024-01-31 @ 29.55</td><td class="pnl-positive">+10.06%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(27.50) > MA20(25.37) > MA60(24.87) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高26.85 | <span class="star">★ </span>W底: W底形态，两底23.60/23.40，颈线27.55 | <span class="star">★ </span>颈线突破: 突破30日高点27.55，成交量确认 | RSI超买: RSI=86.1，超买</td></tr>
+<tr><td><strong>0006.HK</strong> Power Assets</td><td>2024-01-02 @ 45.25</td><td>2024-01-31 @ 45.80</td><td class="pnl-positive">+1.22%</td><td>10</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(45.30) > MA20(43.05) > MA60(40.05) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高45.25 | <span class="star">★ </span>W底: W底形态，两底38.10/38.00，颈线45.40 | RSI超买: RSI=74.0，超买</td></tr>
+</tbody></table>
+
+<h3>2024-02 — Avg P&L: <span class="pnl-positive">+1.72%</span> (2024-02-01 → 2024-02-29)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0005.HK</strong> HSBC</td><td>2024-02-01 @ 61.35</td><td>2024-02-29 @ 60.25</td><td class="pnl-negative">-1.79%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(60.90) > MA20(60.73) > MA60(60.35) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底59.10/57.80，颈线61.65 | RSI超卖回升: RSI=46.1，从超卖区回升</td></tr>
+<tr><td><strong>0002.HK</strong> CLP Holdings</td><td>2024-02-01 @ 62.00</td><td>2024-02-29 @ 65.25</td><td class="pnl-positive">+5.24%</td><td>7</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(63.05) > MA20(62.07) > MA60(61.45) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | RSI超卖回升: RSI=49.3，从超卖区回升 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2024-03 — Avg P&L: <span class="pnl-positive">+13.58%</span> (2024-03-01 → 2024-03-28)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0762.HK</strong> China Unicom</td><td>2024-03-01 @ 5.40</td><td>2024-03-28 @ 5.65</td><td class="pnl-positive">+4.63%</td><td>13</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(5.82) > MA20(5.46) > MA60(5.08) | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的4.5倍 | <span class="star">★ </span>突破20日高点: 突破前高5.75 | <span class="star">★ </span>W底: W底形态，两底4.50/4.45，颈线5.82 | <span class="star">★ </span>颈线突破: 突破30日高点5.82，成交量确认 | MACD金叉: MACD线上穿信号线</td></tr>
+<tr><td><strong>3690.HK</strong> Meituan</td><td>2024-03-01 @ 79.00</td><td>2024-03-28 @ 96.80</td><td class="pnl-positive">+22.53%</td><td>11</td><td class="reason">短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.8倍 | <span class="star">★ </span>突破20日高点: 突破前高83.00 | <span class="star">★ </span>W底: W底形态，两底61.90/61.10，颈线88.70 | <span class="star">★ </span>W底: W底形态，两底61.90/61.10，颈线88.70 | <span class="star">★ </span>颈线突破: 突破30日高点88.70，成交量确认 | RSI超买: RSI=81.4，超买</td></tr>
+</tbody></table>
+
+<h3>2024-04 — Avg P&L: <span class="pnl-positive">+8.75%</span> (2024-04-02 → 2024-04-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0857.HK</strong> PetroChina</td><td>2024-04-02 @ 6.85</td><td>2024-04-30 @ 7.38</td><td class="pnl-positive">+7.74%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(7.14) > MA20(6.38) > MA60(5.86) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高6.80 | <span class="star">★ </span>W底: W底形态，两底5.52/5.50，颈线7.22 | <span class="star">★ </span>W底: W底形态，两底4.87/4.81，颈线7.22 | RSI超买: RSI=78.6，超买</td></tr>
+<tr><td><strong>2388.HK</strong> BOC Hong Kong</td><td>2024-04-02 @ 22.00</td><td>2024-04-30 @ 24.15</td><td class="pnl-positive">+9.77%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(22.95) > MA20(21.22) > MA60(19.99) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.4倍 | <span class="star">★ </span>突破20日高点: 突破前高22.05 | <span class="star">★ </span>W底: W底形态，两底18.30/17.86，颈线22.95 | <span class="star">★ </span>颈线突破: 突破30日高点22.95，成交量确认 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2024-05 — Avg P&L: <span class="pnl-positive">+2.72%</span> (2024-05-02 → 2024-05-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0005.HK</strong> HSBC</td><td>2024-05-02 @ 68.00</td><td>2024-05-31 @ 68.65</td><td class="pnl-positive">+0.96%</td><td>18</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(69.25) > MA20(64.07) > MA60(61.68) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高67.05 | <span class="star">★ </span>W底: W底形态，两底58.30/58.10，颈线69.25 | <span class="star">★ </span>W底: W底形态，两底58.30/58.10，颈线69.25 | <span class="star">★ </span>颈线突破: 突破30日高点69.25，成交量确认</td></tr>
+<tr><td><strong>1398.HK</strong> ICBC</td><td>2024-05-02 @ 4.23</td><td>2024-05-31 @ 4.42</td><td class="pnl-positive">+4.49%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(4.23) > MA20(4.09) > MA60(4.01) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底3.89/3.87，颈线4.28 | <span class="star">★ </span>W底: W底形态，两底3.76/3.75，颈线4.28</td></tr>
+</tbody></table>
+
+<h3>2024-06 — Avg P&L: <span class="pnl-positive">+6.60%</span> (2024-06-03 → 2024-06-28)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0762.HK</strong> China Unicom</td><td>2024-06-03 @ 6.47</td><td>2024-06-28 @ 7.17</td><td class="pnl-positive">+10.82%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(6.51) > MA20(6.22) > MA60(5.91) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高6.50 | <span class="star">★ </span>W底: W底形态，两底5.42/5.38，颈线6.57 | <span class="star">★ </span>颈线突破: 突破30日高点6.57，成交量确认 | RSI超买: RSI=73.0，超买</td></tr>
+<tr><td><strong>0941.HK</strong> China Mobile</td><td>2024-06-03 @ 75.20</td><td>2024-06-28 @ 77.00</td><td class="pnl-positive">+2.39%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(76.20) > MA20(73.25) > MA60(69.80) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高75.50 | <span class="star">★ </span>W底: W底形态，两底66.00/65.65，颈线77.10 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2024-07 — Avg P&L: <span class="pnl-negative">-11.49%</span> (2024-07-02 → 2024-07-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0857.HK</strong> PetroChina</td><td>2024-07-02 @ 7.98</td><td>2024-07-31 @ 6.81</td><td class="pnl-negative">-14.66%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(8.23) > MA20(7.73) > MA60(7.56) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.8倍 | <span class="star">★ </span>突破20日高点: 突破前高8.22 | <span class="star">★ </span>W底: W底形态，两底7.00/6.95，颈线8.30 | <span class="star">★ </span>颈线突破: 突破30日高点8.30，成交量确认 | MACD金叉: MACD线上穿信号线</td></tr>
+<tr><td><strong>3968.HK</strong> China Merchants Bank</td><td>2024-07-02 @ 35.45</td><td>2024-07-31 @ 32.50</td><td class="pnl-negative">-8.32%</td><td>13</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(36.40) > MA20(35.11) > MA60(34.88) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高36.30 | <span class="star">★ </span>W底: W底形态，两底33.20/33.15，颈线36.75</td></tr>
+</tbody></table>
+
+<h3>2024-08 — Avg P&L: <span class="pnl-positive">+8.00%</span> (2024-08-01 → 2024-08-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0002.HK</strong> CLP Holdings</td><td>2024-08-01 @ 67.00</td><td>2024-08-30 @ 69.90</td><td class="pnl-positive">+4.33%</td><td>17</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(69.15) > MA20(65.26) > MA60(64.85) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.5倍 | <span class="star">★ </span>突破20日高点: 突破前高67.40 | <span class="star">★ </span>W底: W底形态，两底62.85/61.60，颈线69.45 | <span class="star">★ </span>W底: W底形态，两底61.85/61.60，颈线69.45 | <span class="star">★ </span>颈线突破: 突破30日高点69.45，成交量确认 | RSI超买: RSI=72.5，超买</td></tr>
+<tr><td><strong>1038.HK</strong> CKI Holdings</td><td>2024-08-01 @ 51.85</td><td>2024-08-30 @ 57.90</td><td class="pnl-positive">+11.67%</td><td>17</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(53.60) > MA20(49.61) > MA60(46.57) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.5倍 | <span class="star">★ </span>突破20日高点: 突破前高52.75 | <span class="star">★ </span>W底: W底形态，两底42.20/42.05，颈线53.85 | <span class="star">★ </span>W底: W底形态，两底42.20/42.05，颈线53.85 | <span class="star">★ </span>颈线突破: 突破30日高点53.85，成交量确认 | RSI超买: RSI=74.3，超买</td></tr>
+</tbody></table>
+
+<h3>2024-09 — Avg P&L: <span class="pnl-negative">-0.04%</span> (2024-09-02 → 2024-09-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0288.HK</strong> WH Group</td><td>2024-09-02 @ 5.68</td><td>2024-09-30 @ 6.16</td><td class="pnl-positive">+8.45%</td><td>10</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(5.66) > MA20(5.48) > MA60(5.26) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底4.89/4.84，颈线5.74 | <span class="star">★ </span>W底: W底形态，两底4.89/4.84，颈线5.74</td></tr>
+<tr><td><strong>0006.HK</strong> Power Assets</td><td>2024-09-02 @ 54.45</td><td>2024-09-30 @ 49.80</td><td class="pnl-negative">-8.54%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(54.40) > MA20(53.83) > MA60(47.90) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底41.55/41.05，颈线55.10 | RSI超卖回升: RSI=47.7，从超卖区回升</td></tr>
+</tbody></table>
+
+<h3>2024-10 — Avg P&L: <span class="pnl-negative">-3.49%</span> (2024-10-02 → 2024-10-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0788.HK</strong> China Tower</td><td>2024-10-02 @ 10.30</td><td>2024-10-31 @ 10.50</td><td class="pnl-positive">+1.94%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(10.60) > MA20(9.90) > MA60(9.83) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.4倍 | <span class="star">★ </span>突破20日高点: 突破前高10.40 | <span class="star">★ </span>W底: W底形态，两底9.30/9.20，颈线10.60 | <span class="star">★ </span>颈线突破: 突破30日高点10.60，成交量确认</td></tr>
+<tr><td><strong>2822.HK</strong> CSI 300 ETF</td><td>2024-10-02 @ 14.46</td><td>2024-10-31 @ 13.17</td><td class="pnl-negative">-8.92%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(15.28) > MA20(12.00) > MA60(11.82) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的4.1倍 | <span class="star">★ </span>突破20日高点: 突破前高14.50 | <span class="star">★ </span>W底: W底形态，两底11.20/11.13，颈线15.36 | <span class="star">★ </span>W底: W底形态，两底11.20/11.13，颈线15.36 | <span class="star">★ </span>颈线突破: 突破30日高点15.36，成交量确认 | RSI超买: RSI=97.8，超买</td></tr>
+</tbody></table>
+
+<h3>2024-11 — Avg P&L: <span class="pnl-negative">-2.84%</span> (2024-11-01 → 2024-11-29)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>9901.HK</strong> New Oriental</td><td>2024-11-01 @ 48.35</td><td>2024-11-29 @ 46.40</td><td class="pnl-negative">-4.03%</td><td>9</td><td class="reason"><span class="star">★ </span>破底翻: 跌破45.25后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破45.20后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破45.20后收回，可能反转 | 风险回报比佳: R:R = 4.5:1</td></tr>
+<tr><td><strong>0006.HK</strong> Power Assets</td><td>2024-11-01 @ 51.85</td><td>2024-11-29 @ 51.00</td><td class="pnl-negative">-1.64%</td><td>8</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底48.55/47.75，颈线52.40 | <span class="star">★ </span>W底: W底形态，两底48.55/47.75，颈线52.40</td></tr>
+</tbody></table>
+
+<h3>2024-12 — Avg P&L: <span class="pnl-positive">+14.54%</span> (2024-12-02 → 2024-12-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>9698.HK</strong> Wangsu Science</td><td>2024-12-02 @ 19.10</td><td>2024-12-31 @ 22.95</td><td class="pnl-positive">+20.16%</td><td>11</td><td class="reason"><span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底17.42/17.40，颈线19.38 | <span class="star">★ </span>破底翻: 跌破18.04后收回，可能反转 | RSI超卖回升: RSI=32.6，从超卖区回升 | 风险回报比佳: R:R = 2.7:1</td></tr>
+<tr><td><strong>2382.HK</strong> Sunny Optical</td><td>2024-12-02 @ 63.25</td><td>2024-12-31 @ 68.90</td><td class="pnl-positive">+8.93%</td><td>10</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(65.15) > MA20(57.55) > MA60(52.54) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高64.65 | <span class="star">★ </span>W底: W底形态，两底43.40/42.30，颈线66.00 | RSI超买: RSI=73.8，超买</td></tr>
+</tbody></table>
+
+<h3>2025-01 — Avg P&L: <span class="pnl-positive">+2.28%</span> (2025-01-02 → 2025-01-28)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0005.HK</strong> HSBC</td><td>2025-01-02 @ 75.80</td><td>2025-01-28 @ 79.95</td><td class="pnl-positive">+5.47%</td><td>11</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(75.70) > MA20(74.70) > MA60(71.75) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底69.30/68.70，颈线75.90 | <span class="star">★ </span>颈线突破: 突破30日高点75.90，成交量确认</td></tr>
+<tr><td><strong>0002.HK</strong> CLP Holdings</td><td>2025-01-02 @ 65.25</td><td>2025-01-28 @ 64.65</td><td class="pnl-negative">-0.92%</td><td>7</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(64.15) < MA20(64.78) < MA60(65.82) | 接近支撑: 接近20日低点63.30 | 接近中期支撑: 接近60日低点63.30 | <span class="star">★ </span>W底: W底形态，两底63.55/63.30，颈线65.40 | <span class="star">★ </span>W底: W底形态，两底63.55/63.30，颈线65.40 | RSI超卖回升: RSI=39.0，从超卖区回升 | 风险回报比佳: R:R = 2.5:1</td></tr>
+</tbody></table>
+
+<h3>2025-02 — Avg P&L: <span class="pnl-positive">+24.66%</span> (2025-02-03 → 2025-02-28)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>9988.HK</strong> Alibaba</td><td>2025-02-03 @ 92.55</td><td>2025-02-28 @ 127.50</td><td class="pnl-positive">+37.76%</td><td>13</td><td class="reason">年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的2.6倍 | <span class="star">★ </span>突破20日高点: 突破前高88.35 | <span class="star">★ </span>W底: W底形态，两底79.35/77.35，颈线94.10 | <span class="star">★ </span>W底: W底形态，两底79.35/77.35，颈线94.10 | <span class="star">★ </span>颈线突破: 突破30日高点94.10，成交量确认 | RSI超买: RSI=78.4，超买</td></tr>
+<tr><td><strong>0005.HK</strong> HSBC</td><td>2025-02-03 @ 80.00</td><td>2025-02-28 @ 89.25</td><td class="pnl-positive">+11.56%</td><td>10</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(79.90) > MA20(77.30) > MA60(74.35) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底69.30/68.70，颈线80.25 | <span class="star">★ </span>颈线突破: 突破30日高点80.25，成交量确认 | RSI超买: RSI=74.2，超买</td></tr>
+</tbody></table>
+
+<h3>2025-03 — Avg P&L: <span class="pnl-positive">+0.27%</span> (2025-03-03 → 2025-03-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0669.HK</strong> Techtronic Ind</td><td>2025-03-03 @ 108.50</td><td>2025-03-31 @ 93.25</td><td class="pnl-negative">-14.06%</td><td>13</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(111.40) > MA20(105.71) > MA60(104.79) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>W底: W底形态，两底96.40/95.40，颈线112.00 | <span class="star">★ </span>W底: W底形态，两底96.40/95.40，颈线112.00 | <span class="star">★ </span>颈线突破: 突破30日高点112.00，成交量确认 | RSI超买: RSI=72.1，超买</td></tr>
+<tr><td><strong>2388.HK</strong> BOC Hong Kong</td><td>2025-03-03 @ 27.40</td><td>2025-03-31 @ 31.40</td><td class="pnl-positive">+14.60%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(28.00) > MA20(26.69) > MA60(25.45) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高27.90 | <span class="star">★ </span>W底: W底形态，两底24.40/24.20，颈线28.35 | RSI超买: RSI=77.8，超买</td></tr>
+</tbody></table>
+
+<h3>2025-04 — Avg P&L: <span class="pnl-positive">+0.60%</span> (2025-04-01 → 2025-04-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>9999.HK</strong> NetEase</td><td>2025-04-01 @ 160.60</td><td>2025-04-30 @ 167.00</td><td class="pnl-positive">+3.99%</td><td>11</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(164.50) > MA20(159.22) > MA60(156.97) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底151.80/149.40，颈线166.10 | <span class="star">★ </span>颈线突破: 突破30日高点166.10，成交量确认 | MACD金叉: MACD线上穿信号线</td></tr>
+<tr><td><strong>0288.HK</strong> WH Group</td><td>2025-04-01 @ 7.14</td><td>2025-04-30 @ 6.94</td><td class="pnl-negative">-2.80%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(7.05) > MA20(6.83) > MA60(6.36) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>W底: W底形态，两底5.88/5.84，颈线7.18</td></tr>
+</tbody></table>
+
+<h3>2025-05 — Avg P&L: <span class="pnl-positive">+0.55%</span> (2025-05-02 → 2025-05-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1209.HK</strong> China Resources Mixc</td><td>2025-05-02 @ 37.00</td><td>2025-05-30 @ 37.35</td><td class="pnl-positive">+0.95%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(38.30) > MA20(36.18) > MA60(33.45) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高38.25 | <span class="star">★ </span>W底: W底形态，两底31.40/31.00，颈线38.35 | <span class="star">★ </span>W底: W底形态，两底28.55/28.30，颈线38.35 | MACD金叉: MACD线上穿信号线</td></tr>
+<tr><td><strong>9618.HK</strong> JD.com</td><td>2025-05-02 @ 128.70</td><td>2025-05-30 @ 128.90</td><td class="pnl-positive">+0.16%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势空头: 价格(132.10) < MA20(137.95) < MA60(154.15) | <span class="star">★ </span>W底: W底形态，两底125.20/122.10，颈线132.70 | <span class="star">★ </span>W底: W底形态，两底125.20/122.10，颈线132.70 | <span class="star">★ </span>破底翻: 跌破125.20后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破125.20后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破125.20后收回，可能反转 | RSI超卖回升: RSI=45.3，从超卖区回升 | 风险回报比佳: R:R = 3.2:1</td></tr>
+</tbody></table>
+
+<h3>2025-06 — Avg P&L: <span class="pnl-positive">+4.90%</span> (2025-06-02 → 2025-06-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0066.HK</strong> MTR Corp</td><td>2025-06-02 @ 27.40</td><td>2025-06-30 @ 28.20</td><td class="pnl-positive">+2.92%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(27.45) > MA20(27.38) > MA60(26.47) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底24.25/23.80，颈线28.00 | RSI超卖回升: RSI=48.6，从超卖区回升</td></tr>
+<tr><td><strong>0016.HK</strong> SHK Properties</td><td>2025-06-02 @ 84.25</td><td>2025-06-30 @ 90.05</td><td class="pnl-positive">+6.88%</td><td>8</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(83.05) > MA20(81.05) > MA60(75.95) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | <span class="star">★ </span>W底: W底形态，两底66.50/65.20，颈线84.70</td></tr>
+</tbody></table>
+
+<h3>2025-07 — Avg P&L: <span class="pnl-negative">-0.19%</span> (2025-07-02 → 2025-07-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0066.HK</strong> MTR Corp</td><td>2025-07-02 @ 28.20</td><td>2025-07-31 @ 28.25</td><td class="pnl-positive">+0.18%</td><td>13</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(28.70) > MA20(27.77) > MA60(26.99) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高28.50 | <span class="star">★ </span>W底: W底形态，两底26.70/26.30，颈线28.75 | <span class="star">★ </span>颈线突破: 突破30日高点28.75，成交量确认</td></tr>
+<tr><td><strong>0916.HK</strong> Longfor Group</td><td>2025-07-02 @ 7.13</td><td>2025-07-31 @ 7.09</td><td class="pnl-negative">-0.56%</td><td>9</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(7.20) > MA20(6.89) > MA60(6.54) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高7.16 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2025-08 — Avg P&L: <span class="pnl-negative">-3.75%</span> (2025-08-01 → 2025-08-29)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0002.HK</strong> CLP Holdings</td><td>2025-08-01 @ 68.15</td><td>2025-08-29 @ 65.85</td><td class="pnl-negative">-3.37%</td><td>11</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(67.60) > MA20(66.69) > MA60(66.46) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 接近中期支撑: 接近60日低点65.35 | <span class="star">★ </span>W底: W底形态，两底65.60/65.35，颈线68.65 | <span class="star">★ </span>W底: W底形态，两底65.50/65.35，颈线68.65 | RSI超买: RSI=70.7，超买</td></tr>
+<tr><td><strong>0728.HK</strong> China Telecom</td><td>2025-08-01 @ 6.05</td><td>2025-08-29 @ 5.80</td><td class="pnl-negative">-4.13%</td><td>8</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(6.12) > MA20(5.74) > MA60(5.73) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>W底: W底形态，两底5.51/5.48，颈线6.23 | RSI超买: RSI=89.2，超买</td></tr>
+</tbody></table>
+
+<h3>2025-09 — Avg P&L: <span class="pnl-positive">+15.01%</span> (2025-09-01 → 2025-09-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0883.HK</strong> CNOOC</td><td>2025-09-01 @ 19.64</td><td>2025-09-30 @ 19.04</td><td class="pnl-negative">-3.05%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(19.95) > MA20(18.89) > MA60(18.58) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.7倍 | <span class="star">★ </span>突破20日高点: 突破前高19.78 | <span class="star">★ </span>W底: W底形态，两底17.78/17.50，颈线20.06 | <span class="star">★ </span>颈线突破: 突破30日高点20.06，成交量确认 | RSI超买: RSI=70.6，超买</td></tr>
+<tr><td><strong>9988.HK</strong> Alibaba</td><td>2025-09-01 @ 133.00</td><td>2025-09-30 @ 177.00</td><td class="pnl-positive">+33.08%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(137.10) > MA20(119.55) > MA60(115.28) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.9倍 | <span class="star">★ </span>突破20日高点: 突破前高126.00 | <span class="star">★ </span>W底: W底形态，两底102.30/101.80，颈线138.00 | <span class="star">★ </span>颈线突破: 突破30日高点138.00，成交量确认 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2025-10 — Avg P&L: <span class="pnl-negative">-16.96%</span> (2025-10-02 → 2025-10-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1024.HK</strong> Kuaishou</td><td>2025-10-02 @ 87.10</td><td>2025-10-31 @ 72.35</td><td class="pnl-negative">-16.93%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(91.85) > MA20(76.24) > MA60(74.59) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>突破20日高点: 突破前高85.00 | <span class="star">★ </span>W底: W底形态，两底70.85/69.05，颈线92.60 | <span class="star">★ </span>颈线突破: 突破30日高点92.60，成交量确认 | RSI超买: RSI=78.1，超买</td></tr>
+<tr><td><strong>2382.HK</strong> Sunny Optical</td><td>2025-10-02 @ 90.60</td><td>2025-10-31 @ 75.20</td><td class="pnl-negative">-17.00%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(90.90) > MA20(83.29) > MA60(79.48) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高90.80 | <span class="star">★ </span>W底: W底形态，两底75.50/74.00，颈线91.40 | <span class="star">★ </span>W底: W底形态，两底71.65/70.50，颈线91.40</td></tr>
+</tbody></table>
+
+<h3>2025-11 — Avg P&L: <span class="pnl-positive">+6.58%</span> (2025-11-03 → 2025-11-28)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0857.HK</strong> PetroChina</td><td>2025-11-03 @ 8.10</td><td>2025-11-28 @ 8.68</td><td class="pnl-positive">+7.16%</td><td>17</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(8.29) > MA20(7.61) > MA60(7.49) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.5倍 | <span class="star">★ </span>突破20日高点: 突破前高8.17 | <span class="star">★ </span>W底: W底形态，两底7.03/6.99，颈线8.35 | <span class="star">★ </span>W底: W底形态，两底7.03/6.99，颈线8.35 | <span class="star">★ </span>颈线突破: 突破30日高点8.35，成交量确认 | RSI超买: RSI=83.2，超买</td></tr>
+<tr><td><strong>0883.HK</strong> CNOOC</td><td>2025-11-03 @ 19.98</td><td>2025-11-28 @ 21.18</td><td class="pnl-positive">+6.01%</td><td>17</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(20.46) > MA20(19.28) > MA60(19.23) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.8倍 | <span class="star">★ </span>突破20日高点: 突破前高20.24 | <span class="star">★ </span>W底: W底形态，两底18.45/18.42，颈线20.66 | <span class="star">★ </span>W底: W底形态，两底18.45/18.42，颈线20.66 | <span class="star">★ </span>颈线突破: 突破30日高点20.66，成交量确认 | RSI超买: RSI=73.4，超买</td></tr>
+</tbody></table>
+
+<h3>2025-12 — Avg P&L: <span class="pnl-positive">+2.07%</span> (2025-12-01 → 2025-12-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>1211.HK</strong> BYD</td><td>2025-12-01 @ 97.95</td><td>2025-12-31 @ 95.10</td><td class="pnl-negative">-2.91%</td><td>15</td><td class="reason"><span class="star">★ </span>W底: W底形态，两底93.95/92.15，颈线99.20 | <span class="star">★ </span>W底: W底形态，两底93.95/92.15，颈线99.20 | <span class="star">★ </span>破底翻: 跌破94.00后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破94.00后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破94.00后收回，可能反转 | RSI超卖回升: RSI=42.1，从超卖区回升</td></tr>
+<tr><td><strong>1038.HK</strong> CKI Holdings</td><td>2025-12-01 @ 53.90</td><td>2025-12-31 @ 57.70</td><td class="pnl-positive">+7.05%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(55.10) > MA20(53.59) > MA60(52.53) | 年线上方: 价格在250日线上方 | <span class="star">★ </span>突破20日高点: 突破前高54.85 | <span class="star">★ </span>W底: W底形态，两底50.50/50.20，颈线55.10 | <span class="star">★ </span>W底: W底形态，两底50.50/50.20，颈线55.10 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<h3>2026-01 — Avg P&L: <span class="pnl-negative">-5.50%</span> (2026-01-02 → 2026-01-30)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>9961.HK</strong> Trip.com</td><td>2026-01-02 @ 568.50</td><td>2026-01-30 @ 481.80</td><td class="pnl-negative">-15.25%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(583.00) > MA20(556.48) > MA60(554.34) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高577.00 | <span class="star">★ </span>W底: W底形态，两底532.00/531.50，颈线583.00 | <span class="star">★ </span>W底: W底形态，两底539.00/530.00，颈线583.00</td></tr>
+<tr><td><strong>2388.HK</strong> BOC Hong Kong</td><td>2026-01-02 @ 39.56</td><td>2026-01-30 @ 41.24</td><td class="pnl-positive">+4.25%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(40.24) > MA20(38.31) > MA60(38.01) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>突破20日高点: 突破前高39.84 | <span class="star">★ </span>W底: W底形态，两底36.88/36.36，颈线40.24 | <span class="star">★ </span>颈线突破: 突破30日高点40.24，成交量确认 | RSI超买: RSI=82.7，超买</td></tr>
+</tbody></table>
+
+<h3>2026-02 — Avg P&L: <span class="pnl-positive">+9.02%</span> (2026-02-02 → 2026-02-27)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0992.HK</strong> Lenovo</td><td>2026-02-02 @ 8.88</td><td>2026-02-27 @ 9.73</td><td class="pnl-positive">+9.57%</td><td>14</td><td class="reason"><span class="star">★ </span>W底: W底形态，两底8.66/8.52，颈线9.12 | <span class="star">★ </span>W底: W底形态，两底8.66/8.52，颈线9.12 | <span class="star">★ </span>破底翻: 跌破8.66后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.66后收回，可能反转 | <span class="star">★ </span>破底翻: 跌破8.66后收回，可能反转</td></tr>
+<tr><td><strong>0066.HK</strong> MTR Corp</td><td>2026-02-02 @ 34.42</td><td>2026-02-27 @ 37.34</td><td class="pnl-positive">+8.48%</td><td>12</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(34.80) > MA20(32.16) > MA60(30.99) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的1.6倍 | <span class="star">★ </span>W底: W底形态，两底29.60/29.58，颈线34.98 | <span class="star">★ </span>颈线突破: 突破30日高点34.98，成交量确认 | RSI超买: RSI=94.0，超买</td></tr>
+</tbody></table>
+
+<h3>2026-03 — Avg P&L: <span class="pnl-positive">+5.85%</span> (2026-03-02 → 2026-03-31)</h3>
+<table>
+<thead><tr><th>Stock</th><th>Buy@</th><th>Sell@</th><th>P&L</th><th>Score</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td><strong>0883.HK</strong> CNOOC</td><td>2026-03-02 @ 26.60</td><td>2026-03-31 @ 28.00</td><td class="pnl-positive">+5.26%</td><td>15</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(26.74) > MA20(24.73) > MA60(22.55) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的4.3倍 | <span class="star">★ </span>突破20日高点: 突破前高26.16 | <span class="star">★ </span>W底: W底形态，两底20.10/19.92，颈线26.88 | <span class="star">★ </span>颈线突破: 突破30日高点26.88，成交量确认 | RSI超买: RSI=71.6，超买 | MACD金叉: MACD线上穿信号线</td></tr>
+<tr><td><strong>0857.HK</strong> PetroChina</td><td>2026-03-02 @ 10.10</td><td>2026-03-31 @ 10.75</td><td class="pnl-positive">+6.44%</td><td>14</td><td class="reason"><span class="star">★ </span>趋势多头: 价格(9.93) > MA20(9.35) > MA60(8.69) | <span class="star">★ </span>均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | <span class="star">★ </span>放量上涨: 成交量是20日均量的3.9倍 | <span class="star">★ </span>突破20日高点: 突破前高9.76 | <span class="star">★ </span>W底: W底形态，两底7.90/7.86，颈线10.10 | MACD金叉: MACD线上穿信号线</td></tr>
+</tbody></table>
+
+<footer>
+  Generated by Cai Sen Analyzer v3.0 · 2026-04-24 12:27 ·
+  Data source: Yahoo Finance (yfinance) · 84 HK Blue Chips analyzed monthly
+</footer>
+</div>
+</body>
+</html>

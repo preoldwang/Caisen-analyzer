@@ -1,0 +1,1435 @@
+[
+  {
+    "month": "2025-04",
+    "first_trading_day": "2025-04-01",
+    "last_trading_day": "2025-04-30",
+    "trades": [
+      {
+        "symbol": "9999.HK",
+        "name": "NetEase",
+        "buy_date": "2025-04-01",
+        "buy_price": 160.6,
+        "sell_date": "2025-04-30",
+        "sell_price": 167.0,
+        "pnl_pct": 3.99,
+        "score": 11,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(164.50) > MA20(159.22) > MA60(156.97)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底151.80/149.40，颈线166.10",
+            "confidence": 0.75,
+            "neckline": 166.1
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点166.10，成交量确认",
+            "confidence": 0.7,
+            "neckline": 166.1
+          },
+          {
+            "type": "MACD金叉",
+            "description": "MACD线上穿信号线",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 6,
+        "vol_ratio": 1.26,
+        "reason": "★ 趋势多头: 价格(164.50) > MA20(159.22) > MA60(156.97) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | ★ W底: W底形态，两底151.80/149.40，颈线166.10 | ★ 颈线突破: 突破30日高点166.10，成交量确认 | MACD金叉: MACD线上穿信号线"
+      },
+      {
+        "symbol": "0288.HK",
+        "name": "WH Group",
+        "buy_date": "2025-04-01",
+        "buy_price": 7.14,
+        "sell_date": "2025-04-30",
+        "sell_price": 6.94,
+        "pnl_pct": -2.8,
+        "score": 9,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(7.05) > MA20(6.83) > MA60(6.36)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底5.88/5.84，颈线7.18",
+            "confidence": 0.75,
+            "neckline": 7.18
+          }
+        ],
+        "signal_count": 5,
+        "vol_ratio": 1.53,
+        "reason": "★ 趋势多头: 价格(7.05) > MA20(6.83) > MA60(6.36) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ W底: W底形态，两底5.88/5.84，颈线7.18"
+      }
+    ],
+    "avg_pnl": 0.6,
+    "all_analyses_count": 82,
+    "top2_scores": [
+      11,
+      9
+    ]
+  },
+  {
+    "month": "2025-05",
+    "first_trading_day": "2025-05-02",
+    "last_trading_day": "2025-05-30",
+    "trades": [
+      {
+        "symbol": "1209.HK",
+        "name": "China Resources Mixc",
+        "buy_date": "2025-05-02",
+        "buy_price": 37.0,
+        "sell_date": "2025-05-30",
+        "sell_price": 37.35,
+        "pnl_pct": 0.95,
+        "score": 15,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(38.30) > MA20(36.18) > MA60(33.45)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高38.25",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底31.40/31.00，颈线38.35",
+            "confidence": 0.75,
+            "neckline": 38.35
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底28.55/28.30，颈线38.35",
+            "confidence": 0.75,
+            "neckline": 38.35
+          },
+          {
+            "type": "MACD金叉",
+            "description": "MACD线上穿信号线",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 8,
+        "vol_ratio": 0.34,
+        "reason": "★ 趋势多头: 价格(38.30) > MA20(36.18) > MA60(33.45) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 突破20日高点: 突破前高38.25 | ★ W底: W底形态，两底31.40/31.00，颈线38.35 | ★ W底: W底形态，两底28.55/28.30，颈线38.35 | MACD金叉: MACD线上穿信号线"
+      },
+      {
+        "symbol": "9618.HK",
+        "name": "JD.com",
+        "buy_date": "2025-05-02",
+        "buy_price": 128.7,
+        "sell_date": "2025-05-30",
+        "sell_price": 128.9,
+        "pnl_pct": 0.16,
+        "score": 14,
+        "signals": [
+          {
+            "type": "趋势空头",
+            "description": "价格(132.10) < MA20(137.95) < MA60(154.15)",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底125.20/122.10，颈线132.70",
+            "confidence": 0.75,
+            "neckline": 132.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底125.20/122.10，颈线132.70",
+            "confidence": 0.75,
+            "neckline": 132.7
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破125.20后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 149.5
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破125.20后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 149.5
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破125.20后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 149.5
+          },
+          {
+            "type": "RSI超卖回升",
+            "description": "RSI=45.3，从超卖区回升",
+            "confidence": 0.6
+          },
+          {
+            "type": "风险回报比佳",
+            "description": "R:R = 3.2:1",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 8,
+        "vol_ratio": 0.82,
+        "reason": "★ 趋势空头: 价格(132.10) < MA20(137.95) < MA60(154.15) | ★ W底: W底形态，两底125.20/122.10，颈线132.70 | ★ W底: W底形态，两底125.20/122.10，颈线132.70 | ★ 破底翻: 跌破125.20后收回，可能反转 | ★ 破底翻: 跌破125.20后收回，可能反转 | ★ 破底翻: 跌破125.20后收回，可能反转 | RSI超卖回升: RSI=45.3，从超卖区回升 | 风险回报比佳: R:R = 3.2:1"
+      }
+    ],
+    "avg_pnl": 0.55,
+    "all_analyses_count": 82,
+    "top2_scores": [
+      15,
+      14
+    ]
+  },
+  {
+    "month": "2025-06",
+    "first_trading_day": "2025-06-02",
+    "last_trading_day": "2025-06-30",
+    "trades": [
+      {
+        "symbol": "0066.HK",
+        "name": "MTR Corp",
+        "buy_date": "2025-06-02",
+        "buy_price": 27.4,
+        "sell_date": "2025-06-30",
+        "sell_price": 28.2,
+        "pnl_pct": 2.92,
+        "score": 9,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(27.45) > MA20(27.38) > MA60(26.47)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底24.25/23.80，颈线28.00",
+            "confidence": 0.75,
+            "neckline": 28.0
+          },
+          {
+            "type": "RSI超卖回升",
+            "description": "RSI=48.6，从超卖区回升",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 5,
+        "vol_ratio": 0.97,
+        "reason": "★ 趋势多头: 价格(27.45) > MA20(27.38) > MA60(26.47) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | ★ W底: W底形态，两底24.25/23.80，颈线28.00 | RSI超卖回升: RSI=48.6，从超卖区回升"
+      },
+      {
+        "symbol": "0016.HK",
+        "name": "SHK Properties",
+        "buy_date": "2025-06-02",
+        "buy_price": 84.25,
+        "sell_date": "2025-06-30",
+        "sell_price": 90.05,
+        "pnl_pct": 6.88,
+        "score": 8,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(83.05) > MA20(81.05) > MA60(75.95)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底66.50/65.20，颈线84.70",
+            "confidence": 0.75,
+            "neckline": 84.7
+          }
+        ],
+        "signal_count": 4,
+        "vol_ratio": 1.01,
+        "reason": "★ 趋势多头: 价格(83.05) > MA20(81.05) > MA60(75.95) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | ★ W底: W底形态，两底66.50/65.20，颈线84.70"
+      }
+    ],
+    "avg_pnl": 4.9,
+    "all_analyses_count": 82,
+    "top2_scores": [
+      9,
+      8
+    ]
+  },
+  {
+    "month": "2025-07",
+    "first_trading_day": "2025-07-02",
+    "last_trading_day": "2025-07-31",
+    "trades": [
+      {
+        "symbol": "0066.HK",
+        "name": "MTR Corp",
+        "buy_date": "2025-07-02",
+        "buy_price": 28.2,
+        "sell_date": "2025-07-31",
+        "sell_price": 28.25,
+        "pnl_pct": 0.18,
+        "score": 13,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(28.70) > MA20(27.77) > MA60(26.99)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高28.50",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底26.70/26.30，颈线28.75",
+            "confidence": 0.75,
+            "neckline": 28.75
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点28.75，成交量确认",
+            "confidence": 0.7,
+            "neckline": 28.75
+          }
+        ],
+        "signal_count": 7,
+        "vol_ratio": 1.23,
+        "reason": "★ 趋势多头: 价格(28.70) > MA20(27.77) > MA60(26.99) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 突破20日高点: 突破前高28.50 | ★ W底: W底形态，两底26.70/26.30，颈线28.75 | ★ 颈线突破: 突破30日高点28.75，成交量确认"
+      },
+      {
+        "symbol": "0916.HK",
+        "name": "Longfor Group",
+        "buy_date": "2025-07-02",
+        "buy_price": 7.13,
+        "sell_date": "2025-07-31",
+        "sell_price": 7.09,
+        "pnl_pct": -0.56,
+        "score": 9,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(7.20) > MA20(6.89) > MA60(6.54)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高7.16",
+            "confidence": 0.7
+          },
+          {
+            "type": "MACD金叉",
+            "description": "MACD线上穿信号线",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 6,
+        "vol_ratio": 1.28,
+        "reason": "★ 趋势多头: 价格(7.20) > MA20(6.89) > MA60(6.54) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 突破20日高点: 突破前高7.16 | MACD金叉: MACD线上穿信号线"
+      }
+    ],
+    "avg_pnl": -0.19,
+    "all_analyses_count": 82,
+    "top2_scores": [
+      13,
+      9
+    ]
+  },
+  {
+    "month": "2025-08",
+    "first_trading_day": "2025-08-01",
+    "last_trading_day": "2025-08-29",
+    "trades": [
+      {
+        "symbol": "0002.HK",
+        "name": "CLP Holdings",
+        "buy_date": "2025-08-01",
+        "buy_price": 68.15,
+        "sell_date": "2025-08-29",
+        "sell_price": 65.85,
+        "pnl_pct": -3.37,
+        "score": 11,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(67.60) > MA20(66.69) > MA60(66.46)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "接近中期支撑",
+            "description": "接近60日低点65.35",
+            "confidence": 0.5
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底65.60/65.35，颈线68.65",
+            "confidence": 0.75,
+            "neckline": 68.65
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底65.50/65.35，颈线68.65",
+            "confidence": 0.75,
+            "neckline": 68.65
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=70.7，超买",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 7,
+        "vol_ratio": 1.55,
+        "reason": "★ 趋势多头: 价格(67.60) > MA20(66.69) > MA60(66.46) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 接近中期支撑: 接近60日低点65.35 | ★ W底: W底形态，两底65.60/65.35，颈线68.65 | ★ W底: W底形态，两底65.50/65.35，颈线68.65 | RSI超买: RSI=70.7，超买"
+      },
+      {
+        "symbol": "0728.HK",
+        "name": "China Telecom",
+        "buy_date": "2025-08-01",
+        "buy_price": 6.05,
+        "sell_date": "2025-08-29",
+        "sell_price": 5.8,
+        "pnl_pct": -4.13,
+        "score": 8,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(6.12) > MA20(5.74) > MA60(5.73)",
+            "confidence": 0.7
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的1.6倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底5.51/5.48，颈线6.23",
+            "confidence": 0.75,
+            "neckline": 6.23
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=89.2，超买",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 6,
+        "vol_ratio": 1.61,
+        "reason": "★ 趋势多头: 价格(6.12) > MA20(5.74) > MA60(5.73) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的1.6倍 | ★ W底: W底形态，两底5.51/5.48，颈线6.23 | RSI超买: RSI=89.2，超买"
+      }
+    ],
+    "avg_pnl": -3.75,
+    "all_analyses_count": 83,
+    "top2_scores": [
+      11,
+      8
+    ]
+  },
+  {
+    "month": "2025-09",
+    "first_trading_day": "2025-09-01",
+    "last_trading_day": "2025-09-30",
+    "trades": [
+      {
+        "symbol": "0883.HK",
+        "name": "CNOOC",
+        "buy_date": "2025-09-01",
+        "buy_price": 19.64,
+        "sell_date": "2025-09-30",
+        "sell_price": 19.04,
+        "pnl_pct": -3.05,
+        "score": 14,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(19.95) > MA20(18.89) > MA60(18.58)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的1.7倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高19.78",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底17.78/17.50，颈线20.06",
+            "confidence": 0.75,
+            "neckline": 20.06
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点20.06，成交量确认",
+            "confidence": 0.7,
+            "neckline": 20.06
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=70.6，超买",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 9,
+        "vol_ratio": 1.69,
+        "reason": "★ 趋势多头: 价格(19.95) > MA20(18.89) > MA60(18.58) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的1.7倍 | ★ 突破20日高点: 突破前高19.78 | ★ W底: W底形态，两底17.78/17.50，颈线20.06 | ★ 颈线突破: 突破30日高点20.06，成交量确认 | RSI超买: RSI=70.6，超买"
+      },
+      {
+        "symbol": "9988.HK",
+        "name": "Alibaba",
+        "buy_date": "2025-09-01",
+        "buy_price": 133.0,
+        "sell_date": "2025-09-30",
+        "sell_price": 177.0,
+        "pnl_pct": 33.08,
+        "score": 14,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(137.10) > MA20(119.55) > MA60(115.28)",
+            "confidence": 0.7
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的3.9倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高126.00",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底102.30/101.80，颈线138.00",
+            "confidence": 0.75,
+            "neckline": 138.0
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点138.00，成交量确认",
+            "confidence": 0.7,
+            "neckline": 138.0
+          },
+          {
+            "type": "MACD金叉",
+            "description": "MACD线上穿信号线",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 8,
+        "vol_ratio": 3.88,
+        "reason": "★ 趋势多头: 价格(137.10) > MA20(119.55) > MA60(115.28) | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的3.9倍 | ★ 突破20日高点: 突破前高126.00 | ★ W底: W底形态，两底102.30/101.80，颈线138.00 | ★ 颈线突破: 突破30日高点138.00，成交量确认 | MACD金叉: MACD线上穿信号线"
+      }
+    ],
+    "avg_pnl": 15.01,
+    "all_analyses_count": 83,
+    "top2_scores": [
+      14,
+      14
+    ]
+  },
+  {
+    "month": "2025-10",
+    "first_trading_day": "2025-10-02",
+    "last_trading_day": "2025-10-31",
+    "trades": [
+      {
+        "symbol": "1024.HK",
+        "name": "Kuaishou",
+        "buy_date": "2025-10-02",
+        "buy_price": 87.1,
+        "sell_date": "2025-10-31",
+        "sell_price": 72.35,
+        "pnl_pct": -16.93,
+        "score": 14,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(91.85) > MA20(76.24) > MA60(74.59)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的1.6倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高85.00",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底70.85/69.05，颈线92.60",
+            "confidence": 0.75,
+            "neckline": 92.6
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点92.60，成交量确认",
+            "confidence": 0.7,
+            "neckline": 92.6
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=78.1，超买",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 9,
+        "vol_ratio": 1.64,
+        "reason": "★ 趋势多头: 价格(91.85) > MA20(76.24) > MA60(74.59) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的1.6倍 | ★ 突破20日高点: 突破前高85.00 | ★ W底: W底形态，两底70.85/69.05，颈线92.60 | ★ 颈线突破: 突破30日高点92.60，成交量确认 | RSI超买: RSI=78.1，超买"
+      },
+      {
+        "symbol": "2382.HK",
+        "name": "Sunny Optical",
+        "buy_date": "2025-10-02",
+        "buy_price": 90.6,
+        "sell_date": "2025-10-31",
+        "sell_price": 75.2,
+        "pnl_pct": -17.0,
+        "score": 14,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(90.90) > MA20(83.29) > MA60(79.48)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高90.80",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底75.50/74.00，颈线91.40",
+            "confidence": 0.75,
+            "neckline": 91.4
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底71.65/70.50，颈线91.40",
+            "confidence": 0.75,
+            "neckline": 91.4
+          }
+        ],
+        "signal_count": 7,
+        "vol_ratio": 0.59,
+        "reason": "★ 趋势多头: 价格(90.90) > MA20(83.29) > MA60(79.48) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 突破20日高点: 突破前高90.80 | ★ W底: W底形态，两底75.50/74.00，颈线91.40 | ★ W底: W底形态，两底71.65/70.50，颈线91.40"
+      }
+    ],
+    "avg_pnl": -16.96,
+    "all_analyses_count": 83,
+    "top2_scores": [
+      14,
+      14
+    ]
+  },
+  {
+    "month": "2025-11",
+    "first_trading_day": "2025-11-03",
+    "last_trading_day": "2025-11-28",
+    "trades": [
+      {
+        "symbol": "0857.HK",
+        "name": "PetroChina",
+        "buy_date": "2025-11-03",
+        "buy_price": 8.1,
+        "sell_date": "2025-11-28",
+        "sell_price": 8.68,
+        "pnl_pct": 7.16,
+        "score": 17,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(8.29) > MA20(7.61) > MA60(7.49)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的1.5倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高8.17",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底7.03/6.99，颈线8.35",
+            "confidence": 0.75,
+            "neckline": 8.35
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底7.03/6.99，颈线8.35",
+            "confidence": 0.75,
+            "neckline": 8.35
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点8.35，成交量确认",
+            "confidence": 0.7,
+            "neckline": 8.35
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=83.2，超买",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 10,
+        "vol_ratio": 1.55,
+        "reason": "★ 趋势多头: 价格(8.29) > MA20(7.61) > MA60(7.49) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的1.5倍 | ★ 突破20日高点: 突破前高8.17 | ★ W底: W底形态，两底7.03/6.99，颈线8.35 | ★ W底: W底形态，两底7.03/6.99，颈线8.35 | ★ 颈线突破: 突破30日高点8.35，成交量确认 | RSI超买: RSI=83.2，超买"
+      },
+      {
+        "symbol": "0883.HK",
+        "name": "CNOOC",
+        "buy_date": "2025-11-03",
+        "buy_price": 19.98,
+        "sell_date": "2025-11-28",
+        "sell_price": 21.18,
+        "pnl_pct": 6.01,
+        "score": 17,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(20.46) > MA20(19.28) > MA60(19.23)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的1.8倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高20.24",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底18.45/18.42，颈线20.66",
+            "confidence": 0.75,
+            "neckline": 20.66
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底18.45/18.42，颈线20.66",
+            "confidence": 0.75,
+            "neckline": 20.66
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点20.66，成交量确认",
+            "confidence": 0.7,
+            "neckline": 20.66
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=73.4，超买",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 10,
+        "vol_ratio": 1.81,
+        "reason": "★ 趋势多头: 价格(20.46) > MA20(19.28) > MA60(19.23) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的1.8倍 | ★ 突破20日高点: 突破前高20.24 | ★ W底: W底形态，两底18.45/18.42，颈线20.66 | ★ W底: W底形态，两底18.45/18.42，颈线20.66 | ★ 颈线突破: 突破30日高点20.66，成交量确认 | RSI超买: RSI=73.4，超买"
+      }
+    ],
+    "avg_pnl": 6.58,
+    "all_analyses_count": 83,
+    "top2_scores": [
+      17,
+      17
+    ]
+  },
+  {
+    "month": "2025-12",
+    "first_trading_day": "2025-12-01",
+    "last_trading_day": "2025-12-31",
+    "trades": [
+      {
+        "symbol": "1211.HK",
+        "name": "BYD",
+        "buy_date": "2025-12-01",
+        "buy_price": 97.95,
+        "sell_date": "2025-12-31",
+        "sell_price": 95.1,
+        "pnl_pct": -2.91,
+        "score": 15,
+        "signals": [
+          {
+            "type": "W底",
+            "description": "W底形态，两底93.95/92.15，颈线99.20",
+            "confidence": 0.75,
+            "neckline": 99.2
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底93.95/92.15，颈线99.20",
+            "confidence": 0.75,
+            "neckline": 99.2
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破94.00后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 103.3
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破94.00后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 103.3
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破94.00后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 103.3
+          },
+          {
+            "type": "RSI超卖回升",
+            "description": "RSI=42.1，从超卖区回升",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 6,
+        "vol_ratio": 0.47,
+        "reason": "★ W底: W底形态，两底93.95/92.15，颈线99.20 | ★ W底: W底形态，两底93.95/92.15，颈线99.20 | ★ 破底翻: 跌破94.00后收回，可能反转 | ★ 破底翻: 跌破94.00后收回，可能反转 | ★ 破底翻: 跌破94.00后收回，可能反转 | RSI超卖回升: RSI=42.1，从超卖区回升"
+      },
+      {
+        "symbol": "1038.HK",
+        "name": "CKI Holdings",
+        "buy_date": "2025-12-01",
+        "buy_price": 53.9,
+        "sell_date": "2025-12-31",
+        "sell_price": 57.7,
+        "pnl_pct": 7.05,
+        "score": 12,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(55.10) > MA20(53.59) > MA60(52.53)",
+            "confidence": 0.7
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高54.85",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底50.50/50.20，颈线55.10",
+            "confidence": 0.75,
+            "neckline": 55.1
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底50.50/50.20，颈线55.10",
+            "confidence": 0.75,
+            "neckline": 55.1
+          },
+          {
+            "type": "MACD金叉",
+            "description": "MACD线上穿信号线",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 6,
+        "vol_ratio": 0.81,
+        "reason": "★ 趋势多头: 价格(55.10) > MA20(53.59) > MA60(52.53) | 年线上方: 价格在250日线上方 | ★ 突破20日高点: 突破前高54.85 | ★ W底: W底形态，两底50.50/50.20，颈线55.10 | ★ W底: W底形态，两底50.50/50.20，颈线55.10 | MACD金叉: MACD线上穿信号线"
+      }
+    ],
+    "avg_pnl": 2.07,
+    "all_analyses_count": 83,
+    "top2_scores": [
+      15,
+      12
+    ]
+  },
+  {
+    "month": "2026-01",
+    "first_trading_day": "2026-01-02",
+    "last_trading_day": "2026-01-30",
+    "trades": [
+      {
+        "symbol": "9961.HK",
+        "name": "Trip.com",
+        "buy_date": "2026-01-02",
+        "buy_price": 568.5,
+        "sell_date": "2026-01-30",
+        "sell_price": 481.8,
+        "pnl_pct": -15.25,
+        "score": 14,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(583.00) > MA20(556.48) > MA60(554.34)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高577.00",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底532.00/531.50，颈线583.00",
+            "confidence": 0.75,
+            "neckline": 583.0
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底539.00/530.00，颈线583.00",
+            "confidence": 0.75,
+            "neckline": 583.0
+          }
+        ],
+        "signal_count": 7,
+        "vol_ratio": 1.1,
+        "reason": "★ 趋势多头: 价格(583.00) > MA20(556.48) > MA60(554.34) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 突破20日高点: 突破前高577.00 | ★ W底: W底形态，两底532.00/531.50，颈线583.00 | ★ W底: W底形态，两底539.00/530.00，颈线583.00"
+      },
+      {
+        "symbol": "2388.HK",
+        "name": "BOC Hong Kong",
+        "buy_date": "2026-01-02",
+        "buy_price": 39.56,
+        "sell_date": "2026-01-30",
+        "sell_price": 41.24,
+        "pnl_pct": 4.25,
+        "score": 12,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(40.24) > MA20(38.31) > MA60(38.01)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高39.84",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底36.88/36.36，颈线40.24",
+            "confidence": 0.75,
+            "neckline": 40.24
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点40.24，成交量确认",
+            "confidence": 0.7,
+            "neckline": 40.24
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=82.7，超买",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 8,
+        "vol_ratio": 1.34,
+        "reason": "★ 趋势多头: 价格(40.24) > MA20(38.31) > MA60(38.01) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 突破20日高点: 突破前高39.84 | ★ W底: W底形态，两底36.88/36.36，颈线40.24 | ★ 颈线突破: 突破30日高点40.24，成交量确认 | RSI超买: RSI=82.7，超买"
+      }
+    ],
+    "avg_pnl": -5.5,
+    "all_analyses_count": 83,
+    "top2_scores": [
+      14,
+      12
+    ]
+  },
+  {
+    "month": "2026-02",
+    "first_trading_day": "2026-02-02",
+    "last_trading_day": "2026-02-27",
+    "trades": [
+      {
+        "symbol": "0992.HK",
+        "name": "Lenovo",
+        "buy_date": "2026-02-02",
+        "buy_price": 8.88,
+        "sell_date": "2026-02-27",
+        "sell_price": 9.73,
+        "pnl_pct": 9.57,
+        "score": 14,
+        "signals": [
+          {
+            "type": "W底",
+            "description": "W底形态，两底8.66/8.52，颈线9.12",
+            "confidence": 0.75,
+            "neckline": 9.12
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底8.66/8.52，颈线9.12",
+            "confidence": 0.75,
+            "neckline": 9.12
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破8.66后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 9.32
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破8.66后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 9.32
+          },
+          {
+            "type": "破底翻",
+            "description": "跌破8.66后收回，可能反转",
+            "confidence": 0.7,
+            "neckline": 9.32
+          }
+        ],
+        "signal_count": 5,
+        "vol_ratio": 0.83,
+        "reason": "★ W底: W底形态，两底8.66/8.52，颈线9.12 | ★ W底: W底形态，两底8.66/8.52，颈线9.12 | ★ 破底翻: 跌破8.66后收回，可能反转 | ★ 破底翻: 跌破8.66后收回，可能反转 | ★ 破底翻: 跌破8.66后收回，可能反转"
+      },
+      {
+        "symbol": "0066.HK",
+        "name": "MTR Corp",
+        "buy_date": "2026-02-02",
+        "buy_price": 34.42,
+        "sell_date": "2026-02-27",
+        "sell_price": 37.34,
+        "pnl_pct": 8.48,
+        "score": 12,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(34.80) > MA20(32.16) > MA60(30.99)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的1.6倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底29.60/29.58，颈线34.98",
+            "confidence": 0.75,
+            "neckline": 34.98
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点34.98，成交量确认",
+            "confidence": 0.7,
+            "neckline": 34.98
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=94.0，超买",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 8,
+        "vol_ratio": 1.59,
+        "reason": "★ 趋势多头: 价格(34.80) > MA20(32.16) > MA60(30.99) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的1.6倍 | ★ W底: W底形态，两底29.60/29.58，颈线34.98 | ★ 颈线突破: 突破30日高点34.98，成交量确认 | RSI超买: RSI=94.0，超买"
+      }
+    ],
+    "avg_pnl": 9.02,
+    "all_analyses_count": 83,
+    "top2_scores": [
+      14,
+      12
+    ]
+  },
+  {
+    "month": "2026-03",
+    "first_trading_day": "2026-03-02",
+    "last_trading_day": "2026-03-31",
+    "trades": [
+      {
+        "symbol": "0883.HK",
+        "name": "CNOOC",
+        "buy_date": "2026-03-02",
+        "buy_price": 26.6,
+        "sell_date": "2026-03-31",
+        "sell_price": 28.0,
+        "pnl_pct": 5.26,
+        "score": 15,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(26.74) > MA20(24.73) > MA60(22.55)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的4.3倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高26.16",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底20.10/19.92，颈线26.88",
+            "confidence": 0.75,
+            "neckline": 26.88
+          },
+          {
+            "type": "颈线突破",
+            "description": "突破30日高点26.88，成交量确认",
+            "confidence": 0.7,
+            "neckline": 26.88
+          },
+          {
+            "type": "RSI超买",
+            "description": "RSI=71.6，超买",
+            "confidence": 0.6
+          },
+          {
+            "type": "MACD金叉",
+            "description": "MACD线上穿信号线",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 10,
+        "vol_ratio": 4.26,
+        "reason": "★ 趋势多头: 价格(26.74) > MA20(24.73) > MA60(22.55) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的4.3倍 | ★ 突破20日高点: 突破前高26.16 | ★ W底: W底形态，两底20.10/19.92，颈线26.88 | ★ 颈线突破: 突破30日高点26.88，成交量确认 | RSI超买: RSI=71.6，超买 | MACD金叉: MACD线上穿信号线"
+      },
+      {
+        "symbol": "0857.HK",
+        "name": "PetroChina",
+        "buy_date": "2026-03-02",
+        "buy_price": 10.1,
+        "sell_date": "2026-03-31",
+        "sell_price": 10.75,
+        "pnl_pct": 6.44,
+        "score": 14,
+        "signals": [
+          {
+            "type": "趋势多头",
+            "description": "价格(9.93) > MA20(9.35) > MA60(8.69)",
+            "confidence": 0.7
+          },
+          {
+            "type": "均线多头排列",
+            "description": "MA20 > MA60 > MA120",
+            "confidence": 0.8
+          },
+          {
+            "type": "年线上方",
+            "description": "价格在250日线上方",
+            "confidence": 0.6
+          },
+          {
+            "type": "短期均线多头",
+            "description": "MA5 > MA10 > MA20",
+            "confidence": 0.6
+          },
+          {
+            "type": "放量上涨",
+            "description": "成交量是20日均量的3.9倍",
+            "confidence": 0.7
+          },
+          {
+            "type": "突破20日高点",
+            "description": "突破前高9.76",
+            "confidence": 0.7
+          },
+          {
+            "type": "W底",
+            "description": "W底形态，两底7.90/7.86，颈线10.10",
+            "confidence": 0.75,
+            "neckline": 10.1
+          },
+          {
+            "type": "MACD金叉",
+            "description": "MACD线上穿信号线",
+            "confidence": 0.6
+          }
+        ],
+        "signal_count": 8,
+        "vol_ratio": 3.86,
+        "reason": "★ 趋势多头: 价格(9.93) > MA20(9.35) > MA60(8.69) | ★ 均线多头排列: MA20 > MA60 > MA120 | 年线上方: 价格在250日线上方 | 短期均线多头: MA5 > MA10 > MA20 | ★ 放量上涨: 成交量是20日均量的3.9倍 | ★ 突破20日高点: 突破前高9.76 | ★ W底: W底形态，两底7.90/7.86，颈线10.10 | MACD金叉: MACD线上穿信号线"
+      }
+    ],
+    "avg_pnl": 5.85,
+    "all_analyses_count": 83,
+    "top2_scores": [
+      15,
+      14
+    ]
+  }
+]
