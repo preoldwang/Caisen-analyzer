@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>破底翻 Backtest — HSI Blue Chips (Jan 2022 - Mar 2026)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0e17; color: #c9d1d9; }
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+h1 { text-align: center; color: #ff6b35; font-size: 32px; margin: 20px 0 8px; }
+.subtitle { text-align: center; color: #8b949e; font-size: 14px; margin-bottom: 30px; }
+.subtitle span { margin: 0 8px; }
+
+/* Stats Cards */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 30px; }
+.stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; text-align: center; }
+.stat-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.stat-card .value { font-size: 28px; font-weight: 700; }
+.stat-card .value.green { color: #3fb950; }
+.stat-card .value.red { color: #f85149; }
+.stat-card .value.blue { color: #58a6ff; }
+.stat-card .value.orange { color: #ff6b35; }
+
+/* Equity Chart */
+.chart-container { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; margin-bottom: 30px; }
+.chart-container h2 { color: #ff6b35; margin-bottom: 16px; }
+canvas { width: 100%; height: 300px; }
+
+/* Monthly Breakdown */
+.month-section { background: #161b22; border: 1px solid #30363d; border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+.month-header { padding: 16px 20px; background: #21262d; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.month-header:hover { background: #30363d; }
+.month-header h3 { color: #58a6ff; font-size: 18px; }
+.month-header .summary { display: flex; gap: 16px; font-size: 13px; }
+.month-header .summary .tag { padding: 2px 8px; border-radius: 4px; }
+.month-header .summary .win { background: #0d2818; color: #3fb950; }
+.month-header .summary .loss { background: #2d1013; color: #f85149; }
+.month-header .summary .neutral { background: #1c2128; color: #8b949e; }
+.month-body { padding: 0; }
+.month-body.hidden { display: none; }
+
+/* Trade Table */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: #0d1117; color: #8b949e; padding: 10px 14px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; position: sticky; top: 0; }
+td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+tr:hover { background: #1c2128; }
+.pnl-pos { color: #3fb950; font-weight: 600; }
+.pnl-neg { color: #f85149; font-weight: 600; }
+.pnl-zero { color: #8b949e; }
+.exit-target { color: #3fb950; }
+.exit-stop { color: #f85149; }
+.exit-hold { color: #f0883e; }
+.exit-other { color: #8b949e; }
+.signal-info { color: #8b949e; font-size: 11px; }
+
+/* All Trades Table */
+.all-trades { background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; margin-bottom: 30px; }
+.all-trades h2 { padding: 20px; color: #ff6b35; }
+.all-trades .table-wrap { max-height: 600px; overflow-y: auto; }
+
+/* Strategy Info */
+.strategy-info { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; margin-bottom: 30px; }
+.strategy-info h2 { color: #ff6b35; margin-bottom: 12px; }
+.strategy-info p { color: #8b949e; line-height: 1.6; margin-bottom: 8px; }
+.strategy-info strong { color: #c9d1d9; }
+.strategy-info .rule { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.strategy-info .rule .icon { font-size: 18px; }
+
+/* Filters */
+.filter-bar { padding: 16px 20px; background: #0d1117; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; border-radius: 8px; }
+.filter-bar input, .filter-bar select { background: #161b22; border: 1px solid #30363d; color: #c9d1d9; padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+.filter-bar input:focus, .filter-bar select:focus { outline: none; border-color: #58a6ff; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-card .value { font-size: 22px; }
+  table { font-size: 11px; }
+  th, td { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🇭🇰 破底翻 Backtest — HSI Blue Chips</h1>
+<p class="subtitle">
+<span>📅 Jan 2022 → Mar 2026</span>
+<span>|</span>
+<span>📊 Top 2 picks/month</span>
+<span>|</span>
+<span>🎯 88 trades</span>
+</p>
+
+
+<div class="strategy-info">
+<h2>📖 破底翻 Strategy (Cai Sen Method)</h2>
+<p><strong>Core Concept:</strong> Stock price breaks below a support bottom, then recovers above the neckline.
+This signals that major players (主力) are absorbing selling pressure and about to push prices higher.</p>
+<div class="rule"><span class="icon">📉</span> <strong>Step 1 — 破底:</strong> Price breaks below the recent bottom support level</div>
+<div class="rule"><span class="icon">🔄</span> <strong>Step 2 — 翻回:</strong> Price recovers back above the neckline (70th percentile of post-bottom recovery)</div>
+<div class="rule"><span class="icon">📊</span> <strong>Confirmation:</strong> Volume surge on recovery (>1.2x avg) strengthens the signal</div>
+<div class="rule"><span class="icon">🎯</span> <strong>Target:</strong> Distance from bottom to neckline, projected upward (蔡森 formula)</div>
+<div class="rule"><span class="icon">🛑</span> <strong>Stop Loss:</strong> Bottom price × 0.97 (3% below bottom)</div>
+<div class="rule"><span class="icon">⏰</span> <strong>Max Hold:</strong> 30 trading days</div>
+<p style="margin-top: 12px;"><strong>蔡森金句:</strong> "破底翻大都会越过前高"</p>
+</div>
+
+
+<div class="stats-grid">
+<div class="stat-card">
+<div class="label">Total Trades</div>
+<div class="value blue">88</div>
+</div>
+<div class="stat-card">
+<div class="label">Win Rate</div>
+<div class="value red">39.8%</div>
+</div>
+<div class="stat-card">
+<div class="label">Total Return</div>
+<div class="value green">+110.3%</div>
+</div>
+<div class="stat-card">
+<div class="label">Avg PnL / Trade</div>
+<div class="value green">+2.22%</div>
+</div>
+<div class="stat-card">
+<div class="label">Avg Win</div>
+<div class="value green">+19.06%</div>
+</div>
+<div class="stat-card">
+<div class="label">Avg Loss</div>
+<div class="value red">-8.90%</div>
+</div>
+<div class="stat-card">
+<div class="label">Max Drawdown</div>
+<div class="value red">86.4%</div>
+</div>
+<div class="stat-card">
+<div class="label">Avg Hold Days</div>
+<div class="value orange">27d</div>
+</div>
+</div>
+
+
+<div class="strategy-info">
+<h2>📊 Exit Reason Breakdown</h2>
+
+<div class="rule"><span class="icon">🔴</span> 🛑 Stop Loss: <strong>46</strong> (52%)</div>
+<div class="rule"><span class="icon">🟡</span> ⏰ Max Hold: <strong>39</strong> (44%)</div>
+<div class="rule"><span class="icon">🟢</span> 🎯 Target Hit: <strong>3</strong> (3%)</div>
+</div>
+
+<div class="chart-container">
+<h2>📈 Equity Curve (Starting Capital: 100)</h2>
+<div style="display: flex; align-items: flex-end; height: 250px; gap: 2px; padding: 20px 0; border-bottom: 1px solid #30363d;">
+
+<div style="width: 100%; flex: 1; height: 98.84099548555818px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="100.0"></div>
+<div style="width: 100%; flex: 1; height: 101.37863902943224px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="102.6"></div>
+<div style="width: 100%; flex: 1; height: 95.40269363410223px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="96.5"></div>
+<div style="width: 100%; flex: 1; height: 83.875973899381px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="84.6"></div>
+<div style="width: 100%; flex: 1; height: 82.04151568043125px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="82.7"></div>
+<div style="width: 100%; flex: 1; height: 94.29877978902667px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="95.3"></div>
+<div style="width: 100%; flex: 1; height: 78.3290670550908px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="78.9"></div>
+<div style="width: 100%; flex: 1; height: 88.23307600330521px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="89.1"></div>
+<div style="width: 100%; flex: 1; height: 79.77032129854143px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="80.4"></div>
+<div style="width: 100%; flex: 1; height: 71.72014537509045px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="72.1"></div>
+<div style="width: 100%; flex: 1; height: 91.55337942910619px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="92.5"></div>
+<div style="width: 100%; flex: 1; height: 80.39181228306167px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="81.0"></div>
+<div style="width: 100%; flex: 1; height: 92.69702004128105px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="93.7"></div>
+<div style="width: 100%; flex: 1; height: 85.83841392657548px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="86.6"></div>
+<div style="width: 100%; flex: 1; height: 73.58365599422453px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="74.0"></div>
+<div style="width: 100%; flex: 1; height: 64.41462926421146px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="64.6"></div>
+<div style="width: 100%; flex: 1; height: 56.595860471323924px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="56.6"></div>
+<div style="width: 100%; flex: 1; height: 48.612388842804044px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="48.3"></div>
+<div style="width: 100%; flex: 1; height: 44.75376147299944px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="44.4"></div>
+<div style="width: 100%; flex: 1; height: 40.52167960265657px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="40.0"></div>
+<div style="width: 100%; flex: 1; height: 56.785393354383544px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="56.7"></div>
+<div style="width: 100%; flex: 1; height: 95.01967241482511px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="96.1"></div>
+<div style="width: 100%; flex: 1; height: 112.15974661605398px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="113.7"></div>
+<div style="width: 100%; flex: 1; height: 129.4160510697749px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="131.4"></div>
+<div style="width: 100%; flex: 1; height: 135.2566380048029px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="137.5"></div>
+<div style="width: 100%; flex: 1; height: 136.72671501437722px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="139.0"></div>
+<div style="width: 100%; flex: 1; height: 123.99902882353886px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="125.9"></div>
+<div style="width: 100%; flex: 1; height: 116.11738618057716px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="117.8"></div>
+<div style="width: 100%; flex: 1; height: 109.0295816055285px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="110.5"></div>
+<div style="width: 100%; flex: 1; height: 101.99381342448845px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="103.2"></div>
+<div style="width: 100%; flex: 1; height: 87.26798821727942px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="88.1"></div>
+<div style="width: 100%; flex: 1; height: 79.94451010878501px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="80.6"></div>
+<div style="width: 100%; flex: 1; height: 74.94697721301989px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="75.4"></div>
+<div style="width: 100%; flex: 1; height: 62.846916100049285px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="63.0"></div>
+<div style="width: 100%; flex: 1; height: 62.17334603142726px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="62.3"></div>
+<div style="width: 100%; flex: 1; height: 57.34065224326347px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="57.3"></div>
+<div style="width: 100%; flex: 1; height: 58.99575539199641px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="59.0"></div>
+<div style="width: 100%; flex: 1; height: 54.15267392014704px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="54.0"></div>
+<div style="width: 100%; flex: 1; height: 63.41537021456335px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="63.6"></div>
+<div style="width: 100%; flex: 1; height: 59.86174965336364px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="59.9"></div>
+<div style="width: 100%; flex: 1; height: 57.53181060715095px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="57.5"></div>
+<div style="width: 100%; flex: 1; height: 51.593261966164064px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="51.4"></div>
+<div style="width: 100%; flex: 1; height: 47.67483087026365px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="47.4"></div>
+<div style="width: 100%; flex: 1; height: 45.12302059184282px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="44.8"></div>
+<div style="width: 100%; flex: 1; height: 40.83731050310389px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="40.3"></div>
+<div style="width: 100%; flex: 1; height: 36.90706199519714px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="36.3"></div>
+<div style="width: 100%; flex: 1; height: 33.59650463416442px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="32.9"></div>
+<div style="width: 100%; flex: 1; height: 37.936629099335605px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="37.4"></div>
+<div style="width: 100%; flex: 1; height: 30.54845857003341px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="29.8"></div>
+<div style="width: 100%; flex: 1; height: 27.5015835819532px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="26.6"></div>
+<div style="width: 100%; flex: 1; height: 26.35214261422774px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="25.4"></div>
+<div style="width: 100%; flex: 1; height: 24.558574603304603px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="23.6"></div>
+<div style="width: 100%; flex: 1; height: 22.883567622620767px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="21.9"></div>
+<div style="width: 100%; flex: 1; height: 26.167701035455025px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="25.3"></div>
+<div style="width: 100%; flex: 1; height: 23.790832449833882px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="22.8"></div>
+<div style="width: 100%; flex: 1; height: 21.8392072620766px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="20.8"></div>
+<div style="width: 100%; flex: 1; height: 20.894656155296396px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="19.8"></div>
+<div style="width: 100%; flex: 1; height: 20.0px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="18.9"></div>
+<div style="width: 100%; flex: 1; height: 33.71098195250669px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="33.0"></div>
+<div style="width: 100%; flex: 1; height: 31.711294715793823px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="31.0"></div>
+<div style="width: 100%; flex: 1; height: 53.03574274856777px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="52.9"></div>
+<div style="width: 100%; flex: 1; height: 51.77589225193px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="51.6"></div>
+<div style="width: 100%; flex: 1; height: 55.04147873280781px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="55.0"></div>
+<div style="width: 100%; flex: 1; height: 60.15990079429795px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="60.2"></div>
+<div style="width: 100%; flex: 1; height: 60.639983138127214px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="60.7"></div>
+<div style="width: 100%; flex: 1; height: 80.6205243512945px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="81.3"></div>
+<div style="width: 100%; flex: 1; height: 81.5054055608509px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="82.2"></div>
+<div style="width: 100%; flex: 1; height: 96.74882435843396px; background: #f85149; border-radius: 2px 2px 0 0; position: relative;" title="97.8"></div>
+<div style="width: 100%; flex: 1; height: 109.37331195760738px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="110.8"></div>
+<div style="width: 100%; flex: 1; height: 121.99201246122195px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="123.8"></div>
+<div style="width: 100%; flex: 1; height: 146.40482072295396px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="148.9"></div>
+<div style="width: 100%; flex: 1; height: 155.8162712925729px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="158.6"></div>
+<div style="width: 100%; flex: 1; height: 167.16561193025px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="170.3"></div>
+<div style="width: 100%; flex: 1; height: 207.8914871845721px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="212.2"></div>
+<div style="width: 100%; flex: 1; height: 210.07803624964922px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="214.4"></div>
+<div style="width: 100%; flex: 1; height: 186.41728567734236px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="190.1"></div>
+<div style="width: 100%; flex: 1; height: 169.37835575441127px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="172.5"></div>
+<div style="width: 100%; flex: 1; height: 151.12551480491877px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="153.8"></div>
+<div style="width: 100%; flex: 1; height: 159.5131515422343px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="162.4"></div>
+<div style="width: 100%; flex: 1; height: 189.62465828526092px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="193.4"></div>
+<div style="width: 100%; flex: 1; height: 169.6766503593375px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="172.9"></div>
+<div style="width: 100%; flex: 1; height: 211.79333260077698px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="216.2"></div>
+<div style="width: 100%; flex: 1; height: 188.04298592216844px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="191.7"></div>
+<div style="width: 100%; flex: 1; height: 241.8093149852852px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="247.0"></div>
+<div style="width: 100%; flex: 1; height: 222.40147483311628px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="227.1"></div>
+<div style="width: 100%; flex: 1; height: 250.0px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="255.5"></div>
+<div style="width: 100%; flex: 1; height: 230.72519002344842px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="235.6"></div>
+<div style="width: 100%; flex: 1; height: 219.63617326361899px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="224.2"></div>
+<div style="width: 100%; flex: 1; height: 206.09695118817692px; background: #3fb950; border-radius: 2px 2px 0 0; position: relative;" title="210.3"></div>
+
+</div>
+<div style="display: flex; justify-content: space-between; color: #8b949e; font-size: 12px; padding-top: 8px;">
+<span>Start: 100.00</span>
+<span>End: 210.31 (+110.3%)</span>
+</div>
+</div>
+
+
+<div class="all-trades">
+<h2>📋 All Trades</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>#</th><th>Ticker</th><th>Name</th><th>Signal Date</th><th>Entry Date</th><th>Entry Price</th>
+<th>Exit Date</th><th>Exit Price</th><th>Stop Loss</th><th>Target</th><th>Exit Reason</th>
+<th>Hold (d)</th><th>PnL %</th><th>Confidence</th><th>R:R</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>1</td><td><strong>6862.HK</strong></td><td>Haidilao</td>
+<td>2022-01-12</td><td>2022-01-13</td><td>17.60</td>
+<td>2022-03-01</td><td>18.06</td><td>15.85</td><td>44.05</td>
+<td class="exit-max">max_hold</td><td>47</td>
+<td class="pnl-pos">+2.61%</td><td>0.80</td><td>15.1</td>
+</tr>
+<tr>
+<td>2</td><td><strong>2018.HK</strong></td><td>AAC Technologies</td>
+<td>2022-01-04</td><td>2022-01-05</td><td>30.90</td>
+<td>2022-01-20</td><td>29.05</td><td>29.05</td><td>52.75</td>
+<td class="exit-stop">stop_loss</td><td>15</td>
+<td class="pnl-neg">-5.99%</td><td>0.80</td><td>11.8</td>
+</tr>
+<tr>
+<td>3</td><td><strong>6862.HK</strong></td><td>Haidilao</td>
+<td>2022-02-04</td><td>2022-02-07</td><td>18.07</td>
+<td>2022-03-07</td><td>15.85</td><td>15.85</td><td>33.70</td>
+<td class="exit-stop">stop_loss</td><td>28</td>
+<td class="pnl-neg">-12.29%</td><td>0.65</td><td>7.0</td>
+</tr>
+<tr>
+<td>4</td><td><strong>1929.HK</strong></td><td>Chow Tai Fook</td>
+<td>2022-02-11</td><td>2022-02-14</td><td>13.91</td>
+<td>2022-03-28</td><td>13.60</td><td>12.03</td><td>18.40</td>
+<td class="exit-max">max_hold</td><td>42</td>
+<td class="pnl-neg">-2.23%</td><td>0.85</td><td>2.4</td>
+</tr>
+<tr>
+<td>5</td><td><strong>0175.HK</strong></td><td>Geely Auto</td>
+<td>2022-03-29</td><td>2022-03-30</td><td>11.94</td>
+<td>2022-05-18</td><td>13.76</td><td>9.99</td><td>27.10</td>
+<td class="exit-max">max_hold</td><td>49</td>
+<td class="pnl-pos">+15.24%</td><td>0.80</td><td>7.8</td>
+</tr>
+<tr>
+<td>6</td><td><strong>2382.HK</strong></td><td>Sunny Optical</td>
+<td>2022-03-29</td><td>2022-03-30</td><td>140.40</td>
+<td>2022-04-06</td><td>116.21</td><td>116.21</td><td>252.60</td>
+<td class="exit-stop">stop_loss</td><td>7</td>
+<td class="pnl-neg">-17.23%</td><td>1.00</td><td>4.6</td>
+</tr>
+<tr>
+<td>7</td><td><strong>0175.HK</strong></td><td>Geely Auto</td>
+<td>2022-04-01</td><td>2022-04-04</td><td>12.08</td>
+<td>2022-05-23</td><td>13.64</td><td>9.99</td><td>27.10</td>
+<td class="exit-max">max_hold</td><td>49</td>
+<td class="pnl-pos">+12.91%</td><td>0.80</td><td>7.2</td>
+</tr>
+<tr>
+<td>8</td><td><strong>0291.HK</strong></td><td>China Resources Beer</td>
+<td>2022-04-28</td><td>2022-04-29</td><td>45.15</td>
+<td>2022-05-06</td><td>40.74</td><td>40.74</td><td>67.45</td>
+<td class="exit-stop">stop_loss</td><td>7</td>
+<td class="pnl-neg">-9.77%</td><td>0.80</td><td>5.0</td>
+</tr>
+<tr>
+<td>9</td><td><strong>0291.HK</strong></td><td>China Resources Beer</td>
+<td>2022-05-03</td><td>2022-05-04</td><td>45.42</td>
+<td>2022-05-06</td><td>40.74</td><td>40.74</td><td>67.45</td>
+<td class="exit-stop">stop_loss</td><td>2</td>
+<td class="pnl-neg">-10.30%</td><td>0.80</td><td>4.7</td>
+</tr>
+<tr>
+<td>10</td><td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td>
+<td>2022-05-24</td><td>2022-05-25</td><td>4.10</td>
+<td>2022-07-08</td><td>5.26</td><td>3.62</td><td>6.21</td>
+<td class="exit-max">max_hold</td><td>44</td>
+<td class="pnl-pos">+28.29%</td><td>0.80</td><td>4.4</td>
+</tr>
+<tr>
+<td>11</td><td><strong>2018.HK</strong></td><td>AAC Technologies</td>
+<td>2022-06-15</td><td>2022-06-16</td><td>17.33</td>
+<td>2022-07-29</td><td>15.18</td><td>14.92</td><td>33.75</td>
+<td class="exit-max">max_hold</td><td>43</td>
+<td class="pnl-neg">-12.41%</td><td>1.00</td><td>6.8</td>
+</tr>
+<tr>
+<td>12</td><td><strong>0291.HK</strong></td><td>China Resources Beer</td>
+<td>2022-06-01</td><td>2022-06-02</td><td>45.58</td>
+<td>2022-07-18</td><td>52.70</td><td>39.67</td><td>67.45</td>
+<td class="exit-max">max_hold</td><td>46</td>
+<td class="pnl-pos">+15.62%</td><td>1.00</td><td>3.7</td>
+</tr>
+<tr>
+<td>13</td><td><strong>2313.HK</strong></td><td>Shenzhou International</td>
+<td>2022-07-06</td><td>2022-07-07</td><td>94.72</td>
+<td>2022-07-08</td><td>87.59</td><td>87.59</td><td>158.20</td>
+<td class="exit-stop">stop_loss</td><td>1</td>
+<td class="pnl-neg">-7.53%</td><td>1.00</td><td>8.9</td>
+</tr>
+<tr>
+<td>14</td><td><strong>2018.HK</strong></td><td>AAC Technologies</td>
+<td>2022-07-06</td><td>2022-07-07</td><td>17.46</td>
+<td>2022-08-01</td><td>14.92</td><td>14.92</td><td>33.75</td>
+<td class="exit-stop">stop_loss</td><td>25</td>
+<td class="pnl-neg">-14.55%</td><td>0.65</td><td>6.4</td>
+</tr>
+<tr>
+<td>15</td><td><strong>6098.HK</strong></td><td>CG Services</td>
+<td>2022-08-24</td><td>2022-08-25</td><td>15.38</td>
+<td>2022-09-02</td><td>13.42</td><td>13.42</td><td>47.90</td>
+<td class="exit-stop">stop_loss</td><td>8</td>
+<td class="pnl-neg">-12.74%</td><td>0.80</td><td>16.6</td>
+</tr>
+<tr>
+<td>16</td><td><strong>2007.HK</strong></td><td>Country Garden</td>
+<td>2022-08-29</td><td>2022-08-30</td><td>2.57</td>
+<td>2022-09-02</td><td>2.25</td><td>2.25</td><td>6.63</td>
+<td class="exit-stop">stop_loss</td><td>3</td>
+<td class="pnl-neg">-12.45%</td><td>0.80</td><td>12.7</td>
+</tr>
+<tr>
+<td>17</td><td><strong>6098.HK</strong></td><td>CG Services</td>
+<td>2022-09-02</td><td>2022-09-05</td><td>15.70</td>
+<td>2022-09-05</td><td>13.42</td><td>13.42</td><td>40.10</td>
+<td class="exit-stop">stop_loss</td><td>0</td>
+<td class="pnl-neg">-14.52%</td><td>1.00</td><td>10.7</td>
+</tr>
+<tr>
+<td>18</td><td><strong>2018.HK</strong></td><td>AAC Technologies</td>
+<td>2022-09-06</td><td>2022-09-07</td><td>14.62</td>
+<td>2022-09-19</td><td>13.42</td><td>13.42</td><td>18.92</td>
+<td class="exit-stop">stop_loss</td><td>12</td>
+<td class="pnl-neg">-8.21%</td><td>1.00</td><td>3.6</td>
+</tr>
+<tr>
+<td>19</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td>
+<td>2022-10-26</td><td>2022-10-27</td><td>33.34</td>
+<td>2022-10-31</td><td>30.07</td><td>30.07</td><td>60.50</td>
+<td class="exit-stop">stop_loss</td><td>4</td>
+<td class="pnl-neg">-9.81%</td><td>1.00</td><td>8.3</td>
+</tr>
+<tr>
+<td>20</td><td><strong>2313.HK</strong></td><td>Shenzhou International</td>
+<td>2022-11-14</td><td>2022-11-15</td><td>61.00</td>
+<td>2022-12-29</td><td>86.50</td><td>52.77</td><td>111.80</td>
+<td class="exit-max">max_hold</td><td>44</td>
+<td class="pnl-pos">+41.80%</td><td>1.00</td><td>6.2</td>
+</tr>
+<tr>
+<td>21</td><td><strong>0960.HK</strong></td><td>Longfor Group</td>
+<td>2022-11-14</td><td>2022-11-15</td><td>13.94</td>
+<td>2022-12-29</td><td>23.60</td><td>9.70</td><td>39.15</td>
+<td class="exit-max">max_hold</td><td>44</td>
+<td class="pnl-pos">+69.30%</td><td>1.00</td><td>6.0</td>
+</tr>
+<tr>
+<td>22</td><td><strong>1211.HK</strong></td><td>BYD Company</td>
+<td>2022-12-02</td><td>2022-12-05</td><td>63.82</td>
+<td>2023-01-19</td><td>75.53</td><td>53.58</td><td>110.47</td>
+<td class="exit-max">max_hold</td><td>45</td>
+<td class="pnl-pos">+18.35%</td><td>0.85</td><td>4.6</td>
+</tr>
+<tr>
+<td>23</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td>
+<td>2022-12-01</td><td>2022-12-02</td><td>37.67</td>
+<td>2023-01-18</td><td>43.55</td><td>28.91</td><td>58.60</td>
+<td class="exit-max">max_hold</td><td>47</td>
+<td class="pnl-pos">+15.61%</td><td>0.85</td><td>2.4</td>
+</tr>
+<tr>
+<td>24</td><td><strong>3690.HK</strong></td><td>Meituan</td>
+<td>2023-03-28</td><td>2023-03-29</td><td>131.40</td>
+<td>2023-05-16</td><td>137.40</td><td>121.64</td><td>190.80</td>
+<td class="exit-max">max_hold</td><td>48</td>
+<td class="pnl-pos">+4.57%</td><td>1.00</td><td>6.1</td>
+</tr>
+<tr>
+<td>25</td><td><strong>1876.HK</strong></td><td>Budweiser APAC</td>
+<td>2023-03-02</td><td>2023-03-03</td><td>23.59</td>
+<td>2023-04-19</td><td>23.85</td><td>22.21</td><td>27.00</td>
+<td class="exit-max">max_hold</td><td>47</td>
+<td class="pnl-pos">+1.10%</td><td>0.85</td><td>2.5</td>
+</tr>
+<tr>
+<td>26</td><td><strong>9618.HK</strong></td><td>JD.com</td>
+<td>2023-04-11</td><td>2023-04-12</td><td>160.74</td>
+<td>2023-04-13</td><td>145.60</td><td>145.60</td><td>251.40</td>
+<td class="exit-stop">stop_loss</td><td>1</td>
+<td class="pnl-neg">-9.42%</td><td>1.00</td><td>6.0</td>
+</tr>
+<tr>
+<td>27</td><td><strong>2018.HK</strong></td><td>AAC Technologies</td>
+<td>2023-04-26</td><td>2023-04-27</td><td>16.46</td>
+<td>2023-06-01</td><td>15.40</td><td>15.40</td><td>22.30</td>
+<td class="exit-stop">stop_loss</td><td>35</td>
+<td class="pnl-neg">-6.44%</td><td>0.80</td><td>5.5</td>
+</tr>
+<tr>
+<td>28</td><td><strong>2382.HK</strong></td><td>Sunny Optical</td>
+<td>2023-05-24</td><td>2023-05-25</td><td>82.77</td>
+<td>2023-05-25</td><td>77.65</td><td>77.65</td><td>116.30</td>
+<td class="exit-stop">stop_loss</td><td>0</td>
+<td class="pnl-neg">-6.19%</td><td>0.80</td><td>6.5</td>
+</tr>
+<tr>
+<td>29</td><td><strong>2018.HK</strong></td><td>AAC Technologies</td>
+<td>2023-05-02</td><td>2023-05-03</td><td>16.48</td>
+<td>2023-06-01</td><td>15.40</td><td>15.40</td><td>22.30</td>
+<td class="exit-stop">stop_loss</td><td>29</td>
+<td class="pnl-neg">-6.55%</td><td>0.80</td><td>5.4</td>
+</tr>
+<tr>
+<td>30</td><td><strong>6098.HK</strong></td><td>CG Services</td>
+<td>2023-06-15</td><td>2023-06-16</td><td>10.02</td>
+<td>2023-07-19</td><td>8.55</td><td>8.55</td><td>22.80</td>
+<td class="exit-stop">stop_loss</td><td>33</td>
+<td class="pnl-neg">-14.67%</td><td>0.80</td><td>8.7</td>
+</tr>
+<tr>
+<td>31</td><td><strong>0241.HK</strong></td><td>Ali Health</td>
+<td>2023-06-15</td><td>2023-06-16</td><td>4.91</td>
+<td>2023-06-23</td><td>4.49</td><td>4.49</td><td>8.05</td>
+<td class="exit-stop">stop_loss</td><td>7</td>
+<td class="pnl-neg">-8.55%</td><td>0.80</td><td>7.5</td>
+</tr>
+<tr>
+<td>32</td><td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td>
+<td>2023-07-10</td><td>2023-07-11</td><td>3.45</td>
+<td>2023-08-07</td><td>3.23</td><td>3.23</td><td>4.99</td>
+<td class="exit-stop">stop_loss</td><td>27</td>
+<td class="pnl-neg">-6.38%</td><td>1.00</td><td>6.9</td>
+</tr>
+<tr>
+<td>33</td><td><strong>6098.HK</strong></td><td>CG Services</td>
+<td>2023-07-03</td><td>2023-07-04</td><td>10.24</td>
+<td>2023-07-19</td><td>8.55</td><td>8.55</td><td>22.80</td>
+<td class="exit-stop">stop_loss</td><td>15</td>
+<td class="pnl-neg">-16.50%</td><td>0.80</td><td>7.4</td>
+</tr>
+<tr>
+<td>34</td><td><strong>6098.HK</strong></td><td>CG Services</td>
+<td>2023-08-28</td><td>2023-08-29</td><td>7.28</td>
+<td>2023-10-13</td><td>7.20</td><td>6.54</td><td>16.04</td>
+<td class="exit-max">max_hold</td><td>45</td>
+<td class="pnl-neg">-1.10%</td><td>1.00</td><td>11.8</td>
+</tr>
+<tr>
+<td>35</td><td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td>
+<td>2023-08-02</td><td>2023-08-03</td><td>3.51</td>
+<td>2023-08-07</td><td>3.23</td><td>3.23</td><td>4.62</td>
+<td class="exit-stop">stop_loss</td><td>4</td>
+<td class="pnl-neg">-7.98%</td><td>0.85</td><td>4.0</td>
+</tr>
+<tr>
+<td>36</td><td><strong>2688.HK</strong></td><td>ENN Energy</td>
+<td>2023-09-21</td><td>2023-09-22</td><td>59.00</td>
+<td>2023-11-07</td><td>60.75</td><td>53.30</td><td>114.10</td>
+<td class="exit-max">max_hold</td><td>46</td>
+<td class="pnl-pos">+2.97%</td><td>1.00</td><td>9.7</td>
+</tr>
+<tr>
+<td>37</td><td><strong>6618.HK</strong></td><td>JD Health</td>
+<td>2023-09-04</td><td>2023-09-05</td><td>43.60</td>
+<td>2023-09-21</td><td>39.92</td><td>39.92</td><td>64.55</td>
+<td class="exit-stop">stop_loss</td><td>16</td>
+<td class="pnl-neg">-8.44%</td><td>1.00</td><td>5.7</td>
+</tr>
+<tr>
+<td>38</td><td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td>
+<td>2023-10-27</td><td>2023-10-30</td><td>2.78</td>
+<td>2023-12-11</td><td>3.27</td><td>2.58</td><td>4.31</td>
+<td class="exit-max">max_hold</td><td>42</td>
+<td class="pnl-pos">+17.63%</td><td>1.00</td><td>7.5</td>
+</tr>
+<tr>
+<td>39</td><td><strong>6618.HK</strong></td><td>JD Health</td>
+<td>2023-10-13</td><td>2023-10-16</td><td>38.75</td>
+<td>2023-10-16</td><td>36.52</td><td>36.52</td><td>57.00</td>
+<td class="exit-stop">stop_loss</td><td>0</td>
+<td class="pnl-neg">-5.75%</td><td>0.80</td><td>8.2</td>
+</tr>
+<tr>
+<td>40</td><td><strong>2007.HK</strong></td><td>Country Garden</td>
+<td>2023-11-10</td><td>2023-11-13</td><td>0.75</td>
+<td>2023-12-27</td><td>0.72</td><td>0.66</td><td>1.87</td>
+<td class="exit-max">max_hold</td><td>44</td>
+<td class="pnl-neg">-4.00%</td><td>1.00</td><td>12.8</td>
+</tr>
+<tr>
+<td>41</td><td><strong>2331.HK</strong></td><td>Li Ning</td>
+<td>2023-11-10</td><td>2023-11-13</td><td>25.99</td>
+<td>2023-11-17</td><td>23.23</td><td>23.23</td><td>49.85</td>
+<td class="exit-stop">stop_loss</td><td>4</td>
+<td class="pnl-neg">-10.62%</td><td>1.00</td><td>8.7</td>
+</tr>
+<tr>
+<td>42</td><td><strong>2331.HK</strong></td><td>Li Ning</td>
+<td>2023-12-27</td><td>2023-12-28</td><td>19.26</td>
+<td>2024-01-08</td><td>17.75</td><td>17.75</td><td>47.00</td>
+<td class="exit-stop">stop_loss</td><td>11</td>
+<td class="pnl-neg">-7.84%</td><td>1.00</td><td>18.4</td>
+</tr>
+<tr>
+<td>43</td><td><strong>0175.HK</strong></td><td>Geely Auto</td>
+<td>2023-12-28</td><td>2023-12-29</td><td>7.94</td>
+<td>2024-01-22</td><td>7.50</td><td>7.50</td><td>11.26</td>
+<td class="exit-stop">stop_loss</td><td>24</td>
+<td class="pnl-neg">-5.54%</td><td>0.80</td><td>7.5</td>
+</tr>
+<tr>
+<td>44</td><td><strong>2331.HK</strong></td><td>Li Ning</td>
+<td>2024-01-02</td><td>2024-01-03</td><td>19.69</td>
+<td>2024-01-08</td><td>17.75</td><td>17.75</td><td>47.00</td>
+<td class="exit-stop">stop_loss</td><td>5</td>
+<td class="pnl-neg">-9.85%</td><td>1.00</td><td>14.1</td>
+</tr>
+<tr>
+<td>45</td><td><strong>0968.HK</strong></td><td>Xinyi Solar</td>
+<td>2024-01-05</td><td>2024-01-08</td><td>4.29</td>
+<td>2024-01-17</td><td>3.86</td><td>3.86</td><td>8.57</td>
+<td class="exit-stop">stop_loss</td><td>9</td>
+<td class="pnl-neg">-10.02%</td><td>0.80</td><td>10.1</td>
+</tr>
+<tr>
+<td>46</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td>
+<td>2024-02-27</td><td>2024-02-28</td><td>14.07</td>
+<td>2024-03-07</td><td>12.75</td><td>12.75</td><td>24.80</td>
+<td class="exit-stop">stop_loss</td><td>8</td>
+<td class="pnl-neg">-9.38%</td><td>1.00</td><td>8.1</td>
+</tr>
+<tr>
+<td>47</td><td><strong>0291.HK</strong></td><td>China Resources Beer</td>
+<td>2024-02-20</td><td>2024-02-21</td><td>29.85</td>
+<td>2024-04-08</td><td>33.90</td><td>27.31</td><td>47.90</td>
+<td class="exit-max">max_hold</td><td>47</td>
+<td class="pnl-pos">+13.57%</td><td>1.00</td><td>7.1</td>
+</tr>
+<tr>
+<td>48</td><td><strong>2269.HK</strong></td><td>WuXi Biologics</td>
+<td>2024-03-04</td><td>2024-03-05</td><td>18.78</td>
+<td>2024-03-15</td><td>14.96</td><td>14.96</td><td>51.00</td>
+<td class="exit-stop">stop_loss</td><td>10</td>
+<td class="pnl-neg">-20.34%</td><td>1.00</td><td>8.4</td>
+</tr>
+<tr>
+<td>49</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td>
+<td>2024-03-06</td><td>2024-03-07</td><td>14.25</td>
+<td>2024-03-07</td><td>12.75</td><td>12.75</td><td>22.95</td>
+<td class="exit-stop">stop_loss</td><td>0</td>
+<td class="pnl-neg">-10.53%</td><td>1.00</td><td>5.8</td>
+</tr>
+<tr>
+<td>50</td><td><strong>0101.HK</strong></td><td>Hang Lung Properties</td>
+<td>2024-04-17</td><td>2024-04-18</td><td>8.11</td>
+<td>2024-05-24</td><td>7.75</td><td>7.75</td><td>11.42</td>
+<td class="exit-stop">stop_loss</td><td>36</td>
+<td class="pnl-neg">-4.44%</td><td>1.00</td><td>9.2</td>
+</tr>
+<tr>
+<td>51</td><td><strong>0017.HK</strong></td><td>New World Dev</td>
+<td>2024-05-02</td><td>2024-05-03</td><td>8.14</td>
+<td>2024-06-18</td><td>7.55</td><td>7.19</td><td>15.82</td>
+<td class="exit-max">max_hold</td><td>46</td>
+<td class="pnl-neg">-7.25%</td><td>0.80</td><td>8.1</td>
+</tr>
+<tr>
+<td>52</td><td><strong>0101.HK</strong></td><td>Hang Lung Properties</td>
+<td>2024-05-02</td><td>2024-05-03</td><td>8.36</td>
+<td>2024-05-24</td><td>7.75</td><td>7.75</td><td>11.42</td>
+<td class="exit-stop">stop_loss</td><td>21</td>
+<td class="pnl-neg">-7.30%</td><td>1.00</td><td>5.0</td>
+</tr>
+<tr>
+<td>53</td><td><strong>2382.HK</strong></td><td>Sunny Optical</td>
+<td>2024-06-03</td><td>2024-06-04</td><td>43.01</td>
+<td>2024-07-18</td><td>49.65</td><td>33.42</td><td>73.60</td>
+<td class="exit-max">max_hold</td><td>44</td>
+<td class="pnl-pos">+15.44%</td><td>0.85</td><td>3.2</td>
+</tr>
+<tr>
+<td>54</td><td><strong>0968.HK</strong></td><td>Xinyi Solar</td>
+<td>2024-07-24</td><td>2024-07-25</td><td>3.72</td>
+<td>2024-08-13</td><td>3.36</td><td>3.36</td><td>6.68</td>
+<td class="exit-stop">stop_loss</td><td>19</td>
+<td class="pnl-neg">-9.68%</td><td>0.80</td><td>8.0</td>
+</tr>
+<tr>
+<td>55</td><td><strong>1024.HK</strong></td><td>Kuaishou Tech</td>
+<td>2024-07-19</td><td>2024-07-22</td><td>47.60</td>
+<td>2024-07-24</td><td>43.41</td><td>43.41</td><td>62.20</td>
+<td class="exit-stop">stop_loss</td><td>2</td>
+<td class="pnl-neg">-8.80%</td><td>0.80</td><td>3.5</td>
+</tr>
+<tr>
+<td>56</td><td><strong>1109.HK</strong></td><td>China Resources Land</td>
+<td>2024-08-19</td><td>2024-08-20</td><td>22.69</td>
+<td>2024-08-21</td><td>21.63</td><td>21.63</td><td>32.85</td>
+<td class="exit-stop">stop_loss</td><td>1</td>
+<td class="pnl-neg">-4.67%</td><td>0.80</td><td>9.6</td>
+</tr>
+<tr>
+<td>57</td><td><strong>2313.HK</strong></td><td>Shenzhou International</td>
+<td>2024-08-19</td><td>2024-08-20</td><td>62.30</td>
+<td>2024-08-29</td><td>59.41</td><td>59.41</td><td>86.20</td>
+<td class="exit-stop">stop_loss</td><td>9</td>
+<td class="pnl-neg">-4.64%</td><td>0.80</td><td>8.3</td>
+</tr>
+<tr>
+<td>58</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td>
+<td>2024-09-23</td><td>2024-09-24</td><td>9.20</td>
+<td>2024-10-02</td><td>16.06</td><td>8.27</td><td>16.06</td>
+<td class="exit-target">target</td><td>8</td>
+<td class="pnl-pos">+74.57%</td><td>1.00</td><td>7.4</td>
+</tr>
+<tr>
+<td>59</td><td><strong>2313.HK</strong></td><td>Shenzhou International</td>
+<td>2024-09-04</td><td>2024-09-05</td><td>63.36</td>
+<td>2024-09-09</td><td>59.41</td><td>59.41</td><td>86.20</td>
+<td class="exit-stop">stop_loss</td><td>4</td>
+<td class="pnl-neg">-6.23%</td><td>1.00</td><td>5.8</td>
+</tr>
+<tr>
+<td>60</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td>
+<td>2024-10-02</td><td>2024-10-03</td><td>9.40</td>
+<td>2024-11-08</td><td>16.06</td><td>8.27</td><td>16.06</td>
+<td class="exit-target">target</td><td>36</td>
+<td class="pnl-pos">+70.85%</td><td>1.00</td><td>5.9</td>
+</tr>
+<tr>
+<td>61</td><td><strong>0968.HK</strong></td><td>Xinyi Solar</td>
+<td>2024-10-02</td><td>2024-10-03</td><td>3.27</td>
+<td>2024-11-15</td><td>3.19</td><td>2.71</td><td>6.50</td>
+<td class="exit-max">max_hold</td><td>43</td>
+<td class="pnl-neg">-2.45%</td><td>1.00</td><td>5.7</td>
+</tr>
+<tr>
+<td>62</td><td><strong>2020.HK</strong></td><td>ANTA Sports</td>
+<td>2024-12-19</td><td>2024-12-20</td><td>81.40</td>
+<td>2025-02-10</td><td>86.70</td><td>73.28</td><td>106.30</td>
+<td class="exit-max">max_hold</td><td>52</td>
+<td class="pnl-pos">+6.51%</td><td>0.80</td><td>3.1</td>
+</tr>
+<tr>
+<td>63</td><td><strong>0960.HK</strong></td><td>Longfor Group</td>
+<td>2025-01-24</td><td>2025-01-27</td><td>9.71</td>
+<td>2025-03-13</td><td>10.64</td><td>9.02</td><td>14.56</td>
+<td class="exit-max">max_hold</td><td>45</td>
+<td class="pnl-pos">+9.58%</td><td>0.80</td><td>7.0</td>
+</tr>
+<tr>
+<td>64</td><td><strong>1997.HK</strong></td><td>Wharf REIC</td>
+<td>2025-01-27</td><td>2025-01-28</td><td>19.46</td>
+<td>2025-03-14</td><td>19.62</td><td>17.96</td><td>29.00</td>
+<td class="exit-max">max_hold</td><td>45</td>
+<td class="pnl-pos">+0.82%</td><td>0.80</td><td>6.4</td>
+</tr>
+<tr>
+<td>65</td><td><strong>6098.HK</strong></td><td>CG Services</td>
+<td>2025-02-17</td><td>2025-02-18</td><td>5.17</td>
+<td>2025-04-01</td><td>6.92</td><td>4.81</td><td>8.00</td>
+<td class="exit-max">max_hold</td><td>42</td>
+<td class="pnl-pos">+33.85%</td><td>1.00</td><td>7.9</td>
+</tr>
+<tr>
+<td>66</td><td><strong>1997.HK</strong></td><td>Wharf REIC</td>
+<td>2025-02-18</td><td>2025-02-19</td><td>19.56</td>
+<td>2025-04-02</td><td>19.78</td><td>17.96</td><td>29.00</td>
+<td class="exit-max">max_hold</td><td>42</td>
+<td class="pnl-pos">+1.12%</td><td>1.00</td><td>5.9</td>
+</tr>
+<tr>
+<td>67</td><td><strong>6098.HK</strong></td><td>CG Services</td>
+<td>2025-03-03</td><td>2025-03-04</td><td>5.19</td>
+<td>2025-03-04</td><td>6.18</td><td>4.81</td><td>6.18</td>
+<td class="exit-target">target</td><td>0</td>
+<td class="pnl-pos">+19.08%</td><td>0.85</td><td>2.6</td>
+</tr>
+<tr>
+<td>68</td><td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td>
+<td>2025-03-04</td><td>2025-03-05</td><td>3.24</td>
+<td>2025-04-17</td><td>3.67</td><td>2.73</td><td>4.15</td>
+<td class="exit-max">max_hold</td><td>43</td>
+<td class="pnl-pos">+13.27%</td><td>0.85</td><td>1.8</td>
+</tr>
+<tr>
+<td>69</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td>
+<td>2025-04-23</td><td>2025-04-24</td><td>11.44</td>
+<td>2025-06-09</td><td>12.78</td><td>10.73</td><td>18.94</td>
+<td class="exit-max">max_hold</td><td>46</td>
+<td class="pnl-pos">+11.71%</td><td>0.80</td><td>10.5</td>
+</tr>
+<tr>
+<td>70</td><td><strong>0669.HK</strong></td><td>Techtronic Ind</td>
+<td>2025-04-24</td><td>2025-04-25</td><td>76.20</td>
+<td>2025-06-10</td><td>91.65</td><td>69.89</td><td>115.30</td>
+<td class="exit-max">max_hold</td><td>46</td>
+<td class="pnl-pos">+20.28%</td><td>1.00</td><td>6.2</td>
+</tr>
+<tr>
+<td>71</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td>
+<td>2025-05-06</td><td>2025-05-07</td><td>11.70</td>
+<td>2025-06-18</td><td>12.46</td><td>10.73</td><td>18.94</td>
+<td class="exit-max">max_hold</td><td>42</td>
+<td class="pnl-pos">+6.50%</td><td>0.80</td><td>7.5</td>
+</tr>
+<tr>
+<td>72</td><td><strong>1928.HK</strong></td><td>Sands China</td>
+<td>2025-05-07</td><td>2025-05-08</td><td>13.99</td>
+<td>2025-06-19</td><td>15.02</td><td>12.44</td><td>21.90</td>
+<td class="exit-max">max_hold</td><td>42</td>
+<td class="pnl-pos">+7.36%</td><td>1.00</td><td>5.1</td>
+</tr>
+<tr>
+<td>73</td><td><strong>0968.HK</strong></td><td>Xinyi Solar</td>
+<td>2025-06-18</td><td>2025-06-19</td><td>2.48</td>
+<td>2025-08-01</td><td>3.09</td><td>2.25</td><td>3.62</td>
+<td class="exit-max">max_hold</td><td>43</td>
+<td class="pnl-pos">+24.60%</td><td>0.80</td><td>5.0</td>
+</tr>
+<tr>
+<td>74</td><td><strong>9618.HK</strong></td><td>JD.com</td>
+<td>2025-06-10</td><td>2025-06-11</td><td>131.90</td>
+<td>2025-07-24</td><td>133.30</td><td>120.09</td><td>179.00</td>
+<td class="exit-max">max_hold</td><td>43</td>
+<td class="pnl-pos">+1.06%</td><td>0.80</td><td>4.0</td>
+</tr>
+<tr>
+<td>75</td><td><strong>3690.HK</strong></td><td>Meituan</td>
+<td>2025-07-25</td><td>2025-07-28</td><td>129.77</td>
+<td>2025-08-28</td><td>115.04</td><td>115.04</td><td>177.30</td>
+<td class="exit-stop">stop_loss</td><td>31</td>
+<td class="pnl-neg">-11.35%</td><td>1.00</td><td>3.2</td>
+</tr>
+<tr>
+<td>76</td><td><strong>1211.HK</strong></td><td>BYD Company</td>
+<td>2025-07-24</td><td>2025-07-25</td><td>127.70</td>
+<td>2025-07-31</td><td>115.92</td><td>115.92</td><td>155.07</td>
+<td class="exit-stop">stop_loss</td><td>6</td>
+<td class="pnl-neg">-9.22%</td><td>0.65</td><td>2.3</td>
+</tr>
+<tr>
+<td>77</td><td><strong>3690.HK</strong></td><td>Meituan</td>
+<td>2025-08-01</td><td>2025-08-04</td><td>129.08</td>
+<td>2025-08-28</td><td>115.04</td><td>115.04</td><td>183.50</td>
+<td class="exit-stop">stop_loss</td><td>24</td>
+<td class="pnl-neg">-10.88%</td><td>0.80</td><td>3.9</td>
+</tr>
+<tr>
+<td>78</td><td><strong>0316.HK</strong></td><td>Orient Overseas</td>
+<td>2025-10-21</td><td>2025-10-22</td><td>126.60</td>
+<td>2025-12-04</td><td>133.70</td><td>118.92</td><td>147.50</td>
+<td class="exit-max">max_hold</td><td>43</td>
+<td class="pnl-pos">+5.61%</td><td>0.65</td><td>2.7</td>
+</tr>
+<tr>
+<td>79</td><td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td>
+<td>2025-11-24</td><td>2025-11-25</td><td>7.71</td>
+<td>2026-01-09</td><td>9.18</td><td>7.13</td><td>11.48</td>
+<td class="exit-max">max_hold</td><td>45</td>
+<td class="pnl-pos">+19.07%</td><td>0.80</td><td>6.5</td>
+</tr>
+<tr>
+<td>80</td><td><strong>0960.HK</strong></td><td>Longfor Group</td>
+<td>2025-11-26</td><td>2025-11-27</td><td>10.27</td>
+<td>2025-12-11</td><td>9.18</td><td>9.18</td><td>12.10</td>
+<td class="exit-stop">stop_loss</td><td>14</td>
+<td class="pnl-neg">-10.61%</td><td>0.85</td><td>1.7</td>
+</tr>
+<tr>
+<td>81</td><td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td>
+<td>2025-12-23</td><td>2025-12-24</td><td>7.82</td>
+<td>2026-02-09</td><td>9.78</td><td>7.13</td><td>11.48</td>
+<td class="exit-max">max_hold</td><td>47</td>
+<td class="pnl-pos">+25.06%</td><td>1.00</td><td>5.3</td>
+</tr>
+<tr>
+<td>82</td><td><strong>1810.HK</strong></td><td>Xiaomi</td>
+<td>2025-12-10</td><td>2025-12-11</td><td>41.23</td>
+<td>2026-01-19</td><td>36.57</td><td>36.57</td><td>60.15</td>
+<td class="exit-stop">stop_loss</td><td>39</td>
+<td class="pnl-neg">-11.30%</td><td>1.00</td><td>4.1</td>
+</tr>
+<tr>
+<td>83</td><td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td>
+<td>2026-01-02</td><td>2026-01-05</td><td>7.94</td>
+<td>2026-02-16</td><td>10.23</td><td>7.13</td><td>11.48</td>
+<td class="exit-max">max_hold</td><td>42</td>
+<td class="pnl-pos">+28.84%</td><td>0.80</td><td>4.4</td>
+</tr>
+<tr>
+<td>84</td><td><strong>9961.HK</strong></td><td>Trip.com</td>
+<td>2026-01-29</td><td>2026-01-30</td><td>485.40</td>
+<td>2026-02-06</td><td>446.20</td><td>446.20</td><td>609.00</td>
+<td class="exit-stop">stop_loss</td><td>7</td>
+<td class="pnl-neg">-8.08%</td><td>1.00</td><td>3.1</td>
+</tr>
+<tr>
+<td>85</td><td><strong>2007.HK</strong></td><td>Country Garden</td>
+<td>2026-02-16</td><td>2026-02-20</td><td>0.28</td>
+<td>2026-04-08</td><td>0.31</td><td>0.26</td><td>0.69</td>
+<td class="exit-max">max_hold</td><td>47</td>
+<td class="pnl-pos">+12.50%</td><td>0.80</td><td>14.5</td>
+</tr>
+<tr>
+<td>86</td><td><strong>9961.HK</strong></td><td>Trip.com</td>
+<td>2026-02-02</td><td>2026-02-03</td><td>483.72</td>
+<td>2026-02-06</td><td>446.20</td><td>446.20</td><td>609.00</td>
+<td class="exit-stop">stop_loss</td><td>3</td>
+<td class="pnl-neg">-7.76%</td><td>1.00</td><td>3.3</td>
+</tr>
+<tr>
+<td>87</td><td><strong>2007.HK</strong></td><td>Country Garden</td>
+<td>2026-03-02</td><td>2026-03-03</td><td>0.31</td>
+<td>2026-04-17</td><td>0.29</td><td>0.26</td><td>0.69</td>
+<td class="exit-max">max_hold</td><td>45</td>
+<td class="pnl-neg">-4.84%</td><td>1.00</td><td>7.9</td>
+</tr>
+<tr>
+<td>88</td><td><strong>2018.HK</strong></td><td>AAC Technologies</td>
+<td>2026-03-20</td><td>2026-03-23</td><td>33.32</td>
+<td>2026-03-23</td><td>31.25</td><td>31.25</td><td>48.56</td>
+<td class="exit-stop">stop_loss</td><td>0</td>
+<td class="pnl-neg">-6.21%</td><td>1.00</td><td>7.4</td>
+</tr>
+</tbody></table></div></div>
+<h2 style="color: #ff6b35; margin-bottom: 16px;">📅 Monthly Breakdown</h2>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-01</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 52</span>
+<span class="tag loss">PnL: -3.38%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>6862.HK</strong></td><td>Haidilao</td><td>2022-01-12</td>
+<td>2022-01-13</td><td>17.60</td>
+<td>2022-03-01</td><td>18.06</td>
+<td>max_hold</td><td>47d</td>
+<td class="pnl-pos">+2.61%</td><td>0.80</td><td>15.1</td>
+</tr>
+<tr>
+<td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2022-01-04</td>
+<td>2022-01-05</td><td>30.90</td>
+<td>2022-01-20</td><td>29.05</td>
+<td>stop_loss</td><td>15d</td>
+<td class="pnl-neg">-5.99%</td><td>0.80</td><td>11.8</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-02</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 15</span>
+<span class="tag loss">PnL: -14.52%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>6862.HK</strong></td><td>Haidilao</td><td>2022-02-04</td>
+<td>2022-02-07</td><td>18.07</td>
+<td>2022-03-07</td><td>15.85</td>
+<td>stop_loss</td><td>28d</td>
+<td class="pnl-neg">-12.29%</td><td>0.65</td><td>7.0</td>
+</tr>
+<tr>
+<td><strong>1929.HK</strong></td><td>Chow Tai Fook</td><td>2022-02-11</td>
+<td>2022-02-14</td><td>13.91</td>
+<td>2022-03-28</td><td>13.60</td>
+<td>max_hold</td><td>42d</td>
+<td class="pnl-neg">-2.23%</td><td>0.85</td><td>2.4</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-03</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 19</span>
+<span class="tag loss">PnL: -1.99%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0175.HK</strong></td><td>Geely Auto</td><td>2022-03-29</td>
+<td>2022-03-30</td><td>11.94</td>
+<td>2022-05-18</td><td>13.76</td>
+<td>max_hold</td><td>49d</td>
+<td class="pnl-pos">+15.24%</td><td>0.80</td><td>7.8</td>
+</tr>
+<tr>
+<td><strong>2382.HK</strong></td><td>Sunny Optical</td><td>2022-03-29</td>
+<td>2022-03-30</td><td>140.40</td>
+<td>2022-04-06</td><td>116.21</td>
+<td>stop_loss</td><td>7d</td>
+<td class="pnl-neg">-17.23%</td><td>1.00</td><td>4.6</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-04</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 42</span>
+<span class="tag win">PnL: +3.14%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0175.HK</strong></td><td>Geely Auto</td><td>2022-04-01</td>
+<td>2022-04-04</td><td>12.08</td>
+<td>2022-05-23</td><td>13.64</td>
+<td>max_hold</td><td>49d</td>
+<td class="pnl-pos">+12.91%</td><td>0.80</td><td>7.2</td>
+</tr>
+<tr>
+<td><strong>0291.HK</strong></td><td>China Resources Beer</td><td>2022-04-28</td>
+<td>2022-04-29</td><td>45.15</td>
+<td>2022-05-06</td><td>40.74</td>
+<td>stop_loss</td><td>7d</td>
+<td class="pnl-neg">-9.77%</td><td>0.80</td><td>5.0</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-05</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 33</span>
+<span class="tag win">PnL: +17.99%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0291.HK</strong></td><td>China Resources Beer</td><td>2022-05-03</td>
+<td>2022-05-04</td><td>45.42</td>
+<td>2022-05-06</td><td>40.74</td>
+<td>stop_loss</td><td>2d</td>
+<td class="pnl-neg">-10.30%</td><td>0.80</td><td>4.7</td>
+</tr>
+<tr>
+<td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td><td>2022-05-24</td>
+<td>2022-05-25</td><td>4.10</td>
+<td>2022-07-08</td><td>5.26</td>
+<td>max_hold</td><td>44d</td>
+<td class="pnl-pos">+28.29%</td><td>0.80</td><td>4.4</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-06</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 47</span>
+<span class="tag win">PnL: +3.21%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2022-06-15</td>
+<td>2022-06-16</td><td>17.33</td>
+<td>2022-07-29</td><td>15.18</td>
+<td>max_hold</td><td>43d</td>
+<td class="pnl-neg">-12.41%</td><td>1.00</td><td>6.8</td>
+</tr>
+<tr>
+<td><strong>0291.HK</strong></td><td>China Resources Beer</td><td>2022-06-01</td>
+<td>2022-06-02</td><td>45.58</td>
+<td>2022-07-18</td><td>52.70</td>
+<td>max_hold</td><td>46d</td>
+<td class="pnl-pos">+15.62%</td><td>1.00</td><td>3.7</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-07</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 16</span>
+<span class="tag loss">PnL: -22.08%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2313.HK</strong></td><td>Shenzhou International</td><td>2022-07-06</td>
+<td>2022-07-07</td><td>94.72</td>
+<td>2022-07-08</td><td>87.59</td>
+<td>stop_loss</td><td>1d</td>
+<td class="pnl-neg">-7.53%</td><td>1.00</td><td>8.9</td>
+</tr>
+<tr>
+<td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2022-07-06</td>
+<td>2022-07-07</td><td>17.46</td>
+<td>2022-08-01</td><td>14.92</td>
+<td>stop_loss</td><td>25d</td>
+<td class="pnl-neg">-14.55%</td><td>0.65</td><td>6.4</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-08</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 22</span>
+<span class="tag loss">PnL: -25.19%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>6098.HK</strong></td><td>CG Services</td><td>2022-08-24</td>
+<td>2022-08-25</td><td>15.38</td>
+<td>2022-09-02</td><td>13.42</td>
+<td>stop_loss</td><td>8d</td>
+<td class="pnl-neg">-12.74%</td><td>0.80</td><td>16.6</td>
+</tr>
+<tr>
+<td><strong>2007.HK</strong></td><td>Country Garden</td><td>2022-08-29</td>
+<td>2022-08-30</td><td>2.57</td>
+<td>2022-09-02</td><td>2.25</td>
+<td>stop_loss</td><td>3d</td>
+<td class="pnl-neg">-12.45%</td><td>0.80</td><td>12.7</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-09</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 20</span>
+<span class="tag loss">PnL: -22.73%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>6098.HK</strong></td><td>CG Services</td><td>2022-09-02</td>
+<td>2022-09-05</td><td>15.70</td>
+<td>2022-09-05</td><td>13.42</td>
+<td>stop_loss</td><td>0d</td>
+<td class="pnl-neg">-14.52%</td><td>1.00</td><td>10.7</td>
+</tr>
+<tr>
+<td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2022-09-06</td>
+<td>2022-09-07</td><td>14.62</td>
+<td>2022-09-19</td><td>13.42</td>
+<td>stop_loss</td><td>12d</td>
+<td class="pnl-neg">-8.21%</td><td>1.00</td><td>3.6</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-10</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 5</span>
+<span class="tag loss">PnL: -9.81%</span>
+<span class="tag loss">W/L: 0/1</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2022-10-26</td>
+<td>2022-10-27</td><td>33.34</td>
+<td>2022-10-31</td><td>30.07</td>
+<td>stop_loss</td><td>4d</td>
+<td class="pnl-neg">-9.81%</td><td>1.00</td><td>8.3</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-11</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 69</span>
+<span class="tag win">PnL: +111.10%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2313.HK</strong></td><td>Shenzhou International</td><td>2022-11-14</td>
+<td>2022-11-15</td><td>61.00</td>
+<td>2022-12-29</td><td>86.50</td>
+<td>max_hold</td><td>44d</td>
+<td class="pnl-pos">+41.80%</td><td>1.00</td><td>6.2</td>
+</tr>
+<tr>
+<td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2022-11-14</td>
+<td>2022-11-15</td><td>13.94</td>
+<td>2022-12-29</td><td>23.60</td>
+<td>max_hold</td><td>44d</td>
+<td class="pnl-pos">+69.30%</td><td>1.00</td><td>6.0</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2022-12</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 25</span>
+<span class="tag win">PnL: +33.96%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>1211.HK</strong></td><td>BYD Company</td><td>2022-12-02</td>
+<td>2022-12-05</td><td>63.82</td>
+<td>2023-01-19</td><td>75.53</td>
+<td>max_hold</td><td>45d</td>
+<td class="pnl-pos">+18.35%</td><td>0.85</td><td>4.6</td>
+</tr>
+<tr>
+<td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2022-12-01</td>
+<td>2022-12-02</td><td>37.67</td>
+<td>2023-01-18</td><td>43.55</td>
+<td>max_hold</td><td>47d</td>
+<td class="pnl-pos">+15.61%</td><td>0.85</td><td>2.4</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-01</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 0</span>
+<span class="tag neutral">PnL: +0.00%</span>
+<span class="tag neutral">W/L: 0/0</span>
+</div>
+</div>
+<div class="month-body">
+
+<p style="padding: 20px; color: #8b949e;">No 破底翻 signals this month.</p>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-02</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 0</span>
+<span class="tag neutral">PnL: +0.00%</span>
+<span class="tag neutral">W/L: 0/0</span>
+</div>
+</div>
+<div class="month-body">
+
+<p style="padding: 20px; color: #8b949e;">No 破底翻 signals this month.</p>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-03</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 17</span>
+<span class="tag win">PnL: +5.67%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>3690.HK</strong></td><td>Meituan</td><td>2023-03-28</td>
+<td>2023-03-29</td><td>131.40</td>
+<td>2023-05-16</td><td>137.40</td>
+<td>max_hold</td><td>48d</td>
+<td class="pnl-pos">+4.57%</td><td>1.00</td><td>6.1</td>
+</tr>
+<tr>
+<td><strong>1876.HK</strong></td><td>Budweiser APAC</td><td>2023-03-02</td>
+<td>2023-03-03</td><td>23.59</td>
+<td>2023-04-19</td><td>23.85</td>
+<td>max_hold</td><td>47d</td>
+<td class="pnl-pos">+1.10%</td><td>0.85</td><td>2.5</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-04</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 51</span>
+<span class="tag loss">PnL: -15.86%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>9618.HK</strong></td><td>JD.com</td><td>2023-04-11</td>
+<td>2023-04-12</td><td>160.74</td>
+<td>2023-04-13</td><td>145.60</td>
+<td>stop_loss</td><td>1d</td>
+<td class="pnl-neg">-9.42%</td><td>1.00</td><td>6.0</td>
+</tr>
+<tr>
+<td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2023-04-26</td>
+<td>2023-04-27</td><td>16.46</td>
+<td>2023-06-01</td><td>15.40</td>
+<td>stop_loss</td><td>35d</td>
+<td class="pnl-neg">-6.44%</td><td>0.80</td><td>5.5</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-05</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 16</span>
+<span class="tag loss">PnL: -12.74%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2382.HK</strong></td><td>Sunny Optical</td><td>2023-05-24</td>
+<td>2023-05-25</td><td>82.77</td>
+<td>2023-05-25</td><td>77.65</td>
+<td>stop_loss</td><td>0d</td>
+<td class="pnl-neg">-6.19%</td><td>0.80</td><td>6.5</td>
+</tr>
+<tr>
+<td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2023-05-02</td>
+<td>2023-05-03</td><td>16.48</td>
+<td>2023-06-01</td><td>15.40</td>
+<td>stop_loss</td><td>29d</td>
+<td class="pnl-neg">-6.55%</td><td>0.80</td><td>5.4</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-06</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 50</span>
+<span class="tag loss">PnL: -23.22%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>6098.HK</strong></td><td>CG Services</td><td>2023-06-15</td>
+<td>2023-06-16</td><td>10.02</td>
+<td>2023-07-19</td><td>8.55</td>
+<td>stop_loss</td><td>33d</td>
+<td class="pnl-neg">-14.67%</td><td>0.80</td><td>8.7</td>
+</tr>
+<tr>
+<td><strong>0241.HK</strong></td><td>Ali Health</td><td>2023-06-15</td>
+<td>2023-06-16</td><td>4.91</td>
+<td>2023-06-23</td><td>4.49</td>
+<td>stop_loss</td><td>7d</td>
+<td class="pnl-neg">-8.55%</td><td>0.80</td><td>7.5</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-07</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 37</span>
+<span class="tag loss">PnL: -22.88%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td><td>2023-07-10</td>
+<td>2023-07-11</td><td>3.45</td>
+<td>2023-08-07</td><td>3.23</td>
+<td>stop_loss</td><td>27d</td>
+<td class="pnl-neg">-6.38%</td><td>1.00</td><td>6.9</td>
+</tr>
+<tr>
+<td><strong>6098.HK</strong></td><td>CG Services</td><td>2023-07-03</td>
+<td>2023-07-04</td><td>10.24</td>
+<td>2023-07-19</td><td>8.55</td>
+<td>stop_loss</td><td>15d</td>
+<td class="pnl-neg">-16.50%</td><td>0.80</td><td>7.4</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-08</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 12</span>
+<span class="tag loss">PnL: -9.08%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>6098.HK</strong></td><td>CG Services</td><td>2023-08-28</td>
+<td>2023-08-29</td><td>7.28</td>
+<td>2023-10-13</td><td>7.20</td>
+<td>max_hold</td><td>45d</td>
+<td class="pnl-neg">-1.10%</td><td>1.00</td><td>11.8</td>
+</tr>
+<tr>
+<td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td><td>2023-08-02</td>
+<td>2023-08-03</td><td>3.51</td>
+<td>2023-08-07</td><td>3.23</td>
+<td>stop_loss</td><td>4d</td>
+<td class="pnl-neg">-7.98%</td><td>0.85</td><td>4.0</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-09</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 23</span>
+<span class="tag loss">PnL: -5.47%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2688.HK</strong></td><td>ENN Energy</td><td>2023-09-21</td>
+<td>2023-09-22</td><td>59.00</td>
+<td>2023-11-07</td><td>60.75</td>
+<td>max_hold</td><td>46d</td>
+<td class="pnl-pos">+2.97%</td><td>1.00</td><td>9.7</td>
+</tr>
+<tr>
+<td><strong>6618.HK</strong></td><td>JD Health</td><td>2023-09-04</td>
+<td>2023-09-05</td><td>43.60</td>
+<td>2023-09-21</td><td>39.92</td>
+<td>stop_loss</td><td>16d</td>
+<td class="pnl-neg">-8.44%</td><td>1.00</td><td>5.7</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-10</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 26</span>
+<span class="tag win">PnL: +11.88%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td><td>2023-10-27</td>
+<td>2023-10-30</td><td>2.78</td>
+<td>2023-12-11</td><td>3.27</td>
+<td>max_hold</td><td>42d</td>
+<td class="pnl-pos">+17.63%</td><td>1.00</td><td>7.5</td>
+</tr>
+<tr>
+<td><strong>6618.HK</strong></td><td>JD Health</td><td>2023-10-13</td>
+<td>2023-10-16</td><td>38.75</td>
+<td>2023-10-16</td><td>36.52</td>
+<td>stop_loss</td><td>0d</td>
+<td class="pnl-neg">-5.75%</td><td>0.80</td><td>8.2</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-11</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 34</span>
+<span class="tag loss">PnL: -14.62%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2007.HK</strong></td><td>Country Garden</td><td>2023-11-10</td>
+<td>2023-11-13</td><td>0.75</td>
+<td>2023-12-27</td><td>0.72</td>
+<td>max_hold</td><td>44d</td>
+<td class="pnl-neg">-4.00%</td><td>1.00</td><td>12.8</td>
+</tr>
+<tr>
+<td><strong>2331.HK</strong></td><td>Li Ning</td><td>2023-11-10</td>
+<td>2023-11-13</td><td>25.99</td>
+<td>2023-11-17</td><td>23.23</td>
+<td>stop_loss</td><td>4d</td>
+<td class="pnl-neg">-10.62%</td><td>1.00</td><td>8.7</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2023-12</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 20</span>
+<span class="tag loss">PnL: -13.38%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2331.HK</strong></td><td>Li Ning</td><td>2023-12-27</td>
+<td>2023-12-28</td><td>19.26</td>
+<td>2024-01-08</td><td>17.75</td>
+<td>stop_loss</td><td>11d</td>
+<td class="pnl-neg">-7.84%</td><td>1.00</td><td>18.4</td>
+</tr>
+<tr>
+<td><strong>0175.HK</strong></td><td>Geely Auto</td><td>2023-12-28</td>
+<td>2023-12-29</td><td>7.94</td>
+<td>2024-01-22</td><td>7.50</td>
+<td>stop_loss</td><td>24d</td>
+<td class="pnl-neg">-5.54%</td><td>0.80</td><td>7.5</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-01</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 40</span>
+<span class="tag loss">PnL: -19.87%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2331.HK</strong></td><td>Li Ning</td><td>2024-01-02</td>
+<td>2024-01-03</td><td>19.69</td>
+<td>2024-01-08</td><td>17.75</td>
+<td>stop_loss</td><td>5d</td>
+<td class="pnl-neg">-9.85%</td><td>1.00</td><td>14.1</td>
+</tr>
+<tr>
+<td><strong>0968.HK</strong></td><td>Xinyi Solar</td><td>2024-01-05</td>
+<td>2024-01-08</td><td>4.29</td>
+<td>2024-01-17</td><td>3.86</td>
+<td>stop_loss</td><td>9d</td>
+<td class="pnl-neg">-10.02%</td><td>0.80</td><td>10.1</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-02</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 73</span>
+<span class="tag win">PnL: +4.19%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2024-02-27</td>
+<td>2024-02-28</td><td>14.07</td>
+<td>2024-03-07</td><td>12.75</td>
+<td>stop_loss</td><td>8d</td>
+<td class="pnl-neg">-9.38%</td><td>1.00</td><td>8.1</td>
+</tr>
+<tr>
+<td><strong>0291.HK</strong></td><td>China Resources Beer</td><td>2024-02-20</td>
+<td>2024-02-21</td><td>29.85</td>
+<td>2024-04-08</td><td>33.90</td>
+<td>max_hold</td><td>47d</td>
+<td class="pnl-pos">+13.57%</td><td>1.00</td><td>7.1</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-03</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 66</span>
+<span class="tag loss">PnL: -30.87%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2269.HK</strong></td><td>WuXi Biologics</td><td>2024-03-04</td>
+<td>2024-03-05</td><td>18.78</td>
+<td>2024-03-15</td><td>14.96</td>
+<td>stop_loss</td><td>10d</td>
+<td class="pnl-neg">-20.34%</td><td>1.00</td><td>8.4</td>
+</tr>
+<tr>
+<td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2024-03-06</td>
+<td>2024-03-07</td><td>14.25</td>
+<td>2024-03-07</td><td>12.75</td>
+<td>stop_loss</td><td>0d</td>
+<td class="pnl-neg">-10.53%</td><td>1.00</td><td>5.8</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-04</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 5</span>
+<span class="tag loss">PnL: -4.44%</span>
+<span class="tag loss">W/L: 0/1</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0101.HK</strong></td><td>Hang Lung Properties</td><td>2024-04-17</td>
+<td>2024-04-18</td><td>8.11</td>
+<td>2024-05-24</td><td>7.75</td>
+<td>stop_loss</td><td>36d</td>
+<td class="pnl-neg">-4.44%</td><td>1.00</td><td>9.2</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-05</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 38</span>
+<span class="tag loss">PnL: -14.55%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0017.HK</strong></td><td>New World Dev</td><td>2024-05-02</td>
+<td>2024-05-03</td><td>8.14</td>
+<td>2024-06-18</td><td>7.55</td>
+<td>max_hold</td><td>46d</td>
+<td class="pnl-neg">-7.25%</td><td>0.80</td><td>8.1</td>
+</tr>
+<tr>
+<td><strong>0101.HK</strong></td><td>Hang Lung Properties</td><td>2024-05-02</td>
+<td>2024-05-03</td><td>8.36</td>
+<td>2024-05-24</td><td>7.75</td>
+<td>stop_loss</td><td>21d</td>
+<td class="pnl-neg">-7.30%</td><td>1.00</td><td>5.0</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-06</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 4</span>
+<span class="tag win">PnL: +15.44%</span>
+<span class="tag win">W/L: 1/1</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2382.HK</strong></td><td>Sunny Optical</td><td>2024-06-03</td>
+<td>2024-06-04</td><td>43.01</td>
+<td>2024-07-18</td><td>49.65</td>
+<td>max_hold</td><td>44d</td>
+<td class="pnl-pos">+15.44%</td><td>0.85</td><td>3.2</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-07</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 11</span>
+<span class="tag loss">PnL: -18.48%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0968.HK</strong></td><td>Xinyi Solar</td><td>2024-07-24</td>
+<td>2024-07-25</td><td>3.72</td>
+<td>2024-08-13</td><td>3.36</td>
+<td>stop_loss</td><td>19d</td>
+<td class="pnl-neg">-9.68%</td><td>0.80</td><td>8.0</td>
+</tr>
+<tr>
+<td><strong>1024.HK</strong></td><td>Kuaishou Tech</td><td>2024-07-19</td>
+<td>2024-07-22</td><td>47.60</td>
+<td>2024-07-24</td><td>43.41</td>
+<td>stop_loss</td><td>2d</td>
+<td class="pnl-neg">-8.80%</td><td>0.80</td><td>3.5</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-08</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 44</span>
+<span class="tag loss">PnL: -9.31%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>1109.HK</strong></td><td>China Resources Land</td><td>2024-08-19</td>
+<td>2024-08-20</td><td>22.69</td>
+<td>2024-08-21</td><td>21.63</td>
+<td>stop_loss</td><td>1d</td>
+<td class="pnl-neg">-4.67%</td><td>0.80</td><td>9.6</td>
+</tr>
+<tr>
+<td><strong>2313.HK</strong></td><td>Shenzhou International</td><td>2024-08-19</td>
+<td>2024-08-20</td><td>62.30</td>
+<td>2024-08-29</td><td>59.41</td>
+<td>stop_loss</td><td>9d</td>
+<td class="pnl-neg">-4.64%</td><td>0.80</td><td>8.3</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-09</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 47</span>
+<span class="tag win">PnL: +68.34%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2024-09-23</td>
+<td>2024-09-24</td><td>9.20</td>
+<td>2024-10-02</td><td>16.06</td>
+<td>target</td><td>8d</td>
+<td class="pnl-pos">+74.57%</td><td>1.00</td><td>7.4</td>
+</tr>
+<tr>
+<td><strong>2313.HK</strong></td><td>Shenzhou International</td><td>2024-09-04</td>
+<td>2024-09-05</td><td>63.36</td>
+<td>2024-09-09</td><td>59.41</td>
+<td>stop_loss</td><td>4d</td>
+<td class="pnl-neg">-6.23%</td><td>1.00</td><td>5.8</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-10</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 36</span>
+<span class="tag win">PnL: +68.40%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2024-10-02</td>
+<td>2024-10-03</td><td>9.40</td>
+<td>2024-11-08</td><td>16.06</td>
+<td>target</td><td>36d</td>
+<td class="pnl-pos">+70.85%</td><td>1.00</td><td>5.9</td>
+</tr>
+<tr>
+<td><strong>0968.HK</strong></td><td>Xinyi Solar</td><td>2024-10-02</td>
+<td>2024-10-03</td><td>3.27</td>
+<td>2024-11-15</td><td>3.19</td>
+<td>max_hold</td><td>43d</td>
+<td class="pnl-neg">-2.45%</td><td>1.00</td><td>5.7</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-11</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 0</span>
+<span class="tag neutral">PnL: +0.00%</span>
+<span class="tag neutral">W/L: 0/0</span>
+</div>
+</div>
+<div class="month-body">
+
+<p style="padding: 20px; color: #8b949e;">No 破底翻 signals this month.</p>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2024-12</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 2</span>
+<span class="tag win">PnL: +6.51%</span>
+<span class="tag win">W/L: 1/1</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2020.HK</strong></td><td>ANTA Sports</td><td>2024-12-19</td>
+<td>2024-12-20</td><td>81.40</td>
+<td>2025-02-10</td><td>86.70</td>
+<td>max_hold</td><td>52d</td>
+<td class="pnl-pos">+6.51%</td><td>0.80</td><td>3.1</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-01</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 21</span>
+<span class="tag win">PnL: +10.40%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2025-01-24</td>
+<td>2025-01-27</td><td>9.71</td>
+<td>2025-03-13</td><td>10.64</td>
+<td>max_hold</td><td>45d</td>
+<td class="pnl-pos">+9.58%</td><td>0.80</td><td>7.0</td>
+</tr>
+<tr>
+<td><strong>1997.HK</strong></td><td>Wharf REIC</td><td>2025-01-27</td>
+<td>2025-01-28</td><td>19.46</td>
+<td>2025-03-14</td><td>19.62</td>
+<td>max_hold</td><td>45d</td>
+<td class="pnl-pos">+0.82%</td><td>0.80</td><td>6.4</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-02</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 79</span>
+<span class="tag win">PnL: +34.97%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>6098.HK</strong></td><td>CG Services</td><td>2025-02-17</td>
+<td>2025-02-18</td><td>5.17</td>
+<td>2025-04-01</td><td>6.92</td>
+<td>max_hold</td><td>42d</td>
+<td class="pnl-pos">+33.85%</td><td>1.00</td><td>7.9</td>
+</tr>
+<tr>
+<td><strong>1997.HK</strong></td><td>Wharf REIC</td><td>2025-02-18</td>
+<td>2025-02-19</td><td>19.56</td>
+<td>2025-04-02</td><td>19.78</td>
+<td>max_hold</td><td>42d</td>
+<td class="pnl-pos">+1.12%</td><td>1.00</td><td>5.9</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-03</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 8</span>
+<span class="tag win">PnL: +32.35%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>6098.HK</strong></td><td>CG Services</td><td>2025-03-03</td>
+<td>2025-03-04</td><td>5.19</td>
+<td>2025-03-04</td><td>6.18</td>
+<td>target</td><td>0d</td>
+<td class="pnl-pos">+19.08%</td><td>0.85</td><td>2.6</td>
+</tr>
+<tr>
+<td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td><td>2025-03-04</td>
+<td>2025-03-05</td><td>3.24</td>
+<td>2025-04-17</td><td>3.67</td>
+<td>max_hold</td><td>43d</td>
+<td class="pnl-pos">+13.27%</td><td>0.85</td><td>1.8</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-04</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 76</span>
+<span class="tag win">PnL: +31.99%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2025-04-23</td>
+<td>2025-04-24</td><td>11.44</td>
+<td>2025-06-09</td><td>12.78</td>
+<td>max_hold</td><td>46d</td>
+<td class="pnl-pos">+11.71%</td><td>0.80</td><td>10.5</td>
+</tr>
+<tr>
+<td><strong>0669.HK</strong></td><td>Techtronic Ind</td><td>2025-04-24</td>
+<td>2025-04-25</td><td>76.20</td>
+<td>2025-06-10</td><td>91.65</td>
+<td>max_hold</td><td>46d</td>
+<td class="pnl-pos">+20.28%</td><td>1.00</td><td>6.2</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-05</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 74</span>
+<span class="tag win">PnL: +13.86%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2025-05-06</td>
+<td>2025-05-07</td><td>11.70</td>
+<td>2025-06-18</td><td>12.46</td>
+<td>max_hold</td><td>42d</td>
+<td class="pnl-pos">+6.50%</td><td>0.80</td><td>7.5</td>
+</tr>
+<tr>
+<td><strong>1928.HK</strong></td><td>Sands China</td><td>2025-05-07</td>
+<td>2025-05-08</td><td>13.99</td>
+<td>2025-06-19</td><td>15.02</td>
+<td>max_hold</td><td>42d</td>
+<td class="pnl-pos">+7.36%</td><td>1.00</td><td>5.1</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-06</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 23</span>
+<span class="tag win">PnL: +25.66%</span>
+<span class="tag win">W/L: 2/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0968.HK</strong></td><td>Xinyi Solar</td><td>2025-06-18</td>
+<td>2025-06-19</td><td>2.48</td>
+<td>2025-08-01</td><td>3.09</td>
+<td>max_hold</td><td>43d</td>
+<td class="pnl-pos">+24.60%</td><td>0.80</td><td>5.0</td>
+</tr>
+<tr>
+<td><strong>9618.HK</strong></td><td>JD.com</td><td>2025-06-10</td>
+<td>2025-06-11</td><td>131.90</td>
+<td>2025-07-24</td><td>133.30</td>
+<td>max_hold</td><td>43d</td>
+<td class="pnl-pos">+1.06%</td><td>0.80</td><td>4.0</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-07</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 12</span>
+<span class="tag loss">PnL: -20.57%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>3690.HK</strong></td><td>Meituan</td><td>2025-07-25</td>
+<td>2025-07-28</td><td>129.77</td>
+<td>2025-08-28</td><td>115.04</td>
+<td>stop_loss</td><td>31d</td>
+<td class="pnl-neg">-11.35%</td><td>1.00</td><td>3.2</td>
+</tr>
+<tr>
+<td><strong>1211.HK</strong></td><td>BYD Company</td><td>2025-07-24</td>
+<td>2025-07-25</td><td>127.70</td>
+<td>2025-07-31</td><td>115.92</td>
+<td>stop_loss</td><td>6d</td>
+<td class="pnl-neg">-9.22%</td><td>0.65</td><td>2.3</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-08</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 1</span>
+<span class="tag loss">PnL: -10.88%</span>
+<span class="tag loss">W/L: 0/1</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>3690.HK</strong></td><td>Meituan</td><td>2025-08-01</td>
+<td>2025-08-04</td><td>129.08</td>
+<td>2025-08-28</td><td>115.04</td>
+<td>stop_loss</td><td>24d</td>
+<td class="pnl-neg">-10.88%</td><td>0.80</td><td>3.9</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-09</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 0</span>
+<span class="tag neutral">PnL: +0.00%</span>
+<span class="tag neutral">W/L: 0/0</span>
+</div>
+</div>
+<div class="month-body">
+
+<p style="padding: 20px; color: #8b949e;">No 破底翻 signals this month.</p>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-10</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 5</span>
+<span class="tag win">PnL: +5.61%</span>
+<span class="tag win">W/L: 1/1</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>0316.HK</strong></td><td>Orient Overseas</td><td>2025-10-21</td>
+<td>2025-10-22</td><td>126.60</td>
+<td>2025-12-04</td><td>133.70</td>
+<td>max_hold</td><td>43d</td>
+<td class="pnl-pos">+5.61%</td><td>0.65</td><td>2.7</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-11</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 11</span>
+<span class="tag win">PnL: +8.46%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td><td>2025-11-24</td>
+<td>2025-11-25</td><td>7.71</td>
+<td>2026-01-09</td><td>9.18</td>
+<td>max_hold</td><td>45d</td>
+<td class="pnl-pos">+19.07%</td><td>0.80</td><td>6.5</td>
+</tr>
+<tr>
+<td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2025-11-26</td>
+<td>2025-11-27</td><td>10.27</td>
+<td>2025-12-11</td><td>9.18</td>
+<td>stop_loss</td><td>14d</td>
+<td class="pnl-neg">-10.61%</td><td>0.85</td><td>1.7</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2025-12</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 15</span>
+<span class="tag win">PnL: +13.76%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td><td>2025-12-23</td>
+<td>2025-12-24</td><td>7.82</td>
+<td>2026-02-09</td><td>9.78</td>
+<td>max_hold</td><td>47d</td>
+<td class="pnl-pos">+25.06%</td><td>1.00</td><td>5.3</td>
+</tr>
+<tr>
+<td><strong>1810.HK</strong></td><td>Xiaomi</td><td>2025-12-10</td>
+<td>2025-12-11</td><td>41.23</td>
+<td>2026-01-19</td><td>36.57</td>
+<td>stop_loss</td><td>39d</td>
+<td class="pnl-neg">-11.30%</td><td>1.00</td><td>4.1</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2026-01</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 8</span>
+<span class="tag win">PnL: +20.76%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td><td>2026-01-02</td>
+<td>2026-01-05</td><td>7.94</td>
+<td>2026-02-16</td><td>10.23</td>
+<td>max_hold</td><td>42d</td>
+<td class="pnl-pos">+28.84%</td><td>0.80</td><td>4.4</td>
+</tr>
+<tr>
+<td><strong>9961.HK</strong></td><td>Trip.com</td><td>2026-01-29</td>
+<td>2026-01-30</td><td>485.40</td>
+<td>2026-02-06</td><td>446.20</td>
+<td>stop_loss</td><td>7d</td>
+<td class="pnl-neg">-8.08%</td><td>1.00</td><td>3.1</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2026-02</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 12</span>
+<span class="tag win">PnL: +4.74%</span>
+<span class="tag neutral">W/L: 1/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2007.HK</strong></td><td>Country Garden</td><td>2026-02-16</td>
+<td>2026-02-20</td><td>0.28</td>
+<td>2026-04-08</td><td>0.31</td>
+<td>max_hold</td><td>47d</td>
+<td class="pnl-pos">+12.50%</td><td>0.80</td><td>14.5</td>
+</tr>
+<tr>
+<td><strong>9961.HK</strong></td><td>Trip.com</td><td>2026-02-02</td>
+<td>2026-02-03</td><td>483.72</td>
+<td>2026-02-06</td><td>446.20</td>
+<td>stop_loss</td><td>3d</td>
+<td class="pnl-neg">-7.76%</td><td>1.00</td><td>3.3</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="month-section">
+<div class="month-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<h3>2026-03</h3>
+<div class="summary">
+<span class="tag neutral">Signals: 26</span>
+<span class="tag loss">PnL: -11.05%</span>
+<span class="tag loss">W/L: 0/2</span>
+</div>
+</div>
+<div class="month-body">
+
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>Entry Price</th><th>Exit</th><th>Exit Price</th><th>Reason</th><th>Hold</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>2007.HK</strong></td><td>Country Garden</td><td>2026-03-02</td>
+<td>2026-03-03</td><td>0.31</td>
+<td>2026-04-17</td><td>0.29</td>
+<td>max_hold</td><td>45d</td>
+<td class="pnl-neg">-4.84%</td><td>1.00</td><td>7.9</td>
+</tr>
+<tr>
+<td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2026-03-20</td>
+<td>2026-03-23</td><td>33.32</td>
+<td>2026-03-23</td><td>31.25</td>
+<td>stop_loss</td><td>0d</td>
+<td class="pnl-neg">-6.21%</td><td>1.00</td><td>7.4</td>
+</tr>
+</tbody></table>
+</div></div>
+
+<div class="chart-container" style="margin-top: 30px;">
+<h2>🗓️ Monthly PnL Heatmap</h2>
+<div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; margin-top: 16px;">
+
+<div style="text-align: center; color: #8b949e; font-weight: bold; padding: 8px 0;">2022</div>
+<div style="background: rgba(248, 81, 73, 0.40280000000000005); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-3.4%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-14.5%</div>
+<div style="background: rgba(248, 81, 73, 0.3194); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-2.0%</div>
+<div style="background: rgba(63, 185, 80, 0.3884000000000001); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+3.1%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+18.0%</div>
+<div style="background: rgba(63, 185, 80, 0.39259999999999995); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+3.2%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-22.1%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-25.2%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-22.7%</div>
+<div style="background: rgba(248, 81, 73, 0.7886); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-9.8%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+111.1%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+34.0%</div>
+<div style="text-align: center; color: #8b949e; font-weight: bold; padding: 8px 0;">2023</div>
+<div style="background: #21262d; padding: 8px; border-radius: 4px; text-align: center; color: #8b949e; font-weight: 600;">+0.0%</div>
+<div style="background: #21262d; padding: 8px; border-radius: 4px; text-align: center; color: #8b949e; font-weight: 600;">+0.0%</div>
+<div style="background: rgba(63, 185, 80, 0.5402); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+5.7%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-15.9%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-12.7%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-23.2%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-22.9%</div>
+<div style="background: rgba(248, 81, 73, 0.7447999999999999); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-9.1%</div>
+<div style="background: rgba(248, 81, 73, 0.5282); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-5.5%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+11.9%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-14.6%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-13.4%</div>
+<div style="text-align: center; color: #8b949e; font-weight: bold; padding: 8px 0;">2024</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-19.9%</div>
+<div style="background: rgba(63, 185, 80, 0.45139999999999997); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+4.2%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-30.9%</div>
+<div style="background: rgba(248, 81, 73, 0.46640000000000004); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-4.4%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-14.6%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+15.4%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-18.5%</div>
+<div style="background: rgba(248, 81, 73, 0.7585999999999999); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-9.3%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+68.3%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+68.4%</div>
+<div style="background: #21262d; padding: 8px; border-radius: 4px; text-align: center; color: #8b949e; font-weight: 600;">+0.0%</div>
+<div style="background: rgba(63, 185, 80, 0.5906); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+6.5%</div>
+<div style="text-align: center; color: #8b949e; font-weight: bold; padding: 8px 0;">2025</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+10.4%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+35.0%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+32.3%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+32.0%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+13.9%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+25.7%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-20.6%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-10.9%</div>
+<div style="background: #21262d; padding: 8px; border-radius: 4px; text-align: center; color: #8b949e; font-weight: 600;">+0.0%</div>
+<div style="background: rgba(63, 185, 80, 0.5366); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+5.6%</div>
+<div style="background: rgba(63, 185, 80, 0.7076); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+8.5%</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+13.8%</div>
+<div style="text-align: center; color: #8b949e; font-weight: bold; padding: 8px 0;">2026</div>
+<div style="background: rgba(63, 185, 80, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+20.8%</div>
+<div style="background: rgba(63, 185, 80, 0.4844); padding: 8px; border-radius: 4px; text-align: center; color: #3fb950; font-weight: 600;">+4.7%</div>
+<div style="background: rgba(248, 81, 73, 0.8); padding: 8px; border-radius: 4px; text-align: center; color: #f85149; font-weight: 600;">-11.1%</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+<div style="background: #161b22; padding: 8px; border-radius: 4px; text-align: center; color: #30363d;">—</div>
+</div></div>
+
+<div style="text-align: center; color: #30363d; margin-top: 40px; padding: 20px; font-size: 12px;">
+Generated: 2026-04-27 14:24 | Strategy: 破底翻 (Cai Sen) | Universe: HSI Blue Chips | Data: Unadjusted Prices
+</div>
+</div>
+
+<script>
+function toggleStock(header) {
+    header.classList.toggle('collapsed');
+    header.nextElementSibling.classList.toggle('hidden');
+}
+</script>
+</body></html>
