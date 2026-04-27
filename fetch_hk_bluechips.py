@@ -89,7 +89,7 @@ HSI_BLUE_CHIPS = {
     "9999.HK": "NetEase",
 }
 
-END_DATE = datetime(2026, 4, 27)
+END_DATE = datetime(2026, 4, 28)
 START_DATE = END_DATE - timedelta(days=8*365)
 
 print(f"Fetching HK Blue Chip prices from {START_DATE.date()} to {END_DATE.date()}")
