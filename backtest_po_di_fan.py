@@ -19,7 +19,7 @@ warnings.filterwarnings('ignore')
 # ============================================================
 # Config
 # ============================================================
-BACKTEST_START = "2022-01-01"
+BACKTEST_START = "2019-01-01"
 BACKTEST_END = "2026-03-31"
 TOP_N = 2  # Top picks per month
 MAX_HOLD_DAYS = 30  # Max holding period per trade
@@ -475,7 +475,7 @@ def generate_html(all_trades, monthly_results, stats):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>破底翻 Backtest — HSI Blue Chips (Jan 2022 - Mar 2026)</title>
+<title>破底翻 Backtest — HSI Blue Chips (Jan 2019 - Mar 2026)</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0e17; color: #c9d1d9; }
