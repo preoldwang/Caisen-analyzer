@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Po Di Fan Backtest — Corrected (Open Price Entry)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #e0e0e0; padding: 24px; }
+  h1 { color: #fff; font-size: 1.8em; margin-bottom: 4px; }
+  .subtitle { color: #888; font-size: 0.95em; margin-bottom: 24px; }
+  .note { background: #1a1d27; border-left: 3px solid #f59e0b; padding: 12px 16px; margin-bottom: 24px; border-radius: 4px; font-size: 0.9em; color: #fbbf24; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .stat { background: #1a1d27; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat .val { font-size: 1.6em; font-weight: 700; color: #fff; }
+  .stat .label { font-size: 0.78em; color: #888; margin-top: 4px; }
+  .stat.green .val { color: #22c55e; }
+  .stat.red .val { color: #ef4444; }
+  .stat.blue .val { color: #60a5fa; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+  th { background: #1a1d27; color: #9ca3af; padding: 10px 8px; text-align: left; font-weight: 600; position: sticky; top: 0; white-space: nowrap; }
+  td { padding: 9px 8px; border-bottom: 1px solid #1e2130; white-space: nowrap; }
+  tr:hover { background: #1a1d27; }
+  .pp { font-weight: 600; }
+  .pp.pos { color: #22c55e; }
+  .pp.neg { color: #ef4444; }
+  .et { font-size: 0.8em; padding: 2px 6px; border-radius: 3px; }
+  .et.target { background: #064e3b; color: #34d399; }
+  .et.stop_loss { background: #450a0a; color: #f87171; }
+  .et.max_hold { background: #1e1b4b; color: #818cf8; }
+  .diff { font-size: 0.8em; }
+  .diff.worse { color: #f87171; }
+  .diff.better { color: #34d399; }
+  .section { margin-top: 36px; }
+  .section h2 { color: #fff; font-size: 1.2em; margin-bottom: 12px; }
+  .corrected { background: #450a0a; }
+</style>
+</head>
+<body>
+<h1>📊 Smart Po Di Fan Backtest — Corrected</h1>
+<p class="subtitle">Entry price = <strong>Open price on entry date</strong> (not neckline). Generated 2026-04-27 18:05</p>
+
+<div class="note">
+⚠️ <strong>Correction applied:</strong> Original backtest used neckline (technical pattern level) as entry price, which was often unreachable on the entry date. This version uses the <strong>actual Open price</strong> on the entry date for realistic P&amp;L calculation.
+</div>
+
+<div class="stats">
+  <div class="stat blue"><div class="val">26</div><div class="label">Total Trades</div></div>
+  <div class="stat green"><div class="val">16</div><div class="label">Winners (61.5%)</div></div>
+  <div class="stat red"><div class="val">10</div><div class="label">Losers</div></div>
+  <div class="stat green"><div class="val">+4.93%</div><div class="label">Avg PnL</div></div>
+  <div class="stat green"><div class="val">+15.90%</div><div class="label">Avg Win</div></div>
+  <div class="stat red"><div class="val">-12.63%</div><div class="label">Avg Loss</div></div>
+  <div class="stat green"><div class="val">+44.03%</div><div class="label">Best Trade</div></div>
+  <div class="stat red"><div class="val">-29.89%</div><div class="label">Worst Trade</div></div>
+</div>
+
+<div class="section">
+<h2>All Trades (26)</h2>
+<table>
+<thead>
+<tr>
+  <th>#</th><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th>
+  <th>Old Entry ⚠️</th><th>Open (Actual)</th><th>Diff</th>
+  <th>Exit</th><th>Exit Price</th><th>Stop</th><th>Target</th>
+  <th>Exit Reason</th><th>Days</th><th>PnL</th><th>Old PnL ⚠️</th><th>Change</th><th>R:R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td><strong>1177.HK</strong></td>
+  <td>Sino Biopharmaceutical</td>
+  <td>2019-01-17</td>
+  <td>2019-01-18</td>
+  <td style="color:#f87171">3.64</td>
+  <td style="color:#34d399"><strong>4.11</strong></td>
+  <td class="diff worse">+0.47 (+12.9%)</td>
+  <td>2019-03-06</td>
+  <td>4.66</td>
+  <td>2.99</td>
+  <td>7.68</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>47</td>
+  <td class="pp pos">+13.38%</td>
+  <td style="color:#666">+28.02%</td>
+  <td class="pp neg">-14.64%</td>
+  <td>3.2</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><strong>2018.HK</strong></td>
+  <td>AAC Technologies</td>
+  <td>2019-02-13</td>
+  <td>2019-02-14</td>
+  <td style="color:#f87171">48.16</td>
+  <td style="color:#34d399"><strong>55.70</strong></td>
+  <td class="diff worse">+7.54 (+15.7%)</td>
+  <td>2019-03-28</td>
+  <td>46.10</td>
+  <td>39.48</td>
+  <td>88.50</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>42</td>
+  <td class="pp neg">-17.24%</td>
+  <td style="color:#666">-4.28%</td>
+  <td class="pp neg">-12.96%</td>
+  <td>2.0</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><strong>2382.HK</strong></td>
+  <td>Sunny Optical</td>
+  <td>2019-06-21</td>
+  <td>2019-06-24</td>
+  <td style="color:#f87171">72.19</td>
+  <td style="color:#34d399"><strong>80.00</strong></td>
+  <td class="diff worse">+7.81 (+10.8%)</td>
+  <td>2019-08-06</td>
+  <td>80.70</td>
+  <td>64.84</td>
+  <td>107.70</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>43</td>
+  <td class="pp pos">+0.88%</td>
+  <td style="color:#666">+11.79%</td>
+  <td class="pp neg">-10.91%</td>
+  <td>1.8</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><strong>0175.HK</strong></td>
+  <td>Geely Auto</td>
+  <td>2019-09-09</td>
+  <td>2019-09-10</td>
+  <td style="color:#f87171">12.09</td>
+  <td style="color:#34d399"><strong>13.56</strong></td>
+  <td class="diff worse">+1.47 (+12.2%)</td>
+  <td>2019-10-24</td>
+  <td>14.20</td>
+  <td>10.42</td>
+  <td>18.82</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>44</td>
+  <td class="pp pos">+4.72%</td>
+  <td style="color:#666">+17.45%</td>
+  <td class="pp neg">-12.73%</td>
+  <td>1.7</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><strong>1044.HK</strong></td>
+  <td>Hengan International</td>
+  <td>2020-11-17</td>
+  <td>2020-11-18</td>
+  <td style="color:#f87171">55.79</td>
+  <td style="color:#34d399"><strong>58.15</strong></td>
+  <td class="diff worse">+2.36 (+4.2%)</td>
+  <td>2020-12-31</td>
+  <td>54.75</td>
+  <td>50.97</td>
+  <td>71.00</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>43</td>
+  <td class="pp neg">-5.85%</td>
+  <td style="color:#666">-1.86%</td>
+  <td class="pp neg">-3.99%</td>
+  <td>1.8</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><strong>9633.HK</strong></td>
+  <td>Nongfu Spring</td>
+  <td>2021-05-28</td>
+  <td>2021-05-31</td>
+  <td style="color:#f87171">43.25</td>
+  <td style="color:#34d399"><strong>45.00</strong></td>
+  <td class="diff worse">+1.75 (+4.0%)</td>
+  <td>2021-07-14</td>
+  <td>44.55</td>
+  <td>36.28</td>
+  <td>66.60</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>44</td>
+  <td class="pp neg">-1.00%</td>
+  <td style="color:#666">+3.01%</td>
+  <td class="pp neg">-4.01%</td>
+  <td>2.5</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><strong>0960.HK</strong></td>
+  <td>Longfor Group</td>
+  <td>2021-10-06</td>
+  <td>2021-10-07</td>
+  <td style="color:#f87171">35.20</td>
+  <td style="color:#34d399"><strong>36.00</strong></td>
+  <td class="diff worse">+0.80 (+2.3%)</td>
+  <td>2021-11-22</td>
+  <td>40.10</td>
+  <td>30.26</td>
+  <td>52.05</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>46</td>
+  <td class="pp pos">+11.39%</td>
+  <td style="color:#666">+13.92%</td>
+  <td class="pp neg">-2.53%</td>
+  <td>2.8</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><strong>0288.HK</strong></td>
+  <td>WH Group</td>
+  <td>2022-01-12</td>
+  <td>2022-01-13</td>
+  <td style="color:#f87171">5.00</td>
+  <td style="color:#34d399"><strong>5.00</strong></td>
+  <td class="diff better">+0.00 (+0.0%)</td>
+  <td>2022-03-01</td>
+  <td>5.49</td>
+  <td>4.63</td>
+  <td>6.75</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>47</td>
+  <td class="pp pos">+9.80%</td>
+  <td style="color:#666">+9.80%</td>
+  <td class="pp pos">+0.00%</td>
+  <td>4.7</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><strong>0291.HK</strong></td>
+  <td>China Resources Beer</td>
+  <td>2022-06-01</td>
+  <td>2022-06-02</td>
+  <td style="color:#f87171">45.58</td>
+  <td style="color:#34d399"><strong>48.40</strong></td>
+  <td class="diff worse">+2.82 (+6.2%)</td>
+  <td>2022-07-18</td>
+  <td>52.70</td>
+  <td>39.67</td>
+  <td>67.45</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>46</td>
+  <td class="pp pos">+8.88%</td>
+  <td style="color:#666">+15.62%</td>
+  <td class="pp neg">-6.74%</td>
+  <td>2.2</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><strong>2020.HK</strong></td>
+  <td>ANTA Sports</td>
+  <td>2022-06-27</td>
+  <td>2022-06-28</td>
+  <td style="color:#f87171">89.30</td>
+  <td style="color:#34d399"><strong>96.00</strong></td>
+  <td class="diff worse">+6.70 (+7.5%)</td>
+  <td>2022-08-10</td>
+  <td>82.70</td>
+  <td>75.76</td>
+  <td>129.90</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>43</td>
+  <td class="pp neg">-13.85%</td>
+  <td style="color:#666">-7.39%</td>
+  <td class="pp neg">-6.46%</td>
+  <td>1.7</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><strong>2313.HK</strong></td>
+  <td>Shenzhou International</td>
+  <td>2022-11-14</td>
+  <td>2022-11-15</td>
+  <td style="color:#f87171">61.00</td>
+  <td style="color:#34d399"><strong>69.85</strong></td>
+  <td class="diff worse">+8.85 (+14.5%)</td>
+  <td>2022-12-29</td>
+  <td>86.50</td>
+  <td>52.77</td>
+  <td>111.80</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>44</td>
+  <td class="pp pos">+23.84%</td>
+  <td style="color:#666">+41.80%</td>
+  <td class="pp neg">-17.96%</td>
+  <td>2.5</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><strong>6098.HK</strong></td>
+  <td>CG Services</td>
+  <td>2022-11-14</td>
+  <td>2022-11-15</td>
+  <td style="color:#f87171">10.82</td>
+  <td style="color:#34d399"><strong>16.34</strong></td>
+  <td class="diff worse">+5.52 (+51.0%)</td>
+  <td>2022-12-29</td>
+  <td>18.86</td>
+  <td>6.65</td>
+  <td>35.35</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>44</td>
+  <td class="pp pos">+15.42%</td>
+  <td style="color:#666">+74.31%</td>
+  <td class="pp neg">-58.89%</td>
+  <td>2.0</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><strong>1211.HK</strong></td>
+  <td>BYD Company</td>
+  <td>2022-12-01</td>
+  <td>2022-12-02</td>
+  <td style="color:#f87171">63.79</td>
+  <td style="color:#34d399"><strong>63.67</strong></td>
+  <td class="diff better">-0.12 (-0.2%)</td>
+  <td>2023-01-18</td>
+  <td>73.87</td>
+  <td>53.58</td>
+  <td>98.60</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>47</td>
+  <td class="pp pos">+16.02%</td>
+  <td style="color:#666">+15.80%</td>
+  <td class="pp pos">+0.22%</td>
+  <td>3.5</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><strong>0019.HK</strong></td>
+  <td>Swire Pacific</td>
+  <td>2023-07-03</td>
+  <td>2023-07-04</td>
+  <td style="color:#f87171">54.87</td>
+  <td style="color:#34d399"><strong>61.00</strong></td>
+  <td class="diff worse">+6.13 (+11.2%)</td>
+  <td>2023-08-16</td>
+  <td>63.00</td>
+  <td>50.63</td>
+  <td>72.20</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>43</td>
+  <td class="pp pos">+3.28%</td>
+  <td style="color:#666">+14.82%</td>
+  <td class="pp neg">-11.54%</td>
+  <td>1.1</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><strong>6862.HK</strong></td>
+  <td>Haidilao</td>
+  <td>2024-02-21</td>
+  <td>2024-02-22</td>
+  <td style="color:#f87171">13.36</td>
+  <td style="color:#34d399"><strong>14.18</strong></td>
+  <td class="diff worse">+0.82 (+6.1%)</td>
+  <td>2024-04-09</td>
+  <td>17.64</td>
+  <td>11.83</td>
+  <td>22.10</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>47</td>
+  <td class="pp pos">+24.40%</td>
+  <td style="color:#666">+32.04%</td>
+  <td class="pp neg">-7.64%</td>
+  <td>3.4</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><strong>0881.HK</strong></td>
+  <td>Zhongsheng Group</td>
+  <td>2024-02-27</td>
+  <td>2024-02-28</td>
+  <td style="color:#f87171">14.07</td>
+  <td style="color:#34d399"><strong>14.80</strong></td>
+  <td class="diff worse">+0.73 (+5.2%)</td>
+  <td>2024-03-07</td>
+  <td>12.75</td>
+  <td>12.75</td>
+  <td>24.80</td>
+  <td><span class="et stop_loss">stop_loss</span></td>
+  <td>8</td>
+  <td class="pp neg">-13.85%</td>
+  <td style="color:#666">-9.38%</td>
+  <td class="pp neg">-4.47%</td>
+  <td>4.9</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><strong>0868.HK</strong></td>
+  <td>Xinyi Glass</td>
+  <td>2024-03-01</td>
+  <td>2024-03-04</td>
+  <td style="color:#f87171">7.39</td>
+  <td style="color:#34d399"><strong>8.04</strong></td>
+  <td class="diff worse">+0.65 (+8.8%)</td>
+  <td>2024-04-18</td>
+  <td>7.88</td>
+  <td>5.99</td>
+  <td>11.86</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>45</td>
+  <td class="pp neg">-1.99%</td>
+  <td style="color:#666">+6.63%</td>
+  <td class="pp neg">-8.62%</td>
+  <td>1.9</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><strong>0101.HK</strong></td>
+  <td>Hang Lung Properties</td>
+  <td>2024-05-02</td>
+  <td>2024-05-03</td>
+  <td style="color:#f87171">8.36</td>
+  <td style="color:#34d399"><strong>9.12</strong></td>
+  <td class="diff worse">+0.76 (+9.1%)</td>
+  <td>2024-05-24</td>
+  <td>7.75</td>
+  <td>7.75</td>
+  <td>11.42</td>
+  <td><span class="et stop_loss">stop_loss</span></td>
+  <td>21</td>
+  <td class="pp neg">-15.02%</td>
+  <td style="color:#666">-7.30%</td>
+  <td class="pp neg">-7.72%</td>
+  <td>1.7</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><strong>9618.HK</strong></td>
+  <td>JD.com</td>
+  <td>2024-08-21</td>
+  <td>2024-08-22</td>
+  <td style="color:#f87171">101.44</td>
+  <td style="color:#34d399"><strong>105.30</strong></td>
+  <td class="diff worse">+3.86 (+3.8%)</td>
+  <td>2024-09-26</td>
+  <td>136.80</td>
+  <td>94.04</td>
+  <td>136.80</td>
+  <td><span class="et target">target</span></td>
+  <td>35</td>
+  <td class="pp pos">+29.91%</td>
+  <td style="color:#666">+34.86%</td>
+  <td class="pp neg">-4.95%</td>
+  <td>2.8</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><strong>9961.HK</strong></td>
+  <td>Trip.com</td>
+  <td>2024-08-28</td>
+  <td>2024-08-29</td>
+  <td style="color:#f87171">331.98</td>
+  <td style="color:#34d399"><strong>364.00</strong></td>
+  <td class="diff worse">+32.02 (+9.7%)</td>
+  <td>2024-09-27</td>
+  <td>440.00</td>
+  <td>300.89</td>
+  <td>440.00</td>
+  <td><span class="et target">target</span></td>
+  <td>29</td>
+  <td class="pp pos">+20.88%</td>
+  <td style="color:#666">+32.54%</td>
+  <td class="pp neg">-11.66%</td>
+  <td>1.2</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><strong>1093.HK</strong></td>
+  <td>CSPC Pharmaceutical</td>
+  <td>2024-09-26</td>
+  <td>2024-09-27</td>
+  <td style="color:#f87171">4.99</td>
+  <td style="color:#34d399"><strong>5.55</strong></td>
+  <td class="diff worse">+0.56 (+11.2%)</td>
+  <td>2024-10-07</td>
+  <td>7.03</td>
+  <td>4.41</td>
+  <td>7.03</td>
+  <td><span class="et target">target</span></td>
+  <td>10</td>
+  <td class="pp pos">+26.67%</td>
+  <td style="color:#666">+40.88%</td>
+  <td class="pp neg">-14.21%</td>
+  <td>1.3</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><strong>0968.HK</strong></td>
+  <td>Xinyi Solar</td>
+  <td>2024-10-02</td>
+  <td>2024-10-03</td>
+  <td style="color:#f87171">3.27</td>
+  <td style="color:#34d399"><strong>4.55</strong></td>
+  <td class="diff worse">+1.28 (+39.1%)</td>
+  <td>2024-11-15</td>
+  <td>3.19</td>
+  <td>2.71</td>
+  <td>6.50</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>43</td>
+  <td class="pp neg">-29.89%</td>
+  <td style="color:#666">-2.45%</td>
+  <td class="pp neg">-27.44%</td>
+  <td>1.1</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><strong>0241.HK</strong></td>
+  <td>Ali Health</td>
+  <td>2025-02-10</td>
+  <td>2025-02-11</td>
+  <td style="color:#f87171">3.58</td>
+  <td style="color:#34d399"><strong>4.27</strong></td>
+  <td class="diff worse">+0.69 (+19.3%)</td>
+  <td>2025-02-17</td>
+  <td>6.15</td>
+  <td>3.07</td>
+  <td>6.15</td>
+  <td><span class="et target">target</span></td>
+  <td>6</td>
+  <td class="pp pos">+44.03%</td>
+  <td style="color:#666">+71.79%</td>
+  <td class="pp neg">-27.76%</td>
+  <td>1.6</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><strong>1997.HK</strong></td>
+  <td>Wharf REIC</td>
+  <td>2025-02-18</td>
+  <td>2025-02-19</td>
+  <td style="color:#f87171">19.56</td>
+  <td style="color:#34d399"><strong>19.60</strong></td>
+  <td class="diff worse">+0.04 (+0.2%)</td>
+  <td>2025-04-02</td>
+  <td>19.78</td>
+  <td>17.96</td>
+  <td>29.00</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>42</td>
+  <td class="pp pos">+0.92%</td>
+  <td style="color:#666">+1.12%</td>
+  <td class="pp neg">-0.20%</td>
+  <td>5.7</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><strong>3690.HK</strong></td>
+  <td>Meituan</td>
+  <td>2025-06-04</td>
+  <td>2025-06-05</td>
+  <td style="color:#f87171">137.94</td>
+  <td style="color:#34d399"><strong>141.40</strong></td>
+  <td class="diff worse">+3.46 (+2.5%)</td>
+  <td>2025-07-03</td>
+  <td>123.19</td>
+  <td>123.19</td>
+  <td>183.50</td>
+  <td><span class="et stop_loss">stop_loss</span></td>
+  <td>28</td>
+  <td class="pp neg">-12.88%</td>
+  <td style="color:#666">-10.69%</td>
+  <td class="pp neg">-2.19%</td>
+  <td>2.3</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><strong>2007.HK</strong></td>
+  <td>Country Garden</td>
+  <td>2026-02-26</td>
+  <td>2026-02-27</td>
+  <td style="color:#f87171">0.29</td>
+  <td style="color:#34d399"><strong>0.34</strong></td>
+  <td class="diff worse">+0.05 (+17.2%)</td>
+  <td>2026-04-15</td>
+  <td>0.29</td>
+  <td>0.26</td>
+  <td>0.69</td>
+  <td><span class="et max_hold">max_hold</span></td>
+  <td>47</td>
+  <td class="pp neg">-14.71%</td>
+  <td style="color:#666">+1.72%</td>
+  <td class="pp neg">-16.43%</td>
+  <td>4.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section">
+<h2>Correction Impact Summary</h2>
+<table>
+<thead><tr><th>Metric</th><th>Original (Neckline)</th><th>Corrected (Open)</th><th>Change</th></tr></thead>
+<tbody>
+<tr><td><strong>Total Trades</strong></td><td>26</td><td>26</td><td>—</td></tr>
+<tr><td><strong>Win Rate</strong></td><td>73.07692307692307%</td><td>61.5%</td><td>—</td></tr>
+<tr><td><strong>Avg PnL</strong></td><td>16.329615384615387%</td><td>+4.93%</td><td>—</td></tr>
+<tr><td><strong>Max Win</strong></td><td>0%</td><td>+44.03%</td><td>—</td></tr>
+<tr><td><strong>Max Loss</strong></td><td>0%</td><td>-29.89%</td><td>—</td></tr>
+</tbody></table></div>
+</body></html>
