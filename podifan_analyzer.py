@@ -164,6 +164,7 @@ class PoDiFanAnalyzer:
         if ohlcv_data is None or len(ohlcv_data) < min_lookback + 15:
             return signals
 
+        open_prices = ohlcv_data['Open'].values
         close = ohlcv_data['Close'].values
         high = ohlcv_data['High'].values
         low = ohlcv_data['Low'].values
@@ -244,7 +245,11 @@ class PoDiFanAnalyzer:
 
                 # 7. Calculate entry/stop/targets
                 current = close[end_idx - 1]
-                entry = neckline
+                # Use next day's Open as entry price (realistic execution)
+                if end_idx < len(open_prices):
+                    entry = open_prices[end_idx]
+                else:
+                    continue  # no next day data, skip signal
                 stop = min_price * 0.96
 
                 distance = neckline - min_price

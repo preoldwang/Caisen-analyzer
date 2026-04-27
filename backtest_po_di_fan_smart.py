@@ -90,6 +90,7 @@ def detect_po_di_fan(ticker, name, df, scan_end_date, hsi_df=None):
     if len(data) < 90:
         return signals
 
+    open_prices = data['Open'].values
     close = data['Close'].values
     low = data['Low'].values
     volume = data['Volume'].values
@@ -167,7 +168,10 @@ def detect_po_di_fan(ticker, name, df, scan_end_date, hsi_df=None):
             if np.isnan(current_avg_vol):
                 current_avg_vol = avg_vol
 
-            entry = neckline
+            # Use next day's Open as entry price (realistic execution)
+            if end_idx >= len(open_prices):
+                continue
+            entry = open_prices[end_idx]
             stop_loss = min_price * 0.97
             distance = neckline - min_price
             target_1 = max(neckline + distance, pre_high)

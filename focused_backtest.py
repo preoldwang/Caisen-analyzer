@@ -95,6 +95,7 @@ class FocusedAnalyzer:
         if df is None or len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -172,7 +173,10 @@ class FocusedAnalyzer:
 
                 # Calculate signals
                 current_price = close[end_idx - 1]
-                entry = neckline
+                # Use next day's Open as entry price (realistic execution)
+                if end_idx >= len(open_prices):
+                    continue
+                entry = open_prices[end_idx]
                 stop_loss = min_price * 0.96
 
                 distance = neckline - min_price

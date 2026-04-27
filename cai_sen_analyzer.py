@@ -359,6 +359,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         volume = df['Volume'].values
         dates = df.index
@@ -420,7 +421,7 @@ class CaiSenAnalyzer:
 
                 # 计算信号
                 current_price = close[end_idx - 1]
-                entry = neckline_approx
+                entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline_approx
                 stop_loss = min_price * 0.97
 
                 # 蔡森公式: 涨幅满足 = 底部到颈线距离
@@ -477,6 +478,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         volume = df['Volume'].values
         dates = df.index
@@ -526,7 +528,7 @@ class CaiSenAnalyzer:
                 is_high_level = segment[-1] > np.percentile(close[:end_idx], 75)
 
                 current_price = close[end_idx - 1]
-                entry = neckline_approx
+                entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline_approx
                 stop_loss = max_price * 1.03
                 min_in_range = np.min(segment)
                 distance = max_price - min_in_range
@@ -575,6 +577,7 @@ class CaiSenAnalyzer:
         if self.weekly_data is None or len(self.weekly_data) < 30:
             return patterns
 
+        open_prices = self.weekly_data['Open'].values
         close = self.weekly_data['Close'].values
         volume = self.weekly_data['Volume'].values
         n = len(close)
@@ -616,7 +619,7 @@ class CaiSenAnalyzer:
                 target_1 = max(neckline + distance, pre_high)
                 target_2 = neckline + distance * 1.618
 
-                entry = neckline
+                entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline
                 stop_loss = min_price * 0.95
                 risk = entry - stop_loss
                 reward = target_1 - entry
@@ -646,6 +649,7 @@ class CaiSenAnalyzer:
         if self.weekly_data is None or len(self.weekly_data) < 30:
             return patterns
 
+        open_prices = self.weekly_data['Open'].values
         close = self.weekly_data['Close'].values
         volume = self.weekly_data['Volume'].values
         n = len(close)
@@ -679,7 +683,7 @@ class CaiSenAnalyzer:
                 target_1 = neckline - distance
                 target_2 = neckline - distance * 1.618
 
-                entry = neckline
+                entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline
                 stop_loss = max_price * 1.05
                 risk = stop_loss - entry
                 reward = entry - target_1
@@ -714,6 +718,7 @@ class CaiSenAnalyzer:
         if len(df) < 40:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -737,7 +742,7 @@ class CaiSenAnalyzer:
                     target_1 = neckline - distance
                     target_2 = neckline - distance * 1.618
 
-                    entry = neckline
+                    entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline
                     stop_loss = island_high * 1.02
                     risk = stop_loss - entry
                     reward = entry - target_1
@@ -774,7 +779,7 @@ class CaiSenAnalyzer:
                         target_1 = neckline + distance
                         target_2 = neckline + distance * 1.618
 
-                        entry = neckline
+                        entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline
                         stop_loss = island_low * 0.98
                         risk = entry - stop_loss
                         reward = target_1 - entry
@@ -810,6 +815,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         volume = df['Volume'].values
         dates = df.index
@@ -843,7 +849,7 @@ class CaiSenAnalyzer:
                 distance = neckline - np.min(segment)
                 target_1 = neckline + distance
                 target_2 = neckline + distance * 1.618
-                entry = neckline
+                entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline
                 stop_loss = np.min(segment[-20:]) * 0.97
                 risk = entry - stop_loss
                 reward = target_1 - entry
@@ -874,6 +880,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         dates = df.index
 
@@ -913,7 +920,7 @@ class CaiSenAnalyzer:
                     current_price = segment[-1]
 
                     if current_price > neckline * 0.98:
-                        entry = neckline
+                        entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline
                         avg_low = (low1 + low2) / 2
                         distance = neckline - avg_low
                         stop_loss = avg_low * 0.97
@@ -950,6 +957,7 @@ class CaiSenAnalyzer:
         if len(df) < 90:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         dates = df.index
 
@@ -993,7 +1001,7 @@ class CaiSenAnalyzer:
                                     neckline = np.mean(sorted(between_highs)[-2:])
 
                                     if segment[-1] > neckline * 0.98:
-                                        entry = neckline
+                                        entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline
                                         distance = neckline - head
                                         stop_loss = head * 0.97
                                         target_1 = neckline + distance
@@ -1041,7 +1049,7 @@ class CaiSenAnalyzer:
                                     neckline = np.mean(sorted(between_lows)[:2])
 
                                     if segment[-1] < neckline * 1.02:
-                                        entry = neckline
+                                        entry = open_prices[end_idx] if end_idx < len(open_prices) else neckline
                                         distance = head - neckline
                                         stop_loss = head * 1.03
                                         target_1 = neckline - distance
@@ -1089,6 +1097,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -1181,6 +1190,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -1276,6 +1286,7 @@ class CaiSenAnalyzer:
         if len(df) < 90:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -1369,6 +1380,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -1444,6 +1456,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -1520,6 +1533,7 @@ class CaiSenAnalyzer:
         if self.weekly_data is None or len(self.weekly_data) < 30:
             return patterns
 
+        open_prices = self.weekly_data['Open'].values
         close = self.weekly_data['Close'].values
         volume = self.weekly_data['Volume'].values
         n = len(close)
@@ -1596,6 +1610,7 @@ class CaiSenAnalyzer:
         if len(df) < 40:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -1749,6 +1764,7 @@ class CaiSenAnalyzer:
         if self.weekly_data is None or len(self.weekly_data) < 15:
             return patterns
 
+        open_prices = self.weekly_data['Open'].values
         close = self.weekly_data['Close'].values
         volume = self.weekly_data['Volume'].values
         n = len(close)
@@ -1843,6 +1859,7 @@ class CaiSenAnalyzer:
         if len(df) < 40:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         volume = df['Volume'].values
         dates = df.index
@@ -2029,6 +2046,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -2125,6 +2143,7 @@ class CaiSenAnalyzer:
         if len(df) < 40:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         low = df['Low'].values
@@ -2219,6 +2238,7 @@ class CaiSenAnalyzer:
         if len(df) < 60:
             return patterns
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         high = df['High'].values
         volume = df['Volume'].values
@@ -2532,6 +2552,7 @@ class CaiSenAnalyzer:
         if len(df) < 20:
             return {"divergence": False, "trend": "unknown"}
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         volume = df['Volume'].values
 
@@ -2638,6 +2659,7 @@ class CaiSenAnalyzer:
         if df is None or len(df) < 20:
             return "盘整"
 
+        open_prices = df['Open'].values
         close = df['Close'].values
         ma20 = np.mean(close[-20:])
         ma60 = np.mean(close[-60:]) if len(close) >= 60 else ma20
