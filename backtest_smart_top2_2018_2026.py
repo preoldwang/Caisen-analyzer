@@ -272,7 +272,7 @@ def apply_smart_filters(signals: List[Signal], recent_tickers: set, stock_data: 
 # ============================================================
 # Trade Simulator
 # ============================================================
-def simulate_trade(signal, price_data):
+def simulate_trade(signal, price_data, max_loss_pct=0.10):
     if price_data is None or price_data.empty:
         return None
 
@@ -286,6 +286,11 @@ def simulate_trade(signal, price_data):
     target = signal.target_price
     entry_dt = future.index[0]
 
+    # Hard stop: max 10% loss from entry price
+    hard_stop = entry_price * (1 - max_loss_pct)
+    # Use the tighter of pattern stop vs hard stop
+    effective_stop = max(stop_loss, hard_stop)
+
     exit_date = None
     exit_price = None
     exit_reason = "max_hold"
@@ -296,9 +301,9 @@ def simulate_trade(signal, price_data):
             exit_price = row['Close']
             exit_reason = "max_hold"
             break
-        if row['Low'] <= stop_loss:
+        if row['Low'] <= effective_stop:
             exit_date = dt
-            exit_price = stop_loss
+            exit_price = effective_stop
             exit_reason = "stop_loss"
             break
         if row['High'] >= target:
@@ -322,7 +327,7 @@ def simulate_trade(signal, price_data):
         entry_price=round(entry_price, 2),
         exit_date=exit_date.strftime('%Y-%m-%d'),
         exit_price=round(exit_price, 2),
-        stop_loss=signal.stop_loss,
+        stop_loss=round(effective_stop, 2),
         target_price=signal.target_price,
         exit_reason=exit_reason,
         holding_days=holding_days,
