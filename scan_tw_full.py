@@ -19,17 +19,19 @@ def scan_stock(ticker, meta, period="1y"):
         signals = []
         seen = set()
         for p in result.patterns:
+            framework = str(p.pattern_type.value)
+            if args.framework != "ALL" and framework != args.framework:
+                continue
             if p.confidence >= 0.65 and p.risk_reward_ratio >= 2.0:
-                key = (ticker, p.pattern_type.value, p.signal_date)
+                key = (ticker, framework, p.signal_date)
                 if key in seen:
                     continue
                 seen.add(key)
-                yahoo_symbol = ticker.replace(".TW", ".TW").replace(".TWO", ".TWO")
                 signals.append({
                     "ticker": ticker,
                     "name": meta["name"],
                     "market": meta["market"],
-                    "pattern": p.pattern_type.value,
+                    "framework": framework,
                     "confidence": round(p.confidence, 2),
                     "entry": round(p.entry_price, 2),
                     "stop_loss": round(p.stop_loss, 2),
@@ -39,7 +41,7 @@ def scan_stock(ticker, meta, period="1y"):
                     "neckline": round(p.neckline, 2),
                     "signal_date": p.signal_date,
                     "timeframe": getattr(p, "timeframe", "daily"),
-                    "yahoo_url": f"https://tw.stock.yahoo.com/quote/{yahoo_symbol}",
+                    "yahoo_url": yahoo_url(ticker),
                 })
         return signals
     except Exception as e:
@@ -50,6 +52,7 @@ def main():
     parser.add_argument("--chunk", type=int, default=1, help="本批次編號 (1-based)")
     parser.add_argument("--total", type=int, default=4, help="總批次數")
     parser.add_argument("--period", type=str, default="1y", help="K線資料期間：1y / 2y / 5y")
+    parser.add_argument("--framework", type=str, default="ALL", help="型態框架篩選：ALL / W底 / M頭 / 頭肩底 / 頭肩頂 / 旗形 / 三角形 / 假突破 / 破底翻")
     args = parser.parse_args()
 
     print(f"{'='*60}")
@@ -98,6 +101,7 @@ def main():
         "chunk": args.chunk,
         "total_chunks": args.total,
         "date": datetime.now().strftime("%Y-%m-%d"),
+        "framework": args.framework,
         "scanned": len(my_stocks),
         "signal_count": len(all_signals),
         "signals": all_signals
