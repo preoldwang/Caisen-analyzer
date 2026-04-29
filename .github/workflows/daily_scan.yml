@@ -1,37 +1,67 @@
-name: 台股蔡森每日掃描
+name: 全台股蔡森每日掃描（Matrix 4 平行）
 
 on:
   schedule:
-    - cron: '30 7 * * 1-5'   # UTC 07:30 = 台灣時間 15:30，週一至週五
-  workflow_dispatch:            # 允許手動立即執行
+    - cron: '35 7 * * 1-5'   # UTC 07:35 = 台灣時間 15:35，週一至週五
+  workflow_dispatch:
 
 jobs:
+  # ── 第一階段：4 個平行掃描 Job ──────────────────────────
   scan:
+    name: 掃描批次 ${{ matrix.chunk }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chunk: [1, 2, 3, 4]
+      fail-fast: false        # 一個失敗不影響其他批次
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安裝套件
+        run: pip install yfinance pandas numpy scipy matplotlib mplfinance --quiet
+
+      - name: 執行掃描（批次 ${{ matrix.chunk }}/4）
+        run: python scan_tw_full.py --chunk ${{ matrix.chunk }} --total 4
+
+      - name: 上傳批次結果
+        uses: actions/upload-artifact@v4
+        with:
+          name: signals-chunk-${{ matrix.chunk }}
+          path: signals_chunk_${{ matrix.chunk }}.json
+          retention-days: 1
+
+  # ── 第二階段：合併結果 + 產出報告 ──────────────────────
+  merge:
+    name: 合併結果 & 發布報告
+    runs-on: ubuntu-latest
+    needs: scan
     permissions:
       contents: write
 
     steps:
-      - name: ⬇️ 取得程式碼
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 🐍 安裝 Python 套件
-        run: |
-          pip install yfinance pandas numpy scipy matplotlib mplfinance --quiet
+      - name: 下載所有批次結果
+        uses: actions/download-artifact@v4
+        with:
+          pattern: signals-chunk-*
+          merge-multiple: true
 
-      - name: 🔍 執行台股掃描
-        run: python scan_tw50.py
+      - name: 安裝套件
+        run: pip install pandas --quiet
 
-      - name: 📤 推送報告
+      - name: 合併並產出 HTML 報告
+        run: python merge_tw_full.py
+
+      - name: 推送報告到 GitHub
         run: |
           git config user.email "actions@github.com"
           git config user.name "CaiSen ScanBot"
           git add index.html signals.json
-          git commit -m "📊 台股掃描報告 $(date '+%Y-%m-%d')" || echo "無新訊號變更"
+          git commit -m "📊 全台股掃描報告 $(date '+%Y-%m-%d')" || echo "無變更"
           git push
 
-      - name: 🚨 失敗通知
+      - name: 掃描失敗通知
         if: failure()
-        run: |
-          echo "::error::掃描失敗！請至 Actions 頁面查看詳細 log"
-          exit 1
+        run: echo "::error::全台股掃描失敗，請至 Actions 查看 log"
