@@ -1,34 +1,67 @@
 <!DOCTYPE html>
 <html lang="zh-TW"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>台股蔡森掃描 2026-04-29</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全台股蔡森掃描 2026-04-29</title>
 <style>
-  body{font-family:-apple-system,sans-serif;background:#0f1117;color:#e1e4e8;padding:24px;margin:0}
-  h1{color:#58a6ff;margin-bottom:4px} .sub{color:#8b949e;font-size:13px;margin-bottom:24px}
-  .stats{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
-  .stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px 20px;text-align:center}
-  .stat .v{font-size:24px;font-weight:700;color:#58a6ff} .stat .l{font-size:11px;color:#8b949e;text-transform:uppercase}
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  th{background:#161b22;padding:10px 8px;text-align:left;color:#8b949e;border-bottom:2px solid #30363d;font-size:12px;text-transform:uppercase}
-  td{padding:10px 8px;border-bottom:1px solid #21262d;vertical-align:middle}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+        background:#0f1117;color:#e1e4e8;padding:20px;margin:0}
+  h1{color:#58a6ff;margin:0 0 4px} h2{color:#8b949e;font-size:14px;margin:0 0 20px}
+  h3{color:#e1e4e8;font-size:16px;margin:24px 0 12px;border-left:3px solid #58a6ff;padding-left:10px}
+  .stats{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+  .stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px 18px;text-align:center;min-width:100px}
+  .stat .v{font-size:22px;font-weight:700} .stat .l{font-size:11px;color:#8b949e;text-transform:uppercase;margin-top:2px}
+  .section{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px;margin-bottom:20px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{padding:9px 8px;text-align:left;color:#8b949e;border-bottom:2px solid #30363d;font-size:11px;text-transform:uppercase}
+  td{padding:9px 8px;border-bottom:1px solid #21262d;vertical-align:middle}
   tr:hover td{background:#1c2128}
-  .warn{background:#1c1208;border:1px solid #d29922;border-radius:8px;padding:14px;margin-top:24px;color:#d29922;font-size:13px}
-  .empty{text-align:center;padding:40px;color:#8b949e}
+  .badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;margin:2px}
+  .badge-blue{background:rgba(88,166,255,.15);color:#58a6ff}
+  .warn{background:#1c1208;border:1px solid #d29922;border-radius:8px;padding:14px;
+         margin-top:20px;color:#d29922;font-size:13px}
+  @media(max-width:600px){.stats{gap:8px}.stat{padding:10px}table{font-size:12px}}
 </style></head><body>
-<h1>🔍 台股蔡森技術分析掃描</h1>
-<div class="sub">生成日期：2026-04-29 ｜ 掃描標的：50 檔台股50成分股 ｜ 訊號數：0</div>
+<h1>🔍 全台股蔡森技術分析掃描</h1>
+<h2>生成日期：2026-04-29｜掃描：1,293 檔（上市＋上櫃）｜有效訊號：0 個</h2>
+
 <div class="stats">
-  <div class="stat"><div class="v">50</div><div class="l">掃描檔數</div></div>
+  <div class="stat"><div class="v" style="color:#58a6ff">1,293</div><div class="l">掃描檔數</div></div>
   <div class="stat"><div class="v" style="color:#3fb950">0</div><div class="l">有效訊號</div></div>
-  <div class="stat"><div class="v" style="color:#3fb950">0</div><div class="l">高信心 ≥75%</div></div>
-  <div class="stat"><div class="v" style="color:#58a6ff">0</div><div class="l">R:R ≥ 3</div></div>
+  <div class="stat"><div class="v" style="color:#3fb950">0</div><div class="l">信心≥75%</div></div>
+  <div class="stat"><div class="v" style="color:#58a6ff">0</div><div class="l">R:R≥3</div></div>
+  <div class="stat"><div class="v" style="color:#f0a830">0</div><div class="l">精選(兩者)</div></div>
 </div>
-<table>
-<tr><th>代號</th><th>名稱</th><th>型態</th><th>信心</th><th>入場價</th><th>停損</th><th>目標一</th><th>目標二</th><th>R:R</th><th>訊號日</th></tr>
-<tr><td colspan="10" class="empty">📭 今日無符合條件訊號（信心≥65% + R:R≥2）</td></tr>
-</table>
+
+<div class="section">
+  <div style="margin-bottom:8px;font-size:13px;color:#8b949e">型態分布：</div>
+  
+</div>
+
+<h3>🥇 精選訊號（信心≥75% 且 R:R≥3）</h3>
+<div class="section">
+<table><tr>
+      <th>代號</th><th>名稱</th><th>型態</th><th>信心</th>
+      <th>入場價</th><th>停損</th><th>目標一</th><th>目標二</th>
+      <th>R:R</th><th>訊號日</th>
+    </tr><tr><td colspan="10" style="text-align:center;padding:30px;color:#8b949e">📭 無符合條件訊號</td></tr></table>
+</div>
+
+<h3>📋 全部訊號（信心≥65% 且 R:R≥2）</h3>
+<div class="section">
+<table><tr>
+      <th>代號</th><th>名稱</th><th>型態</th><th>信心</th>
+      <th>入場價</th><th>停損</th><th>目標一</th><th>目標二</th>
+      <th>R:R</th><th>訊號日</th>
+    </tr><tr><td colspan="10" style="text-align:center;padding:30px;color:#8b949e">📭 無符合條件訊號</td></tr></table>
+
+</div>
+
 <div class="warn">
   ⚠️ <b>免責聲明</b>：本工具基於蔡森技術分析方法論，僅供學習參考，不構成任何投資建議。<br>
   股市有風險，請嚴格執行停損，理性投資。過往表現不代表未來收益。
 </div>
+<p style="text-align:center;color:#484f58;font-size:12px;margin-top:20px">
+  蔡森技術分析工具 v3.0 | Caisen-analyzer | Generated: 2026-04-29
+</p>
 </body></html>
