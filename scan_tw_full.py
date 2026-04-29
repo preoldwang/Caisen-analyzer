@@ -46,8 +46,8 @@ def fetch_tpex_stocks():
 def scan_stock(ticker, name, period="1y"):
     """掃描單一股票，回傳訊號列表"""
     try:
-        analyzer = CaiSenAnalyzer(ticker)
-        analyzer.fetch_data(period=period)
+        analyzer = CaiSenAnalyzer()
+        analyzer.fetch_data(symbol=ticker, period=period)
         result = analyzer.analyze()
         signals = []
         for p in result.patterns:
