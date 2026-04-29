@@ -2,48 +2,42 @@ name: 全台股蔡森每日掃描（Matrix 4 平行）
 
 on:
   schedule:
-    - cron: '35 7 * * 1-5'
+    - cron: '35 7 * * 1-5'   # UTC 07:35 = 台灣時間 15:35，週一至週五
   workflow_dispatch:
 
 jobs:
+  # ── 前置檢查：今天是否為台股交易日 ─────────────────────
   check-trading-day:
     name: 確認台股交易日
     runs-on: ubuntu-latest
     outputs:
       is_trading_day: ${{ steps.check.outputs.is_trading_day }}
-      trade_date: ${{ steps.check.outputs.trade_date }}
+
     steps:
-      - name: 查詢 TWSE 確認今日是否開盤
+      - name: 安裝 exchange_calendars
+        run: pip install exchange_calendars --quiet
+
+      - name: 判斷今日是否為台股交易日
         id: check
         run: |
           python3 - <<'PYEOF'
-          import urllib.request, json, os, datetime
-          today = datetime.date.today().strftime("%Y%m%d")
-          url = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
-          try:
-              req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-              with urllib.request.urlopen(req, timeout=15) as resp:
-                  data = json.loads(resp.read().decode())
-              if data:
-                  api_date = data[0].get("Date", "")
-                  if len(api_date) == 7:
-                      western_date = str(int(api_date[:3]) + 1911) + api_date[3:]
-                  else:
-                      western_date = api_date
-                  print(f"TWSE 最新資料日期: {western_date}, 今日: {today}")
-                  is_trading = "true" if western_date == today else "false"
-              else:
-                  is_trading = "false"
-                  western_date = today
-          except Exception as e:
-              print(f"查詢失敗: {e}")
-              is_trading = "false"
-              western_date = today
+          import exchange_calendars as xcals
+          import datetime, os
+
+          twse = xcals.get_calendar("XTAI")
+          today = datetime.date.today()
+
+          is_trading = twse.is_session(today.strftime("%Y-%m-%d"))
+          result = "true" if is_trading else "false"
+
+          print(f"今日日期: {today}")
+          print(f"台股交易日: {result}")
+
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-              f.write(f"is_trading_day={is_trading}\n")
-              f.write(f"trade_date={western_date}\n")
+              f.write(f"is_trading_day={result}\n")
           PYEOF
 
+  # ── 第一階段：4 個平行掃描 Job ──────────────────────────
   scan:
     name: 掃描批次 ${{ matrix.chunk }}
     runs-on: ubuntu-latest
@@ -53,12 +47,16 @@ jobs:
       matrix:
         chunk: [1, 2, 3, 4]
       fail-fast: false
+
     steps:
       - uses: actions/checkout@v4
+
       - name: 安裝套件
         run: pip install yfinance pandas numpy scipy matplotlib mplfinance --quiet
+
       - name: 執行掃描（批次 ${{ matrix.chunk }}/4）
         run: python scan_tw_full.py --chunk ${{ matrix.chunk }} --total 4
+
       - name: 上傳批次結果
         uses: actions/upload-artifact@v4
         with:
@@ -66,6 +64,7 @@ jobs:
           path: signals_chunk_${{ matrix.chunk }}.json
           retention-days: 1
 
+  # ── 第二階段：合併 + 權證橋接 + 發布 ──────────────────
   merge:
     name: 合併結果 & 權證橋接 & 發布報告
     runs-on: ubuntu-latest
@@ -77,33 +76,40 @@ jobs:
       FAK:  ${{ secrets.FAK }}
       FS89: ${{ secrets.FS89 }}
       FP:   ${{ secrets.FP }}
+
     steps:
       - uses: actions/checkout@v4
+
       - name: 下載所有批次結果
         uses: actions/download-artifact@v4
         with:
           pattern: signals-chunk-*
           merge-multiple: true
+
       - name: 安裝套件（含富邦 SDK）
-        run: |
-          pip install pandas fubon_neo --quiet
+        run: pip install pandas fubon_neo --quiet
+
       - name: 合併 + 權證橋接 + 產出 HTML
         run: python merge_tw_full.py
-      - name: 推送報告
+
+      - name: 推送報告到 GitHub
         run: |
           git config user.email "actions@github.com"
           git config user.name "CaiSen ScanBot"
           git add index.html signals.json
           git commit -m "📊 全台股掃描報告 $(date '+%Y-%m-%d')" || echo "無變更"
           git push
+
       - name: 掃描失敗通知
         if: failure()
-        run: echo "::error::掃描失敗，請至 Actions 查看 log"
+        run: echo "::error::全台股掃描失敗，請至 Actions 查看 log"
 
+  # ── 非交易日：靜默跳過 ───────────────────────────────
   skip:
     name: 非交易日，跳過
     runs-on: ubuntu-latest
     needs: check-trading-day
     if: needs.check-trading-day.outputs.is_trading_day == 'false'
     steps:
-      - run: echo "⏭️ 今日非台股交易日（${{ needs.check-trading-day.outputs.trade_date }}），掃描已跳過"
+      - name: 靜默結束
+        run: echo "⏭️ 今日非台股交易日（假日或補班休市），掃描已跳過"
