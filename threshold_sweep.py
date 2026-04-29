@@ -10,4 +10,9 @@ thresholds = [
     (0.65, 2.0),
 ]
 
-print('This script is a template for local parameter sweep.')
+results = []
+for conf, rr in thresholds:
+    results.append({"confidence": conf, "rr": rr, "signals": None})
+
+Path("threshold_sweep_results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+print("prepared threshold_sweep_results.json template")
