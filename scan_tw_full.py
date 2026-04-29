@@ -7,43 +7,10 @@ import sys, json, os, time, argparse, urllib.request
 from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cai_sen_analyzer import CaiSenAnalyzer
+from symbol_master import load_symbol_master, yahoo_url
 
-def fetch_twse_stocks():
-    """從 TWSE OpenAPI 取得上市股票清單"""
-    url = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        data = json.loads(resp.read().decode())
-    stocks = {}
-    for s in data:
-        code = s.get("Code", "")
-        name = s.get("Name", "")
-        vol  = float(s.get("TradeVolume", "0") or 0)
-        # 純4碼股票，排除ETF(00開頭)，需有成交量
-        if code.isdigit() and len(code) == 4 and not code.startswith("00") and vol > 0:
-            stocks[f"{code}.TW"] = name
-    return stocks
 
-def fetch_tpex_stocks():
-    """從 TPEX OpenAPI 取得上櫃股票清單"""
-    url = "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode())
-        stocks = {}
-        for s in data:
-            code = s.get("SecuritiesCompanyCode", "")
-            name = s.get("CompanyName", "")
-            vol  = float(s.get("TradingShares", "0").replace(",", "") or 0)
-            if code.isdigit() and len(code) == 4 and not code.startswith("00") and vol > 0:
-                stocks[f"{code}.TWO"] = name
-        return stocks
-    except Exception as e:
-        print(f"  [警告] TPEX 取得失敗: {e}")
-        return {}
-
-def scan_stock(ticker, name, period="1y"):
+def scan_stock(ticker, meta, period="1y"):
     """掃描單一股票，回傳訊號列表"""
     try:
         analyzer = CaiSenAnalyzer()
@@ -60,8 +27,8 @@ def scan_stock(ticker, name, period="1y"):
                 yahoo_symbol = ticker.replace(".TW", ".TW").replace(".TWO", ".TWO")
                 signals.append({
                     "ticker": ticker,
-                    "name": name,
-                    "market": "上市" if ticker.endswith(".TW") else "上櫃",
+                    "name": meta["name"],
+                    "market": meta["market"],
                     "pattern": p.pattern_type.value,
                     "confidence": round(p.confidence, 2),
                     "entry": round(p.entry_price, 2),
@@ -90,15 +57,14 @@ def main():
     print(f"{'='*60}")
 
     # 取得全台股清單
-    print("📥 取得上市股票清單 (TWSE)...")
-    twse = fetch_twse_stocks()
+    print("📥 載入單一標的主檔...")
+    master = load_symbol_master()
+    twse = {k:v for k,v in master.items() if k.endswith(".TW")}
+    tpex = {k:v for k,v in master.items() if k.endswith(".TWO")}
     print(f"   上市: {len(twse)} 檔")
-
-    print("📥 取得上櫃股票清單 (TPEX)...")
-    tpex = fetch_tpex_stocks()
     print(f"   上櫃: {len(tpex)} 檔")
 
-    all_stocks = list({**twse, **tpex}.items())
+    all_stocks = list(master.items())
     all_stocks.sort(key=lambda x: x[0])
     total_count = len(all_stocks)
 
