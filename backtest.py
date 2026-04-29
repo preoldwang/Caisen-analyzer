@@ -147,6 +147,7 @@ def draw_signal_chart(ticker, name, signal_date, pattern, confidence, rr,
 def run_backtest(ticker_codes, n_days=60, forward_days=20, period="2y",
                  out_root="backtest_report"):
     total_signals = 0
+    records = []
 
     for code in ticker_codes:
         sym = f"{code}.TW" if not code.endswith((".TW",".TWO")) else code
@@ -218,6 +219,20 @@ def run_backtest(ticker_codes, n_days=60, forward_days=20, period="2y",
                     pre_df=chart_pre, post_df=chart_post,
                     out_path=out_file
                 )
+                records.append({
+                    "ticker": sym,
+                    "name": name,
+                    "signal_date": cut_date.strftime("%Y-%m-%d"),
+                    "pattern": p.pattern_type.value,
+                    "confidence": round(p.confidence, 3),
+                    "rr": round(p.risk_reward_ratio, 2),
+                    "entry": round(p.entry_price, 2),
+                    "stop_loss": round(p.stop_loss, 2),
+                    "target1": round(p.target_price, 2),
+                    "target2": round(p.target_price_2, 2),
+                    "chart": out_file,
+                    "yahoo_url": f"https://tw.stock.yahoo.com/quote/{sym}",
+                })
                 ticker_signals += 1
                 total_signals  += 1
                 print(f"  ✅ {cut_date.date()} {p.pattern_type.value} "
@@ -225,6 +240,9 @@ def run_backtest(ticker_codes, n_days=60, forward_days=20, period="2y",
 
         print(f"  └ {sym} 共 {ticker_signals} 個訊號圖")
 
+    if records:
+        os.makedirs(out_root, exist_ok=True)
+        pd.DataFrame(records).to_csv(os.path.join(out_root, "backtest_summary.csv"), index=False, encoding="utf-8-sig")
     print(f"\n{'='*55}")
     print(f"✅ 回測完成，共 {total_signals} 張圖，存於 ./{out_root}/")
 
