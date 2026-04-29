@@ -18,12 +18,13 @@ warnings.filterwarnings("ignore")
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cai_sen_analyzer import CaiSenAnalyzer
+from symbol_master import yahoo_url
 
 # ─── 台股預設回測清單（可透過 --tickers 覆蓋）───────────────────────────────
 DEFAULT_TICKERS = [
-    "2330","2317","2454","2382","2412","2308","2881","2882","2886","2891",
-    "3711","2303","2357","2379","2395","6669","2002","1301","1303","2207",
-    "2610","2615","2618","2633","5880","6505","1216","2912","2474","3034"
+    "2330.TW","2317.TW","2454.TW","2382.TW","2412.TW","2308.TW","2881.TW","2882.TW","2886.TW","2891.TW",
+    "3711.TW","2303.TW","2357.TW","2379.TW","2395.TW","6669.TW","2002.TW","1301.TW","1303.TW","2207.TW",
+    "2610.TW","2615.TW","2618.TW","2633.TW","5880.TW","6505.TW","1216.TW","2912.TW","2474.TW","3034.TW"
 ]
 
 # ─── 工具函式 ────────────────────────────────────────────────────────────────
@@ -149,8 +150,7 @@ def run_backtest(ticker_codes, n_days=60, forward_days=20, period="2y",
     total_signals = 0
     records = []
 
-    for code in ticker_codes:
-        sym = f"{code}.TW" if not code.endswith((".TW",".TWO")) else code
+    for sym in ticker_codes:
         print(f"\n{'─'*55}")
         print(f"▶ {sym}  抓取 {period} 資料...")
 
@@ -231,7 +231,7 @@ def run_backtest(ticker_codes, n_days=60, forward_days=20, period="2y",
                     "target1": round(p.target_price, 2),
                     "target2": round(p.target_price_2, 2),
                     "chart": out_file,
-                    "yahoo_url": f"https://tw.stock.yahoo.com/quote/{sym}",
+                    "yahoo_url": yahoo_url(sym),
                 })
                 ticker_signals += 1
                 total_signals  += 1
