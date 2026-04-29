@@ -4,8 +4,22 @@ import os, json
 from datetime import datetime
 from collections import defaultdict
 
+
+def dedupe_records(records):
+    seen = set()
+    out = []
+    for r in records:
+        k = (r.get("trade_date"), r.get("ticker"), r.get("framework") or r.get("pattern"))
+        if k in seen:
+            continue
+        seen.add(k)
+        out.append(r)
+    return out
+
 def build_history_html(records):
     today = datetime.now().strftime("%Y-%m-%d")
+
+    records = dedupe_records(records)
 
     # 依日期分組
     by_date = defaultdict(list)
@@ -35,7 +49,7 @@ def build_history_html(records):
             rows += f"""<tr>
               <td><b>{s["ticker"]}</b></td>
               <td>{s["name"]}</td>
-              <td style="color:{cc}">{s["pattern"]}</td>
+              <td style="color:{cc}" data-framework="{s.get("framework", s["pattern"])}">{s.get("framework", s["pattern"])} </td>
               <td style="color:{cc}">{s["confidence"]*100:.0f}%</td>
               <td>{s["entry"]:.2f}</td>
               <td style="color:#f85149">{s["stop_loss"]:.2f}</td>
@@ -95,10 +109,34 @@ def build_history_html(records):
   <div class="main">
     <h1>📚 蔡森掃描歷史報告</h1>
     <h2>最近 30 個交易日｜更新：{today}</h2>
+    <label style="color:#8b949e;font-size:12px">型態框架</label>
+    <select id="frameworkFilter" style="margin:8px 0 18px;padding:8px;border-radius:6px;background:#0f1117;color:#e1e4e8;border:1px solid #30363d;width:100%">
+      <option value="ALL">ALL</option>
+      <option value="W底">W底</option>
+      <option value="M頭">M頭</option>
+      <option value="頭肩底">頭肩底</option>
+      <option value="頭肩頂">頭肩頂</option>
+      <option value="旗形">旗形</option>
+      <option value="三角形">三角形</option>
+      <option value="假突破">假突破</option>
+      <option value="破底翻">破底翻</option>
+    </select>
+
     {sections if sections else '<p style="color:#8b949e">尚無歷史資料，請等待第一次掃描完成</p>'}
   </div>
 </div>
-</body></html>"""
+<script>
+const sel = document.getElementById('frameworkFilter');
+sel.addEventListener('change', () => {
+  const val = sel.value;
+  document.querySelectorAll('table tr').forEach((tr, i) => {
+    if (i === 0) return;
+    const td = tr.querySelector('[data-framework]');
+    if (!td) return;
+    tr.style.display = (val === 'ALL' || td.dataset.framework === val) ? '' : 'none';
+  });
+});
+</script></body></html>"""
 
 def main():
     print("產出歷史報告...")
