@@ -1,6 +1,8 @@
 {
   "date": "2026-04-29",
-  "total_scanned": 1293,
+  "total_scanned": 1731,
   "signal_count": 0,
-  "signals": []
+  "signals": [],
+  "warrant_map": {},
+  "consecutive": {}
 }
