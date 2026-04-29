@@ -115,7 +115,7 @@ jobs:
           git config user.name "CaiSen ScanBot"
           git add index.html index_2y.html history.html signals.json signals_2y.json
           git commit -m "📊 雙版本掃描報告 $(date '+%Y-%m-%d')" || echo "無變更"
-          git push
+          git push --force-with-lease || git push --force
       - name: 失敗通知
         if: failure()
         run: echo "::error::掃描失敗，請至 Actions 查看 log"
