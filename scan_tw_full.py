@@ -50,8 +50,14 @@ def scan_stock(ticker, name, period="1y"):
         analyzer.fetch_data(symbol=ticker, period=period)
         result = analyzer.analyze()
         signals = []
+        seen = set()
         for p in result.patterns:
             if p.confidence >= 0.65 and p.risk_reward_ratio >= 2.0:
+                key = (ticker, p.pattern_type.value, p.signal_date)
+                if key in seen:
+                    continue
+                seen.add(key)
+                yahoo_symbol = ticker.replace(".TW", ".TW").replace(".TWO", ".TWO")
                 signals.append({
                     "ticker": ticker,
                     "name": name,
@@ -66,6 +72,7 @@ def scan_stock(ticker, name, period="1y"):
                     "neckline": round(p.neckline, 2),
                     "signal_date": p.signal_date,
                     "timeframe": getattr(p, "timeframe", "daily"),
+                    "yahoo_url": f"https://tw.stock.yahoo.com/quote/{yahoo_symbol}",
                 })
         return signals
     except Exception as e:
