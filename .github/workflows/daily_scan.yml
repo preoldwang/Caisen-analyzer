@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '35 7 * * 1-5'
   workflow_dispatch:
+    inputs:
+      version:
+        description: original or custom
+        required: false
+        default: original
 
 jobs:
   check-trading-day:
