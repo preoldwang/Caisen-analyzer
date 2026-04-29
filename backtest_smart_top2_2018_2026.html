@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>破底翻 SMART+Top 2 Backtest — HSI Blue Chips (Apr 2018 – Mar 2026)</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#080c14;color:#c9d1d9;min-height:100vh}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+h1{text-align:center;color:#00d4ff;font-size:28px;margin:20px 0 8px}
+.subtitle{text-align:center;color:#8b949e;font-size:14px;margin-bottom:30px}
+.subtitle span{margin:0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.card{background:#0f1923;border:1px solid #1a2a3a;border-radius:10px;padding:16px;text-align:center}
+.card .label{color:#8b949e;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.card .value{font-size:22px;font-weight:700}
+.g{color:#00e676}.r{color:#ff5252}.b{color:#00d4ff}.o{color:#ff9100}.p{color:#bb86fc}
+.section{background:#0f1923;border:1px solid #1a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.section h2{color:#00d4ff;margin-bottom:14px;font-size:18px}
+.chart-wrap{background:#0f1923;border:1px solid #1a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.eq-bar{display:flex;align-items:flex-end;height:200px;gap:1px;border-bottom:1px solid #1a2a3a;padding-bottom:2px}
+.eq-bar div{flex:1;border-radius:2px 2px 0 0;min-width:2px}
+.eq-labels{display:flex;justify-content:space-between;color:#8b949e;font-size:11px;padding-top:6px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#080c14;color:#8b949e;padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;position:sticky;top:0}
+td{padding:7px 10px;border-bottom:1px solid #141e2a}
+tr:hover{background:#0f1923}
+.pp{color:#00e676;font-weight:600}.pn{color:#ff5252;font-weight:600}
+.ms{background:#0f1923;border:1px solid #1a2a3a;border-radius:8px;margin-bottom:10px;overflow:hidden}
+.mh{padding:12px 16px;background:#0a1018;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.mh:hover{background:#141e2a}
+.mh h3{color:#00d4ff;font-size:15px}
+.sum{display:flex;gap:10px;font-size:12px}
+.tag{padding:2px 8px;border-radius:4px;font-size:11px}
+.tw2{color:#00e676;background:#002200}.tl{color:#ff5252;background:#220000}.tn{color:#8b949e;background:#141e2a}
+.mb{padding:0}.mb.hidden{display:none}
+.heatmap{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin-top:12px}
+.hm-cell{padding:7px 4px;border-radius:4px;text-align:center;font-size:11px;font-weight:600}
+.hm-year{text-align:center;color:#8b949e;font-weight:bold;padding:7px 0;font-size:13px}
+.filter-info{background:#0f1923;border:1px solid #1a2a3a;border-radius:10px;padding:18px;margin-bottom:20px}
+.filter-info .rule{display:flex;align-items:center;gap:8px;margin-bottom:4px;color:#8b949e;font-size:13px}
+.filter-info .rule strong{color:#c9d1d9}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+@media(max-width:768px){.grid{grid-template-columns:repeat(2,1fr)}.card .value{font-size:18px}.vs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🧠 破底翻 SMART+Top 2 Backtest — HSI Blue Chips</h1>
+<p class="subtitle"><span>📅 Apr 2018 → Mar 2026</span><span>|</span><span>🔬 SMART Filters + Top 2</span><span>|</span><span>🎯 38 trades</span></p>
+
+
+<div class="filter-info">
+<h2>🔬 SMART Filters Applied</h2>
+<div class="rule">✅ <strong>Confidence ≥ 0.7</strong> — Only high-conviction signals</div>
+<div class="rule">✅ <strong>R:R ≥ 3.0</strong> — Cai Sen's 3:1 risk-reward minimum</div>
+<div class="rule">✅ <strong>Volume Confirmation</strong> — Recovery must show volume surge (>1.2x avg)</div>
+<div class="rule">✅ <strong>MA20 Uptrend</strong> — Short-term moving average trending up</div>
+<div class="rule">✅ <strong>No Repeat</strong> — Skip stock if traded in last 2 months</div>
+<div class="rule">✅ <strong>Liquidity</strong> — Min avg daily volume 0.5M shares</div>
+<div class="rule">📌 <strong>Entry:</strong> Next-day Open | <strong>Stop:</strong> 3% below bottom | <strong>Target:</strong> Neckline + distance</div>
+</div>
+
+
+<div class="grid">
+<div class="card"><div class="label">Total Trades</div><div class="value b">38</div></div>
+<div class="card"><div class="label">Win Rate</div><div class="value r">31.6%</div></div>
+<div class="card"><div class="label">Total Return</div><div class="value g">+45.7%</div></div>
+<div class="card"><div class="label">Avg PnL/Trade</div><div class="value g">+1.91%</div></div>
+<div class="card"><div class="label">Avg Win</div><div class="value g">+20.23%</div></div>
+<div class="card"><div class="label">Avg Loss</div><div class="value r">-6.55%</div></div>
+<div class="card"><div class="label">Max Drawdown</div><div class="value r">31.1%</div></div>
+<div class="card"><div class="label">Sharpe Ratio</div><div class="value g">0.29</div></div>
+<div class="card"><div class="label">Profit Factor</div><div class="value g">1.43</div></div>
+</div>
+
+<div class="section"><h2>📊 Exit Reasons</h2>
+<div class="rule">🛑 <strong>stop_loss</strong>: 19 (50%)</div>
+<div class="rule">⏰ <strong>max_hold</strong>: 17 (45%)</div>
+<div class="rule">🎯 <strong>target</strong>: 2 (5%)</div>
+</div>
+<div class="section"><h2>📅 Yearly Breakdown</h2>
+<table><thead><tr><th>Year</th><th>Trades</th><th>Wins</th><th>Win Rate</th><th>Total PnL</th><th>Avg PnL</th></tr></thead><tbody>
+<tr><td><strong>2018</strong></td><td>3</td><td>0</td><td>0%</td><td class="r">-20.1%</td><td class="r">-6.70%</td></tr>
+<tr><td><strong>2019</strong></td><td>3</td><td>1</td><td>33%</td><td class="g">+4.8%</td><td class="g">+1.59%</td></tr>
+<tr><td><strong>2020</strong></td><td>6</td><td>2</td><td>33%</td><td class="r">-0.0%</td><td class="r">-0.01%</td></tr>
+<tr><td><strong>2021</strong></td><td>6</td><td>3</td><td>50%</td><td class="g">+24.8%</td><td class="g">+4.13%</td></tr>
+<tr><td><strong>2022</strong></td><td>7</td><td>3</td><td>43%</td><td class="g">+31.9%</td><td class="g">+4.55%</td></tr>
+<tr><td><strong>2023</strong></td><td>3</td><td>0</td><td>0%</td><td class="r">-22.7%</td><td class="r">-7.58%</td></tr>
+<tr><td><strong>2024</strong></td><td>7</td><td>2</td><td>29%</td><td class="g">+27.8%</td><td class="g">+3.97%</td></tr>
+<tr><td><strong>2025</strong></td><td>3</td><td>1</td><td>33%</td><td class="g">+26.1%</td><td class="g">+8.71%</td></tr>
+</tbody></table></div>
+<div class="chart-wrap"><h2>📈 Equity Curve (Starting = 100)</h2><div class="eq-bar">
+<div style="height:84.77552555383198px;background:#00e676" title="100.0"></div>
+<div style="height:70.98735770672381px;background:#ff5252" title="93.4"></div>
+<div style="height:57.258961463249676px;background:#ff5252" title="86.8"></div>
+<div style="height:45.71017628277057px;background:#ff5252" title="81.2"></div>
+<div style="height:74.9300463875303px;background:#ff5252" title="95.3"></div>
+<div style="height:68.76848784774609px;background:#ff5252" title="92.3"></div>
+<div style="height:50.705118204291786px;background:#ff5252" title="83.6"></div>
+<div style="height:43.45365812403442px;background:#ff5252" title="80.1"></div>
+<div style="height:27.63909838549678px;background:#ff5252" title="72.5"></div>
+<div style="height:45.27111432292634px;background:#ff5252" title="81.0"></div>
+<div style="height:43.23272507513991px;background:#ff5252" title="80.0"></div>
+<div style="height:20.0px;background:#ff5252" title="68.9"></div>
+<div style="height:44.485627993876946px;background:#ff5252" title="80.6"></div>
+<div style="height:48.929053520730704px;background:#ff5252" title="82.8"></div>
+<div style="height:35.22831262473431px;background:#ff5252" title="76.2"></div>
+<div style="height:33.46986039710249px;background:#ff5252" title="75.3"></div>
+<div style="height:56.749635569597956px;background:#ff5252" title="86.5"></div>
+<div style="height:49.87591066413699px;background:#ff5252" title="83.2"></div>
+<div style="height:84.74885426978048px;background:#ff5252" title="100.0"></div>
+<div style="height:107.2895135494449px;background:#00e676" title="110.8"></div>
+<div style="height:95.14320065745166px;background:#00e676" title="105.0"></div>
+<div style="height:87.30500978320478px;background:#00e676" title="101.2"></div>
+<div style="height:46.8056146376301px;background:#ff5252" title="81.7"></div>
+<div style="height:45.088650779274516px;background:#ff5252" title="80.9"></div>
+<div style="height:102.48877382155533px;background:#00e676" title="108.5"></div>
+<div style="height:138.62007470816235px;background:#00e676" title="125.9"></div>
+<div style="height:126.9956715611308px;background:#00e676" title="120.3"></div>
+<div style="height:109.30748752815012px;background:#00e676" title="111.8"></div>
+<div style="height:83.19792905468984px;background:#ff5252" title="99.2"></div>
+<div style="height:133.55678064757785px;background:#00e676" title="123.5"></div>
+<div style="height:99.87149715061182px;background:#00e676" title="107.3"></div>
+<div style="height:90.99361744614433px;background:#00e676" title="103.0"></div>
+<div style="height:79.49191385436714px;background:#ff5252" title="97.5"></div>
+<div style="height:78.49876852227023px;background:#ff5252" title="97.0"></div>
+<div style="height:149.99772303844063px;background:#00e676" title="131.4"></div>
+<div style="height:125.19220451260853px;background:#00e676" title="119.4"></div>
+<div style="height:220.0px;background:#00e676" title="165.0"></div>
+<div style="height:201.33042010019352px;background:#00e676" title="156.0"></div>
+<div style="height:179.9120191127861px;background:#00e676" title="145.7"></div>
+</div><div class="eq-labels"><span>Start: 100</span><span>End: 145.75 (+45.7%)</span></div></div>
+<div class="section"><h2>📋 All Transactions</h2>
+<div style="max-height:700px;overflow-y:auto">
+<table><thead><tr><th>#</th><th>Ticker</th><th>Name</th><th>Signal Date</th><th>Entry Date</th><th>Entry $</th><th>Exit Date</th><th>Exit $</th><th>Stop Loss</th><th>Target</th><th>Exit Reason</th><th>Days</th><th>PnL %</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>1378.HK</strong></td><td>China Hongqiao</td><td>2018-10-29</td><td>2018-10-30</td><td>5.28</td><td>2018-11-19</td><td>4.93</td><td>4.93</td><td>8.00</td><td>stop_loss</td><td>20</td><td class="pn">-6.63%</td><td>1.00</td><td>7.7</td></tr>
+<tr><td>2</td><td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td><td>2018-11-20</td><td>2018-11-21</td><td>8.20</td><td>2018-12-06</td><td>7.62</td><td>7.62</td><td>11.90</td><td>stop_loss</td><td>15</td><td class="pn">-7.07%</td><td>0.85</td><td>6.4</td></tr>
+<tr><td>3</td><td><strong>1997.HK</strong></td><td>Wharf REIC</td><td>2018-12-05</td><td>2018-12-06</td><td>48.60</td><td>2019-01-04</td><td>45.49</td><td>45.49</td><td>60.80</td><td>stop_loss</td><td>29</td><td class="pn">-6.40%</td><td>0.85</td><td>3.9</td></tr>
+<tr><td>4</td><td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td><td>2019-01-22</td><td>2019-01-23</td><td>3.95</td><td>2019-03-11</td><td>4.63</td><td>2.99</td><td>7.23</td><td>max_hold</td><td>47</td><td class="pp">+17.30%</td><td>1.00</td><td>3.4</td></tr>
+<tr><td>5</td><td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2019-02-19</td><td>2019-02-20</td><td>51.50</td><td>2019-04-03</td><td>49.90</td><td>39.48</td><td>88.50</td><td>max_hold</td><td>42</td><td class="pn">-3.11%</td><td>0.85</td><td>3.1</td></tr>
+<tr><td>6</td><td><strong>1929.HK</strong></td><td>Chow Tai Fook</td><td>2019-09-09</td><td>2019-09-10</td><td>6.80</td><td>2019-10-16</td><td>6.16</td><td>6.16</td><td>8.76</td><td>stop_loss</td><td>36</td><td class="pn">-9.41%</td><td>1.00</td><td>3.1</td></tr>
+<tr><td>7</td><td><strong>2007.HK</strong></td><td>Country Garden</td><td>2020-03-06</td><td>2020-03-09</td><td>10.08</td><td>2020-03-12</td><td>9.66</td><td>9.66</td><td>12.88</td><td>stop_loss</td><td>3</td><td class="pn">-4.17%</td><td>0.85</td><td>6.7</td></tr>
+<tr><td>8</td><td><strong>1378.HK</strong></td><td>China Hongqiao</td><td>2020-03-05</td><td>2020-03-06</td><td>4.11</td><td>2020-03-11</td><td>3.72</td><td>3.72</td><td>5.51</td><td>stop_loss</td><td>5</td><td class="pn">-9.49%</td><td>1.00</td><td>3.6</td></tr>
+<tr><td>9</td><td><strong>1928.HK</strong></td><td>Sands China</td><td>2020-04-21</td><td>2020-04-22</td><td>29.50</td><td>2020-06-05</td><td>32.95</td><td>25.37</td><td>45.00</td><td>max_hold</td><td>44</td><td class="pp">+11.69%</td><td>1.00</td><td>3.8</td></tr>
+<tr><td>10</td><td><strong>0012.HK</strong></td><td>Henderson Land</td><td>2020-06-11</td><td>2020-06-12</td><td>29.00</td><td>2020-07-28</td><td>28.65</td><td>26.14</td><td>39.00</td><td>max_hold</td><td>46</td><td class="pn">-1.21%</td><td>1.00</td><td>3.5</td></tr>
+<tr><td>11</td><td><strong>1997.HK</strong></td><td>Wharf REIC</td><td>2020-06-11</td><td>2020-06-12</td><td>32.60</td><td>2020-07-28</td><td>28.05</td><td>27.31</td><td>49.10</td><td>max_hold</td><td>46</td><td class="pn">-13.96%</td><td>1.00</td><td>3.1</td></tr>
+<tr><td>12</td><td><strong>0291.HK</strong></td><td>China Resources Beer</td><td>2020-11-02</td><td>2020-11-03</td><td>46.50</td><td>2020-11-11</td><td>54.45</td><td>44.43</td><td>54.45</td><td>target</td><td>8</td><td class="pp">+17.10%</td><td>1.00</td><td>3.8</td></tr>
+<tr><td>13</td><td><strong>0762.HK</strong></td><td>China Unicom</td><td>2021-01-27</td><td>2021-01-28</td><td>4.52</td><td>2021-03-15</td><td>4.64</td><td>4.18</td><td>6.53</td><td>max_hold</td><td>46</td><td class="pp">+2.65%</td><td>1.00</td><td>5.9</td></tr>
+<tr><td>14</td><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2021-02-25</td><td>2021-02-26</td><td>48.00</td><td>2021-03-05</td><td>44.18</td><td>44.18</td><td>61.90</td><td>stop_loss</td><td>7</td><td class="pn">-7.96%</td><td>1.00</td><td>3.6</td></tr>
+<tr><td>15</td><td><strong>2313.HK</strong></td><td>Shenzhou International</td><td>2021-08-26</td><td>2021-08-27</td><td>158.90</td><td>2021-08-27</td><td>157.14</td><td>157.14</td><td>207.60</td><td>stop_loss</td><td>0</td><td class="pn">-1.11%</td><td>1.00</td><td>27.7</td></tr>
+<tr><td>16</td><td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2021-10-07</td><td>2021-10-08</td><td>35.00</td><td>2021-11-23</td><td>40.20</td><td>30.26</td><td>52.05</td><td>max_hold</td><td>46</td><td class="pp">+14.86%</td><td>1.00</td><td>3.6</td></tr>
+<tr><td>17</td><td><strong>0968.HK</strong></td><td>Xinyi Solar</td><td>2021-12-17</td><td>2021-12-20</td><td>13.62</td><td>2021-12-20</td><td>13.10</td><td>13.10</td><td>18.88</td><td>stop_loss</td><td>0</td><td class="pn">-3.82%</td><td>1.00</td><td>10.0</td></tr>
+<tr><td>18</td><td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td><td>2021-12-06</td><td>2021-12-07</td><td>8.09</td><td>2022-01-19</td><td>9.72</td><td>7.65</td><td>11.24</td><td>max_hold</td><td>43</td><td class="pp">+20.15%</td><td>1.00</td><td>7.2</td></tr>
+<tr><td>19</td><td><strong>0288.HK</strong></td><td>WH Group</td><td>2022-01-14</td><td>2022-01-17</td><td>4.89</td><td>2022-03-03</td><td>5.42</td><td>4.63</td><td>6.75</td><td>max_hold</td><td>45</td><td class="pp">+10.84%</td><td>0.85</td><td>7.1</td></tr>
+<tr><td>20</td><td><strong>2313.HK</strong></td><td>Shenzhou International</td><td>2022-01-26</td><td>2022-01-27</td><td>141.50</td><td>2022-02-24</td><td>134.05</td><td>134.05</td><td>185.40</td><td>stop_loss</td><td>28</td><td class="pn">-5.27%</td><td>1.00</td><td>5.9</td></tr>
+<tr><td>21</td><td><strong>6098.HK</strong></td><td>CG Services</td><td>2022-09-02</td><td>2022-09-05</td><td>13.92</td><td>2022-09-05</td><td>13.42</td><td>13.42</td><td>40.10</td><td>stop_loss</td><td>0</td><td class="pn">-3.59%</td><td>1.00</td><td>52.9</td></tr>
+<tr><td>22</td><td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2022-09-01</td><td>2022-09-02</td><td>25.10</td><td>2022-10-11</td><td>20.27</td><td>20.27</td><td>43.15</td><td>stop_loss</td><td>39</td><td class="pn">-19.24%</td><td>1.00</td><td>3.7</td></tr>
+<tr><td>23</td><td><strong>9961.HK</strong></td><td>Trip.com</td><td>2022-10-11</td><td>2022-10-12</td><td>190.30</td><td>2022-10-12</td><td>188.37</td><td>188.37</td><td>233.68</td><td>stop_loss</td><td>0</td><td class="pn">-1.01%</td><td>1.00</td><td>22.5</td></tr>
+<tr><td>24</td><td><strong>3690.HK</strong></td><td>Meituan</td><td>2022-11-25</td><td>2022-11-28</td><td>129.00</td><td>2023-01-12</td><td>173.00</td><td>116.98</td><td>208.20</td><td>max_hold</td><td>45</td><td class="pp">+34.11%</td><td>1.00</td><td>6.6</td></tr>
+<tr><td>25</td><td><strong>1211.HK</strong></td><td>BYD Company</td><td>2022-12-01</td><td>2022-12-02</td><td>63.67</td><td>2023-01-18</td><td>73.87</td><td>53.58</td><td>98.60</td><td>max_hold</td><td>47</td><td class="pp">+16.01%</td><td>1.00</td><td>3.5</td></tr>
+<tr><td>26</td><td><strong>2020.HK</strong></td><td>ANTA Sports</td><td>2023-04-18</td><td>2023-04-19</td><td>101.20</td><td>2023-04-25</td><td>96.71</td><td>96.71</td><td>126.10</td><td>stop_loss</td><td>6</td><td class="pn">-4.44%</td><td>1.00</td><td>5.5</td></tr>
+<tr><td>27</td><td><strong>2688.HK</strong></td><td>ENN Energy</td><td>2023-10-03</td><td>2023-10-04</td><td>62.90</td><td>2023-11-16</td><td>58.45</td><td>53.30</td><td>114.10</td><td>max_hold</td><td>43</td><td class="pn">-7.07%</td><td>1.00</td><td>5.3</td></tr>
+<tr><td>28</td><td><strong>6618.HK</strong></td><td>JD Health</td><td>2023-12-04</td><td>2023-12-05</td><td>36.60</td><td>2024-01-09</td><td>32.49</td><td>32.49</td><td>56.80</td><td>stop_loss</td><td>35</td><td class="pn">-11.23%</td><td>0.85</td><td>4.9</td></tr>
+<tr><td>29</td><td><strong>6862.HK</strong></td><td>Haidilao</td><td>2024-02-21</td><td>2024-02-22</td><td>14.18</td><td>2024-04-09</td><td>17.64</td><td>11.83</td><td>22.10</td><td>max_hold</td><td>47</td><td class="pp">+24.40%</td><td>1.00</td><td>3.4</td></tr>
+<tr><td>30</td><td><strong>2269.HK</strong></td><td>WuXi Biologics</td><td>2024-03-07</td><td>2024-03-08</td><td>17.22</td><td>2024-03-15</td><td>14.96</td><td>14.96</td><td>51.00</td><td>stop_loss</td><td>7</td><td class="pn">-13.12%</td><td>1.00</td><td>14.9</td></tr>
+<tr><td>31</td><td><strong>0066.HK</strong></td><td>MTR Corporation</td><td>2024-03-04</td><td>2024-03-05</td><td>25.15</td><td>2024-04-16</td><td>24.15</td><td>24.15</td><td>32.05</td><td>stop_loss</td><td>42</td><td class="pn">-3.98%</td><td>1.00</td><td>6.9</td></tr>
+<tr><td>32</td><td><strong>0101.HK</strong></td><td>Hang Lung Properties</td><td>2024-05-07</td><td>2024-05-08</td><td>8.19</td><td>2024-05-24</td><td>7.75</td><td>7.75</td><td>11.42</td><td>stop_loss</td><td>16</td><td class="pn">-5.37%</td><td>0.85</td><td>7.3</td></tr>
+<tr><td>33</td><td><strong>9999.HK</strong></td><td>NetEase</td><td>2024-05-24</td><td>2024-05-27</td><td>142.40</td><td>2024-07-10</td><td>141.70</td><td>136.87</td><td>176.70</td><td>max_hold</td><td>44</td><td class="pn">-0.49%</td><td>0.85</td><td>6.2</td></tr>
+<tr><td>34</td><td><strong>9618.HK</strong></td><td>JD.com</td><td>2024-08-26</td><td>2024-08-27</td><td>101.00</td><td>2024-09-26</td><td>136.80</td><td>94.04</td><td>136.80</td><td>target</td><td>30</td><td class="pp">+35.45%</td><td>1.00</td><td>5.1</td></tr>
+<tr><td>35</td><td><strong>0857.HK</strong></td><td>PetroChina</td><td>2024-10-17</td><td>2024-10-18</td><td>6.06</td><td>2024-11-29</td><td>5.51</td><td>5.43</td><td>8.54</td><td>max_hold</td><td>42</td><td class="pn">-9.08%</td><td>1.00</td><td>4.0</td></tr>
+<tr><td>36</td><td><strong>6098.HK</strong></td><td>CG Services</td><td>2025-02-18</td><td>2025-02-19</td><td>5.03</td><td>2025-04-02</td><td>6.95</td><td>4.81</td><td>8.00</td><td>max_hold</td><td>42</td><td class="pp">+38.17%</td><td>1.00</td><td>13.6</td></tr>
+<tr><td>37</td><td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2025-04-29</td><td>2025-04-30</td><td>10.30</td><td>2025-06-13</td><td>9.74</td><td>8.91</td><td>14.56</td><td>max_hold</td><td>44</td><td class="pn">-5.44%</td><td>1.00</td><td>3.1</td></tr>
+<tr><td>38</td><td><strong>6618.HK</strong></td><td>JD Health</td><td>2025-11-26</td><td>2025-11-27</td><td>61.80</td><td>2025-12-11</td><td>57.72</td><td>57.72</td><td>74.52</td><td>stop_loss</td><td>14</td><td class="pn">-6.60%</td><td>1.00</td><td>3.1</td></tr>
+</tbody></table></div></div>
+<h2 style="color:#00d4ff;margin-bottom:14px">📅 Monthly Breakdown</h2>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-04</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-05</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-06</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-07</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-08</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-09</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-10</h3><div class="sum"><span class="tag tn">Raw: 10</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -6.63%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>1378.HK</strong></td><td>China Hongqiao</td><td>2018-10-29</td><td>2018-10-30</td><td>5.28</td><td>2018-11-19</td><td>4.93</td><td>stop_loss</td><td>20d</td><td class="pn">-6.63%</td><td>1.00</td><td>7.7</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-11</h3><div class="sum"><span class="tag tn">Raw: 13</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -7.07%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td><td>2018-11-20</td><td>2018-11-21</td><td>8.20</td><td>2018-12-06</td><td>7.62</td><td>stop_loss</td><td>15d</td><td class="pn">-7.07%</td><td>0.85</td><td>6.4</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2018-12</h3><div class="sum"><span class="tag tn">Raw: 10</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -6.40%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>1997.HK</strong></td><td>Wharf REIC</td><td>2018-12-05</td><td>2018-12-06</td><td>48.60</td><td>2019-01-04</td><td>45.49</td><td>stop_loss</td><td>29d</td><td class="pn">-6.40%</td><td>0.85</td><td>3.9</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-01</h3><div class="sum"><span class="tag tn">Raw: 6</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +17.30%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>1177.HK</strong></td><td>Sino Biopharmaceutical</td><td>2019-01-22</td><td>2019-01-23</td><td>3.95</td><td>2019-03-11</td><td>4.63</td><td>max_hold</td><td>47d</td><td class="pp">+17.30%</td><td>1.00</td><td>3.4</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-02</h3><div class="sum"><span class="tag tn">Raw: 6</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -3.11%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>2018.HK</strong></td><td>AAC Technologies</td><td>2019-02-19</td><td>2019-02-20</td><td>51.50</td><td>2019-04-03</td><td>49.90</td><td>max_hold</td><td>42d</td><td class="pn">-3.11%</td><td>0.85</td><td>3.1</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-03</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-04</h3><div class="sum"><span class="tag tn">Raw: 1</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">1 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-05</h3><div class="sum"><span class="tag tn">Raw: 1</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">1 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-06</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">3 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-07</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">3 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-08</h3><div class="sum"><span class="tag tn">Raw: 10</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">10 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-09</h3><div class="sum"><span class="tag tn">Raw: 16</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -9.41%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>1929.HK</strong></td><td>Chow Tai Fook</td><td>2019-09-09</td><td>2019-09-10</td><td>6.80</td><td>2019-10-16</td><td>6.16</td><td>stop_loss</td><td>36d</td><td class="pn">-9.41%</td><td>1.00</td><td>3.1</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-10</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-11</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2019-12</h3><div class="sum"><span class="tag tn">Raw: 1</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">1 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-01</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-02</h3><div class="sum"><span class="tag tn">Raw: 7</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">7 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-03</h3><div class="sum"><span class="tag tn">Raw: 5</span><span class="tag tn">Passed: 3</span><span class="tag tl">PnL: -13.66%</span><span class="tag tl">W/L: 0/2</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>2007.HK</strong></td><td>Country Garden</td><td>2020-03-06</td><td>2020-03-09</td><td>10.08</td><td>2020-03-12</td><td>9.66</td><td>stop_loss</td><td>3d</td><td class="pn">-4.17%</td><td>0.85</td><td>6.7</td></tr>
+<tr><td><strong>1378.HK</strong></td><td>China Hongqiao</td><td>2020-03-05</td><td>2020-03-06</td><td>4.11</td><td>2020-03-11</td><td>3.72</td><td>stop_loss</td><td>5d</td><td class="pn">-9.49%</td><td>1.00</td><td>3.6</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-04</h3><div class="sum"><span class="tag tn">Raw: 23</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +11.69%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>1928.HK</strong></td><td>Sands China</td><td>2020-04-21</td><td>2020-04-22</td><td>29.50</td><td>2020-06-05</td><td>32.95</td><td>max_hold</td><td>44d</td><td class="pp">+11.69%</td><td>1.00</td><td>3.8</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-05</h3><div class="sum"><span class="tag tn">Raw: 13</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">13 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-06</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 2</span><span class="tag tl">PnL: -15.17%</span><span class="tag tl">W/L: 0/2</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0012.HK</strong></td><td>Henderson Land</td><td>2020-06-11</td><td>2020-06-12</td><td>29.00</td><td>2020-07-28</td><td>28.65</td><td>max_hold</td><td>46d</td><td class="pn">-1.21%</td><td>1.00</td><td>3.5</td></tr>
+<tr><td><strong>1997.HK</strong></td><td>Wharf REIC</td><td>2020-06-11</td><td>2020-06-12</td><td>32.60</td><td>2020-07-28</td><td>28.05</td><td>max_hold</td><td>46d</td><td class="pn">-13.96%</td><td>1.00</td><td>3.1</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-07</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">3 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-08</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-09</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">3 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-10</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-11</h3><div class="sum"><span class="tag tn">Raw: 5</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +17.10%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0291.HK</strong></td><td>China Resources Beer</td><td>2020-11-02</td><td>2020-11-03</td><td>46.50</td><td>2020-11-11</td><td>54.45</td><td>target</td><td>8d</td><td class="pp">+17.10%</td><td>1.00</td><td>3.8</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2020-12</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-01</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +2.65%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0762.HK</strong></td><td>China Unicom</td><td>2021-01-27</td><td>2021-01-28</td><td>4.52</td><td>2021-03-15</td><td>4.64</td><td>max_hold</td><td>46d</td><td class="pp">+2.65%</td><td>1.00</td><td>5.9</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-02</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -7.96%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0881.HK</strong></td><td>Zhongsheng Group</td><td>2021-02-25</td><td>2021-02-26</td><td>48.00</td><td>2021-03-05</td><td>44.18</td><td>stop_loss</td><td>7d</td><td class="pn">-7.96%</td><td>1.00</td><td>3.6</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-03</h3><div class="sum"><span class="tag tn">Raw: 8</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">8 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-04</h3><div class="sum"><span class="tag tn">Raw: 9</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">9 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-05</h3><div class="sum"><span class="tag tn">Raw: 8</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">8 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-06</h3><div class="sum"><span class="tag tn">Raw: 8</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">8 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-07</h3><div class="sum"><span class="tag tn">Raw: 5</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">5 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-08</h3><div class="sum"><span class="tag tn">Raw: 18</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -1.11%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>2313.HK</strong></td><td>Shenzhou International</td><td>2021-08-26</td><td>2021-08-27</td><td>158.90</td><td>2021-08-27</td><td>157.14</td><td>stop_loss</td><td>0d</td><td class="pn">-1.11%</td><td>1.00</td><td>27.7</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-09</h3><div class="sum"><span class="tag tn">Raw: 17</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">17 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-10</h3><div class="sum"><span class="tag tn">Raw: 16</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +14.86%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2021-10-07</td><td>2021-10-08</td><td>35.00</td><td>2021-11-23</td><td>40.20</td><td>max_hold</td><td>46d</td><td class="pp">+14.86%</td><td>1.00</td><td>3.6</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-11</h3><div class="sum"><span class="tag tn">Raw: 16</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">16 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2021-12</h3><div class="sum"><span class="tag tn">Raw: 6</span><span class="tag tn">Passed: 2</span><span class="tag tw2">PnL: +16.33%</span><span class="tag tn">W/L: 1/2</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0968.HK</strong></td><td>Xinyi Solar</td><td>2021-12-17</td><td>2021-12-20</td><td>13.62</td><td>2021-12-20</td><td>13.10</td><td>stop_loss</td><td>0d</td><td class="pn">-3.82%</td><td>1.00</td><td>10.0</td></tr>
+<tr><td><strong>1093.HK</strong></td><td>CSPC Pharmaceutical</td><td>2021-12-06</td><td>2021-12-07</td><td>8.09</td><td>2022-01-19</td><td>9.72</td><td>max_hold</td><td>43d</td><td class="pp">+20.15%</td><td>1.00</td><td>7.2</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-01</h3><div class="sum"><span class="tag tn">Raw: 13</span><span class="tag tn">Passed: 3</span><span class="tag tw2">PnL: +5.57%</span><span class="tag tn">W/L: 1/2</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0288.HK</strong></td><td>WH Group</td><td>2022-01-14</td><td>2022-01-17</td><td>4.89</td><td>2022-03-03</td><td>5.42</td><td>max_hold</td><td>45d</td><td class="pp">+10.84%</td><td>0.85</td><td>7.1</td></tr>
+<tr><td><strong>2313.HK</strong></td><td>Shenzhou International</td><td>2022-01-26</td><td>2022-01-27</td><td>141.50</td><td>2022-02-24</td><td>134.05</td><td>stop_loss</td><td>28d</td><td class="pn">-5.27%</td><td>1.00</td><td>5.9</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-02</h3><div class="sum"><span class="tag tn">Raw: 5</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">5 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-03</h3><div class="sum"><span class="tag tn">Raw: 12</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">12 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-04</h3><div class="sum"><span class="tag tn">Raw: 20</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">20 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-05</h3><div class="sum"><span class="tag tn">Raw: 9</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">9 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-06</h3><div class="sum"><span class="tag tn">Raw: 13</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">13 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-07</h3><div class="sum"><span class="tag tn">Raw: 5</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">5 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-08</h3><div class="sum"><span class="tag tn">Raw: 10</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">10 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-09</h3><div class="sum"><span class="tag tn">Raw: 8</span><span class="tag tn">Passed: 2</span><span class="tag tl">PnL: -22.83%</span><span class="tag tl">W/L: 0/2</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>6098.HK</strong></td><td>CG Services</td><td>2022-09-02</td><td>2022-09-05</td><td>13.92</td><td>2022-09-05</td><td>13.42</td><td>stop_loss</td><td>0d</td><td class="pn">-3.59%</td><td>1.00</td><td>52.9</td></tr>
+<tr><td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2022-09-01</td><td>2022-09-02</td><td>25.10</td><td>2022-10-11</td><td>20.27</td><td>stop_loss</td><td>39d</td><td class="pn">-19.24%</td><td>1.00</td><td>3.7</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-10</h3><div class="sum"><span class="tag tn">Raw: 6</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -1.01%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>9961.HK</strong></td><td>Trip.com</td><td>2022-10-11</td><td>2022-10-12</td><td>190.30</td><td>2022-10-12</td><td>188.37</td><td>stop_loss</td><td>0d</td><td class="pn">-1.01%</td><td>1.00</td><td>22.5</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-11</h3><div class="sum"><span class="tag tn">Raw: 13</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +34.11%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>3690.HK</strong></td><td>Meituan</td><td>2022-11-25</td><td>2022-11-28</td><td>129.00</td><td>2023-01-12</td><td>173.00</td><td>max_hold</td><td>45d</td><td class="pp">+34.11%</td><td>1.00</td><td>6.6</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2022-12</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +16.01%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>1211.HK</strong></td><td>BYD Company</td><td>2022-12-01</td><td>2022-12-02</td><td>63.67</td><td>2023-01-18</td><td>73.87</td><td>max_hold</td><td>47d</td><td class="pp">+16.01%</td><td>1.00</td><td>3.5</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-01</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-02</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-03</h3><div class="sum"><span class="tag tn">Raw: 5</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">5 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-04</h3><div class="sum"><span class="tag tn">Raw: 17</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -4.44%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>2020.HK</strong></td><td>ANTA Sports</td><td>2023-04-18</td><td>2023-04-19</td><td>101.20</td><td>2023-04-25</td><td>96.71</td><td>stop_loss</td><td>6d</td><td class="pn">-4.44%</td><td>1.00</td><td>5.5</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-05</h3><div class="sum"><span class="tag tn">Raw: 5</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">5 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-06</h3><div class="sum"><span class="tag tn">Raw: 13</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">13 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-07</h3><div class="sum"><span class="tag tn">Raw: 10</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">10 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-08</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">3 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-09</h3><div class="sum"><span class="tag tn">Raw: 6</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">6 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-10</h3><div class="sum"><span class="tag tn">Raw: 6</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -7.07%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>2688.HK</strong></td><td>ENN Energy</td><td>2023-10-03</td><td>2023-10-04</td><td>62.90</td><td>2023-11-16</td><td>58.45</td><td>max_hold</td><td>43d</td><td class="pn">-7.07%</td><td>1.00</td><td>5.3</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-11</h3><div class="sum"><span class="tag tn">Raw: 10</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">10 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2023-12</h3><div class="sum"><span class="tag tn">Raw: 8</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -11.23%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>6618.HK</strong></td><td>JD Health</td><td>2023-12-04</td><td>2023-12-05</td><td>36.60</td><td>2024-01-09</td><td>32.49</td><td>stop_loss</td><td>35d</td><td class="pn">-11.23%</td><td>0.85</td><td>4.9</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-01</h3><div class="sum"><span class="tag tn">Raw: 10</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">10 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-02</h3><div class="sum"><span class="tag tn">Raw: 16</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +24.40%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>6862.HK</strong></td><td>Haidilao</td><td>2024-02-21</td><td>2024-02-22</td><td>14.18</td><td>2024-04-09</td><td>17.64</td><td>max_hold</td><td>47d</td><td class="pp">+24.40%</td><td>1.00</td><td>3.4</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-03</h3><div class="sum"><span class="tag tn">Raw: 17</span><span class="tag tn">Passed: 5</span><span class="tag tl">PnL: -17.10%</span><span class="tag tl">W/L: 0/2</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>2269.HK</strong></td><td>WuXi Biologics</td><td>2024-03-07</td><td>2024-03-08</td><td>17.22</td><td>2024-03-15</td><td>14.96</td><td>stop_loss</td><td>7d</td><td class="pn">-13.12%</td><td>1.00</td><td>14.9</td></tr>
+<tr><td><strong>0066.HK</strong></td><td>MTR Corporation</td><td>2024-03-04</td><td>2024-03-05</td><td>25.15</td><td>2024-04-16</td><td>24.15</td><td>stop_loss</td><td>42d</td><td class="pn">-3.98%</td><td>1.00</td><td>6.9</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-04</h3><div class="sum"><span class="tag tn">Raw: 1</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">1 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-05</h3><div class="sum"><span class="tag tn">Raw: 10</span><span class="tag tn">Passed: 4</span><span class="tag tl">PnL: -5.86%</span><span class="tag tl">W/L: 0/2</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0101.HK</strong></td><td>Hang Lung Properties</td><td>2024-05-07</td><td>2024-05-08</td><td>8.19</td><td>2024-05-24</td><td>7.75</td><td>stop_loss</td><td>16d</td><td class="pn">-5.37%</td><td>0.85</td><td>7.3</td></tr>
+<tr><td><strong>9999.HK</strong></td><td>NetEase</td><td>2024-05-24</td><td>2024-05-27</td><td>142.40</td><td>2024-07-10</td><td>141.70</td><td>max_hold</td><td>44d</td><td class="pn">-0.49%</td><td>0.85</td><td>6.2</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-06</h3><div class="sum"><span class="tag tn">Raw: 1</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">1 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-07</h3><div class="sum"><span class="tag tn">Raw: 4</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">4 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-08</h3><div class="sum"><span class="tag tn">Raw: 11</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +35.45%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>9618.HK</strong></td><td>JD.com</td><td>2024-08-26</td><td>2024-08-27</td><td>101.00</td><td>2024-09-26</td><td>136.80</td><td>target</td><td>30d</td><td class="pp">+35.45%</td><td>1.00</td><td>5.1</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-09</h3><div class="sum"><span class="tag tn">Raw: 9</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">9 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-10</h3><div class="sum"><span class="tag tn">Raw: 11</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -9.08%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0857.HK</strong></td><td>PetroChina</td><td>2024-10-17</td><td>2024-10-18</td><td>6.06</td><td>2024-11-29</td><td>5.51</td><td>max_hold</td><td>42d</td><td class="pn">-9.08%</td><td>1.00</td><td>4.0</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-11</h3><div class="sum"><span class="tag tn">Raw: 1</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">1 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2024-12</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">3 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-01</h3><div class="sum"><span class="tag tn">Raw: 12</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">12 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-02</h3><div class="sum"><span class="tag tn">Raw: 19</span><span class="tag tn">Passed: 1</span><span class="tag tw2">PnL: +38.17%</span><span class="tag tw2">W/L: 1/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>6098.HK</strong></td><td>CG Services</td><td>2025-02-18</td><td>2025-02-19</td><td>5.03</td><td>2025-04-02</td><td>6.95</td><td>max_hold</td><td>42d</td><td class="pp">+38.17%</td><td>1.00</td><td>13.6</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-03</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-04</h3><div class="sum"><span class="tag tn">Raw: 14</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -5.44%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>0960.HK</strong></td><td>Longfor Group</td><td>2025-04-29</td><td>2025-04-30</td><td>10.30</td><td>2025-06-13</td><td>9.74</td><td>max_hold</td><td>44d</td><td class="pn">-5.44%</td><td>1.00</td><td>3.1</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-05</h3><div class="sum"><span class="tag tn">Raw: 19</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">19 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-06</h3><div class="sum"><span class="tag tn">Raw: 6</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">6 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-07</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-08</h3><div class="sum"><span class="tag tn">Raw: 1</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">1 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-09</h3><div class="sum"><span class="tag tn">Raw: 0</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">No 破底翻 signals this month.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-10</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-11</h3><div class="sum"><span class="tag tn">Raw: 4</span><span class="tag tn">Passed: 1</span><span class="tag tl">PnL: -6.60%</span><span class="tag tl">W/L: 0/1</span></div></div><div class="mb hidden">
+<table><thead><tr><th>Ticker</th><th>Name</th><th>Signal</th><th>Entry</th><th>$</th><th>Exit</th><th>$</th><th>Reason</th><th>Days</th><th>PnL</th><th>Conf</th><th>R:R</th></tr></thead><tbody>
+<tr><td><strong>6618.HK</strong></td><td>JD Health</td><td>2025-11-26</td><td>2025-11-27</td><td>61.80</td><td>2025-12-11</td><td>57.72</td><td>stop_loss</td><td>14d</td><td class="pn">-6.60%</td><td>1.00</td><td>3.1</td></tr>
+</tbody></table>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2025-12</h3><div class="sum"><span class="tag tn">Raw: 4</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">4 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2026-01</h3><div class="sum"><span class="tag tn">Raw: 2</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">2 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2026-02</h3><div class="sum"><span class="tag tn">Raw: 3</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">3 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="ms"><div class="mh" onclick="this.nextElementSibling.classList.toggle('hidden')"><h3>2026-03</h3><div class="sum"><span class="tag tn">Raw: 7</span><span class="tag tn">Passed: 0</span><span class="tag tn">PnL: +0.00%</span><span class="tag tn">W/L: 0/0</span></div></div><div class="mb hidden">
+<p style="padding:14px;color:#8b949e">7 signals found but all filtered out by SMART criteria.</p>
+</div></div>
+<div class="chart-wrap" style="margin-top:20px"><h2>🗓️ Monthly PnL Heatmap</h2><div class="heatmap">
+<div class="hm-year">2018</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.48150000000000004);color:#ff5252">-6.6%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.5035000000000001);color:#ff5252">-7.1%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.47);color:#ff5252">-6.4%</div>
+<div class="hm-year">2019</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+17.3%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.3055);color:#ff5252">-3.1%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.6205);color:#ff5252">-9.4%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-year">2020</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.65);color:#ff5252">-13.7%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+11.7%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.65);color:#ff5252">-15.2%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+17.1%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-year">2021</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.2825);color:#00e676">+2.6%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.548);color:#ff5252">-8.0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.20550000000000002);color:#ff5252">-1.1%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+14.9%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+16.3%</div>
+<div class="hm-year">2022</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.4285);color:#00e676">+5.6%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.65);color:#ff5252">-22.8%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.2005);color:#ff5252">-1.0%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+34.1%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+16.0%</div>
+<div class="hm-year">2023</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.372);color:#ff5252">-4.4%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.5035000000000001);color:#ff5252">-7.1%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.65);color:#ff5252">-11.2%</div>
+<div class="hm-year">2024</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+24.4%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.65);color:#ff5252">-17.1%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.44300000000000006);color:#ff5252">-5.9%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+35.5%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.604);color:#ff5252">-9.1%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-year">2025</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(0,230,118,0.65);color:#00e676">+38.2%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.42200000000000004);color:#ff5252">-5.4%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:rgba(255,82,82,0.48);color:#ff5252">-6.6%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-year">2026</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#141e2a;color:#8b949e">0%</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+<div class="hm-cell" style="background:#0f1923;color:#1a2a3a">—</div>
+</div></div>
+
+<div style="text-align:center;color:#1a2a3a;margin-top:30px;padding:16px;font-size:11px">
+Generated: 2026-04-29 13:07 | Strategy: 破底翻 SMART+Top 2 | Universe: HSI Blue Chips (75 stocks) | Period: Apr 2018 – Mar 2026
+</div></div>
+<script>
+function toggleStock(h){h.classList.toggle('collapsed');h.nextElementSibling.classList.toggle('hidden')}
+</script></body></html>
