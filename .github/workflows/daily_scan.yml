@@ -71,8 +71,10 @@ jobs:
         with:
           pattern: signals-chunk-*
           merge-multiple: true
-      - name: 安裝套件
-        run: pip install pandas fubon_neo --quiet
+      - name: 安裝必要套件
+        run: pip install pandas requests --quiet
+      - name: 嘗試安裝富邦 SDK（失敗不中斷）
+        run: pip install fubon_neo --quiet || echo "fubon_neo 安裝失敗，權證橋接將跳過"
       - name: 合併 + 權證橋接 + DB 寫入 + 產出 HTML
         run: python merge_tw_full.py
       - name: 推送報告
