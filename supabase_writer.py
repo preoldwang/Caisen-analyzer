@@ -18,7 +18,7 @@ def _headers():
 def _base():
     return os.environ.get("SUP_link", "").rstrip("/")
 
-def upsert_signals(signals, trade_date):
+def upsert_signals(signals, trade_date, version="original"):
     base = _base()
     if not base:
         print("  [Supabase] SUP_link 未設定，跳過")
@@ -40,7 +40,8 @@ def upsert_signals(signals, trade_date):
         "signal_date": s.get("signal_date", trade_date),
         "timeframe":   s.get("timeframe", "daily"),
         "framework":   s.get("framework", s.get("pattern", "")),
-        "dedupe_key":  f"{trade_date}|{s['ticker']}|{s.get('framework', s.get('pattern', ''))}",
+        "version":     version,
+        "dedupe_key":  f"{trade_date}|{version}|{s['ticker']}|{s.get('framework', s.get('pattern', ''))}",
     } for s in signals]
 
     if not rows:
