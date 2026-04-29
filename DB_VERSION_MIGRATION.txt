@@ -1,0 +1,11 @@
+
+你要做的事（只做這 2 件）：
+1. 在 Supabase SQL Editor 執行 version 欄位新增。
+2. 之後你只要告訴我今天跑的是 original 還是 custom，我來負責寫入分流。
+
+SQL：
+ALTER TABLE signals_history
+ADD COLUMN IF NOT EXISTS version text NOT NULL DEFAULT 'original';
+
+CREATE UNIQUE INDEX IF NOT EXISTS signals_history_uniq_v2
+ON signals_history (trade_date, version, ticker, pattern);
