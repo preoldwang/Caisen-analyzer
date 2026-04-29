@@ -39,6 +39,8 @@ def upsert_signals(signals, trade_date):
         "neckline":    s.get("neckline", 0),
         "signal_date": s.get("signal_date", trade_date),
         "timeframe":   s.get("timeframe", "daily"),
+        "framework":   s.get("framework", s.get("pattern", "")),
+        "dedupe_key":  f"{trade_date}|{s['ticker']}|{s.get('framework', s.get('pattern', ''))}",
     } for s in signals]
 
     if not rows:
@@ -113,3 +115,19 @@ def get_history_summary(days=45):
     except Exception as e:
         print(f"  [Supabase] 取得歷史失敗: {e}")
         return []
+
+
+def cleanup_signals_payload(records):
+    seen = set()
+    out = []
+    for r in records:
+        k = (r.get("trade_date"), r.get("ticker"), r.get("framework") or r.get("pattern"))
+        if k in seen:
+            continue
+        seen.add(k)
+        out.append(r)
+    return out
+
+
+def build_cleanup_sql(table="signals_history"):
+    return f"DELETE FROM {table} a USING {table} b WHERE a.ctid < b.ctid AND a.trade_date = b.trade_date AND a.ticker = b.ticker AND COALESCE(a.framework,'') = COALESCE(b.framework,'');"
