@@ -4,18 +4,19 @@
 
 ## 📊 報告網址
 
-| 頁面 | 連結 |
-|---|---|
-| 今日報告 | [preoldwang.github.io/Caisen-analyzer](https://preoldwang.github.io/Caisen-analyzer/) |
-| 歷史報告 | [preoldwang.github.io/Caisen-analyzer/history.html](https://preoldwang.github.io/Caisen-analyzer/history.html) |
+| 頁面 | 連結 | 說明 |
+|---|---|---|
+| 今日報告（標準版）| [index.html](https://preoldwang.github.io/Caisen-analyzer/) | 1年日線，短波段 2–4 週 |
+| 今日報告（強化版）| [index_2y.html](https://preoldwang.github.io/Caisen-analyzer/index_2y.html) | 2年週月線，中長波段 1–3 個月 |
+| 歷史報告 | [history.html](https://preoldwang.github.io/Caisen-analyzer/history.html) | 最近 30 個交易日回顧 |
 
 ## ⚙️ 系統功能
 
 - 每日 **15:35**（台灣時間）自動觸發，台股國定假日自動跳過
 - 資料來源（yfinance）於收盤後 14:00–14:30 更新完畢，15:35 觸發時資料已穩定
-- Matrix 4 平行掃描，約 20 分鐘完成，報告於 **16:00 前**更新
+- Matrix 4 平行掃描，約 20–28 分鐘完成，報告於 **16:00 前**更新
 - 券商 API 橋接對應權證（價外10–20%、剩餘≥60天、均量≥200張）
-- 歷史資料庫追蹤訊號持續天數
+- Supabase 歷史資料庫，追蹤訊號持續天數
 - 訊號標示：🆕 新訊號 / 🔁 持續2天 / 🔥 持續3天以上
 
 ## ⚠️ 免責聲明
