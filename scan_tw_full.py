@@ -43,11 +43,11 @@ def fetch_tpex_stocks():
         print(f"  [警告] TPEX 取得失敗: {e}")
         return {}
 
-def scan_stock(ticker, name):
+def scan_stock(ticker, name, period="1y"):
     """掃描單一股票，回傳訊號列表"""
     try:
         analyzer = CaiSenAnalyzer(ticker)
-        analyzer.fetch_data(period="1y")
+        analyzer.fetch_data(period=period)
         result = analyzer.analyze()
         signals = []
         for p in result.patterns:
@@ -75,6 +75,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--chunk", type=int, default=1, help="本批次編號 (1-based)")
     parser.add_argument("--total", type=int, default=4, help="總批次數")
+    parser.add_argument("--period", type=str, default="1y", help="K線資料期間：1y / 2y / 5y")
     args = parser.parse_args()
 
     print(f"{'='*60}")
@@ -105,7 +106,7 @@ def main():
 
     all_signals = []
     for i, (ticker, name) in enumerate(my_stocks, 1):
-        signals = scan_stock(ticker, name)
+        signals = scan_stock(ticker, name, period=args.period)
         if signals:
             all_signals.extend(signals)
             for s in signals:
@@ -129,7 +130,8 @@ def main():
         "signals": all_signals
     }
 
-    out_path = f"signals_chunk_{args.chunk}.json"
+    period_tag = f"_{args.period}" if args.period != "1y" else ""
+    out_path = f"signals_chunk_{args.chunk}{period_tag}.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
