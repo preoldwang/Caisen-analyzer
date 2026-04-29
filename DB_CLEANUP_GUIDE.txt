@@ -1,0 +1,17 @@
+
+1. 打開 Supabase → SQL Editor。
+2. 先確認表名是 signals_history，欄位包含 trade_date、ticker、framework。
+3. 先執行去重 SQL：
+   DELETE FROM signals_history a
+   USING signals_history b
+   WHERE a.ctid < b.ctid
+     AND a.trade_date = b.trade_date
+     AND a.ticker = b.ticker
+     AND COALESCE(a.framework,'') = COALESCE(b.framework,'');
+4. 確認刪除筆數合理，若超過預期，立刻停止，不要往下。
+5. 再執行唯一索引：
+   CREATE UNIQUE INDEX IF NOT EXISTS signals_history_uniq
+   ON signals_history (trade_date, ticker, framework);
+6. 回到程式端，重新跑掃描流程，讓新資料開始受唯一鍵保護。
+7. 檢查歷史報告是否還有重複標的；若有，代表報告端還在讀舊資料。
+8. 最後只保留 dedupe 後的新來源表，舊 raw 表先封存不刪。
