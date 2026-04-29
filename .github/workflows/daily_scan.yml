@@ -48,7 +48,7 @@ jobs:
       - name: 安裝套件
         run: pip install yfinance pandas numpy scipy matplotlib mplfinance --quiet
       - name: 執行掃描（1Y 批次 ${{ matrix.chunk }}/4）
-        run: python scan_tw_full.py --chunk ${{ matrix.chunk }} --total 4 --period 1y --version ${{ github.event.inputs.version || 'original' }}
+        run: python scan_tw_full.py --chunk ${{ matrix.chunk }} --total 4 --period 1y
       - name: 上傳批次結果
         uses: actions/upload-artifact@v4
         with:
@@ -71,7 +71,7 @@ jobs:
       - name: 安裝套件
         run: pip install yfinance pandas numpy scipy matplotlib mplfinance --quiet
       - name: 執行掃描（2Y 批次 ${{ matrix.chunk }}/4）
-        run: python scan_tw_full.py --chunk ${{ matrix.chunk }} --total 4 --period 2y --version ${{ github.event.inputs.version || 'original' }}
+        run: python scan_tw_full.py --chunk ${{ matrix.chunk }} --total 4 --period 2y
       - name: 上傳批次結果
         uses: actions/upload-artifact@v4
         with:
